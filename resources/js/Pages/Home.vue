@@ -20,7 +20,13 @@
         <!-- Our Approach Section -->
         <OurApproach />
         <CoreServices />
-        
+        <PlatformsSection />
+         <!-- What Sets Us Apart Section -->
+    <WhatSetsUsApartSection />
+    <InsightsResourcesSection />
+         <!-- CTA Section - Let's Get Started -->
+    <CTASection />
+    <FooterSection />
         <!-- Future sections will go here -->
         <!-- <Services /> -->
         <!-- <Platforms /> -->
@@ -37,6 +43,13 @@ import WhatWeDo from '@/Components/Home/WhatWeDo.vue';
 import Outcomes from '@/Components/Home/OutcomesYouCanExpect.vue';
 import OurApproach from '@/Components/Home/OurApproach.vue';
 import CoreServices from '@/Components/Home/CoreServices.vue';
+import PlatformsSection from '@/Components/Home/PlatformsSection.vue';
+import WhatSetsUsApartSection from '@/Components/Home/WhatSetsUsApartSection.vue';
+import InsightsResourcesSection from '@/Components/Home/InsightsResourcesSection.vue';
+import CTASection from '@/Components/CTASection.vue';
+import FooterSection from '@/Components/FooterSection.vue';
+
+
 </script>
 
 <style scoped>
