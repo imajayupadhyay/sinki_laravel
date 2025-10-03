@@ -13,7 +13,14 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Instrument Sans', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                'brand-dark': '#121212',
+                'brand-light': '#4A5568',
+                'brand-red': '#FF3621',
+                'beige': '#f5f5dc',
+                'cream': '#fffef8',
             },
         },
     },
