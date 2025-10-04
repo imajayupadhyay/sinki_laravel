@@ -1,7 +1,9 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Home - Databricks Consulting Services" />
-        
+        <Head title="Sinki.ai: Your Databricks Strategy & Innovation Partner">
+            <meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." />
+        </Head>
+
         <!-- Header Component -->
         <Header />
         
