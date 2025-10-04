@@ -29,8 +29,8 @@
                 <!-- CTA Buttons -->
                 <div class="hero-cta flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 animate-fadeInUp animation-delay-400">
                     <!-- Primary Button - Book a Strategy Session -->
-                    <a 
-                        href="#book-session" 
+                    <button
+                        @click="openCalendlyModal"
                         class="btn-primary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-brand-red border-2 border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
                     >
                         Book a Strategy Session
@@ -39,11 +39,11 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                             </svg>
                         </div>
-                    </a>
+                    </button>
 
                     <!-- Secondary Button - Explore Services -->
-                    <a 
-                        href="#explore-services" 
+                    <a
+                        href="#explore-services"
                         class="btn-secondary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-transparent border-2 border-brand-red rounded-full text-brand-red text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
                     >
                         Explore Services
@@ -56,11 +56,159 @@
                 </div>
             </div>
         </div>
+
+        <!-- Calendly Modal -->
+        <Teleport to="body">
+            <Transition name="modal-fade">
+                <div v-if="showCalendlyModal" class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" @click.self="closeCalendlyModal">
+                    <div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative">
+                        <!-- Close Button -->
+                        <button
+                            @click="closeCalendlyModal"
+                            class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                        >
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+
+                        <!-- Modal Header -->
+                        <div class="bg-gradient-to-r from-brand-dark to-gray-800 px-8 py-6">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">Book a Strategy Session</h2>
+                            <p class="text-gray-300 mt-2">Let's discuss how we can help unlock the value of your data</p>
+                        </div>
+
+                        <!-- Loading Progress Bar -->
+                        <div v-if="isLoading" class="calendly-loading-container px-8 py-20">
+                            <div class="text-center mb-6">
+                                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-brand-red mb-4"></div>
+                                <p class="text-lg font-semibold text-brand-dark">Loading Calendar...</p>
+                                <p class="text-sm text-gray-500 mt-2">{{ loadingProgress }}%</p>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-brand-red to-red-500 h-full rounded-full transition-all duration-300 ease-out"
+                                    :style="{ width: loadingProgress + '%' }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <!-- Calendly Widget -->
+                        <div v-show="!isLoading" class="calendly-widget-wrapper" style="height: 700px; overflow: hidden;">
+                            <div
+                                ref="calendlyContainer"
+                                class="calendly-inline-widget"
+                                data-url="https://calendly.com/connect-jellyfishtechnologies/meeting-with-jellyfish-technologies-clone"
+                                style="min-width:320px;height:100%;"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+            </Transition>
+        </Teleport>
     </section>
 </template>
 
 <script setup>
-// No props needed for now, but can be added later if needed
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+
+const showCalendlyModal = ref(false);
+const isLoading = ref(false);
+const loadingProgress = ref(0);
+const calendlyContainer = ref(null);
+let progressInterval = null;
+
+const openCalendlyModal = () => {
+    showCalendlyModal.value = true;
+    isLoading.value = true;
+    loadingProgress.value = 0;
+    document.body.style.overflow = 'hidden';
+
+    // Simulate loading progress from 0 to 100
+    let progress = 0;
+    progressInterval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 95) {
+            loadingProgress.value = 95;
+            clearInterval(progressInterval);
+        } else {
+            loadingProgress.value = Math.floor(progress);
+        }
+    }, 150);
+
+    // Load Calendly script and initialize widget
+    nextTick(() => {
+        loadCalendlyScript();
+    });
+};
+
+const closeCalendlyModal = () => {
+    showCalendlyModal.value = false;
+    isLoading.value = false;
+    loadingProgress.value = 0;
+    document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+};
+
+const loadCalendlyScript = () => {
+    // Check if script already exists
+    if (document.querySelector('script[src*="calendly.com"]')) {
+        initializeCalendlyWidget();
+        return;
+    }
+
+    // Create and load Calendly script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => {
+        initializeCalendlyWidget();
+    };
+    document.head.appendChild(script);
+};
+
+const initializeCalendlyWidget = () => {
+    // Wait a bit for Calendly to fully initialize
+    setTimeout(() => {
+        if (window.Calendly && calendlyContainer.value) {
+            window.Calendly.initInlineWidget({
+                url: 'https://calendly.com/connect-jellyfishtechnologies/meeting-with-jellyfish-technologies-clone',
+                parentElement: calendlyContainer.value,
+            });
+        }
+
+        // Complete the progress bar and hide loading
+        setTimeout(() => {
+            loadingProgress.value = 100;
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 300);
+        }, 800);
+    }, 500);
+};
+
+// Handle escape key to close modal
+const handleEscape = (e) => {
+    if (e.key === 'Escape' && showCalendlyModal.value) {
+        closeCalendlyModal();
+    }
+};
+
+onMounted(() => {
+    window.addEventListener('keydown', handleEscape);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleEscape);
+    document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+});
 </script>
 
 <style scoped>
@@ -499,9 +647,95 @@
         min-height: auto;
         page-break-after: always;
     }
-    
+
     .hero-cta {
         display: none;
+    }
+}
+
+/* Calendly Modal Styles */
+.calendly-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.calendly-modal-container {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal Transition Classes */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
+}
+
+.modal-fade-enter-active .calendly-modal-container,
+.modal-fade-leave-active .calendly-modal-container {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.modal-fade-enter-from .calendly-modal-container,
+.modal-fade-leave-to .calendly-modal-container {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+}
+
+/* Loading Spinner Animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Mobile Responsive Modal */
+@media (max-width: 768px) {
+    .calendly-modal-container {
+        max-height: 95vh;
+        margin: 0 1rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 600px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendly-modal-container {
+        border-radius: 1.5rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 500px !important;
     }
 }
 </style>
