@@ -106,10 +106,10 @@ const quickLinks = ref([
 
 // Services Data
 const services = ref([
-    { name: 'Data Engineering & Modernization', url: '#service-1' },
-    { name: 'Data Management & Governance', url: '#service-2' },
-    { name: 'Data Analytics & Business Intelligence', url: '#service-3' },
-    { name: 'Data Science', url: '#service-4' }
+    { name: 'Data Engineering & Modernization', url: '#services' },
+    { name: 'Data Management & Governance', url: '#services' },
+    { name: 'Data Analytics & Business Intelligence', url: '#services' },
+    { name: 'Data Science', url: '#services' }
 ]);
 
 // Bottom Links Data

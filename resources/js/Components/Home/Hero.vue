@@ -43,7 +43,7 @@
 
                     <!-- Secondary Button - Explore Services -->
                     <a
-                        href="#explore-services"
+                        href="#services"
                         class="btn-secondary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-transparent border-2 border-brand-red rounded-full text-brand-red text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
                     >
                         Explore Services

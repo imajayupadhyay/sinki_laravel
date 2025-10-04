@@ -1,10 +1,10 @@
 <template>
     <div class="min-h-screen bg-white">
         <Head title="Contact Us - Databricks Consulting Services" />
-        
+
         <!-- Header Component -->
-        <Header />
-        
+        <HeaderSimple />
+
         <!-- Contact Hero & Form Section -->
         <ContactHero />
         
@@ -18,7 +18,7 @@
 
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import Header from '@/Components/Header.vue';
+import HeaderSimple from '@/Components/HeaderSimple.vue';
 import ContactHero from '@/Components/Contact/ContactHero.vue';
 import ContactCTA from '@/Components/Contact/ContactCTA.vue';
 import FooterSection from '@/Components/FooterSection.vue';

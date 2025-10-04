@@ -1,10 +1,10 @@
 <template>
     <div class="min-h-screen bg-white">
         <Head title="Thank You - Databricks Consulting Services" />
-        
+
         <!-- Header Component -->
-        <Header />
-        
+        <HeaderSimple />
+
         <!-- Thank You Section -->
         <section class="thank-you-section bg-white pt-32">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Head } from '@inertiajs/vue3';
-import Header from '@/Components/Header.vue';
+import HeaderSimple from '@/Components/HeaderSimple.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 const showLoading = ref(true);
