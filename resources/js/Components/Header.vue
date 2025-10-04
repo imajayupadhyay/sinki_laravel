@@ -1,7 +1,15 @@
 <template>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar fixed top-0 left-0 right-0 h-1 bg-gray-200 z-[100]">
+        <div
+            class="scroll-progress-fill h-full bg-brand-red transition-all duration-300 ease-out"
+            :style="{ width: scrollProgress + '%' }"
+        ></div>
+    </div>
+
     <!-- Navigation Section -->
     <div id="navigation">
-        <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom fixed top-6 left-6 right-6 z-50 rounded-[20px] border border-gray-200">
+        <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
                 <div class="flex items-center justify-between h-[100px] px-7">
                     <!-- Logo -->
@@ -166,6 +174,8 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const mobileMenuOpen = ref(false);
+const scrollProgress = ref(0);
+const isSticky = ref(false);
 
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -188,8 +198,14 @@ const handleEscape = (e) => {
     }
 };
 
-// Handle scroll effect
+// Handle scroll effect and progress bar
 const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    // Make header sticky after scrolling past the first viewport (hero section)
+    isSticky.value = scrollTop > windowHeight * 0.8;
+
     const navigation = document.querySelector('.navigation');
     if (navigation) {
         if (window.scrollY > 50) {
@@ -198,11 +214,22 @@ const handleScroll = () => {
             navigation.classList.remove('scrolled');
         }
     }
+
+    // Calculate scroll progress
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollableHeight = documentHeight - windowHeight;
+
+    if (scrollableHeight > 0) {
+        const progress = (scrollTop / scrollableHeight) * 100;
+        scrollProgress.value = Math.min(100, Math.max(0, progress));
+    }
 };
 
 onMounted(() => {
     window.addEventListener('keydown', handleEscape);
     window.addEventListener('scroll', handleScroll);
+    // Initial calculation
+    handleScroll();
 });
 
 onUnmounted(() => {
@@ -213,10 +240,40 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Scroll Progress Bar */
+.scroll-progress-bar {
+    background-color: rgba(18, 18, 18, 0.1);
+}
+
+.scroll-progress-fill {
+    background: linear-gradient(90deg, #FF3621 0%, #ff5842 100%);
+    box-shadow: 0 2px 8px rgba(255, 54, 33, 0.3);
+}
+
 /* Navigation Section Styles */
 .navigation {
     animation: slideDown 0.6s ease-out;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Floating Navigation (Default state) */
+.nav-floating {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    right: 24px;
+}
+
+/* Sticky Navigation (After scrolling past hero) */
+.nav-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
 }
 
 @keyframes slideDown {
@@ -361,7 +418,7 @@ onUnmounted(() => {
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
-    .navigation {
+    .nav-floating {
         top: 12px;
         left: 12px;
         right: 12px;
@@ -374,7 +431,7 @@ onUnmounted(() => {
         height: auto !important;
     }
 
-    .navigation {
+    .nav-floating {
         top: 12px;
         left: 12px;
         right: 12px;
@@ -393,7 +450,7 @@ onUnmounted(() => {
         height: auto !important;
     }
 
-    .navigation {
+    .nav-floating {
         top: 8px;
         left: 8px;
         right: 8px;

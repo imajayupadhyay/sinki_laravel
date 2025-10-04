@@ -1,13 +1,13 @@
 <template>
     <!-- Hero Section -->
-    <section 
+    <section
         class="hero-section relative flex items-center justify-center overflow-hidden pt-20 sm:pt-32 pb-16 sm:pb-20"
         :style="{
             backgroundImage: 'url(/images/heroobannersinki.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            minHeight: 'calc(100vh - 50px)'
+            minHeight: '100vh'
         }"
     >
         <!-- Background Overlay -->
@@ -67,7 +67,7 @@
 /* Hero Section Custom Styles */
 .hero-section {
     position: relative;
-    min-height: calc(100vh - 50px);
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
