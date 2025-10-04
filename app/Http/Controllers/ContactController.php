@@ -72,6 +72,9 @@ class ContactController extends Controller
             'city' => $contact->city,
         ]);
 
+        // Send email notification to admin using SendGrid
+        $this->sendAdminNotification($contact);
+
         // Redirect to thank you page
         return redirect()->route('thank-you');
     }
@@ -186,5 +189,86 @@ class ContactController extends Controller
         }
 
         return false;
+    }
+
+    /**
+     * Send admin notification email using SendGrid
+     */
+    private function sendAdminNotification(Contact $contact): void
+    {
+        try {
+            $apiKey = env('SENDGRID_API_KEY');
+            $fromEmail = env('SENDGRID_FROM_EMAIL');
+            $fromName = env('SENDGRID_FROM_NAME', 'Sinki Contact Form');
+            $adminEmail = env('ADMIN_EMAIL');
+
+            if (!$apiKey || !$adminEmail || !$fromEmail) {
+                Log::warning('SendGrid configuration incomplete', [
+                    'has_api_key' => !empty($apiKey),
+                    'has_from_email' => !empty($fromEmail),
+                    'has_admin_email' => !empty($adminEmail),
+                ]);
+                return;
+            }
+
+            // Clean up API key (remove any whitespace/newlines)
+            $apiKey = trim($apiKey);
+
+            // Render the email content using Blade template
+            $htmlContent = view('emails.contact-form', ['contact' => $contact])->render();
+
+            // Create the email data array
+            $emailData = [
+                'personalizations' => [
+                    [
+                        'to' => [
+                            ['email' => $adminEmail]
+                        ],
+                        'subject' => 'Sinki | Contact Form Submission From ' . $contact->email
+                    ]
+                ],
+                'from' => [
+                    'email' => $fromEmail,
+                    'name' => $fromName
+                ],
+                'content' => [
+                    [
+                        'type' => 'text/html',
+                        'value' => $htmlContent
+                    ]
+                ]
+            ];
+
+            // Send email using SendGrid API with proper headers
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $apiKey,
+                'Content-Type' => 'application/json',
+            ])->post('https://api.sendgrid.com/v3/mail/send', $emailData);
+
+            // Log the result
+            if ($response->successful()) {
+                Log::info('Admin notification email sent successfully', [
+                    'contact_id' => $contact->id,
+                    'status_code' => $response->status(),
+                    'to' => $adminEmail,
+                    'from' => $fromEmail,
+                ]);
+            } else {
+                Log::error('Failed to send admin notification email', [
+                    'contact_id' => $contact->id,
+                    'status_code' => $response->status(),
+                    'body' => $response->body(),
+                    'from' => $fromEmail,
+                    'to' => $adminEmail,
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Log error but don't fail the form submission
+            Log::error('Exception sending admin notification email', [
+                'contact_id' => $contact->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 }
