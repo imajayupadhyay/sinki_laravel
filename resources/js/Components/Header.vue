@@ -23,22 +23,22 @@
                     <div class="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2">
                         <div class="flex items-center space-x-12">
                             <div class="nav-item">
-                                <a href="#services" class="nav-link text-brand-dark text-lg font-bold uppercase tracking-wide hover:text-brand-red transition-colors duration-300">
+                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Services
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#approach" class="nav-link text-brand-dark text-lg font-bold uppercase tracking-wide hover:text-brand-red transition-colors duration-300">
+                                <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Our Approach
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#platforms" class="nav-link text-brand-dark text-lg font-bold uppercase tracking-wide hover:text-brand-red transition-colors duration-300">
+                                <a href="#platforms" @click.prevent="scrollToSection('platforms')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'platforms' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Platforms
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#insights" class="nav-link text-brand-dark text-lg font-bold uppercase tracking-wide hover:text-brand-red transition-colors duration-300">
+                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
                                 </a>
                             </div>
@@ -81,9 +81,9 @@
                 <!-- Menu Items -->
                 <div class="flex flex-col space-y-4">
                     <!-- Services -->
-                    <a 
-                        href="#services" 
-                        @click="closeMobileMenu"
+                    <a
+                        href="#services"
+                        @click.prevent="scrollToSection('services'); closeMobileMenu()"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
                     >
                         <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
@@ -98,9 +98,9 @@
                     </a>
 
                     <!-- Our Approach -->
-                    <a 
-                        href="#approach" 
-                        @click="closeMobileMenu"
+                    <a
+                        href="#approach"
+                        @click.prevent="scrollToSection('approach'); closeMobileMenu()"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
                     >
                         <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
@@ -115,9 +115,9 @@
                     </a>
 
                     <!-- Platforms -->
-                    <a 
-                        href="#platforms" 
-                        @click="closeMobileMenu"
+                    <a
+                        href="#platforms"
+                        @click.prevent="scrollToSection('platforms'); closeMobileMenu()"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
                     >
                         <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
@@ -132,9 +132,9 @@
                     </a>
 
                     <!-- Insights -->
-                    <a 
-                        href="#insights" 
-                        @click="closeMobileMenu"
+                    <a
+                        href="#insights"
+                        @click.prevent="scrollToSection('insights'); closeMobileMenu()"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
                     >
                         <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
@@ -176,6 +176,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const mobileMenuOpen = ref(false);
 const scrollProgress = ref(0);
 const isSticky = ref(false);
+const activeSection = ref('');
 
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -189,6 +190,20 @@ const toggleMobileMenu = () => {
 const closeMobileMenu = () => {
     mobileMenuOpen.value = false;
     document.body.style.overflow = '';
+};
+
+// Smooth scroll to section
+const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        const yOffset = -144; // Offset for fixed header
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+        window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+        });
+    }
 };
 
 // Handle Escape key
@@ -222,6 +237,21 @@ const handleScroll = () => {
     if (scrollableHeight > 0) {
         const progress = (scrollTop / scrollableHeight) * 100;
         scrollProgress.value = Math.min(100, Math.max(0, progress));
+    }
+
+    // Detect active section
+    const sections = ['services', 'approach', 'platforms', 'insights'];
+    const offset = 200; // Offset to trigger section change earlier
+
+    for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= offset && rect.bottom > offset) {
+                activeSection.value = sectionId;
+                break;
+            }
+        }
     }
 };
 
@@ -323,7 +353,8 @@ onUnmounted(() => {
     transition: width 0.3s ease;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
