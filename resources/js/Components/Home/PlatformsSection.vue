@@ -30,15 +30,15 @@
                 <!-- Right Content - Platform Logos Grid -->
                 <div class="platforms-grid relative animate-slide-in-right">
                     <!-- Logo Grid Container - Row Structure -->
-                    <div class="flex flex-col gap-6">
-                        
+                    <div class="flex flex-col gap-4 sm:gap-6">
+
                         <!-- Row 1 - Single Card (Databricks) -->
                         <div class="flex justify-center">
-                            <div 
-                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full max-w-[250px] sm:max-w-[286px]"
+                            <div
+                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full sm:max-w-[286px]"
                                 :style="{ animationDelay: '0s' }"
                             >
-                                <img 
+                                <img
                                     :src="`/images/platforms/${platforms.row1[0].image}`"
                                     :alt="platforms.row1[0].name"
                                     class="max-w-full h-auto object-contain max-h-[60px] sm:max-h-[70px] lg:max-h-[80px] transition-transform duration-300 group-hover:scale-105"
@@ -48,14 +48,14 @@
                         </div>
 
                         <!-- Row 2 - Three Cards (Azure, Google Cloud, AWS) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                            <div 
-                                v-for="(platform, index) in platforms.row2" 
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto w-full">
+                            <div
+                                v-for="(platform, index) in platforms.row2"
                                 :key="platform.name"
-                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] mx-auto w-full max-w-[200px] sm:max-w-none"
+                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full"
                                 :style="{ animationDelay: `${(index + 1) * 0.5}s` }"
                             >
-                                <img 
+                                <img
                                     :src="`/images/platforms/${platform.image}`"
                                     :alt="platform.name"
                                     class="max-w-full h-auto object-contain max-h-[50px] sm:max-h-[60px] lg:max-h-[70px] transition-transform duration-300 group-hover:scale-105"
@@ -65,14 +65,14 @@
                         </div>
 
                         <!-- Row 3 - Two Cards (Power BI, Tableau) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
-                            <div 
-                                v-for="(platform, index) in platforms.row3" 
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto w-full">
+                            <div
+                                v-for="(platform, index) in platforms.row3"
                                 :key="platform.name"
-                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] mx-auto w-full max-w-[200px] sm:max-w-none"
+                                class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full"
                                 :style="{ animationDelay: `${(index + 4) * 0.5}s` }"
                             >
-                                <img 
+                                <img
                                     :src="`/images/platforms/${platform.image}`"
                                     :alt="platform.name"
                                     class="max-w-full h-auto object-contain max-h-[50px] sm:max-h-[60px] lg:max-h-[70px] transition-transform duration-300 group-hover:scale-105"

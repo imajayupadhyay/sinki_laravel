@@ -37,22 +37,22 @@
                 </div>
 
                 <!-- Right Content - Blog Cards -->
-                <div class="insights-cards grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 animate-slide-in-right w-full">
-                    
+                <div class="insights-cards flex flex-col sm:flex-row gap-6 lg:gap-8 animate-slide-in-right max-w-full overflow-visible">
+
                     <!-- Blog Card (v-for loop) -->
-                    <div 
-                        v-for="(blog, index) in blogs" 
+                    <div
+                        v-for="(blog, index) in blogs"
                         :key="index"
                         :class="[
-                            'blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2 w-full',
+                            'blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2',
                             index === 0 ? 'blog-card-1 mt-0 sm:mt-20' : 'blog-card-2 mt-0 sm:-mt-10'
                         ]"
                     >
                         <!-- Image Container -->
                         <div class="relative overflow-hidden h-[229px]">
-                            <img 
-                                :src="`./assets/images/${blog.image}`" 
-                                :alt="blog.title" 
+                            <img
+                                :src="`./assets/images/${blog.image}`"
+                                :alt="blog.title"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 @error="handleImageError"
                             >
@@ -212,7 +212,11 @@ const handleImageError = (event) => {
 
 /* Blog Cards */
 .blog-card {
-    width: 100%;
+    width: calc(22vw);
+    min-width: 320px;
+    max-width: 440px;
+    flex-shrink: 0;
+    height: 440px;
 }
 
 .insights-cards {
@@ -265,15 +269,24 @@ const handleImageError = (event) => {
         padding-left: 2rem;
         padding-right: 2rem;
     }
-    
+
     h2 {
         font-size: 64px !important;
         line-height: 70px !important;
     }
-    
+
     p {
         font-size: 26px !important;
         line-height: 39px !important;
+    }
+
+    .blog-card {
+        max-width: 380px;
+    }
+
+    .blog-card h3 {
+        font-size: 24px !important;
+        line-height: 30px !important;
     }
 }
 
@@ -311,37 +324,50 @@ const handleImageError = (event) => {
     section {
         padding: 40px 0;
     }
-    
+
     h2 {
-        font-size: 36px !important;
-        line-height: 44px !important;
+        font-size: 40px !important;
+        line-height: 48px !important;
         margin-bottom: 1.5rem !important;
     }
-    
+
     p {
-        font-size: 18px !important;
-        line-height: 27px !important;
+        font-size: 20px !important;
+        line-height: 30px !important;
         margin-bottom: 2.5rem !important;
+    }
+
+    .grid {
+        gap: 2rem !important;
+    }
+
+    .insights-cards {
+        flex-direction: column;
+    }
+
+    .blog-card-1 {
+        margin-top: 0 !important;
+    }
+
+    .blog-card-2 {
+        margin-top: 0 !important;
+    }
+
+    .blog-card {
+        width: 100%;
+        max-width: 440px;
     }
 
     .blog-card h3 {
         font-size: 22px !important;
         line-height: 28px !important;
-    }
-
-    .blog-card .relative {
-        height: 200px !important;
-    }
-
-    .blog-card .p-6 {
-        height: auto !important;
-        min-height: 160px;
+        min-height: 56px;
     }
 }
 
 @media (max-width: 640px) {
     section {
-        padding: 30px 0;
+        padding: 40px 0;
     }
 
     .container-custom {
@@ -350,64 +376,23 @@ const handleImageError = (event) => {
     }
 
     h2 {
-        font-size: 28px !important;
-        line-height: 36px !important;
+        font-size: 32px !important;
+        line-height: 40px !important;
         margin-bottom: 1rem !important;
     }
 
     p {
-        font-size: 16px !important;
-        line-height: 24px !important;
+        font-size: 18px !important;
+        line-height: 27px !important;
         margin-bottom: 2rem !important;
-    }
-
-    .btn-hover-effect {
-        padding: 0.75rem 1.5rem !important;
-        font-size: 16px !important;
-    }
-
-    .btn-hover-effect svg {
-        width: 2rem !important;
-        height: 2rem !important;
     }
 
     .blog-card h3 {
         font-size: 20px !important;
         line-height: 26px !important;
     }
-
-    .blog-card .relative {
-        height: 180px !important;
-    }
-
-    .blog-card .p-6 {
-        padding: 1.25rem !important;
-    }
-
-    .insights-cards {
-        gap: 1.5rem;
-        grid-template-columns: 1fr;
-    }
-    
-    .blog-card {
-        margin-top: 0 !important;
-    }
 }
 
-/* Desktop-specific: Grid with offset cards */
-@media (min-width: 640px) {
-    .insights-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .blog-card-1 {
-        margin-top: 5rem !important;
-    }
-
-    .blog-card-2 {
-        margin-top: -2.5rem !important;
-    }
-}
 
 /* Brand color utilities */
 .bg-brand-gray {
