@@ -2,34 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global Responsive Font Scaling */
-@layer base {
-    html {
-        font-size: 16px;
-    }
-
-    body {
-        font-family: 'Instrument Sans', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Global font size scaling for small screens */
-    @media (max-width: 640px) {
-        * {
-            font-size: 85% !important;
-        }
-    }
-
-    @media (max-width: 480px) {
-        * {
-            font-size: 75% !important;
-        }
-    }
-
-    @media (max-width: 375px) {
-        * {
-            font-size: 70% !important;
-        }
-    }
-}
