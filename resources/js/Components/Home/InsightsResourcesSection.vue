@@ -1,7 +1,7 @@
 <template>
     <section id="insights" class="insights-section bg-white py-20 lg:py-32 relative overflow-hidden">
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-start">
                 
                 <!-- Left Content -->
                 <div class="insights-content">
@@ -343,6 +343,7 @@ const handleImageError = (event) => {
 
     .insights-cards {
         flex-direction: column;
+        align-items: center;
     }
 
     .blog-card-1 {
@@ -354,8 +355,9 @@ const handleImageError = (event) => {
     }
 
     .blog-card {
-        width: 100%;
-        max-width: 440px;
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
     }
 
     .blog-card h3 {
@@ -387,9 +389,21 @@ const handleImageError = (event) => {
         margin-bottom: 2rem !important;
     }
 
+    .blog-card {
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
     .blog-card h3 {
         font-size: 20px !important;
         line-height: 26px !important;
+    }
+
+    .blog-card .p-6 {
+        height: auto !important;
+        min-height: 160px;
     }
 }
 
