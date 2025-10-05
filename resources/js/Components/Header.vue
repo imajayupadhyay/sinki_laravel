@@ -11,34 +11,34 @@
     <div id="navigation">
         <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
-                <div class="flex items-center justify-between h-[100px] px-7">
+                <div class="flex items-center justify-between h-[80px] px-6">
                     <!-- Logo -->
                     <div class="flex items-center">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[147px] h-[70px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[120px] h-[56px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
                         </a>
                     </div>
 
                     <!-- Desktop Navigation - Centered -->
                     <div class="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2">
-                        <div class="flex items-center space-x-12">
+                        <div class="flex items-center space-x-10">
                             <div class="nav-item">
-                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Services
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Our Approach
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#platforms" @click.prevent="scrollToSection('platforms')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'platforms' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                <a href="#platforms" @click.prevent="scrollToSection('platforms')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'platforms' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Platforms
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-lg font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
                                 </a>
                             </div>
@@ -47,7 +47,7 @@
 
                     <!-- Get Started Button -->
                     <div class="hidden lg:block">
-                        <a href="/contact" class="cta-button inline-flex items-center px-10 py-3.5 border-2 border-brand-dark rounded-full text-brand-dark text-lg font-bold uppercase tracking-wide transition-all duration-300">
+                        <a href="/contact" class="cta-button inline-flex items-center px-8 py-2.5 border-2 border-brand-dark rounded-full text-brand-dark text-base font-bold uppercase tracking-wide transition-all duration-300">
                             Get Started
                         </a>
                     </div>
@@ -196,7 +196,7 @@ const closeMobileMenu = () => {
 const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-        const yOffset = -100; // Offset for fixed header
+        const yOffset = -85; // Offset for fixed header
         const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
         window.scrollTo({
@@ -497,30 +497,30 @@ onUnmounted(() => {
 /* Smooth Scroll */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 85px;
 }
 
 section[id] {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 85px;
 }
 
 @media (max-width: 1023px) {
     html {
-        scroll-padding-top: 80px;
+        scroll-padding-top: 65px;
     }
 
     section[id] {
-        scroll-margin-top: 80px;
+        scroll-margin-top: 65px;
     }
 }
 
 @media (max-width: 640px) {
     html {
-        scroll-padding-top: 70px;
+        scroll-padding-top: 55px;
     }
 
     section[id] {
-        scroll-margin-top: 70px;
+        scroll-margin-top: 55px;
     }
 }
 </style>

@@ -301,23 +301,34 @@ const handleImageError = (event) => {
     section {
         padding: 40px 0;
     }
-    
+
+    .container-custom {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
     h2 {
         font-size: 36px !important;
         line-height: 44px !important;
         margin-bottom: 1.5rem !important;
     }
-    
+
     p {
         font-size: 18px !important;
         line-height: 27px !important;
         margin-bottom: 2.5rem !important;
     }
 
+    .platforms-grid .flex,
+    .platforms-grid .grid {
+        gap: 1rem !important;
+    }
+
     .platform-logo-card {
-        min-height: 100px;
-        padding: 1.25rem;
-        width: 100%;
+        min-height: 100px !important;
+        padding: 1.25rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .platform-logo-card img {
@@ -331,14 +342,14 @@ const handleImageError = (event) => {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     section {
         padding: 30px 0;
     }
 
     .container-custom {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     h2 {
@@ -353,19 +364,21 @@ const handleImageError = (event) => {
         margin-bottom: 2rem !important;
     }
 
-    .platforms-grid .flex .platform-logo-card {
+    .platforms-grid {
         width: 100%;
-        max-width: 280px;
-        padding: 1.5rem;
     }
 
+    .platforms-grid .flex,
     .platforms-grid .grid {
-        gap: 0.75rem;
+        gap: 0.75rem !important;
+        width: 100%;
     }
 
     .platform-logo-card {
-        min-height: 90px;
-        padding: 1rem;
+        min-height: 90px !important;
+        padding: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .platform-logo-card img {

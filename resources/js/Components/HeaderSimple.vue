@@ -11,24 +11,24 @@
     <div id="navigation">
         <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
-                <div class="flex items-center justify-between h-[100px] px-7">
+                <div class="flex items-center justify-between h-[80px] px-6">
                     <!-- Logo - Left Side -->
                     <div class="flex items-center">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[147px] h-[70px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[120px] h-[56px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
                         </a>
                     </div>
 
                     <!-- CTA Buttons - Right Side -->
-                    <div class="hidden lg:flex items-center gap-4">
+                    <div class="hidden lg:flex items-center gap-3">
                         <!-- Primary Button - Book a Strategy Session -->
                         <button
                             @click="openCalendlyModal"
-                            class="btn-primary group inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-red border-2 border-brand-red rounded-full text-white text-base font-bold capitalize transition-all duration-300"
+                            class="btn-primary group inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-red border-2 border-brand-red rounded-full text-white text-sm font-bold capitalize transition-all duration-300"
                         >
                             Book a Strategy Session
-                            <div class="w-6 h-6 flex items-center justify-center">
-                                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="w-5 h-5 flex items-center justify-center">
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                                 </svg>
                             </div>
@@ -37,11 +37,11 @@
                         <!-- Secondary Button - Back to Home -->
                         <a
                             href="/"
-                            class="btn-secondary group inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent border-2 border-brand-red rounded-full text-brand-red text-base font-bold capitalize transition-all duration-300"
+                            class="btn-secondary group inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border-2 border-brand-red rounded-full text-brand-red text-sm font-bold capitalize transition-all duration-300"
                         >
                             Back to Home
-                            <div class="w-6 h-6 flex items-center justify-center">
-                                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="w-5 h-5 flex items-center justify-center">
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                 </svg>
                             </div>
