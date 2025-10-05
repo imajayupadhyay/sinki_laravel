@@ -42,7 +42,7 @@
                     </div>
                     
                     <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[26px] lg:text-[30px] font-semibold leading-tight sm:leading-tight md:leading-[34px] lg:leading-[39px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
+                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
                         Data Engineering & Modernization
                     </h3>
                     
@@ -74,7 +74,7 @@
                     </div>
                     
                     <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[26px] lg:text-[30px] font-semibold leading-tight sm:leading-tight md:leading-[34px] lg:leading-[39px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
+                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
                         Data Management & Governance
                     </h3>
                     
@@ -105,7 +105,7 @@
                     </div>
                     
                     <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[26px] lg:text-[30px] font-semibold leading-tight sm:leading-tight md:leading-[34px] lg:leading-[39px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
+                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
                         Data Analytics & Business Intelligence
                     </h3>
                     
@@ -135,7 +135,7 @@
                     </div>
                     
                     <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[26px] lg:text-[30px] font-semibold leading-tight sm:leading-tight md:leading-[34px] lg:leading-[39px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
+                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
                         AI & ML Solutions
                     </h3>
                     
