@@ -47,13 +47,13 @@
                     </h3>
                     
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Pipelines</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Orchestration</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Integration</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Migration</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Modernization</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Lakehouse Consulting</span>
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Pipelines</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Orchestration</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Integration</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Migration</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Modernization</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Lakehouse Consulting</span>
                     </div>
                 </div>
 
@@ -79,12 +79,12 @@
                     </h3>
                     
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Management Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Cloud Data Management</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Governance</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Unity Catalog Implementation & Management</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Unity Catalog Migration</span>
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Management Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Cloud Data Management</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Governance</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation & Management</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Migration</span>
                     </div>
                 </div>
 
@@ -110,11 +110,11 @@
                     </h3>
                     
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Analytics Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Data Visualization</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Dashboards Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Business Intelligence Platforms</span>
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Analytics Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Dashboards Development</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Platforms</span>
                     </div>
                 </div>
 
@@ -140,12 +140,12 @@
                     </h3>
                     
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Machine Learning</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">AI Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">MLOps</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Model Deployment</span>
-                        <span class="tag text-xs sm:text-sm md:text-base lg:text-[20px]">Gen AI</span>
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Machine Learning</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Development</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Model Deployment</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Gen AI</span>
                     </div>
                 </div>
 
@@ -269,14 +269,15 @@
 /* Tags */
 .tag {
     display: inline-block;
-    padding: 4px 14px;
+    padding: 6px 16px;
     background: transparent;
-    border: 1px solid rgba(18, 18, 18, 0.3);
+    border: 1px solid rgba(18, 18, 18, 0.25);
     border-radius: 40px;
     color: #121212;
-    line-height: 1.5;
-    letter-spacing: 0.4px;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .service-card:hover .tag {

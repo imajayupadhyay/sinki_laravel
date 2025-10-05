@@ -10,19 +10,19 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-6xl mx-auto">
                     <!-- Success Content - Logo Left, Text Right Layout -->
-                    <div class="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-16 mb-8">
+                    <div class="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-16">
                         <!-- Success Icon with Green Checkmark - Left Side -->
                         <div class="flex-shrink-0">
-                            <div class="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
                                 <!-- Success Check SVG -->
-                                <svg class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                <svg class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                 </svg>
                             </div>
                         </div>
 
                         <!-- Thank You Message - Right Side -->
-                        <div class="flex-1 text-center lg:text-left">
+                        <div class="flex-1 text-center lg:text-left mt-6">
                             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">
                                 Thank You For Your Enquiry.
                             </h1>

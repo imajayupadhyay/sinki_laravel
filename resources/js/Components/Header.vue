@@ -196,7 +196,7 @@ const closeMobileMenu = () => {
 const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-        const yOffset = -144; // Offset for fixed header
+        const yOffset = -100; // Offset for fixed header
         const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
         window.scrollTo({
@@ -497,20 +497,30 @@ onUnmounted(() => {
 /* Smooth Scroll */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 144px;
+    scroll-padding-top: 100px;
 }
 
 section[id] {
-    scroll-margin-top: 144px;
+    scroll-margin-top: 100px;
 }
 
 @media (max-width: 1023px) {
     html {
-        scroll-padding-top: 124px;
+        scroll-padding-top: 80px;
     }
 
     section[id] {
-        scroll-margin-top: 124px;
+        scroll-margin-top: 80px;
+    }
+}
+
+@media (max-width: 640px) {
+    html {
+        scroll-padding-top: 70px;
+    }
+
+    section[id] {
+        scroll-margin-top: 70px;
     }
 }
 </style>
