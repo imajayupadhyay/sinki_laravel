@@ -15,7 +15,7 @@
                     <!-- Logo - Left Side -->
                     <div class="flex items-center">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[120px] h-[56px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[250px] h-[60px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
                         </a>
                     </div>
 
@@ -422,10 +422,24 @@ onUnmounted(() => {
     }
 }
 
+@media (max-width: 1024px) {
+    .sinkilogoclass {
+        width: 200px !important;
+        height: 48px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .sinkilogoclass {
+        width: 180px !important;
+        height: 43px !important;
+    }
+}
+
 @media (max-width: 640px) {
     .sinkilogoclass {
-        width: 100px !important;
-        height: auto !important;
+        width: 160px !important;
+        height: 38px !important;
     }
 
     .nav-floating {
@@ -443,8 +457,8 @@ onUnmounted(() => {
 
 @media (max-width: 480px) {
     .sinkilogoclass {
-        width: 90px !important;
-        height: auto !important;
+        width: 140px !important;
+        height: 34px !important;
     }
 
     .nav-floating {
