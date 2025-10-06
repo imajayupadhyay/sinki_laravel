@@ -21,7 +21,8 @@ class TestMail extends Command
         $this->info('MAIL_HOST: ' . config('mail.mailers.smtp.host'));
         $this->info('MAIL_PORT: ' . config('mail.mailers.smtp.port'));
         $this->info('MAIL_FROM: ' . config('mail.from.address'));
-        $this->info('ADMIN_EMAIL: ' . env('ADMIN_EMAIL'));
+        $this->info('ADMIN_EMAIL from env(): ' . (env('ADMIN_EMAIL') ?: 'NULL'));
+        $this->info('ADMIN_EMAIL from config(): ' . (config('app.admin_email') ?: 'NULL'));
 
         try {
             // Send test email
@@ -41,7 +42,7 @@ class TestMail extends Command
                 'user_agent' => 'Test Agent'
             ]);
 
-            Mail::to(env('ADMIN_EMAIL'))->send(new ContactFormSubmitted($testContact));
+            Mail::to(env('ADMIN_EMAIL', 'ajay.upadhyay@jellyfishtechnologies.com'))->send(new ContactFormSubmitted($testContact));
 
             $this->info('✓ Test email sent successfully!');
 
