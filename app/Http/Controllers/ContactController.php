@@ -199,7 +199,7 @@ class ContactController extends Controller
     private function sendAdminNotification(Contact $contact): void
     {
         try {
-            $adminEmail = env('ADMIN_EMAIL', 'ajay.upadhyay@jellyfishtechnologies.com');
+            $adminEmail = env('ADMIN_EMAIL', 'leads@jellyfishtechnologies.com');
 
             if (!$adminEmail) {
                 Log::warning('Admin email not configured');
