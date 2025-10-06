@@ -179,10 +179,161 @@ const form = useForm({
     message: ''
 });
 
-const submitForm = () => {
+// Function to get user's IP and location data
+const getLocationData = async () => {
+    try {
+        // Try to get location data from ipapi.co
+        const response = await fetch('https://ipapi.co/json/', {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Sinki.ai Contact Form'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return {
+                ip: data.ip || 'Unknown',
+                country: data.country_name || 'Unknown',
+                city: data.city || 'Unknown'
+            };
+        }
+    } catch (error) {
+        console.warn('Failed to get location from ipapi.co:', error);
+    }
+
+    // Fallback to ip-api.com
+    try {
+        const response = await fetch('https://ip-api.com/json/?fields=status,country,city,query', {
+            method: 'GET'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.status === 'success') {
+                return {
+                    ip: data.query || 'Unknown',
+                    country: data.country || 'Unknown',
+                    city: data.city || 'Unknown'
+                };
+            }
+        }
+    } catch (error) {
+        console.warn('Failed to get location from ip-api.com:', error);
+    }
+
+    // Return default values if all services fail
+    return {
+        ip: 'Unknown',
+        country: 'Unknown',
+        city: 'Unknown'
+    };
+};
+
+const submitToHubSpot = async (formData, locationData) => {
+    try {
+        // Prepare fields array with location data
+        const fields = [
+            {
+                name: "firstname",
+                value: formData.name
+            },
+            {
+                name: "email",
+                value: formData.email
+            },
+            {
+                name: "mobilephone",
+                value: formData.phone
+            },
+            {
+                name: "company",
+                value: formData.company
+            },
+            {
+                name: "services",
+                value: formData.services
+            },
+            {
+                name: "message",
+                value: formData.message
+            }
+        ];
+
+        // Add location data if available
+        if (locationData.country && locationData.country !== 'Unknown') {
+            fields.push({
+                name: "location_country",
+                value: locationData.country
+            });
+        }
+
+        if (locationData.city && locationData.city !== 'Unknown') {
+            fields.push({
+                name: "location_city",
+                value: locationData.city
+            });
+        }
+
+        if (locationData.ip && locationData.ip !== 'Unknown') {
+            fields.push({
+                name: "ip_address",
+                value: locationData.ip
+            });
+        }
+
+        // Submit directly to HubSpot API
+        const response = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/21685715/d33f0520-ee9c-475b-9c42-e44c797693a3`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fields: fields,
+                context: {
+                    pageUri: window.location.href,
+                    pageName: document.title,
+                    ipAddress: locationData.ip
+                }
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HubSpot API error: ${response.status} - ${errorText}`);
+        }
+
+        console.log('Successfully submitted to HubSpot with location data:', locationData);
+        return await response.json();
+    } catch (error) {
+        console.error('HubSpot submission error:', error);
+        // Don't fail the entire form submission if HubSpot fails
+        throw error;
+    }
+};
+
+const submitForm = async () => {
+    // First submit to our Laravel backend
     form.post(route('contact.store'), {
         preserveScroll: true,
-        onSuccess: () => {
+        onSuccess: async () => {
+            // On successful Laravel submission, also submit to HubSpot
+            const formData = {
+                name: form.name,
+                email: form.email,
+                phone: form.phone,
+                company: form.company,
+                services: form.services,
+                message: form.message
+            };
+
+            // Get location data
+            console.log('Getting location data for HubSpot submission...');
+            const locationData = await getLocationData();
+            console.log('Location data retrieved:', locationData);
+
+            // Submit to HubSpot with location data
+            await submitToHubSpot(formData, locationData);
             form.reset();
         },
     });
