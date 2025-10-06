@@ -14,7 +14,7 @@
 
                     <!-- Main Heading -->
                     <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight sm:leading-tight lg:leading-[85.8px] mb-4 sm:mb-6 max-w-full lg:max-w-[925px] animate-slide-up">
-                        How We Make Databricks Work For You
+                        How We Make Databricks Work for You
                     </h2>
 
                     <!-- Description -->
