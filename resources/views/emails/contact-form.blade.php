@@ -136,6 +136,12 @@
                 <span class="info-value">{{ $contact->services }}</span>
             </div>
 
+            <!-- Message -->
+            <div class="message-box">
+                <h3>Message:</h3>
+                <p>{{ $contact->message }}</p>
+            </div>
+
             <div class="divider"></div>
 
             <h2>Location & Technical Details</h2>
@@ -153,14 +159,6 @@
             <div class="info-row">
                 <span class="info-label">IP Address:</span>
                 <span class="info-value">{{ $contact->ip_address }}</span>
-            </div>
-
-            <div class="divider"></div>
-
-            <!-- Message -->
-            <div class="message-box">
-                <h3>Message:</h3>
-                <p>{{ $contact->message }}</p>
             </div>
         </div>
 
