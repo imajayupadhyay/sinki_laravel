@@ -19,7 +19,7 @@
 
             <!-- Description -->
             <p class="text-brand-dark text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[30px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[45px] mb-8 sm:mb-12 md:mb-16 text-center max-w-full lg:max-w-[1094px] mx-auto animate-slide-up-delayed">
-                From Lakehouse Build to Gen AI and Business Intelligence, we make sure your Databricks investment delivers measurable impact.
+                From data engineering and governance to AI and analytics, we make sure your Databricks investment delivers measurable impact.
             </p>
 
             <!-- Service Cards Grid - 4 Cards -->

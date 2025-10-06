@@ -23,7 +23,7 @@
 
             <!-- Description -->
             <p class="text-white text-lg sm:text-xl lg:text-[30px] leading-relaxed sm:leading-relaxed lg:leading-[45px] mb-12 sm:mb-16 text-center max-w-full lg:max-w-[1145px] mx-auto animate-slide-up-delayed">
-                Think outcomes, not overhead. Our approach ensures Databricks delivers exactly what you need.
+                Think outcomes, not overhead. Our expertise ensures Databricks delivers exactly what you need.
             </p>
 
             <!-- Outcome Cards Grid - 3x2 (6 cards) -->
@@ -46,7 +46,7 @@
                             Smarter, Faster Decisions
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Actionable insights driving real business outcomes
+                            Actionable insights that drive real business outcomes
                         </p>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             Faster Time to Value
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            See results in weeks, not months or years
+                            Achieve measurable results in weeks, not months
                         </p>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                             Optimized Spend
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Lower costs on Databricks and cloud infrastructure
+                            Reduce costs across Databricks and cloud infrastructure
                         </p>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                             Modern, Efficient Data Platform
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Clean, governed, and ready for growth
+                            Clean, governed, and ready for enterprise growth
                         </p>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                             AI On Demand
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Practical, scalable solutions when you need them
+                            Scalable, practical AI solutions available when you need them
                         </p>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                             Streamlined Governance
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Security and compliance that's baked in from day one
+                            Security and compliance integrated from day one
                         </p>
                     </div>
                 </div>

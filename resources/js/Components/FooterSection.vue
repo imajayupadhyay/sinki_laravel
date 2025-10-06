@@ -28,7 +28,7 @@
                     <!-- Column 2: Quick Link -->
                     <div class="flex-1 footer-col">
                         <h3 class="text-white text-2xl font-bold tracking-[0.48px] mb-8">
-                            Quick Link
+                            Quick Links
                         </h3>
                         <ul class="space-y-5">
                             <li v-for="(link, index) in quickLinks" :key="index">
@@ -116,7 +116,7 @@ const services = ref([
 const bottomLinks = ref([
     { name: 'Help', url: '#help' },
     { name: 'Privacy Policy', url: '#privacy' },
-    { name: "Term's & Condition", url: '#terms' }
+    { name: "Terms & Conditions", url: '#terms' }
 ]);
 
 // Current Year

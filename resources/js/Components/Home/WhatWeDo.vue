@@ -46,7 +46,7 @@
                                 Strategy & Planning
                             </h3>
                             <p class="text-brand-dark text-lg sm:text-[21px] font-normal leading-relaxed sm:leading-[31.5px] tracking-[0.42px]">
-                                Design data & AI roadmaps tailored to your goals.
+                                Design data & AI roadmaps tailored to your business goals
                             </p>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 Implementation & Migration
                             </h3>
                             <p class="text-brand-dark text-lg sm:text-[21px] font-normal leading-relaxed sm:leading-[31.5px] tracking-[0.42px]">
-                                Migrate workloads & build reliable data systems.
+                                 Migrate workloads and deploy scalable, reliable data systems
                             </p>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                                 Support & Enablement
                             </h3>
                             <p class="text-brand-dark text-lg sm:text-[21px] font-normal leading-relaxed sm:leading-[31.5px] tracking-[0.42px]">
-                                Train teams & optimize for ongoing success.
+                                Train teams and optimize Databricks adoption for long-term success
                             </p>
                         </div>
                     </div>

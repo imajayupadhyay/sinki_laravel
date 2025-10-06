@@ -70,22 +70,22 @@ import { reactive } from 'vue';
 const features = reactive([
     {
         title: "We Simplify Databricks",
-        description: "Tailored to your business, not one-size-fits-all.",
+        description: "Tailored solutions aligned to your business objectives and operating model",
         iconPath: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
     },
     {
-        title: "We Cut the Things That Slow You Down",
-        description: "We fix data, integrations and compliance issues fast.",
+        title: "We Accelerate Adoption",
+        description: "Rapid prioritization and delivery of high-impact use cases to demonstrate value early.",
         iconPath: "M13 10V3L4 14h7v7l9-11h-7z"
     },
     {
-        title: "We Execute Without Drama",
-        description: "Onshore or offshore, our team delivers on time, on budget, and keeps things simple.",
+        title: "We Engineer for Scale",
+        description: "	Architectures designed for performance, governance, and long-term sustainability.",
         iconPath: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
     },
     {
-        title: "We're Candid & Collaborative",
-        description: "We talk, challenge assumptions, and make sure your Databricks journey stays on track.",
+        title: "We Partner Strategically",
+        description: "Transparent, collaborative guidance that keeps projects aligned to business goals.",
         iconPath: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
     }
 ]);
