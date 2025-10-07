@@ -117,7 +117,7 @@
     <Teleport to="body">
         <Transition name="modal-fade">
             <div v-if="showCalendlyModal" class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" @click.self="closeCalendlyModal">
-                <div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative">
+                <div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden relative">
                     <!-- Close Button -->
                     <button
                         @click="closeCalendlyModal"
