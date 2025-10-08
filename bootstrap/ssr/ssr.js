@@ -29,7 +29,7 @@ createInertiaApp({
     return createSSRApp({ render: () => h(App, props) }).use(plugin);
   }
 }).then((response) => {
-  console.log(response);
+  console.log(JSON.stringify(response));
 }).catch((error) => {
   console.error("SSR Error:", error);
   process.exit(1);
