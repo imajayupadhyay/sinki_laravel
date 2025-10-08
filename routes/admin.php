@@ -67,6 +67,30 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('/submissions/{submission}', [App\Http\Controllers\Admin\SubmissionsController::class, 'destroy'])->name('submissions.destroy');
     Route::get('/submissions/export/csv', [App\Http\Controllers\Admin\SubmissionsController::class, 'export'])->name('submissions.export');
 
+    // Blog Categories Management
+    Route::get('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'destroy'])->name('categories.destroy');
+
+    // Blog Tags Management
+    Route::get('/tags', [App\Http\Controllers\Admin\TagsController::class, 'index'])->name('tags.index');
+    Route::post('/tags', [App\Http\Controllers\Admin\TagsController::class, 'store'])->name('tags.store');
+    Route::put('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'update'])->name('tags.update');
+    Route::delete('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'destroy'])->name('tags.destroy');
+
+    // Blog Posts Management
+    Route::get('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'index'])->name('blogs.index');
+    Route::get('/blogs/create', [App\Http\Controllers\Admin\BlogsController::class, 'create'])->name('blogs.create');
+    Route::post('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs/{blog}/edit', [App\Http\Controllers\Admin\BlogsController::class, 'edit'])->name('blogs.edit');
+    Route::put('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'update'])->name('blogs.update');
+    Route::delete('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'destroy'])->name('blogs.destroy');
+
+    // Image Upload Routes
+    Route::post('/upload/featured-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'uploadFeaturedImage'])->name('upload.featured-image');
+    Route::delete('/upload/delete-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'deleteImage'])->name('upload.delete-image');
+
     // Settings (placeholder for future)
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings/Index');

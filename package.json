@@ -21,6 +21,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@vue/server-renderer": "^3.5.22"
+        "@vue/server-renderer": "^3.5.22",
+        "quill": "^2.0.3"
     }
 }
