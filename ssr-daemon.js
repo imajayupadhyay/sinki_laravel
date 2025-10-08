@@ -18,6 +18,14 @@ const server = createServer(async (req, res) => {
         return;
     }
 
+    // Health check endpoint for Laravel
+    if (req.method === 'GET' && req.url === '/health') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ status: 'ok' }));
+        return;
+    }
+
     if (req.method === 'POST') {
         let body = '';
 
@@ -46,11 +54,11 @@ const server = createServer(async (req, res) => {
                 child.on('close', (code) => {
                     if (code === 0 && output) {
                         try {
-                            // Try to parse the output as JSON
-                            const result = JSON.parse(output);
+                            // Try to parse the output as JSON to validate it
+                            JSON.parse(output);
                             res.statusCode = 200;
                             res.setHeader('Content-Type', 'application/json');
-                            res.end(JSON.stringify(result));
+                            res.end(output); // Send the original JSON output, don't stringify again
                         } catch (e) {
                             // If not JSON, return as plain text
                             res.statusCode = 200;
