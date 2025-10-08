@@ -119,6 +119,12 @@ sudo -u $WEB_USER php artisan view:clear
 echo -e "${BLUE}➤ Configuring Inertia SSR...${NC}"
 sudo -u $WEB_USER php artisan vendor:publish --provider="Inertia\ServiceProvider" --force || true
 
+# Verify AppServiceProvider has SSR service registration
+if ! grep -q "inertia.ssr" $PROJECT_DIR/app/Providers/AppServiceProvider.php; then
+    echo -e "${RED}✗ AppServiceProvider missing SSR registration. This should be in your code!${NC}"
+    echo -e "${YELLOW}⚠ Make sure to push the latest code with SSR service registration${NC}"
+fi
+
 # Verify SSR environment variables
 if ! grep -q "INERTIA_SSR_ENABLED=true" $PROJECT_DIR/.env; then
     echo "INERTIA_SSR_ENABLED=true" >> $PROJECT_DIR/.env
