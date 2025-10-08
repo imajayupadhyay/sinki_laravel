@@ -115,6 +115,18 @@ sudo -u $WEB_USER php artisan config:clear
 sudo -u $WEB_USER php artisan route:clear
 sudo -u $WEB_USER php artisan view:clear
 
+# Ensure Inertia configuration is published and SSR is properly configured
+echo -e "${BLUE}➤ Configuring Inertia SSR...${NC}"
+sudo -u $WEB_USER php artisan vendor:publish --provider="Inertia\ServiceProvider" --force || true
+
+# Verify SSR environment variables
+if ! grep -q "INERTIA_SSR_ENABLED=true" $PROJECT_DIR/.env; then
+    echo "INERTIA_SSR_ENABLED=true" >> $PROJECT_DIR/.env
+fi
+if ! grep -q "INERTIA_SSR_URL=http://127.0.0.1:13714" $PROJECT_DIR/.env; then
+    echo "INERTIA_SSR_URL=http://127.0.0.1:13714" >> $PROJECT_DIR/.env
+fi
+
 echo -e "${YELLOW}➤ Caching configurations...${NC}"
 sudo -u $WEB_USER php artisan config:cache
 sudo -u $WEB_USER php artisan route:cache
@@ -197,6 +209,26 @@ fi
 # Verify SSR daemon is running
 echo -e "${BLUE}➤ Verifying SSR daemon...${NC}"
 sleep 3
+
+# Test Inertia SSR service registration
+echo -e "${BLUE}➤ Verifying Inertia SSR service...${NC}"
+SSR_SERVICE_TEST=$(sudo -u $WEB_USER php -r "
+require_once '$PROJECT_DIR/vendor/autoload.php';
+\$app = require_once '$PROJECT_DIR/bootstrap/app.php';
+\$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+try {
+    app('inertia.ssr');
+    echo 'OK';
+} catch (Exception \$e) {
+    echo 'FAILED';
+}
+" 2>/dev/null || echo 'FAILED')
+
+if [ "$SSR_SERVICE_TEST" = "OK" ]; then
+    echo -e "${GREEN}✓ Inertia SSR service is properly registered${NC}"
+else
+    echo -e "${RED}✗ Warning: Inertia SSR service not found${NC}"
+fi
 if command -v pm2 &> /dev/null; then
     # Check PM2 status
     if pm2 list | grep -q "$SSR_DAEMON_NAME.*online"; then

@@ -42,12 +42,19 @@ sudo ./deploy-server-ssr.sh
 
 ## Key Changes in SSR Deployment
 
+### Laravel Configuration Fixes:
+- ✅ Added Inertia\ServiceProvider to bootstrap/providers.php (Laravel 11+ requirement)
+- ✅ Ensures INERTIA_SSR_ENABLED=true in .env
+- ✅ Ensures INERTIA_SSR_URL=http://127.0.0.1:13714 in .env
+- ✅ Publishes Inertia configuration during deployment
+
 ### Deployment Script Changes:
 - ✅ Pulls from `ssr` branch instead of `main`
 - ✅ Handles SSR daemon (ssr.js) from bootstrap/ssr/ directory
 - ✅ PM2 process management for SSR daemon
 - ✅ Systemd fallback if PM2 not available
 - ✅ SSR endpoint testing (port 13714)
+- ✅ Verifies Inertia SSR service registration
 - ✅ Enhanced error handling and logging
 
 ### Nginx Configuration Features:
