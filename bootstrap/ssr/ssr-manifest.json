@@ -251,5 +251,6 @@
   "resources/js/Pages/Welcome.vue": [
     "/build/assets/Welcome-DMaBece4.js"
   ],
-  "resources/js/ssr.js": []
+  "resources/js/ssr.js": [],
+  "vendor/tightenco/ziggy/dist/index.js": []
 }
