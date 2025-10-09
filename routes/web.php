@@ -24,5 +24,10 @@ Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('thank-yo
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// Terms and Conditions Route
+Route::get('/terms-and-conditions', function () {
+    return Inertia::render('TermsAndConditions');
+})->name('terms');
+
 // Include admin routes
 require __DIR__.'/admin.php';

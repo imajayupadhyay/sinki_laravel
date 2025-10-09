@@ -116,7 +116,7 @@ const services = ref([
 const bottomLinks = ref([
     { name: 'Help', url: '#help' },
     { name: 'Privacy Policy', url: '#privacy' },
-    { name: "Terms & Conditions", url: '#terms' }
+    { name: "Terms & Conditions", url: '/terms-and-conditions' }
 ]);
 
 // Current Year
