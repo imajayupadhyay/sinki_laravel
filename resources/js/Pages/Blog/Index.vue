@@ -2,14 +2,24 @@
     <div class="bg-white font-instrument">
         <Head title="Blog - Sinki.io" />
 
+        <!-- Header Component -->
+        <Header />
+
         <!-- Header Section -->
-        <section class="pt-[271px] pb-16 bg-white relative">
-            <div class="max-w-[1920px] mx-auto px-12">
+        <section class="pt-[150px] relative blog-hero-section">
+            <!-- Background Elements -->
+            <div class="blog-background">
+                <div class="absolute inset-0 bg-gradient-to-br from-beige/15 to-cream/8"></div>
+                <div class="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-brand-red/12 to-transparent rounded-full animate-pulse-slow"></div>
+                <div class="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-brand-red/6 to-transparent rounded-full animate-pulse-slow-delayed"></div>
+            </div>
+
+            <div class="max-w-[1920px] mx-auto px-12 relative z-10">
                 <div class="text-left ml-[6px]">
-                    <p class="text-[18px] font-medium text-[#121212] uppercase tracking-[1.8px] mb-6 leading-[19.8px]">
+                    <p class="text-[18px] font-medium text-[#121212] uppercase tracking-[1.8px] mb-6 leading-[19.8px] mt-[15px]">
                         Insights & Resources
                     </p>
-                    <h1 class="text-[112px] font-semibold text-[#121212] mb-8 leading-[123.2px] max-w-[1500px]">
+                    <h1 class="text-[102px] font-semibold text-[#121212] mb-8 leading-[112.2px] max-w-[1500px]">
                         Latest Insights on <span class="block">Databricks, Data & AI</span>
                     </h1>
                     <p class="text-[30px] text-[#121212] font-normal leading-[45px] max-w-[899px]">
@@ -20,7 +30,7 @@
         </section>
 
         <!-- Blog Posts Section -->
-        <section class="py-0 bg-white">
+        <section class="py-16 bg-white">
             <div class="max-w-[1920px] mx-auto px-6">
                 <!-- Blog Grid -->
                 <div v-if="blogs.length > 0" class="flex flex-wrap gap-[20px] ml-[24px]">
@@ -98,11 +108,20 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact CTA Section -->
+        <ContactCTA />
+
+        <!-- Footer Section -->
+        <FooterSection />
     </div>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import Header from '@/Components/Header.vue';
+import ContactCTA from '@/Components/Contact/ContactCTA.vue';
+import FooterSection from '@/Components/FooterSection.vue';
 
 // Props
 const props = defineProps({
@@ -121,6 +140,72 @@ const props = defineProps({
 /* Instrument Sans Font Family */
 .font-instrument {
     font-family: 'Instrument Sans', sans-serif;
+}
+
+/* Blog Hero Section Styles */
+.blog-hero-section {
+    background: linear-gradient(180deg, rgba(235, 235, 210, 0.9) 0%, rgba(235, 235, 210, 0.6) 50%, rgba(245, 245, 220, 0.2) 80%, transparent 100%);
+    overflow: hidden;
+}
+
+/* Background Elements */
+.blog-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+/* Beige/Cream Colors for Background */
+.from-beige\/15 {
+    --tw-gradient-from: rgb(235 235 210 / 0.15);
+}
+
+.to-cream\/8 {
+    --tw-gradient-to: rgb(245 245 220 / 0.08);
+}
+
+/* Brand Colors */
+.text-brand-red {
+    color: #FF3621;
+}
+
+.bg-brand-red {
+    background-color: #FF3621;
+}
+
+/* Animations */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes pulse-slow-delayed {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.08);
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow-delayed {
+    animation: pulse-slow-delayed 10s ease-in-out infinite;
+    animation-delay: 2s;
 }
 
 /* Custom hover effects for blog cards */
@@ -151,20 +236,20 @@ article {
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 1280px) {
-    .text-\[112px\] {
-        font-size: 72px;
-        line-height: 80px;
+    .text-\[102px\] {
+        font-size: 68px;
+        line-height: 75px;
     }
     
-    .pt-\[271px\] {
-        padding-top: 180px;
+    .pt-\[150px\] {
+        padding-top: 120px;
     }
 }
 
 @media (max-width: 1024px) {
-    .text-\[112px\] {
-        font-size: 64px;
-        line-height: 70px;
+    .text-\[102px\] {
+        font-size: 60px;
+        line-height: 66px;
     }
 
     .text-\[30px\] {
@@ -187,15 +272,15 @@ article {
         max-width: 554px;
     }
 
-    .pt-\[271px\] {
-        padding-top: 8rem;
+    .pt-\[150px\] {
+        padding-top: 6rem;
     }
 }
 
 @media (max-width: 768px) {
-    .text-\[112px\] {
-        font-size: 48px;
-        line-height: 52px;
+    .text-\[102px\] {
+        font-size: 46px;
+        line-height: 50px;
     }
 
     .text-\[18px\] {
@@ -207,8 +292,8 @@ article {
         line-height: 28px;
     }
 
-    .pt-\[271px\] {
-        padding-top: 4rem;
+    .pt-\[150px\] {
+        padding-top: 3rem;
     }
 
     .px-12 {
