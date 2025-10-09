@@ -66,7 +66,7 @@
         <div class="spacer-section"></div>
 
         <!-- Blog Content Section -->
-        <section class="blog-content-section">
+        <section class="blog-content-section pb-10">
             <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
                 <div class="max-w-[1720px] mx-auto">
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -153,33 +153,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="cta-section py-16">
-            <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
-                <div class="max-w-[1720px] mx-auto">
-                    <div class="bg-[#FFFBE5] rounded-[20px] overflow-hidden p-12 text-center">
-                        <h2 class="text-[#121212] text-4xl font-semibold leading-[43.2px] tracking-[0.72px] font-instrument-sans mb-4">
-                            Want to Boost Your Business with AI?
-                        </h2>
-                        <p class="text-[#121212] text-[21px] font-normal leading-[37.8px] tracking-[0.42px] font-instrument-sans mb-8 max-w-[939px] mx-auto">
-                            Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.
-                        </p>
-                        
-                        <!-- CTA Button -->
-                        <a 
-                            href="/contact"
-                            class="inline-flex items-center justify-center gap-2 px-9 py-3 bg-[#121212] text-white text-lg font-bold leading-[27px] tracking-[0.36px] rounded-[47px] border-2 border-[#121212] hover:bg-[#FF3621] hover:border-[#FF3621] transition-all duration-300 font-instrument-sans"
-                        >
-                            Schedule a Free consultation
-                            <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="0" y1="20" x2="33" y2="20" stroke="currentColor" stroke-width="1.28"/>
-                                <path d="M29.31 14.05L40 20L29.31 25.94" stroke="currentColor" stroke-width="1.28"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Related Blogs Section (Optional) -->
         <section v-if="relatedBlogs && relatedBlogs.length > 0" class="related-blogs-section py-16 bg-white">

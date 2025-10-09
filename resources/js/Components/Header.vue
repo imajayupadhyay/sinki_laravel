@@ -37,10 +37,16 @@
                                     Platforms
                                 </a>
                             </div>
-                            <div class="nav-item">
-                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                            <div class="nav-item relative group">
+                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
+                                    <!-- <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg> -->
                                 </a>
+
+                                <!-- Mega Menu Dropdown - Commented Out -->
+                                <!-- Mega menu with Blog and Case Studies sections removed -->
                             </div>
                         </div>
                     </div>
@@ -147,6 +153,23 @@
                             <p class="text-gray-500 text-xs font-normal">Resources & Blog</p>
                         </div>
                     </a>
+
+                    <!-- Blog -->
+                    <!-- <a
+                        href="/blog"
+                        @click="closeMobileMenu"
+                        class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
+                    >
+                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
+                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Blog</span>
+                            <p class="text-gray-500 text-xs font-normal">Latest insights & updates</p>
+                        </div>
+                    </a> -->
 
                     <!-- Contact Us -->
                     <a 
@@ -342,6 +365,11 @@ onUnmounted(() => {
     padding: 10px 5px;
 }
 
+.nav-link.flex {
+    display: flex !important;
+    align-items: center;
+}
+
 .nav-link::after {
     content: '';
     position: absolute;
@@ -410,6 +438,36 @@ onUnmounted(() => {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Mega Menu Styles */
+.mega-menu {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mega-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.group:hover .mega-menu {
+    transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu-item {
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+}
+
+.mega-menu-item:hover {
+    transform: translateY(0);
+    box-shadow: 0 8px 25px rgba(255, 54, 33, 0.15);
+}
+
 /* Mobile Menu Link Animation */
 .mobile-menu-link {
     animation: slideInRight 0.3s ease-out forwards;
@@ -434,6 +492,10 @@ onUnmounted(() => {
 
 .mobile-menu-link:nth-child(5) {
     animation-delay: 0.5s;
+}
+
+.mobile-menu-link:nth-child(6) {
+    animation-delay: 0.6s;
 }
 
 @keyframes slideInRight {
