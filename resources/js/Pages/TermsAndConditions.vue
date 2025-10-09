@@ -32,13 +32,84 @@
         </section>
 
         <!-- Terms and Conditions Content -->
-        <div class="terms-content py-16 lg:py-24">
-            <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
+        <div class="privacy-content py-16 lg:py-24">
+            <div class="max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
+                <div class="flex gap-8">
+                    <!-- Sidebar Navigation (25%) -->
+                    <aside class="hidden lg:block w-1/4 flex-shrink-0 sidebar-sticky mt-8">
+                        <nav class="bg-white shadow-lg rounded-lg p-4 space-y-2">
+                            <a href="#introduction"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'introduction' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('introduction')">
+                                Introduction
+                            </a>
+                            <a href="#definition"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'definition' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('definition')">
+                                1. Definition
+                            </a>
+                            <a href="#eligibility"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'eligibility' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('eligibility')">
+                                2. Eligibility and Access
+                            </a>
+                            <a href="#intellectual-property"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'intellectual-property' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('intellectual-property')">
+                                3. Intellectual Property Rights
+                            </a>
+                            <a href="#acceptable-use"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'acceptable-use' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('acceptable-use')">
+                                4. Acceptable Use and Prohibited Activities
+                            </a>
+                            <a href="#confidentiality"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'confidentiality' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('confidentiality')">
+                                5. Confidentiality
+                            </a>
+                            <a href="#disclaimers"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'disclaimers' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('disclaimers')">
+                                6. Disclaimers and No Professional Advice
+                            </a>
+                            <a href="#liability"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'liability' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('liability')">
+                                7. Limitation of Liability and Indemnification
+                            </a>
+                            <a href="#third-party"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'third-party' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('third-party')">
+                                8. Third-Party Links and Services
+                            </a>
+                            <a href="#governing-law"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'governing-law' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('governing-law')">
+                                9. Governing Law and Dispute Resolution
+                            </a>
+                            <a href="#force-majeure"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'force-majeure' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('force-majeure')">
+                                10. Force Majeure & Severability
+                            </a>
+                            <a href="#privacy-policy"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'privacy-policy' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('privacy-policy')">
+                                11. Privacy Policy Link
+                            </a>
+                            <a href="#changes"
+                               :class="['block text-sm font-medium transition-all duration-200 py-3 px-4 rounded-lg border-l-4', activeSection === 'changes' ? 'text-brand-red bg-red-50 border-brand-red' : 'text-gray-700 hover:text-brand-red hover:bg-gray-50 border-transparent']"
+                               @click="scrollToSection('changes')">
+                                12. Changes to Terms
+                            </a>
+                        </nav>
+                    </aside>
 
-                <!-- Terms Content -->
-                <div class="max-w-4xl mx-auto prose prose-lg prose-gray">
+                    <!-- Main Content (75%) -->
+                    <div class="flex-1 prose prose-lg prose-gray max-w-none">
                     <!-- Introduction -->
-                    <div class="mb-12">
+                    <div id="introduction" class="mb-12">
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             Please read these Terms & Conditions (Agreement) carefully before using the website <a href="https://sinki.ai/" class="text-brand-red hover:underline">https://sinki.ai/</a> ("Website" or "Service") operated by Sinki.ai ("us," "we," or "our").
                         </p>
@@ -48,7 +119,7 @@
                     </div>
 
                     <!-- Section 1: Definition -->
-                    <section class="mb-12">
+                    <section id="definition" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">1. Definition</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             To avoid ambiguity, the following terms shall have the meanings set forth below:
@@ -85,7 +156,7 @@
                     </section>
 
                     <!-- Section 2: Eligibility and Access -->
-                    <section class="mb-12">
+                    <section id="eligibility" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">2. Eligibility and Access</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             By using the website, you represent and warrant that:
@@ -101,7 +172,7 @@
                     </section>
 
                     <!-- Section 3: Intellectual Property Rights -->
-                    <section class="mb-12">
+                    <section id="intellectual-property" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">3. Intellectual Property Rights</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             This is critical for a knowledge-based consulting firm.
@@ -115,7 +186,7 @@
                     </section>
 
                     <!-- Section 4: Acceptable Use and Prohibited Activities -->
-                    <section class="mb-12">
+                    <section id="acceptable-use" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">4. Acceptable Use and Prohibited Activities</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             You agree to use the Service solely for lawful purposes and in accordance with these Terms.
@@ -133,7 +204,7 @@
                     </section>
 
                     <!-- Section 5: Confidentiality -->
-                    <section class="mb-12">
+                    <section id="confidentiality" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">5. Confidentiality</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             This section protects sensitive B2B and internal business information.
@@ -147,7 +218,7 @@
                     </section>
 
                     <!-- Section 6: Disclaimers and No Professional Advice -->
-                    <section class="mb-12">
+                    <section id="disclaimers" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">6. Disclaimers and No Professional Advice</h2>
 
                         <h3 class="text-2xl font-semibold text-brand-dark mb-4">A. General Information Disclaimer</h3>
@@ -165,7 +236,7 @@
                     </section>
 
                     <!-- Section 7: Limitation of Liability and Indemnification -->
-                    <section class="mb-12">
+                    <section id="liability" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">7. Limitation of Liability and Indemnification</h2>
 
                         <h3 class="text-2xl font-semibold text-brand-dark mb-4">A. Limitation of Liability</h3>
@@ -192,7 +263,7 @@
                     </section>
 
                     <!-- Section 8: Third-Party Links and Services -->
-                    <section class="mb-12">
+                    <section id="third-party" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">8. Third-Party Links and Services</h2>
                         <ul class="list-disc pl-6 space-y-4 text-lg text-gray-700">
                             <li>The website may contain links to third-party websites or services that are not owned or controlled by Sinki.ai (e.g., links to AWS, vendor sites, or articles).</li>
@@ -202,7 +273,7 @@
                     </section>
 
                     <!-- Section 9: Governing Law and Dispute Resolution -->
-                    <section class="mb-12">
+                    <section id="governing-law" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">9. Governing Law and Dispute Resolution</h2>
 
                         <h3 class="text-2xl font-semibold text-brand-dark mb-4">A. Governing Law</h3>
@@ -217,7 +288,7 @@
                     </section>
 
                     <!-- Section 10: Force Majeure & Severability -->
-                    <section class="mb-12">
+                    <section id="force-majeure" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">10. Force Majeure & Severability</h2>
 
                         <h3 class="text-2xl font-semibold text-brand-dark mb-4">A. Force Majeure</h3>
@@ -232,7 +303,7 @@
                     </section>
 
                     <!-- Section 11: Privacy Policy Link -->
-                    <section class="mb-12">
+                    <section id="privacy-policy" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">11. Privacy Policy Link</h2>
                         <p class="text-lg leading-relaxed text-gray-700">
                             Your use of the Website and any personal information you provide to us is also governed by our Privacy Policy. By using this Website, you acknowledge that you have reviewed and agree to the terms of our Privacy Policy.
@@ -240,7 +311,7 @@
                     </section>
 
                     <!-- Section 12: Changes to Terms -->
-                    <section class="mb-12">
+                    <section id="changes" class="mb-12">
                         <h2 class="text-3xl font-bold text-brand-dark mb-8">12. Changes to Terms</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-6">
                             We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice before any new terms take effect. What constitutes a material change will be determined at our sole discretion.
@@ -263,6 +334,7 @@
                             Contact Us
                         </a>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,13 +346,68 @@
 
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+
+const activeSection = ref('introduction');
+
+const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+};
+
+const updateActiveSection = () => {
+    const sections = [
+        'introduction',
+        'definition',
+        'eligibility',
+        'intellectual-property',
+        'acceptable-use',
+        'confidentiality',
+        'disclaimers',
+        'liability',
+        'third-party',
+        'governing-law',
+        'force-majeure',
+        'privacy-policy',
+        'changes'
+    ];
+
+    let currentSection = 'introduction';
+
+    for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 150 && rect.bottom >= 150) {
+                currentSection = sectionId;
+                break;
+            }
+        }
+    }
+
+    activeSection.value = currentSection;
+};
+
+onMounted(() => {
+    window.addEventListener('scroll', updateActiveSection);
+    updateActiveSection();
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', updateActiveSection);
+});
 </script>
 
 <style scoped>
-/* Terms Content Styles */
-.terms-content {
+/* Privacy Content Styles */
+.privacy-content {
     font-family: 'Instrument Sans', sans-serif;
 }
 
@@ -377,6 +504,52 @@ h3 {
     font-weight: 600;
 }
 
+/* Custom Sticky Sidebar */
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 160px; /* 40 * 4px = 160px equivalent to top-40 */
+    align-self: flex-start;
+    z-index: 10;
+}
+
+/* Active section styling */
+.bg-red-50 {
+    background-color: rgba(255, 54, 33, 0.1);
+}
+
+/* Sidebar Styles */
+aside {
+    height: fit-content;
+}
+
+aside nav {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+aside nav a {
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+/* Custom scrollbar for sidebar */
+aside nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+aside nav::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+aside nav::-webkit-scrollbar-thumb {
+    background: #FF3621;
+    border-radius: 4px;
+}
+
 /* Prose Styling Override */
 .prose {
     max-width: none;
@@ -463,14 +636,35 @@ a:hover {
 }
 
 @media (max-width: 1024px) {
-    .terms-content {
-        padding-top: 8rem;
-        padding-bottom: 4rem;
+    .text-\[102px\] {
+        font-size: 60px;
+        line-height: 66px;
     }
 
-    .container-custom {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+    .text-\[30px\] {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .pt-\[166px\] {
+        padding-top: 6rem;
+    }
+
+    .prose {
+        font-size: 1rem;
+    }
+
+    /* Hide sidebar on tablet and mobile, make content full width */
+    aside {
+        display: none;
+    }
+
+    .flex {
+        display: block;
+    }
+
+    .flex-1 {
+        width: 100%;
     }
 }
 

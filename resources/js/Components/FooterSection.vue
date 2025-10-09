@@ -65,21 +65,20 @@
                 <div class="pt-8 pb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <!-- Footer Links (Left Side) -->
                     <div class="flex items-center gap-4 text-white text-lg font-medium order-2 sm:order-1 flex-wrap justify-center sm:justify-start">
-                        <a 
-                            v-for="(link, index) in bottomLinks" 
-                            :key="index"
-                            :href="link.url" 
-                            class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
-                        >
-                            {{ link.name }}
-                        </a>
-                        <span 
-                            v-for="(link, index) in bottomLinks.slice(0, -1)" 
-                            :key="`separator-${index}`" 
-                            class="text-white/30"
-                        >
-                            |
-                        </span>
+                        <template v-for="(link, index) in bottomLinks" :key="index">
+                            <a
+                                :href="link.url"
+                                class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
+                            >
+                                {{ link.name }}
+                            </a>
+                            <span
+                                v-if="index < bottomLinks.length - 1"
+                                class="text-white/30"
+                            >
+                                |
+                            </span>
+                        </template>
                     </div>
 
                     <!-- Copyright (Right Side) -->
@@ -114,8 +113,7 @@ const services = ref([
 
 // Bottom Links Data
 const bottomLinks = ref([
-    { name: 'Help', url: '#help' },
-    { name: 'Privacy Policy', url: '#privacy' },
+    { name: 'Privacy Policy', url: '/privacy-policy' },
     { name: "Terms & Conditions", url: '/terms-and-conditions' }
 ]);
 

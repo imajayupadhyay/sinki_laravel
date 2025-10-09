@@ -29,5 +29,10 @@ Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');
 })->name('terms');
 
+// Privacy Policy Route
+Route::get('/privacy-policy', function () {
+    return Inertia::render('PrivacyPolicy');
+})->name('privacy-policy');
+
 // Include admin routes
 require __DIR__.'/admin.php';
