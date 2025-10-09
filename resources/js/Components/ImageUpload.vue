@@ -99,6 +99,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
+import axios from 'axios';
 
 const props = defineProps({
     modelValue: {
@@ -196,29 +197,15 @@ const uploadFile = async (file) => {
     formData.append('image', file);
 
     try {
-        // Get CSRF token from meta tag or fallback
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ||
-                         document.querySelector('input[name="_token"]')?.value;
-
-        if (!csrfToken) {
-            throw new Error('CSRF token not found');
-        }
-
-        const response = await fetch(route('admin.upload.featured-image'), {
-            method: 'POST',
-            body: formData,
+        // Use axios which automatically handles CSRF tokens for Laravel
+        const response = await axios.post(route('admin.upload.featured-image'), formData, {
             headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept': 'application/json'
+                'Content-Type': 'multipart/form-data',
+                'X-Requested-With': 'XMLHttpRequest'
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = response.data;
 
         if (data.success) {
             emit('update:modelValue', data.url);
@@ -228,7 +215,28 @@ const uploadFile = async (file) => {
         }
     } catch (error) {
         console.error('Upload error:', error);
-        errorMessage.value = error.message || 'Upload failed. Please try again.';
+
+        if (error.response) {
+            // Server responded with error status
+            const status = error.response.status;
+            const responseData = error.response.data;
+
+            if (status === 419) {
+                errorMessage.value = 'Session expired. Please refresh the page and try again.';
+            } else if (status === 422 && responseData.errors) {
+                // Validation errors
+                const firstError = Object.values(responseData.errors)[0];
+                errorMessage.value = Array.isArray(firstError) ? firstError[0] : firstError;
+            } else {
+                errorMessage.value = responseData.message || `Upload failed with status ${status}`;
+            }
+        } else if (error.request) {
+            // Network error
+            errorMessage.value = 'Network error. Please check your connection and try again.';
+        } else {
+            // Other error
+            errorMessage.value = error.message || 'Upload failed. Please try again.';
+        }
     } finally {
         isUploading.value = false;
         if (fileInput.value) {
@@ -243,24 +251,19 @@ const removeImage = async () => {
     // If it's an uploaded image (starts with /storage/), delete it from server
     if (imageUrl.value.startsWith('/storage/')) {
         try {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ||
-                             document.querySelector('input[name="_token"]')?.value;
-
-            if (csrfToken) {
-                await fetch(route('admin.upload.delete-image'), {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        path: imageUrl.value
-                    })
-                });
-            }
+            await axios.delete(route('admin.upload.delete-image'), {
+                data: {
+                    path: imageUrl.value
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
         } catch (error) {
             console.error('Delete error:', error);
+            if (error.response?.status === 419) {
+                console.warn('Session expired during image deletion');
+            }
         }
     }
 

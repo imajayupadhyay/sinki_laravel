@@ -6,7 +6,7 @@
         <Header />
 
         <!-- Header Section -->
-        <section class="pt-[150px] relative blog-hero-section">
+        <section class="pt-[166px] relative blog-hero-section">
             <!-- Background Elements -->
             <div class="blog-background">
                 <div class="absolute inset-0 bg-gradient-to-br from-beige/15 to-cream/8"></div>
