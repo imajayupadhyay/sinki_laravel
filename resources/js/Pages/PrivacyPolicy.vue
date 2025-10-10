@@ -704,13 +704,14 @@ aside nav::-webkit-scrollbar-thumb {
 
 @media (max-width: 640px) {
     .privacy-content {
-        padding-top: 6rem;
+        padding-top: 2rem;
         padding-bottom: 2rem;
     }
 
     h1 {
         font-size: 2rem;
         line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     h2 {

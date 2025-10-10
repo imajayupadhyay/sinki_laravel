@@ -672,6 +672,7 @@ a:hover {
     .text-\[102px\] {
         font-size: 46px;
         line-height: 50px;
+        margin-top: 4rem;
     }
 
     .text-\[18px\] {
@@ -710,8 +711,8 @@ a:hover {
 }
 
 @media (max-width: 640px) {
-    .terms-content {
-        padding-top: 6rem;
+    .privacy-content {
+        padding-top: 2rem;
         padding-bottom: 2rem;
     }
 
@@ -723,6 +724,7 @@ a:hover {
     h1 {
         font-size: 2rem;
         line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     h2 {
