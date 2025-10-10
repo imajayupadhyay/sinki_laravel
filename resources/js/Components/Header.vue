@@ -40,13 +40,46 @@
                             <div class="nav-item relative group">
                                 <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
-                                    <!-- <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                    </svg> -->
+                                    </svg>
                                 </a>
 
-                                <!-- Mega Menu Dropdown - Commented Out -->
-                                <!-- Mega menu with Blog and Case Studies sections removed -->
+                                <!-- Mega Menu Dropdown -->
+                                <div class="mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6">
+                                    <!-- Menu Items Grid -->
+                                    <div class="space-y-4">
+                                        <!-- Blog Item -->
+                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item">
+                                            <div class="flex items-start space-x-4">
+                                                <!-- Icon -->
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                                                    </svg>
+                                                </div>
+
+                                                <!-- Content -->
+                                                <div class="flex-1 min-w-0">
+                                                    <h3 class="text-brand-dark text-lg font-bold group-hover/item:text-brand-red transition-colors duration-300">
+                                                        Blog
+                                                    </h3>
+                                                    <!-- <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+                                                        Latest insights on Databricks, Data & AI development
+                                                    </p> -->
+
+                                                    <!-- Read More Arrow -->
+                                                    <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition-transform duration-300">
+                                                        <span class="text-sm font-semibold">Read Articles</span>
+                                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,7 +188,7 @@
                     </a>
 
                     <!-- Blog -->
-                    <!-- <a
+                    <a
                         href="/blog"
                         @click="closeMobileMenu"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
@@ -169,7 +202,7 @@
                             <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Blog</span>
                             <p class="text-gray-500 text-xs font-normal">Latest insights & updates</p>
                         </div>
-                    </a> -->
+                    </a>
 
                     <!-- Contact Us -->
                     <a 
@@ -443,6 +476,8 @@ onUnmounted(() => {
     backdrop-filter: blur(20px);
     transform: translateX(-50%) translateY(10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .mega-menu::before {
@@ -456,16 +491,34 @@ onUnmounted(() => {
 
 .group:hover .mega-menu {
     transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .mega-menu-item {
     transform: translateY(5px);
     transition: all 0.3s ease;
+    border-radius: 12px;
 }
 
 .mega-menu-item:hover {
     transform: translateY(0);
     box-shadow: 0 8px 25px rgba(255, 54, 33, 0.15);
+    border-color: #FF3621 !important;
+}
+
+/* Enhanced hover states for mega menu */
+.mega-menu-item .group\/item:hover .w-12 {
+    background-color: #FF3621;
+    transform: scale(1.1);
+}
+
+.mega-menu-item .group\/item:hover svg {
+    color: white;
+}
+
+.mega-menu-item .group\/item:hover h3 {
+    color: #FF3621;
 }
 
 /* Mobile Menu Link Animation */
@@ -515,6 +568,11 @@ onUnmounted(() => {
         top: 12px;
         left: 12px;
         right: 12px;
+    }
+
+    /* Hide mega menu on smaller screens */
+    .mega-menu {
+        display: none;
     }
 }
 
