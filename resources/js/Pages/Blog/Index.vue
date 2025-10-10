@@ -33,18 +33,19 @@
         <section class="py-16 bg-white">
             <div class="max-w-[1920px] mx-auto px-6">
                 <!-- Blog Grid -->
-                <div v-if="blogs.length > 0" class="flex flex-wrap gap-[20px] ml-[24px]">
-                    <article
+                <div v-if="blogs.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px] mx-[24px]">
+                    <Link
+                        :href="route('blog.show', blog.slug)"
                         v-for="blog in blogs"
                         :key="blog.id"
-                        class="bg-white border border-[#E0EAE4] rounded-[25px] overflow-visible group w-[594px] h-[560px] shadow-[0px_4px_4px_rgba(0,0,0,0.05)] relative"
+                        class="bg-white border border-[#E0EAE4] rounded-[25px] overflow-visible group w-full h-[560px] shadow-[0px_4px_4px_rgba(0,0,0,0.05)] relative block hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                     >
                         <!-- Featured Image -->
                         <div class="relative overflow-hidden rounded-[20px] mx-[20px] mt-[20px]">
                             <img
                                 :src="blog.featured_image || '/images/default-blog.jpg'"
                                 :alt="blog.title"
-                                class="w-[554px] h-[288px] object-cover transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
+                                class="w-full h-[288px] object-cover transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
                             />
                             
                             <!-- Arrow Icon Overlay (positioned absolutely on top right) -->
@@ -67,35 +68,27 @@
 
                             <!-- Title -->
                             <h3 class="text-[30px] font-semibold text-[#121212] mb-[19px] leading-[36px] tracking-[0.6px] max-w-[512px] min-h-[72px]">
-                                <Link
-                                    :href="route('blog.show', blog.slug)"
-                                    class="hover:text-gray-700 transition-colors duration-200"
-                                >
-                                    {{ blog.title }}
-                                </Link>
+                                {{ blog.title }}
                             </h3>
 
                             <!-- Read More Button -->
                             <div class="mt-[15px] flex items-center">
-                                <Link
-                                    :href="route('blog.show', blog.slug)"
-                                    class="inline-flex items-center text-[#FF3621] hover:text-[#e52e1c] font-semibold text-[21px] transition-colors duration-200 group/link leading-[25.2px] tracking-[0.42px]"
-                                >
+                                <div class="inline-flex items-center text-[#FF3621] font-semibold text-[21px] leading-[25.2px] tracking-[0.42px]">
                                     Read more
                                     <div class="w-[40px] h-[40px] ml-[16px] flex items-center justify-center overflow-hidden">
                                         <!-- Arrow Line -->
-                                        <svg class="absolute transition-transform duration-200 group-hover/link:translate-x-1" width="34" height="2" viewBox="0 0 34 2" fill="none">
+                                        <svg class="absolute transition-transform duration-200 group-hover:translate-x-1" width="34" height="2" viewBox="0 0 34 2" fill="none">
                                             <rect width="33.08" height="1.28" fill="#FF3621"/>
                                         </svg>
                                         <!-- Arrow Head -->
-                                        <svg class="relative ml-[23px] transition-transform duration-200 group-hover/link:translate-x-1" width="11" height="12" viewBox="0 0 11 12" fill="none">
+                                        <svg class="relative ml-[23px] transition-transform duration-200 group-hover:translate-x-1" width="11" height="12" viewBox="0 0 11 12" fill="none">
                                             <path d="M10.69 5.945L0 0V11.89L10.69 5.945Z" fill="#FF3621"/>
                                         </svg>
                                     </div>
-                                </Link>
+                                </div>
                             </div>
                         </div>
-                    </article>
+                    </Link>
                 </div>
 
                 <!-- Empty State -->
@@ -257,19 +250,9 @@ article {
         line-height: 32px;
     }
 
-    .w-\[594px\] {
-        width: 100%;
-        max-width: 594px;
-    }
-
     .h-\[560px\] {
         height: auto;
         min-height: 560px;
-    }
-
-    .w-\[554px\] {
-        width: 100%;
-        max-width: 554px;
     }
 
     .pt-\[150px\] {

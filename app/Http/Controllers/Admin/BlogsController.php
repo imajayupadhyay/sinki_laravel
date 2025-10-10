@@ -69,6 +69,8 @@ class BlogsController extends Controller
 
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        } else {
+            $validated['slug'] = Str::slug($validated['slug']);
         }
 
         $slugCount = Blog::where('slug', 'LIKE', $validated['slug'] . '%')->count();
@@ -145,6 +147,8 @@ class BlogsController extends Controller
 
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        } else {
+            $validated['slug'] = Str::slug($validated['slug']);
         }
 
         if ($validated['status'] === 'published' && $blog->status === 'draft' && empty($validated['published_at'])) {
@@ -159,6 +163,31 @@ class BlogsController extends Controller
 
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog updated successfully.');
+    }
+
+    public function duplicate(Blog $blog)
+    {
+        $blog->load('tags');
+
+        $duplicatedBlog = $blog->replicate();
+
+        $duplicatedBlog->title = $blog->title . ' (Copy)';
+        $duplicatedBlog->slug = Str::slug($duplicatedBlog->title);
+        $duplicatedBlog->status = 'draft';
+        $duplicatedBlog->published_at = null;
+        $duplicatedBlog->author_id = auth()->id();
+
+        $slugCount = Blog::where('slug', 'LIKE', $duplicatedBlog->slug . '%')->count();
+        if ($slugCount > 0) {
+            $duplicatedBlog->slug = $duplicatedBlog->slug . '-' . ($slugCount + 1);
+        }
+
+        $duplicatedBlog->save();
+
+        $duplicatedBlog->tags()->sync($blog->tags->pluck('id')->toArray());
+
+        return redirect()->route('admin.blogs.edit', $duplicatedBlog->id)
+            ->with('success', 'Blog duplicated successfully. You can now edit the duplicated post.');
     }
 
     public function destroy(Blog $blog)

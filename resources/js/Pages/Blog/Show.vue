@@ -153,6 +153,38 @@
             </div>
         </section>
 
+        <!-- Previous/Next Navigation -->
+        <section v-if="previousBlog || nextBlog" class="py-16 bg-white">
+            <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
+                <div class="max-w-[1720px] mx-auto">
+                    <div class="flex items-center justify-center gap-4">
+                        <!-- Previous Button -->
+                        <Link
+                            v-if="previousBlog"
+                            :href="route('blog.show', previousBlog.slug)"
+                            class="bg-black text-white px-8 py-4 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
+                        >
+                            Previous
+                        </Link>
+
+                        <!-- Spacer when previous doesn't exist -->
+                        <div v-else class="min-w-[120px]"></div>
+
+                        <!-- Next Button -->
+                        <Link
+                            v-if="nextBlog"
+                            :href="route('blog.show', nextBlog.slug)"
+                            class="bg-black text-white px-8 py-4 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
+                        >
+                            Next
+                        </Link>
+
+                        <!-- Spacer when next doesn't exist -->
+                        <div v-else class="min-w-[120px]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Related Blogs Section (Optional) -->
         <section v-if="relatedBlogs && relatedBlogs.length > 0" class="related-blogs-section py-16 bg-white">
@@ -181,12 +213,26 @@
 
                         <!-- Content -->
                         <div class="p-6">
-                            <h3 class="text-[#121212] text-2xl font-semibold leading-[28.8px] tracking-[0.48px] font-instrument-sans mb-4 group-hover:text-[#FF3621] transition-colors duration-300">
+                            <h3 class="text-[#121212] text-2xl font-semibold leading-[28.8px] tracking-[0.48px] font-instrument-sans mb-4">
                                 {{ relatedBlog.title }}
                             </h3>
-                            <p class="text-gray-500 text-base tracking-wide font-instrument-sans">
-                                {{ relatedBlog.published_at }}
-                            </p>
+
+                            <!-- Read More Button -->
+                            <div class="mt-4 flex items-center">
+                                <div class="inline-flex items-center text-[#FF3621] font-semibold text-[21px] leading-[25.2px] tracking-[0.42px] font-instrument-sans">
+                                    Read more
+                                    <div class="w-[40px] h-[40px] ml-[16px] flex items-center justify-center overflow-hidden">
+                                        <!-- Arrow Line -->
+                                        <svg class="absolute transition-transform duration-200 group-hover:translate-x-1" width="34" height="2" viewBox="0 0 34 2" fill="none">
+                                            <rect width="33.08" height="1.28" fill="#FF3621"/>
+                                        </svg>
+                                        <!-- Arrow Head -->
+                                        <svg class="relative ml-[23px] transition-transform duration-200 group-hover:translate-x-1" width="11" height="12" viewBox="0 0 11 12" fill="none">
+                                            <path d="M10.69 5.945L0 0V11.89L10.69 5.945Z" fill="#FF3621"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -200,7 +246,7 @@
 </template>
 
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
@@ -209,6 +255,14 @@ const props = defineProps({
     blog: {
         type: Object,
         required: true
+    },
+    previousBlog: {
+        type: Object,
+        default: null
+    },
+    nextBlog: {
+        type: Object,
+        default: null
     },
     relatedBlogs: {
         type: Array,

@@ -112,6 +112,12 @@
                                     >
                                         Edit
                                     </Link>
+                                    <Link
+                                        :href="route('admin.blogs.duplicate', blog.id)"
+                                        class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-md transition-colors duration-200"
+                                    >
+                                        Duplicate
+                                    </Link>
                                     <button
                                         @click="confirmDelete(blog)"
                                         class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 px-3 py-1 rounded-md transition-colors duration-200"

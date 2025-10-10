@@ -85,6 +85,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'store'])->name('blogs.store');
     Route::get('/blogs/{blog}/edit', [App\Http\Controllers\Admin\BlogsController::class, 'edit'])->name('blogs.edit');
     Route::put('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'update'])->name('blogs.update');
+    Route::get('/blogs/{blog}/duplicate', [App\Http\Controllers\Admin\BlogsController::class, 'duplicate'])->name('blogs.duplicate');
     Route::delete('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'destroy'])->name('blogs.destroy');
 
     // Image Upload Routes

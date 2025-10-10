@@ -58,6 +58,18 @@ class BlogController extends Controller
             ->where('status', 'published')
             ->firstOrFail();
 
+        // Get previous blog (older)
+        $previousBlog = Blog::where('status', 'published')
+            ->where('published_at', '<', $blog->published_at)
+            ->orderBy('published_at', 'desc')
+            ->first();
+
+        // Get next blog (newer)
+        $nextBlog = Blog::where('status', 'published')
+            ->where('published_at', '>', $blog->published_at)
+            ->orderBy('published_at', 'asc')
+            ->first();
+
         // Get related blogs (same category, excluding current blog)
         $relatedBlogs = Blog::with(['category', 'author'])
             ->where('category_id', $blog->category_id)
@@ -107,6 +119,14 @@ class BlogController extends Controller
                 'published_at_human' => $blog->published_at->diffForHumans(),
                 'read_time' => $this->calculateReadTime($blog->content),
             ],
+            'previousBlog' => $previousBlog ? [
+                'title' => $previousBlog->title,
+                'slug' => $previousBlog->slug,
+            ] : null,
+            'nextBlog' => $nextBlog ? [
+                'title' => $nextBlog->title,
+                'slug' => $nextBlog->slug,
+            ] : null,
             'relatedBlogs' => $relatedBlogs,
         ]);
     }
