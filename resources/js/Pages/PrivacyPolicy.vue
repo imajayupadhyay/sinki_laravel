@@ -123,7 +123,7 @@
                         <section id="controller-processor" class="mb-12">
                             <h2 class="text-3xl font-bold text-brand-dark mb-8">2. Our Role: Controller vs. Processor</h2>
                             <p class="text-lg leading-relaxed text-gray-700 mb-6">
-                                As a Data and AI consulting firm/official Databricks partner, we operate in two distinct capacities concerning personal data:
+                                As a Data and AI consulting firm, we operate in two distinct capacities concerning personal data:
                             </p>
 
                             <h3 class="text-2xl font-semibold text-brand-dark mb-4">A. Sinki.ai as a Data Controller</h3>
