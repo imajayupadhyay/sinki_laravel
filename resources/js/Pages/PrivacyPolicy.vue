@@ -347,7 +347,7 @@
                             </p>
                             <a
                                 href="/contact"
-                                class="inline-flex items-center px-8 py-3 border-2 border-brand-red bg-brand-red text-white rounded-full text-lg font-bold uppercase tracking-wide transition-all duration-300 hover:bg-transparent hover:text-brand-red"
+                                class="inline-flex items-center px-8 py-3 border-2 border-brand-red bg-brand-red text-white rounded-full text-lg font-bold uppercase tracking-wide transition-all duration-300 hover:bg-transparent hover:text-white hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
                             >
                                 Contact Us
                             </a>
