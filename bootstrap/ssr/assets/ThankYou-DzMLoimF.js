@@ -2,7 +2,7 @@ import { ref, onMounted, onBeforeUnmount, mergeProps, unref, useSSRContext } fro
 import { ssrRenderAttrs, ssrRenderComponent, ssrRenderStyle } from "vue/server-renderer";
 import { Head } from "@inertiajs/vue3";
 import { H as HeaderSimple } from "./HeaderSimple-CNt_VpHb.js";
-import { F as FooterSection } from "./FooterSection-CLXWrwvX.js";
+import { F as FooterSection } from "./FooterSection-X25pRJx9.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
 const _sfc_main = {
   __name: "ThankYou",

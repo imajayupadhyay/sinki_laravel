@@ -353,55 +353,63 @@ import FooterSection from '@/Components/FooterSection.vue';
 const activeSection = ref('introduction');
 
 const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+    if (typeof document !== 'undefined') {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 };
 
 const updateActiveSection = () => {
-    const sections = [
-        'introduction',
-        'definition',
-        'eligibility',
-        'intellectual-property',
-        'acceptable-use',
-        'confidentiality',
-        'disclaimers',
-        'liability',
-        'third-party',
-        'governing-law',
-        'force-majeure',
-        'privacy-policy',
-        'changes'
-    ];
+    if (typeof document !== 'undefined') {
+        const sections = [
+            'introduction',
+            'definition',
+            'eligibility',
+            'intellectual-property',
+            'acceptable-use',
+            'confidentiality',
+            'disclaimers',
+            'liability',
+            'third-party',
+            'governing-law',
+            'force-majeure',
+            'privacy-policy',
+            'changes'
+        ];
 
-    let currentSection = 'introduction';
+        let currentSection = 'introduction';
 
-    for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= 150 && rect.bottom >= 150) {
-                currentSection = sectionId;
-                break;
+        for (const sectionId of sections) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    currentSection = sectionId;
+                    break;
+                }
             }
         }
-    }
 
-    activeSection.value = currentSection;
+        activeSection.value = currentSection;
+    }
 };
 
 onMounted(() => {
-    window.addEventListener('scroll', updateActiveSection);
-    updateActiveSection();
+    if (typeof window !== 'undefined') {
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection();
+    }
 });
 
 onUnmounted(() => {
-    window.removeEventListener('scroll', updateActiveSection);
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('scroll', updateActiveSection);
+    }
 });
 </script>
 

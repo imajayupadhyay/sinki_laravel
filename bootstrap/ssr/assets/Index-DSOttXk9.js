@@ -1,7 +1,7 @@
 import { ref, reactive, mergeProps, withCtx, unref, createTextVNode, createVNode, createBlock, createCommentVNode, openBlock, toDisplayString, withModifiers, withDirectives, vModelText, Fragment, renderList, vModelSelect, useSSRContext } from "vue";
 import { ssrRenderComponent, ssrInterpolate, ssrRenderAttr, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderList } from "vue/server-renderer";
 import { useForm, Head, Link, router } from "@inertiajs/vue3";
-import { A as AdminLayout } from "./AdminLayout-C6oIotro.js";
+import { A as AdminLayout } from "./AdminLayout-CcF1p51h.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
 const _sfc_main = {
   __name: "Index",
