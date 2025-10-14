@@ -26,12 +26,18 @@
                             <!-- Author Info -->
                             <div class="flex items-center space-x-4">
                                 <!-- Author Avatar -->
-                                <img
-                                    :src="blog.author.avatar || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMzAiIGZpbGw9IiNGM0Y0RjYiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxOCIgeT0iMTgiPgo8cGF0aCBkPSJNMTIgMTJDMTQuNzYxNCAxMiAxNyA5Ljc2MTQyIDE3IDdDMTcgNC4yMzg1OCAxNC43NjE0IDIgMTIgMkM5LjIzODU4IDIgNyA0LjIzODU4IDcgN0M3IDkuNzYxNDIgOS4yMzg1OCAxMiAxMiAxMloiIGZpbGw9IiM5Q0E0QUYiLz4KPHBhdGggZD0iTTEyIDEzQzguMTM0MDEgMTMgNSAxNi4xMzQgNSAyMEMyMSAyMC4yNzYxIDIxIDIwIDIxIDIwQzIxIDE2LjEzNDEgMTcuODY2IDEzIDEyIDEzWiIgZmlsbD0iIzlDQTRBRiIvPgo8L3N2Zz4KPC9zdmc+'"
-                                    :alt="blog.author.name"
-                                    class="w-[60px] h-[60px] rounded-full object-cover bg-gray-100"
-                                    @error="handleImageError"
-                                />
+                                <div class="w-[60px] h-[60px] rounded-full flex-shrink-0 overflow-hidden">
+                                    <img
+                                        v-if="blog.author.profile_image_url"
+                                        :src="blog.author.profile_image_url"
+                                        :alt="blog.author.name"
+                                        class="w-full h-full object-cover"
+                                        @error="handleImageError"
+                                    />
+                                    <div v-else class="w-full h-full bg-[#FF3621] flex items-center justify-center">
+                                        <span class="text-white text-xl font-semibold font-instrument-sans">{{ blog.author.name.charAt(0).toUpperCase() }}</span>
+                                    </div>
+                                </div>
 
                                 <!-- Author Details -->
                                 <div>

@@ -31,6 +31,9 @@ class BlogController extends Controller
                     'author' => [
                         'id' => $blog->author->id,
                         'name' => $blog->author->name,
+                        'profile_image' => $blog->author->profile_image,
+                        'profile_image_url' => $blog->author->profile_image_url,
+                        'avatar' => $blog->author->profile_image_url, // For compatibility with existing template
                     ],
                     'tags' => $blog->tags->map(function ($tag) {
                         return [
@@ -107,6 +110,9 @@ class BlogController extends Controller
                 'author' => [
                     'id' => $blog->author->id,
                     'name' => $blog->author->name,
+                    'profile_image' => $blog->author->profile_image,
+                    'profile_image_url' => $blog->author->profile_image_url,
+                    'avatar' => $blog->author->profile_image_url, // For compatibility with existing template
                 ],
                 'tags' => $blog->tags->map(function ($tag) {
                     return [
