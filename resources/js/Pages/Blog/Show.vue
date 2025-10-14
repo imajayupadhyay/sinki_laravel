@@ -318,7 +318,6 @@ const handleImageError = (event) => {
 /* Hero Section */
 .hero-section {
     position: relative;
-    min-height: 677px;
 }
 
 /* Blog Content Styling */
@@ -326,7 +325,18 @@ const handleImageError = (event) => {
     word-break: break-word;
 }
 
-.blog-content h2 {
+.blog-content :deep(h1) {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 50.4px;
+    letter-spacing: 0.84px;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(h2) {
     font-size: 36px;
     font-weight: 600;
     line-height: 43.2px;
@@ -334,9 +344,10 @@ const handleImageError = (event) => {
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.blog-content h3 {
+.blog-content :deep(h3) {
     font-size: 28px;
     font-weight: 600;
     line-height: 33.6px;
@@ -344,30 +355,183 @@ const handleImageError = (event) => {
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.blog-content p {
+.blog-content :deep(h4) {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28.8px;
+    letter-spacing: 0.48px;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(h5) {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26.4px;
+    letter-spacing: 0.44px;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(h6) {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(p) {
     margin-bottom: 1.5rem;
+    color: #121212;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.blog-content ul,
-.blog-content ol {
+.blog-content :deep(ul),
+.blog-content :deep(ol) {
     margin-left: 1.5rem;
     margin-bottom: 1.5rem;
+    color: #121212;
 }
 
-.blog-content li {
+.blog-content :deep(li) {
     margin-bottom: 0.5rem;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.blog-content a {
+.blog-content :deep(a) {
     color: #FF3621;
     text-decoration: underline;
     transition: color 0.3s ease;
 }
 
-.blog-content a:hover {
+.blog-content :deep(a:hover) {
     color: #121212;
+}
+
+.blog-content :deep(blockquote) {
+    border-left: 4px solid #FF3621;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #666666;
+    font-size: 24px;
+    line-height: 36px;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(strong),
+.blog-content :deep(b) {
+    font-weight: 600;
+    color: #121212;
+}
+
+.blog-content :deep(em),
+.blog-content :deep(i) {
+    font-style: italic;
+}
+
+.blog-content :deep(code) {
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.blog-content :deep(pre) {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e9ecef;
+}
+
+.blog-content :deep(pre code) {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Table Styling */
+.blog-content :deep(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border: 1px solid #CDD7D1;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog-content :deep(thead) {
+    background-color: #FFFBE5;
+}
+
+.blog-content :deep(th) {
+    padding: 20px 24px;
+    text-align: left;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+    color: #121212;
+    border-bottom: 1px solid #CDD7D1;
+    border-right: 1px solid #CDD7D1;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(th:last-child) {
+    border-right: none;
+}
+
+.blog-content :deep(tbody tr:nth-child(even)) {
+    background-color: #FFFBE5;
+}
+
+.blog-content :deep(tbody tr:nth-child(odd)) {
+    background-color: white;
+}
+
+.blog-content :deep(td) {
+    padding: 20px 24px;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 37.8px;
+    letter-spacing: 0.42px;
+    color: #121212;
+    border-bottom: 1px solid #CDD7D1;
+    border-right: 1px solid #CDD7D1;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.blog-content :deep(td:last-child) {
+    border-right: none;
+}
+
+.blog-content :deep(td:first-child) {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 26.4px;
+    letter-spacing: 0.44px;
+}
+
+.blog-content :deep(tbody tr:last-child td) {
+    border-bottom: none;
 }
 
 /* Quote Section */
@@ -375,15 +539,41 @@ const handleImageError = (event) => {
     position: relative;
 }
 
-/* Comparison Table Responsive */
+/* Table Responsive Styles */
 @media (max-width: 768px) {
-    .comparison-table-section table {
-        font-size: 16px;
+    .blog-content :deep(table) {
+        font-size: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
-    
+
+    .blog-content :deep(th) {
+        padding: 12px 16px;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.36px;
+    }
+
+    .blog-content :deep(td) {
+        padding: 12px 16px;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.32px;
+    }
+
+    .blog-content :deep(td:first-child) {
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: 0.34px;
+    }
+
+    /* Comparison Table Responsive */
+    .comparison-table-section table {
+        font-size: 14px;
+    }
+
     .comparison-table-section th,
     .comparison-table-section td {
-        padding: 1rem;
+        padding: 12px 16px;
         font-size: 16px;
         line-height: 24px;
     }
@@ -401,14 +591,34 @@ const handleImageError = (event) => {
         line-height: 32px;
     }
 
-    .blog-content h2 {
+    .blog-content h1 {
+        font-size: 34px;
+        line-height: 42px;
+    }
+
+    .blog-content :deep(h2) {
         font-size: 30px;
         line-height: 38px;
     }
 
-    .blog-content h3 {
+    .blog-content :deep(h3) {
         font-size: 24px;
         line-height: 30px;
+    }
+
+    .blog-content :deep(h4) {
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    .blog-content :deep(h5) {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .blog-content :deep(h6) {
+        font-size: 16px;
+        line-height: 22px;
     }
 
     /* Grid adjustments for tablets */
@@ -447,14 +657,34 @@ const handleImageError = (event) => {
         line-height: 28px;
     }
 
-    .blog-content h2 {
+    .blog-content h1 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .blog-content :deep(h2) {
         font-size: 24px;
         line-height: 32px;
     }
 
-    .blog-content h3 {
+    .blog-content :deep(h3) {
         font-size: 20px;
         line-height: 26px;
+    }
+
+    .blog-content :deep(h4) {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .blog-content :deep(h5) {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .blog-content :deep(h6) {
+        font-size: 15px;
+        line-height: 20px;
     }
 
     .quote-section {
