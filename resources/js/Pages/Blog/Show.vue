@@ -14,7 +14,7 @@
             
             <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10">
                 <div class="max-w-[1720px] mx-auto">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-36 pb-24">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-48 pb-24">
 
                         <!-- Left Content - 60% -->
                         <div class="lg:col-span-7 space-y-8">
@@ -53,7 +53,7 @@
 
                         <!-- Right Content - Featured Image - 40% -->
                         <div class="lg:col-span-5 relative">
-                            <div class="w-full aspect-[100/50] bg-gray-100 rounded-[20px] overflow-hidden shadow-lg">
+                            <div class="w-4/5 aspect-[100/60] bg-gray-100 rounded-[20px] overflow-hidden shadow-lg">
                                 <img
                                     :src="blog.featured_image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+Cjxzdmcgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMTY4IiB5PSIxMTgiPgo8cGF0aCBkPSJNNTYgNDhWMTZIOFY0OEg1NlpNMTYgMjRIMjRWMzJIMTZWMjRaTTMyIDM2SDE2VjQwSDMyVjM2Wk00OCAzNkg0MFY0MEg0OFYzNlpNNDggMjRINDBWMzJINDhWMjRaIiBmaWxsPSIjOUNBNEFGIi8+Cjwvc3ZnPgo8L3N2Zz4='"
                                     :alt="blog.title"
