@@ -15,7 +15,7 @@
                     <!-- Logo - Left Side -->
                     <div class="flex items-center">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[250px] h-[60px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[250px] h-[60px] object-contain transition-transform duration-300" src="/images/sinkilogo1.png" alt="Sinki Logo">
                         </a>
                     </div>
 
