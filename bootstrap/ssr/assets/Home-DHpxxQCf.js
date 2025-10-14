@@ -1,7 +1,7 @@
-import { ref, onMounted, onUnmounted, mergeProps, useSSRContext, reactive, unref, withCtx, createVNode } from "vue";
+import { ref, onMounted, onUnmounted, mergeProps, useSSRContext, reactive, computed, unref, withCtx, createVNode } from "vue";
 import { ssrRenderAttrs, ssrRenderTeleport, ssrInterpolate, ssrRenderStyle, ssrRenderAttr, ssrRenderList, ssrRenderClass, ssrRenderComponent } from "vue/server-renderer";
 import { Head } from "@inertiajs/vue3";
-import { H as Header } from "./Header-CLonHj5B.js";
+import { H as Header } from "./Header-ajouT7_M.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
 import { F as FooterSection } from "./FooterSection-X25pRJx9.js";
 const _sfc_main$a = {
@@ -240,31 +240,58 @@ const WhatSetsUsApartSection = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__sco
 const _sfc_main$2 = {
   __name: "InsightsResourcesSection",
   __ssrInlineRender: true,
+  props: {
+    blogs: {
+      type: Array,
+      default: () => []
+    }
+  },
   setup(__props) {
-    const blogs = reactive([
-      {
-        title: "How To Make Your Data Ready For AI",
-        badge: "Blog",
-        date: "13 Sep, 2025",
-        image: "blog1.png"
-      },
-      {
-        title: "The Anatomy Of A Healthcare Data Strategy",
-        badge: "Blog",
-        date: "02 Sep, 2025",
-        image: "blog2.png"
+    const props = __props;
+    const displayBlogs = computed(() => {
+      if (props.blogs.length === 0) {
+        return [
+          {
+            title: "How To Make Your Data Ready For AI",
+            badge: "Blog",
+            image: "assets/images/blog1.png"
+          },
+          {
+            title: "The Anatomy Of A Healthcare Data Strategy",
+            badge: "Blog",
+            image: "assets/images/blog2.png"
+          }
+        ];
       }
-    ]);
+      return props.blogs.map((blog) => ({
+        title: blog.title,
+        badge: blog.category ? blog.category.name : "Blog",
+        image: blog.featured_image || "assets/images/blog1.png",
+        // fallback image with correct path
+        slug: blog.slug
+        // for future linking
+      }));
+    });
+    const getImagePath = (imagePath) => {
+      if (!imagePath) return "./assets/images/blog1.png";
+      if (imagePath.startsWith("assets/images/")) {
+        return `./${imagePath}`;
+      }
+      if (imagePath.includes("blog-images/")) {
+        return `/storage/${imagePath}`;
+      }
+      return `/storage/blog-images/${imagePath}`;
+    };
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<section${ssrRenderAttrs(mergeProps({
         id: "insights",
         class: "insights-section bg-white py-20 lg:py-32 relative overflow-hidden"
-      }, _attrs))} data-v-a830cff6><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24" data-v-a830cff6><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-start" data-v-a830cff6><div class="insights-content" data-v-a830cff6><div class="mb-8 animate-fade-in" data-v-a830cff6><span class="text-brand-dark text-lg font-medium uppercase tracking-[1.8px]" data-v-a830cff6> Insights &amp; Resources </span></div><h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight lg:leading-[85.8px] mb-6 max-w-[834px] animate-slide-up" data-v-a830cff6> Latest Insights on Databricks, Data &amp; AI </h2><p class="text-brand-dark text-xl lg:text-[30px] leading-relaxed lg:leading-[45px] mb-12 max-w-[769px] animate-slide-up-delayed" data-v-a830cff6> Stay ahead with guides, blogs, and practical insights to help your enterprise scale smarter with Databricks. </p><div class="animate-fade-in-up" data-v-a830cff6><a href="#resources" class="inline-flex items-center gap-3 px-8 py-3 bg-brand-dark border-2 border-brand-dark rounded-full text-white text-lg font-bold capitalize hover:bg-transparent hover:text-brand-dark transition-all duration-300 btn-hover-effect group" data-v-a830cff6> Explore Resources <svg class="w-10 h-10 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-a830cff6><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-a830cff6></path></svg></a></div></div><div class="insights-cards flex flex-col sm:flex-row gap-6 lg:gap-8 animate-slide-in-right max-w-full overflow-visible" data-v-a830cff6><!--[-->`);
-      ssrRenderList(blogs, (blog, index) => {
-        _push(`<div class="${ssrRenderClass([
-          "blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2",
+      }, _attrs))} data-v-c642b624><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24" data-v-c642b624><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-start" data-v-c642b624><div class="insights-content" data-v-c642b624><div class="mb-8 animate-fade-in" data-v-c642b624><span class="text-brand-dark text-lg font-medium uppercase tracking-[1.8px]" data-v-c642b624> Insights &amp; Resources </span></div><h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight lg:leading-[85.8px] mb-6 max-w-[834px] animate-slide-up" data-v-c642b624> Latest Insights on Databricks, Data &amp; AI </h2><p class="text-brand-dark text-xl lg:text-[30px] leading-relaxed lg:leading-[45px] mb-12 max-w-[769px] animate-slide-up-delayed" data-v-c642b624> Stay ahead with guides, blogs, and practical insights to help your enterprise scale smarter with Databricks. </p><div class="animate-fade-in-up" data-v-c642b624><a href="#resources" class="inline-flex items-center gap-3 px-8 py-3 bg-brand-dark border-2 border-brand-dark rounded-full text-white text-lg font-bold capitalize hover:bg-transparent hover:text-brand-dark transition-all duration-300 btn-hover-effect group" data-v-c642b624> Explore Resources <svg class="w-10 h-10 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-c642b624><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-c642b624></path></svg></a></div></div><div class="insights-cards flex flex-col sm:flex-row gap-6 lg:gap-8 animate-slide-in-right max-w-full overflow-visible" data-v-c642b624><!--[-->`);
+      ssrRenderList(displayBlogs.value, (blog, index) => {
+        _push(`<a${ssrRenderAttr("href", blog.slug ? `/blog/${blog.slug}` : "#")} class="${ssrRenderClass([
+          "blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2 block",
           index === 0 ? "blog-card-1 mt-0 sm:mt-20" : "blog-card-2 mt-0 sm:-mt-10"
-        ])}" data-v-a830cff6><div class="relative overflow-hidden h-[229px]" data-v-a830cff6><img${ssrRenderAttr("src", `./assets/images/${blog.image}`)}${ssrRenderAttr("alt", blog.title)} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-v-a830cff6><div class="blog-image-placeholder hidden items-center justify-center w-full h-full bg-gray-200" data-v-a830cff6><span class="text-gray-500 font-semibold" data-v-a830cff6>Blog Image</span></div></div><div class="p-6 flex flex-col h-[180px]" data-v-a830cff6><div class="flex items-center justify-between mb-4" data-v-a830cff6><span class="inline-block px-5 py-1 bg-brand-gray rounded-[20px] text-brand-dark text-sm font-semibold tracking-wide uppercase" data-v-a830cff6>${ssrInterpolate(blog.badge)}</span><div class="w-8 h-8 flex items-center justify-center" data-v-a830cff6><svg class="w-6 h-6 text-brand-dark group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-a830cff6><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-a830cff6></path></svg></div></div><h3 class="text-brand-dark text-[24px] sm:text-[28px] font-semibold leading-[28.8px] sm:leading-[33.6px] tracking-[0.48px] sm:tracking-[0.56px] mb-auto group-hover:text-brand-red transition-colors duration-300" data-v-a830cff6>${ssrInterpolate(blog.title)}</h3><p class="text-gray-500 text-base tracking-wide mt-auto" data-v-a830cff6>${ssrInterpolate(blog.date)}</p></div></div>`);
+        ])}" data-v-c642b624><div class="relative overflow-hidden h-[229px]" data-v-c642b624><img${ssrRenderAttr("src", getImagePath(blog.image))}${ssrRenderAttr("alt", blog.title)} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-v-c642b624><div class="blog-image-placeholder hidden items-center justify-center w-full h-full bg-gray-200" data-v-c642b624><span class="text-gray-500 font-semibold" data-v-c642b624>Blog Image</span></div></div><div class="p-6 flex flex-col h-[180px]" data-v-c642b624><div class="flex items-center justify-between mb-4" data-v-c642b624><span class="inline-block px-5 py-1 bg-brand-gray rounded-[20px] text-brand-dark text-sm font-semibold tracking-wide uppercase" data-v-c642b624>${ssrInterpolate(blog.badge)}</span><div class="w-8 h-8 flex items-center justify-center" data-v-c642b624><svg class="w-6 h-6 text-brand-dark group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-c642b624><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-c642b624></path></svg></div></div><h3 class="text-brand-dark text-[24px] sm:text-[28px] font-semibold leading-[28.8px] sm:leading-[33.6px] tracking-[0.48px] sm:tracking-[0.56px] mb-auto group-hover:text-brand-red transition-colors duration-300" data-v-c642b624>${ssrInterpolate(blog.title)}</h3></div></a>`);
       });
       _push(`<!--]--></div></div></div></section>`);
     };
@@ -276,7 +303,7 @@ _sfc_main$2.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/Home/InsightsResourcesSection.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-const InsightsResourcesSection = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-a830cff6"]]);
+const InsightsResourcesSection = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-c642b624"]]);
 const _sfc_main$1 = {
   __name: "CTASection",
   __ssrInlineRender: true,
@@ -299,13 +326,19 @@ const CTASection = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data
 const _sfc_main = {
   __name: "Home",
   __ssrInlineRender: true,
+  props: {
+    latestBlogs: {
+      type: Array,
+      default: () => []
+    }
+  },
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-white" }, _attrs))} data-v-9949008d>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-white" }, _attrs))} data-v-0eb85fc4>`);
       _push(ssrRenderComponent(unref(Head), { title: "Sinki.ai: Your Databricks Strategy & Innovation Partner" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." data-v-9949008d${_scopeId}>`);
+            _push2(`<meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." data-v-0eb85fc4${_scopeId}>`);
           } else {
             return [
               createVNode("meta", {
@@ -326,7 +359,7 @@ const _sfc_main = {
       _push(ssrRenderComponent(CoreServices, null, null, _parent));
       _push(ssrRenderComponent(PlatformsSection, null, null, _parent));
       _push(ssrRenderComponent(WhatSetsUsApartSection, null, null, _parent));
-      _push(ssrRenderComponent(InsightsResourcesSection, null, null, _parent));
+      _push(ssrRenderComponent(InsightsResourcesSection, { blogs: __props.latestBlogs }, null, _parent));
       _push(ssrRenderComponent(CTASection, null, null, _parent));
       _push(ssrRenderComponent(FooterSection, null, null, _parent));
       _push(`</div>`);
@@ -339,7 +372,7 @@ _sfc_main.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Home.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const Home = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-9949008d"]]);
+const Home = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-0eb85fc4"]]);
 export {
   Home as default
 };

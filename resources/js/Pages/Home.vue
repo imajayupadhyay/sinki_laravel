@@ -25,7 +25,7 @@
         <PlatformsSection />
          <!-- What Sets Us Apart Section -->
     <WhatSetsUsApartSection />
-    <InsightsResourcesSection />
+    <InsightsResourcesSection :blogs="latestBlogs" />
          <!-- CTA Section - Let's Get Started -->
     <CTASection />
     <FooterSection />
@@ -51,6 +51,13 @@ import InsightsResourcesSection from '@/Components/Home/InsightsResourcesSection
 import CTASection from '@/Components/CTASection.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
+// Define props to receive data from the backend
+const props = defineProps({
+    latestBlogs: {
+        type: Array,
+        default: () => []
+    }
+});
 
 </script>
 

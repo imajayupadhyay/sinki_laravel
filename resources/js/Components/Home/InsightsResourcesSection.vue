@@ -24,8 +24,8 @@
 
                     <!-- CTA Button -->
                     <div class="animate-fade-in-up">
-                        <a 
-                            href="#resources" 
+                        <a
+                            href="/blog"
                             class="inline-flex items-center gap-3 px-8 py-3 bg-brand-dark border-2 border-brand-dark rounded-full text-white text-lg font-bold capitalize hover:bg-transparent hover:text-brand-dark transition-all duration-300 btn-hover-effect group"
                         >
                             Explore Resources
@@ -40,18 +40,19 @@
                 <div class="insights-cards flex flex-col sm:flex-row gap-6 lg:gap-8 animate-slide-in-right max-w-full overflow-visible">
 
                     <!-- Blog Card (v-for loop) -->
-                    <div
-                        v-for="(blog, index) in blogs"
+                    <a
+                        v-for="(blog, index) in displayBlogs"
                         :key="index"
+                        :href="blog.slug ? `/blog/${blog.slug}` : '#'"
                         :class="[
-                            'blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2',
+                            'blog-card group bg-white border border-gray-200 rounded-[25px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2 block',
                             index === 0 ? 'blog-card-1 mt-0 sm:mt-20' : 'blog-card-2 mt-0 sm:-mt-10'
                         ]"
                     >
                         <!-- Image Container -->
                         <div class="relative overflow-hidden h-[229px]">
                             <img
-                                :src="`./assets/images/${blog.image}`"
+                                :src="blog.image || '/assets/images/blog1.png'"
                                 :alt="blog.title"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 @error="handleImageError"
@@ -79,13 +80,8 @@
                             <h3 class="text-brand-dark text-[24px] sm:text-[28px] font-semibold leading-[28.8px] sm:leading-[33.6px] tracking-[0.48px] sm:tracking-[0.56px] mb-auto group-hover:text-brand-red transition-colors duration-300">
                                 {{ blog.title }}
                             </h3>
-
-                            <!-- Date -->
-                            <p class="text-gray-500 text-base tracking-wide mt-auto">
-                                {{ blog.date }}
-                            </p>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
 
@@ -95,29 +91,53 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { computed } from 'vue';
 
-// Blog posts data
-const blogs = reactive([
-    {
-        title: "How To Make Your Data Ready For AI",
-        badge: "Blog",
-        date: "13 Sep, 2025",
-        image: "blog1.png"
-    },
-    {
-        title: "The Anatomy Of A Healthcare Data Strategy",
-        badge: "Blog",
-        date: "02 Sep, 2025",
-        image: "blog2.png"
+// Define props to receive blog data from parent component
+const props = defineProps({
+    blogs: {
+        type: Array,
+        default: () => []
     }
-]);
+});
+
+// Computed property to format blogs data for display
+const displayBlogs = computed(() => {
+    // If no blogs from backend, use fallback data
+    if (props.blogs.length === 0) {
+        return [
+            {
+                title: "How To Make Your Data Ready For AI",
+                badge: "Blog",
+                image: "/assets/images/blog1.png"
+            },
+            {
+                title: "The Anatomy Of A Healthcare Data Strategy",
+                badge: "Blog",
+                image: "/assets/images/blog2.png"
+            }
+        ];
+    }
+
+    // Format backend data to match component structure
+    return props.blogs.map(blog => ({
+        title: blog.title,
+        badge: blog.category ? blog.category.name : "Blog",
+        image: blog.featured_image || "/assets/images/blog1.png",
+        slug: blog.slug
+    }));
+});
+
 
 // Handle image loading errors
 const handleImageError = (event) => {
     console.error('Failed to load blog image:', event.target.src);
+    // Show placeholder instead of hiding the image
     event.target.style.display = 'none';
-    event.target.nextElementSibling.style.display = 'flex';
+    const placeholder = event.target.nextElementSibling;
+    if (placeholder && placeholder.classList.contains('blog-image-placeholder')) {
+        placeholder.style.display = 'flex';
+    }
 };
 </script>
 
