@@ -11,11 +11,11 @@
     <div id="navigation">
         <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
-                <div class="flex items-center justify-between h-[80px] px-6">
+                <div class="flex items-center justify-between h-[80px] px-6 relative">
                     <!-- Logo - Left Side -->
-                    <div class="flex items-center">
+                    <div class="flex items-center flex-shrink-0 z-10">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[250px] h-[60px] object-contain transition-transform duration-300" src="/images/sinkilogo1.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[135px] h-[60px] transition-transform duration-300" src="/images/sinkilogo1.png" alt="Sinki Logo">
                         </a>
                     </div>
 
@@ -49,7 +49,7 @@
                     </div>
 
                     <!-- Mobile Menu Button -->
-                    <button @click="toggleMobileMenu" class="lg:hidden mobile-menu-btn p-2 z-50 relative">
+                    <button @click="toggleMobileMenu" class="lg:hidden mobile-menu-btn p-2 z-50 relative ml-auto">
                         <svg class="w-8 h-8 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -424,22 +424,30 @@ onUnmounted(() => {
 
 @media (max-width: 1024px) {
     .sinkilogoclass {
-        width: 200px !important;
-        height: 48px !important;
+        width: 140px !important;
+        height: 50px !important;
+    }
+
+    .navigation .flex {
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 
 @media (max-width: 768px) {
     .sinkilogoclass {
-        width: 180px !important;
-        height: 43px !important;
+        width: 130px !important;
+        height: 50px !important;
     }
 }
 
 @media (max-width: 640px) {
     .sinkilogoclass {
-        width: 160px !important;
-        height: 38px !important;
+        width: 120px !important;
+        height: 50px !important;
     }
 
     .nav-floating {
@@ -452,13 +460,18 @@ onUnmounted(() => {
         height: 70px !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 
 @media (max-width: 480px) {
     .sinkilogoclass {
-        width: 140px !important;
-        height: 34px !important;
+        width: 110px !important;
+        height: 50px !important;
     }
 
     .nav-floating {
@@ -471,6 +484,11 @@ onUnmounted(() => {
         height: 60px !important;
         padding-left: 0.75rem !important;
         padding-right: 0.75rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 
