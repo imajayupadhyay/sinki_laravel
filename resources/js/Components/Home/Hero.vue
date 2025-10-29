@@ -100,7 +100,7 @@
                             <div
                                 ref="calendlyContainer"
                                 class="calendly-inline-widget"
-                                data-url="https://calendly.com/connect-jellyfishtechnologies/meeting-with-jellyfish-technologies-clone"
+                                data-url="https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services"
                                 style="min-width:320px;height:100%;"
                             ></div>
                         </div>
@@ -176,7 +176,7 @@ const initializeCalendlyWidget = () => {
     setTimeout(() => {
         if (window.Calendly && calendlyContainer.value) {
             window.Calendly.initInlineWidget({
-                url: 'https://calendly.com/connect-jellyfishtechnologies/meeting-with-jellyfish-technologies-clone',
+                url: 'https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services',
                 parentElement: calendlyContainer.value,
             });
         }

@@ -11,16 +11,16 @@
     <div id="navigation">
         <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
-                <div class="flex items-center justify-between h-[80px] px-6">
+                <div class="flex items-center justify-between h-[80px] px-6 relative">
                     <!-- Logo -->
-                    <div class="flex items-center">
+                    <div class="flex items-center flex-shrink-0 z-10">
                         <a href="/" class="flex items-center space-x-2 logo-container">
-                            <img class="sinkilogoclass w-[250px] h-[60px] object-contain transition-transform duration-300" src="/images/sinkilogo.png" alt="Sinki Logo">
+                            <img class="sinkilogoclass w-[135px] h-[60px] transition-transform duration-300" src="/images/sinkilogo1.png" alt="Sinki Logo">
                         </a>
                     </div>
 
                     <!-- Desktop Navigation - Centered -->
-                    <div class="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                    <div class="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2 z-0">
                         <div class="flex items-center space-x-10">
                             <div class="nav-item">
                                 <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -37,10 +37,49 @@
                                     Platforms
                                 </a>
                             </div>
-                            <div class="nav-item">
-                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                            <div class="nav-item relative group">
+                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
+                                    <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
                                 </a>
+
+                                <!-- Mega Menu Dropdown -->
+                                <div class="mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6">
+                                 
+                                    <div class="space-y-4">
+                                        <!-- Blog Item -->
+                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item">
+                                            <div class="flex items-start space-x-4">
+                                                <!-- Icon -->
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                                                    </svg>
+                                                </div>
+
+                                                <!-- Content -->
+                                                <div class="flex-1 min-w-0">
+                                                    <h3 class="text-brand-dark text-lg font-bold group-hover/item:text-brand-red transition-colors duration-300">
+                                                        Blog
+                                                    </h3>
+                                                    <!-- <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+                                                        Latest insights on Databricks, Data & AI development
+                                                    </p> -->
+
+                                                    <!-- Read More Arrow -->
+                                                    <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition-transform duration-300">
+                                                        <span class="text-sm font-semibold">Read Articles</span>
+                                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,7 +92,7 @@
                     </div>
 
                     <!-- Mobile Menu Button -->
-                    <button @click="toggleMobileMenu" class="lg:hidden mobile-menu-btn p-2 z-50 relative">
+                    <button @click="toggleMobileMenu" class="lg:hidden mobile-menu-btn p-2 z-50 relative ml-auto">
                         <svg class="w-8 h-8 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -145,6 +184,23 @@
                         <div>
                             <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Insights</span>
                             <p class="text-gray-500 text-xs font-normal">Resources & Blog</p>
+                        </div>
+                    </a>
+
+                    <!-- Blog -->
+                    <a
+                        href="/blog"
+                        @click="closeMobileMenu"
+                        class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
+                    >
+                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
+                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Blog</span>
+                            <p class="text-gray-500 text-xs font-normal">Latest insights & updates</p>
                         </div>
                     </a>
 
@@ -342,6 +398,11 @@ onUnmounted(() => {
     padding: 10px 5px;
 }
 
+.nav-link.flex {
+    display: flex !important;
+    align-items: center;
+}
+
 .nav-link::after {
     content: '';
     position: absolute;
@@ -410,6 +471,56 @@ onUnmounted(() => {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Mega Menu Styles */
+.mega-menu {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mega-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.group:hover .mega-menu {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mega-menu-item {
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+.mega-menu-item:hover {
+    transform: translateY(0);
+    box-shadow: 0 8px 25px rgba(255, 54, 33, 0.15);
+    border-color: #FF3621 !important;
+}
+
+/* Enhanced hover states for mega menu */
+.mega-menu-item .group\/item:hover .w-12 {
+    background-color: #FF3621;
+    transform: scale(1.1);
+}
+
+.mega-menu-item .group\/item:hover svg {
+    color: white;
+}
+
+.mega-menu-item .group\/item:hover h3 {
+    color: #FF3621;
+}
+
 /* Mobile Menu Link Animation */
 .mobile-menu-link {
     animation: slideInRight 0.3s ease-out forwards;
@@ -436,6 +547,10 @@ onUnmounted(() => {
     animation-delay: 0.5s;
 }
 
+.mobile-menu-link:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
 @keyframes slideInRight {
     from {
         transform: translateX(30px);
@@ -454,26 +569,39 @@ onUnmounted(() => {
         left: 12px;
         right: 12px;
     }
+
+    /* Hide mega menu on smaller screens */
+    .mega-menu {
+        display: none;
+    }
 }
 
 @media (max-width: 1024px) {
     .sinkilogoclass {
-        width: 200px !important;
-        height: 48px !important;
+        width: 140px !important;
+        height: 50px !important;
+    }
+
+    .navigation .flex {
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 
 @media (max-width: 768px) {
     .sinkilogoclass {
-        width: 180px !important;
-        height: 43px !important;
+        width: 130px !important;
+        height: 50px !important;
     }
 }
 
 @media (max-width: 640px) {
     .sinkilogoclass {
-        width: 160px !important;
-        height: 38px !important;
+        width: 120px !important;
+        height: 50px !important;
     }
 
     .nav-floating {
@@ -486,13 +614,18 @@ onUnmounted(() => {
         height: 70px !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 
 @media (max-width: 480px) {
     .sinkilogoclass {
-        width: 140px !important;
-        height: 34px !important;
+        width: 110px !important;
+        height: 50px !important;
     }
 
     .nav-floating {
@@ -505,6 +638,11 @@ onUnmounted(() => {
         height: 60px !important;
         padding-left: 0.75rem !important;
         padding-right: 0.75rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .navigation .flex .flex-shrink-0 {
+        margin-right: auto;
     }
 }
 

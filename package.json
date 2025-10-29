@@ -3,7 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && vite build --ssr",
         "dev": "vite"
     },
     "devDependencies": {
@@ -19,5 +19,9 @@
         "tailwindcss": "^3.2.1",
         "vite": "^7.0.0",
         "vue": "^3.4.0"
+    },
+    "dependencies": {
+        "@vue/server-renderer": "^3.5.22",
+        "quill": "^2.0.3"
     }
 }

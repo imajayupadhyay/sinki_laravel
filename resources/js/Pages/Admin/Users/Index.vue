@@ -55,8 +55,16 @@
                         <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="h-10 w-10 bg-brand-red rounded-full flex items-center justify-center">
-                                        <span class="text-white text-sm font-semibold">{{ user.name.charAt(0).toUpperCase() }}</span>
+                                    <div class="h-10 w-10 rounded-full flex-shrink-0 overflow-hidden">
+                                        <img
+                                            v-if="user.profile_image_url"
+                                            :src="user.profile_image_url"
+                                            :alt="user.name"
+                                            class="h-full w-full object-cover"
+                                        />
+                                        <div v-else class="h-full w-full bg-brand-red flex items-center justify-center">
+                                            <span class="text-white text-sm font-semibold">{{ user.name.charAt(0).toUpperCase() }}</span>
+                                        </div>
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">{{ user.name }}</div>
@@ -151,6 +159,45 @@
                             />
                             <div v-if="userForm.errors.email" class="text-red-600 text-sm mt-1">
                                 {{ userForm.errors.email }}
+                            </div>
+                        </div>
+
+                        <!-- Profile Image -->
+                        <div>
+                            <label for="profile_image" class="block text-sm font-medium text-gray-700 mb-1">Profile Image</label>
+                            <div class="flex items-center space-x-4">
+                                <!-- Current image preview -->
+                                <div v-if="isEditing && selectedUser?.profile_image_url" class="flex-shrink-0">
+                                    <img
+                                        :src="selectedUser.profile_image_url"
+                                        :alt="selectedUser.name"
+                                        class="h-12 w-12 rounded-full object-cover"
+                                    />
+                                </div>
+
+                                <!-- New image preview -->
+                                <div v-if="profileImagePreview" class="flex-shrink-0">
+                                    <img
+                                        :src="profileImagePreview"
+                                        alt="Preview"
+                                        class="h-12 w-12 rounded-full object-cover border-2 border-brand-red"
+                                    />
+                                </div>
+
+                                <div class="flex-1">
+                                    <input
+                                        id="profile_image"
+                                        type="file"
+                                        accept="image/*"
+                                        @change="handleImageUpload"
+                                        class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-red-600"
+                                        :class="{ 'border-red-500': userForm.errors.profile_image }"
+                                    />
+                                    <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 2MB</p>
+                                </div>
+                            </div>
+                            <div v-if="userForm.errors.profile_image" class="text-red-600 text-sm mt-1">
+                                {{ userForm.errors.profile_image }}
                             </div>
                         </div>
 
@@ -317,13 +364,15 @@ const showPasswordModal = ref(false);
 const showDeleteModal = ref(false);
 const isEditing = ref(false);
 const selectedUser = ref(null);
+const profileImagePreview = ref(null);
 
 // Forms
 const userForm = useForm({
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    profile_image: null
 });
 
 const passwordForm = useForm({
@@ -336,6 +385,7 @@ const deleteForm = useForm({});
 // User CRUD functions
 const openAddModal = () => {
     isEditing.value = false;
+    profileImagePreview.value = null;
     userForm.reset();
     userForm.clearErrors();
     showModal.value = true;
@@ -344,10 +394,12 @@ const openAddModal = () => {
 const openEditModal = (user) => {
     isEditing.value = true;
     selectedUser.value = user;
+    profileImagePreview.value = null;
     userForm.name = user.name;
     userForm.email = user.email;
     userForm.password = '';
     userForm.password_confirmation = '';
+    userForm.profile_image = null;
     userForm.clearErrors();
     showModal.value = true;
 };
@@ -355,13 +407,17 @@ const openEditModal = (user) => {
 const closeModal = () => {
     showModal.value = false;
     selectedUser.value = null;
+    profileImagePreview.value = null;
     userForm.reset();
     userForm.clearErrors();
 };
 
 const submitUser = () => {
     if (isEditing.value) {
-        userForm.put(route('admin.users.update', selectedUser.value.id), {
+        userForm.transform((data) => ({
+            ...data,
+            _method: 'PUT'
+        })).post(route('admin.users.update', selectedUser.value.id), {
             onSuccess: () => {
                 closeModal();
             }
@@ -415,6 +471,21 @@ const deleteUser = () => {
             closeDeleteModal();
         }
     });
+};
+
+// Image upload handler
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        userForm.profile_image = file;
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            profileImagePreview.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 };
 </script>
 

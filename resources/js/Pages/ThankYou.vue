@@ -52,7 +52,7 @@
                     <!-- Calendly Embed -->
                     <div ref="calendlyEmbed" :style="{ opacity: showLoading ? 0 : 1, transition: 'opacity 0.5s ease' }">
                         <!-- Calendly inline widget begin -->
-                        <div class="calendly-inline-widget" data-url="https://calendly.com/d/ctcw-g33-d53/book-a-free-consultation-on-databricks-solutions" style="min-width:320px;height:700px;"></div>
+                        <div class="calendly-inline-widget" data-url="https://calendly.com/connect-sinki-ai/schedule-free-consultation-on-databricks-services" style="min-width:320px;height:700px;"></div>
                         <!-- Calendly inline widget end -->
                     </div>
                 </div>

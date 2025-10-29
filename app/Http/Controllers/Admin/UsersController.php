@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -13,7 +14,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::select(['id', 'name', 'email', 'created_at'])
+        $users = User::select(['id', 'name', 'email', 'profile_image', 'created_at'])
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($user) {
@@ -21,6 +22,8 @@ class UsersController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
+                    'profile_image' => $user->profile_image,
+                    'profile_image_url' => $user->profile_image_url,
                     'created_at' => $user->created_at->format('M d, Y'),
                     'created_at_human' => $user->created_at->diffForHumans(),
                 ];
@@ -37,12 +40,22 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $profileImage = null;
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('profile_images', $filename, 'public');
+            $profileImage = $filename;
+        }
 
         User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'profile_image' => $profileImage,
             'email_verified_at' => now(),
         ]);
 
@@ -61,12 +74,27 @@ class UsersController extends Controller
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user->update([
+        $updateData = [
             'name' => $validated['name'],
             'email' => $validated['email'],
-        ]);
+        ];
+
+        if ($request->hasFile('profile_image')) {
+            // Delete old profile image if exists
+            if ($user->profile_image) {
+                Storage::disk('public')->delete('profile_images/' . $user->profile_image);
+            }
+
+            $file = $request->file('profile_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('profile_images', $filename, 'public');
+            $updateData['profile_image'] = $filename;
+        }
+
+        $user->update($updateData);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully.');
@@ -92,6 +120,11 @@ class UsersController extends Controller
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
                 ->with('error', 'You cannot delete your own account.');
+        }
+
+        // Delete profile image if exists
+        if ($user->profile_image) {
+            Storage::disk('public')->delete('profile_images/' . $user->profile_image);
         }
 
         $user->delete();
