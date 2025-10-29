@@ -15,7 +15,7 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         // Check if admin user already exists
-        $adminEmail = 'ajay.upadhyay@jellyfishtechnologies.com';
+        $adminEmail = 'ajayupadhyay@gmail.com';
 
         $existingAdmin = User::where('email', $adminEmail)->first();
 
@@ -24,12 +24,12 @@ class AdminUserSeeder extends Seeder
                 'name' => 'Ajay Upadhyay',
                 'email' => $adminEmail,
                 'email_verified_at' => now(),
-                'password' => '$2y$12$6rHciLVj5IEdBTOHI2OEEeQScmjYCPTFxMqR3uq2BdeFuW8JI4cc2', // Ajay@99N#
+                'password' => Hash::make('Ajay@123#'),
             ]);
 
             $this->command->info('Default admin user created successfully!');
             $this->command->info('Email: ' . $adminEmail);
-            $this->command->info('Password: Ajay@99N#');
+            $this->command->info('Password: Ajay@123#');
         } else {
             $this->command->info('Admin user already exists with email: ' . $adminEmail);
         }
