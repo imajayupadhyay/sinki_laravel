@@ -168,7 +168,10 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
+
+const page = usePage();
 
 const form = useForm({
     name: '',
@@ -176,8 +179,53 @@ const form = useForm({
     phone: '',
     company: '',
     services: '',
-    message: ''
+    message: '',
+    'g-recaptcha-response': ''
 });
+
+// reCAPTCHA configuration
+const siteKey = page.props.captcha_site_key;
+let recaptchaLoaded = false;
+
+// Load reCAPTCHA script
+const loadRecaptcha = () => {
+    return new Promise((resolve, reject) => {
+        if (window.grecaptcha && window.grecaptcha.render) {
+            recaptchaLoaded = true;
+            resolve();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+            window.grecaptcha.ready(() => {
+                recaptchaLoaded = true;
+                resolve();
+            });
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+};
+
+// Execute reCAPTCHA
+const executeRecaptcha = () => {
+    return new Promise((resolve, reject) => {
+        if (!recaptchaLoaded || !window.grecaptcha) {
+            reject(new Error('reCAPTCHA not loaded'));
+            return;
+        }
+
+        window.grecaptcha.execute(siteKey, { action: 'contact_form' })
+            .then(token => {
+                resolve(token);
+            })
+            .catch(reject);
+    });
+};
 
 // Function to get user's IP and location data
 const getLocationData = async () => {
@@ -313,31 +361,56 @@ const submitToHubSpot = async (formData, locationData) => {
 };
 
 const submitForm = async () => {
-    // First submit to our Laravel backend
-    form.post(route('contact.store'), {
-        preserveScroll: true,
-        onSuccess: async () => {
-            // On successful Laravel submission, also submit to HubSpot
-            const formData = {
-                name: form.name,
-                email: form.email,
-                phone: form.phone,
-                company: form.company,
-                services: form.services,
-                message: form.message
-            };
+    try {
+        // Execute reCAPTCHA before submitting
+        const recaptchaToken = await executeRecaptcha();
+        form['g-recaptcha-response'] = recaptchaToken;
 
-            // Get location data
-            console.log('Getting location data for HubSpot submission...');
-            const locationData = await getLocationData();
-            console.log('Location data retrieved:', locationData);
+        // First submit to our Laravel backend
+        form.post(route('contact.store'), {
+            preserveScroll: true,
+            onSuccess: async () => {
+                // On successful Laravel submission, also submit to HubSpot
+                const formData = {
+                    name: form.name,
+                    email: form.email,
+                    phone: form.phone,
+                    company: form.company,
+                    services: form.services,
+                    message: form.message
+                };
 
-            // Submit to HubSpot with location data
-            await submitToHubSpot(formData, locationData);
-            form.reset();
-        },
-    });
+                // Get location data
+                console.log('Getting location data for HubSpot submission...');
+                const locationData = await getLocationData();
+                console.log('Location data retrieved:', locationData);
+
+                // Submit to HubSpot with location data
+                await submitToHubSpot(formData, locationData);
+                form.reset();
+            },
+            onError: (errors) => {
+                // Reset reCAPTCHA token on error
+                form['g-recaptcha-response'] = '';
+                console.error('Form submission errors:', errors);
+            }
+        });
+    } catch (error) {
+        console.error('reCAPTCHA execution failed:', error);
+        // Optionally, you can still submit the form without reCAPTCHA
+        // or show an error message to the user
+    }
 };
+
+// Component lifecycle
+onMounted(async () => {
+    try {
+        await loadRecaptcha();
+        console.log('reCAPTCHA loaded successfully');
+    } catch (error) {
+        console.error('Failed to load reCAPTCHA:', error);
+    }
+});
 </script>
 
 <style scoped>

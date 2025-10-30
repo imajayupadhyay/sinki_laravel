@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
+use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 
 class ContactController extends Controller
 {
@@ -17,7 +18,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Contact');
+        return Inertia::render('Contact', [
+            'captcha_site_key' => config('captcha.sitekey')
+        ]);
     }
 
     /**
@@ -33,7 +36,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the form data
+        // Validate the form data including reCAPTCHA
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -41,6 +44,7 @@ class ContactController extends Controller
             'company' => 'required|string|max:255',
             'services' => 'required|string|max:255',
             'message' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         // Get IP address
