@@ -1,7 +1,7 @@
 <template>
     <section id="insights" class="insights-section bg-white py-20 lg:py-32 relative overflow-hidden">
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-8 xl:gap-10 items-start">
                 
                 <!-- Left Content -->
                 <div class="insights-content">
@@ -13,12 +13,12 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight lg:leading-[85.8px] mb-6 max-w-[834px] animate-slide-up">
+                    <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[78px] leading-tight lg:leading-tight xl:leading-[85.8px] mb-6 max-w-[834px] animate-slide-up">
                         Latest Insights on Databricks, Data & AI
                     </h2>
 
                     <!-- Description -->
-                    <p class="text-brand-dark text-xl lg:text-[30px] leading-relaxed lg:leading-[45px] mb-12 max-w-[769px] animate-slide-up-delayed">
+                    <p class="text-brand-dark text-lg sm:text-xl lg:text-2xl xl:text-[30px] leading-relaxed lg:leading-relaxed xl:leading-[45px] mb-12 max-w-[769px] animate-slide-up-delayed">
                         Stay ahead with guides, blogs, and practical insights to help your enterprise scale smarter with Databricks.
                     </p>
 
@@ -37,7 +37,7 @@
                 </div>
 
                 <!-- Right Content - Blog Cards -->
-                <div class="insights-cards flex flex-col sm:flex-row gap-6 lg:gap-8 animate-slide-in-right max-w-full overflow-visible">
+                <div class="insights-cards flex flex-col sm:flex-row gap-4 lg:gap-6 xl:gap-8 animate-slide-in-right max-w-full overflow-visible">
 
                     <!-- Blog Card (v-for loop) -->
                     <a
@@ -232,9 +232,9 @@ const handleImageError = (event) => {
 
 /* Blog Cards */
 .blog-card {
-    width: calc(22vw);
-    min-width: 320px;
-    max-width: 440px;
+    width: calc(20vw);
+    min-width: 280px;
+    max-width: 380px;
     flex-shrink: 0;
     height: 440px;
 }
@@ -301,12 +301,63 @@ const handleImageError = (event) => {
     }
 
     .blog-card {
-        max-width: 380px;
+        width: calc(18vw) !important;
+        max-width: 340px;
+        min-width: 260px;
     }
 
     .blog-card h3 {
         font-size: 24px !important;
         line-height: 30px !important;
+    }
+}
+
+/* New breakpoint for medium screens (1200px) */
+@media (max-width: 1200px) {
+    h2 {
+        font-size: 56px !important;
+        line-height: 62px !important;
+    }
+
+    p {
+        font-size: 24px !important;
+        line-height: 36px !important;
+    }
+
+    .blog-card {
+        width: calc(16vw) !important;
+        max-width: 300px !important;
+        min-width: 240px !important;
+        height: 400px !important;
+    }
+
+    .blog-card h3 {
+        font-size: 20px !important;
+        line-height: 26px !important;
+    }
+
+    .blog-card .p-6 {
+        height: 160px !important;
+    }
+}
+
+/* Additional breakpoint for smaller medium screens (1100px) */
+@media (max-width: 1100px) {
+    .blog-card {
+        width: calc(15vw) !important;
+        max-width: 280px !important;
+        min-width: 220px !important;
+        height: 380px !important;
+    }
+
+    .blog-card h3 {
+        font-size: 18px !important;
+        line-height: 24px !important;
+    }
+
+    .blog-card .p-6 {
+        height: 150px !important;
+        padding: 1rem !important;
     }
 }
 
