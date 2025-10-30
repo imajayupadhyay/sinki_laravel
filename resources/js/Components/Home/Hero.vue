@@ -33,7 +33,7 @@
                         @click="openCalendlyModal"
                         class="btn-primary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-brand-red border-2 border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
                     >
-                        Book a Strategy Session
+                        Schedule Free Consultation
                         <div class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
                             <svg class="w-6 h-6 sm:w-8 sm:h-8 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -41,18 +41,6 @@
                         </div>
                     </button>
 
-                    <!-- Secondary Button - Explore Services -->
-                    <a
-                        href="#services"
-                        class="btn-secondary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-transparent border-2 border-brand-red rounded-full text-brand-red text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
-                    >
-                        Explore Services
-                        <div class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                            <svg class="w-6 h-6 sm:w-8 sm:h-8 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
