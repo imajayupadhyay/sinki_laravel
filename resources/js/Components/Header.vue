@@ -20,7 +20,7 @@
                     </div>
 
                     <!-- Desktop Navigation - Centered -->
-                    <div class="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2 z-0">
+                    <div class="hidden 2xl:flex items-center absolute left-1/2 transform -translate-x-1/2 z-0">
                         <div class="flex items-center space-x-10">
                             <div class="nav-item">
                                 <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -84,10 +84,58 @@
                         </div>
                     </div>
 
-                    <!-- Get Started Button -->
-                    <div class="hidden lg:block">
-                        <a href="/contact" class="cta-button inline-flex items-center px-8 py-2.5 border-2 border-brand-dark rounded-full text-brand-dark text-base font-bold uppercase tracking-wide transition-all duration-300">
-                            Get Started
+                    <!-- CTA Buttons -->
+                    <div class="hidden 2xl:flex items-center gap-4">
+                        <!-- Book a Meeting Button -->
+                        <button
+                            @click="openCalendlyModal"
+                            class="cta-button inline-flex items-center px-8 py-2.5 border-2 border-brand-dark rounded-full text-brand-dark text-base font-bold uppercase tracking-wide transition-all duration-300"
+                        >
+                            Book a Meeting
+                        </button>
+
+                        <!-- Contact Us Button -->
+                        <a href="/contact" class="cta-button-contact inline-flex items-center px-8 py-2.5 border-2 border-brand-dark rounded-full bg-brand-dark text-white text-base font-bold uppercase tracking-wide transition-all duration-300">
+                            Contact Us
+                        </a>
+                    </div>
+
+                    <!-- Medium Screen Navigation (lg to 2xl) -->
+                    <div class="hidden lg:flex 2xl:hidden items-center justify-center flex-1 mx-8">
+                        <div class="flex items-center space-x-6">
+                            <div class="nav-item">
+                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                    Services
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                    Approach
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#platforms" @click.prevent="scrollToSection('platforms')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'platforms' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                    Platforms
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                                    Insights
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medium Screen CTA Buttons -->
+                    <div class="hidden lg:flex 2xl:hidden items-center gap-3">
+                        <button
+                            @click="openCalendlyModal"
+                            class="cta-button inline-flex items-center px-4 py-2 border-2 border-brand-dark rounded-full text-brand-dark text-xs font-bold uppercase tracking-wide transition-all duration-300"
+                        >
+                            Book Meeting
+                        </button>
+                        <a href="/contact" class="cta-button-contact inline-flex items-center px-4 py-2 border-2 border-brand-dark rounded-full bg-brand-dark text-white text-xs font-bold uppercase tracking-wide transition-all duration-300">
+                            Contact
                         </a>
                     </div>
 
@@ -204,9 +252,25 @@
                         </div>
                     </a>
 
+                    <!-- Book a Meeting -->
+                    <button
+                        @click="openCalendlyModalMobile"
+                        class="mobile-menu-link group w-full flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
+                    >
+                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
+                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Book a Meeting</span>
+                            <p class="text-gray-500 text-xs font-normal">Schedule a Call</p>
+                        </div>
+                    </button>
+
                     <!-- Contact Us -->
-                    <a 
-                        href="/contact" 
+                    <a
+                        href="/contact"
                         @click="closeMobileMenu"
                         class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
                     >
@@ -223,16 +287,73 @@
                 </div>
             </div>
         </div>
+
+        <!-- Calendly Modal -->
+        <Teleport to="body">
+            <Transition name="modal-fade">
+                <div v-if="showCalendlyModal" class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" @click.self="closeCalendlyModal">
+                    <div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden relative">
+                        <!-- Close Button -->
+                        <button
+                            @click="closeCalendlyModal"
+                            class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                        >
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+
+                        <!-- Modal Header -->
+                        <div class="bg-gradient-to-r from-brand-dark to-gray-800 px-8 py-6">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">Book a Meeting</h2>
+                            <p class="text-gray-300 mt-2">Let's discuss how we can help unlock the value of your data</p>
+                        </div>
+
+                        <!-- Loading Progress Bar -->
+                        <div v-if="isLoading" class="calendly-loading-container px-8 py-20">
+                            <div class="text-center mb-6">
+                                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-brand-red mb-4"></div>
+                                <p class="text-lg font-semibold text-brand-dark">Loading Calendar...</p>
+                                <p class="text-sm text-gray-500 mt-2">{{ loadingProgress }}%</p>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-brand-red to-red-500 h-full rounded-full transition-all duration-300 ease-out"
+                                    :style="{ width: loadingProgress + '%' }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <!-- Calendly Widget -->
+                        <div v-show="!isLoading" class="calendly-widget-wrapper" style="height: 700px; overflow: hidden;">
+                            <div
+                                ref="calendlyContainer"
+                                class="calendly-inline-widget"
+                                data-url="https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services"
+                                style="min-width:320px;height:100%;"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+            </Transition>
+        </Teleport>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const mobileMenuOpen = ref(false);
 const scrollProgress = ref(0);
 const isSticky = ref(false);
 const activeSection = ref('');
+const showCalendlyModal = ref(false);
+const isLoading = ref(false);
+const loadingProgress = ref(0);
+const calendlyContainer = ref(null);
+let progressInterval = null;
 
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -262,10 +383,92 @@ const scrollToSection = (sectionId) => {
     }
 };
 
+const openCalendlyModal = () => {
+    showCalendlyModal.value = true;
+    isLoading.value = true;
+    loadingProgress.value = 0;
+    document.body.style.overflow = 'hidden';
+
+    // Simulate loading progress from 0 to 100
+    let progress = 0;
+    progressInterval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 95) {
+            loadingProgress.value = 95;
+            clearInterval(progressInterval);
+        } else {
+            loadingProgress.value = Math.floor(progress);
+        }
+    }, 150);
+
+    // Load Calendly script and initialize widget
+    nextTick(() => {
+        loadCalendlyScript();
+    });
+};
+
+const openCalendlyModalMobile = () => {
+    closeMobileMenu();
+    setTimeout(() => {
+        openCalendlyModal();
+    }, 300);
+};
+
+const closeCalendlyModal = () => {
+    showCalendlyModal.value = false;
+    isLoading.value = false;
+    loadingProgress.value = 0;
+    document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+};
+
+const loadCalendlyScript = () => {
+    // Check if script already exists
+    if (document.querySelector('script[src*="calendly.com"]')) {
+        initializeCalendlyWidget();
+        return;
+    }
+
+    // Create and load Calendly script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => {
+        initializeCalendlyWidget();
+    };
+    document.head.appendChild(script);
+};
+
+const initializeCalendlyWidget = () => {
+    // Wait a bit for Calendly to fully initialize
+    setTimeout(() => {
+        if (window.Calendly && calendlyContainer.value) {
+            window.Calendly.initInlineWidget({
+                url: 'https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services',
+                parentElement: calendlyContainer.value,
+            });
+        }
+
+        // Complete the progress bar and hide loading
+        setTimeout(() => {
+            loadingProgress.value = 100;
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 300);
+        }, 800);
+    }, 500);
+};
+
 // Handle Escape key
 const handleEscape = (e) => {
-    if (e.key === 'Escape' && mobileMenuOpen.value) {
-        closeMobileMenu();
+    if (e.key === 'Escape') {
+        if (showCalendlyModal.value) {
+            closeCalendlyModal();
+        } else if (mobileMenuOpen.value) {
+            closeMobileMenu();
+        }
     }
 };
 
@@ -322,6 +525,9 @@ onUnmounted(() => {
     window.removeEventListener('keydown', handleEscape);
     window.removeEventListener('scroll', handleScroll);
     document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
 });
 </script>
 
@@ -419,7 +625,7 @@ onUnmounted(() => {
     width: 100%;
 }
 
-/* CTA Button - Black background with white text on hover */
+/* CTA Button - Book a Meeting - Black background with white text on hover */
 .cta-button {
     position: relative;
     overflow: hidden;
@@ -445,6 +651,36 @@ onUnmounted(() => {
 }
 
 .cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* CTA Button Contact - White background with black text on hover (flipped) */
+.cta-button-contact {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button-contact:hover {
+    background-color: white;
+    color: #121212;
+    border-color: #121212;
+}
+
+.cta-button-contact::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 54, 33, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cta-button-contact:hover::before {
     width: 300px;
     height: 300px;
 }
@@ -551,6 +787,10 @@ onUnmounted(() => {
     animation-delay: 0.6s;
 }
 
+.mobile-menu-link:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
 @keyframes slideInRight {
     from {
         transform: translateX(30px);
@@ -563,16 +803,18 @@ onUnmounted(() => {
 }
 
 /* Responsive Styles */
+@media (max-width: 1535px) {
+    /* Hide mega menu on smaller screens */
+    .mega-menu {
+        display: none;
+    }
+}
+
 @media (max-width: 1024px) {
     .nav-floating {
         top: 12px;
         left: 12px;
         right: 12px;
-    }
-
-    /* Hide mega menu on smaller screens */
-    .mega-menu {
-        display: none;
     }
 }
 
@@ -673,6 +915,92 @@ section[id] {
 
     section[id] {
         scroll-margin-top: 55px;
+    }
+}
+
+/* Calendly Modal Styles */
+.calendly-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.calendly-modal-container {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal Transition Classes */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
+}
+
+.modal-fade-enter-active .calendly-modal-container,
+.modal-fade-leave-active .calendly-modal-container {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.modal-fade-enter-from .calendly-modal-container,
+.modal-fade-leave-to .calendly-modal-container {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+}
+
+/* Loading Spinner Animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Mobile Responsive Modal */
+@media (max-width: 768px) {
+    .calendly-modal-container {
+        max-height: 95vh;
+        margin: 0 1rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 600px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendly-modal-container {
+        border-radius: 1.5rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 500px !important;
     }
 }
 </style>
