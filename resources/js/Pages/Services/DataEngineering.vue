@@ -87,6 +87,12 @@
             :max-blogs="3"
         />
 
+        <!-- FAQ Section -->
+        <FAQSection
+            title="Frequently Asked Questions"
+            :faqs="dataEngineeringFAQs"
+        />
+
         <!-- Footer Section -->
         <FooterSection />
     </div>
@@ -105,6 +111,7 @@ import PlatformsWeWorkWith from '@/Components/Services/PlatformsWeWorkWith.vue';
 import WhyChooseUs from '@/Components/Services/WhyChooseUs.vue';
 import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
 import InsightsResourcesSection from '@/Components/Services/InsightsResourcesSection.vue';
+import FAQSection from '@/Components/Services/FAQSection.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
@@ -154,6 +161,34 @@ const dataEngineeringServices = [
         icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>`
+    }
+];
+
+// Data Engineering FAQs
+const dataEngineeringFAQs = [
+    {
+        question: "What is data modernization?",
+        answer: "Data modernization involves upgrading legacy data systems to modern, cloud-based architectures that support real-time analytics and AI applications."
+    },
+    {
+        question: "How long does a typical Databricks migration take?",
+        answer: "A typical Databricks migration timeline varies based on complexity and data volume, but most enterprise migrations are completed within 3-6 months with proper planning and phased implementation."
+    },
+    {
+        question: "Will modernization reduce cloud costs?",
+        answer: "Yes, data modernization typically reduces costs through optimized storage with Delta Lake, auto-scaling compute resources, and elimination of redundant infrastructure and licensing fees."
+    },
+    {
+        question: "Do you support Unity Catalog and governance implementations?",
+        answer: "Absolutely. We specialize in Unity Catalog implementations, including data governance frameworks, access controls, lineage tracking, and compliance management across your entire data estate."
+    },
+    {
+        question: "How do you ensure data quality in pipeline builds?",
+        answer: "We implement comprehensive data quality frameworks using Delta Live Tables, automated testing, data validation rules, monitoring dashboards, and alerting systems to ensure data integrity throughout the pipeline."
+    },
+    {
+        question: "Can you help with ML model deployment?",
+        answer: "Yes, we provide end-to-end ML operations including model training, deployment, monitoring, and management using Databricks MLflow and integrated CI/CD pipelines for production-ready ML solutions."
     }
 ];
 
