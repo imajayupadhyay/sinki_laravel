@@ -54,6 +54,9 @@
         <!-- Our Approach Section -->
         <OurApproach />
 
+        <!-- Key Benefits Section -->
+        <KeyBenefits />
+
         <!-- Additional Sections Will Go Here -->
     
 
@@ -71,6 +74,7 @@ import ParnerBadge from '@/Components/Services/ParnerBadge.vue';
 import ImageContentSection from '@/Components/Services/ImageContentSection.vue';
 import ServicesGrid from '@/Components/Services/ServicesGrid.vue';
 import OurApproach from '@/Components/Services/OurApproach.vue';
+import KeyBenefits from '@/Components/Services/KeyBenefits.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
