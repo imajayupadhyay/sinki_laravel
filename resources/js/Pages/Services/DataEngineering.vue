@@ -79,10 +79,14 @@
             background-image="/images/cta.webp"
         />
 
-        <!-- Additional Sections Will Go Here -->
-    
+        <!-- Insights & Resources Section -->
+        <InsightsResourcesSection
+            title="Insights & Resources"
+            description="Stay updated with the latest trends and insights in data engineering and modernization:"
+            :blogs="blogs"
+            :max-blogs="3"
+        />
 
-        
         <!-- Footer Section -->
         <FooterSection />
     </div>
@@ -100,6 +104,7 @@ import KeyBenefits from '@/Components/Services/KeyBenefits.vue';
 import PlatformsWeWorkWith from '@/Components/Services/PlatformsWeWorkWith.vue';
 import WhyChooseUs from '@/Components/Services/WhyChooseUs.vue';
 import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
+import InsightsResourcesSection from '@/Components/Services/InsightsResourcesSection.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
