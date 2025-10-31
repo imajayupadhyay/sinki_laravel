@@ -25,25 +25,35 @@
         <!-- Partner Badge Section -->
         <ParnerBadge />
 
-        <!-- Additional Sections Will Go Here -->
-        <!-- You can add more sections as needed -->
-        
-        <!-- Example: Service Features Section (Placeholder) -->
-        <section class="py-20 bg-gray-50">
-            <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
-                <div class="max-w-[1518px] mx-auto text-center">
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-6">
-                        Our Expertise
-                    </h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                        More sections will be added here based on your Figma designs.
-                    </p>
-                </div>
-            </div>
-        </section>
 
-        <!-- CTA Section -->
-        <CTASection />
+
+           <!-- Unlock the Full Potential Section -->
+        <ImageContentSection
+            title="Unlock the Full Potential of Your Data"
+            subtitle="Build Smarter, Faster, and Future-Ready Data Systems"
+            :descriptions="[
+                'Data Engineering & Modernization is about turning your raw data into a dependable, scalable foundation that drives business outcomes. From robust pipelines to Lakehouse architectures, we help enterprises using Databricks organize, govern, and optimize their data for analytics, AI, and smarter decision-making.',
+                'At Sinki.ai, our Databricks-powered solutions simplify complexity, accelerate insights, and give your teams the confidence to act on data faster, smarter, and with measurable impact.'
+            ]"
+            image-src="/images/data-engineering-team.jpg"
+            image-alt="Data Engineering Team Working Together"
+            image-position="left"
+            cta-text="Start Your Transformation"
+            background-color="bg-gray-50"
+            @cta-click="handleCtaClick"
+        />
+
+        <!-- Our Data Engineering Services Section -->
+        <ServicesGrid
+            title="Our Data Engineering & Modernization Services"
+            description="We offer a comprehensive suite of data engineering and modernization services."
+            :services="dataEngineeringServices"
+            background-image="/images/heroobannersinki.png"
+        />
+
+        <!-- Additional Sections Will Go Here -->
+    
+
         
         <!-- Footer Section -->
         <FooterSection />
@@ -55,11 +65,59 @@ import { Head } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
 import ServiceHero from '@/Components/Services/ServiceHero.vue';
 import ParnerBadge from '@/Components/Services/ParnerBadge.vue';
-import CTASection from '@/Components/CTASection.vue';
+import ImageContentSection from '@/Components/Services/ImageContentSection.vue';
+import ServicesGrid from '@/Components/Services/ServicesGrid.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
 const heroBackgroundImage = '/images/herobannerservice.webp';
+
+// Data Engineering Services Data
+const dataEngineeringServices = [
+    {
+        title: "Data Pipelines",
+        description: "We build reliable batch and streaming pipelines using Delta Lake and Auto Loader, ensuring your data flows efficiently from source to target, ready for analytics and AI.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>`
+    },
+    {
+        title: "Data Orchestration",
+        description: "Automate and manage workflows with Databricks Workflows. From job scheduling to monitoring, we ensure your pipelines run smoothly and are fully auditable.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>`
+    },
+    {
+        title: "Data Integration",
+        description: "Seamlessly connect diverse sources, databases, APIs, streaming data, or third-party SaaS into Databricks. We use tools like Unity Catalog and Delta Live Tables to maintain secure, consistent access.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+        </svg>`
+    },
+    {
+        title: "Data Migration",
+        description: "We execute phased, low-risk migrations to Databricks Lakehouse architecture, utilizing tools like Auto Loader and Delta Lake to ensure data integrity, minimal downtime, and business continuity.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+        </svg>`
+    },
+    {
+        title: "Data Modernization",
+        description: "Upgrade legacy systems with Lakehouse architecture, leveraging Delta Lake for ACID transactions, partitioning strategies for performance, decoupled compute for scalability, & cost management best practices.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+        </svg>`
+    },
+    {
+        title: "Data Lakehouse Consulting",
+        description: "Our experts provide guidance on architecture, modeling, governance, and analytics integration, ensuring your Lakehouse is optimized for insights, BI, and AI initiatives.",
+        icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>`
+    }
+];
 
 // Handle CTA button click
 const handleCtaClick = () => {
