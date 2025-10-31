@@ -35,8 +35,8 @@
                 'Data Engineering & Modernization is about turning your raw data into a dependable, scalable foundation that drives business outcomes. From robust pipelines to Lakehouse architectures, we help enterprises using Databricks organize, govern, and optimize their data for analytics, AI, and smarter decision-making.',
                 'At Sinki.ai, our Databricks-powered solutions simplify complexity, accelerate insights, and give your teams the confidence to act on data faster, smarter, and with measurable impact.'
             ]"
-            image-src="/images/data-engineering-team.jpg"
-            image-alt="Data Engineering Team Working Together"
+            image-src="/images/serviceside.webp"
+            image-alt="Data Engineering Services"
             image-position="left"
             cta-text="Start Your Transformation"
             background-color="bg-gray-50"
@@ -70,6 +70,15 @@
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         />
 
+        <!-- Service CTA Section -->
+        <ServiceCTA
+            title="Ready to Get More from Databricks?"
+            description="Let's simplify your Databricks journey, and turn data into real results."
+            cta-text="Get Started Now"
+            cta-link="/contact"
+            background-image="/images/cta.webp"
+        />
+
         <!-- Additional Sections Will Go Here -->
     
 
@@ -90,6 +99,7 @@ import OurApproach from '@/Components/Services/OurApproach.vue';
 import KeyBenefits from '@/Components/Services/KeyBenefits.vue';
 import PlatformsWeWorkWith from '@/Components/Services/PlatformsWeWorkWith.vue';
 import WhyChooseUs from '@/Components/Services/WhyChooseUs.vue';
+import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path

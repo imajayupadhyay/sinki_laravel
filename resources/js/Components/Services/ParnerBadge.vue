@@ -9,7 +9,7 @@
                 <!-- Databricks Logo -->
                 <div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center">
                     <img
-                        src="/images/databrickslight.png"
+                        src="/images/databricks-dark.webp"
                         alt="Databricks Logo"
                         class="h-5 sm:h-6 partner-logo w-auto max-w-full"
                     />
