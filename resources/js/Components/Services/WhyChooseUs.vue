@@ -3,7 +3,7 @@
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
             <!-- Section Header -->
             <div class="text-center mb-16 lg:mb-20">
-                <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
+                <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
                     {{ title }}
                 </h2>
                 <p v-if="description" class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-delayed">
@@ -46,7 +46,7 @@
 
                 <!-- Second Row - 2 Cards (Center Aligned) -->
                 <div class="flex justify-center">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" style="width: calc(66.666667% - 0.667rem);">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full md:w-2/3 lg:w-2/3">
                         <div
                             v-for="(reason, index) in secondRowReasons"
                             :key="index + 3"
@@ -281,31 +281,10 @@ const secondRowReasons = computed(() => props.reasons.slice(3, 5));
 }
 
 /* Responsive Styles */
-@media (max-width: 1280px) {
-    .why-choose-us-section h2 {
-        font-size: 48px !important;
-        line-height: 54px !important;
-    }
-
-    .why-choose-us-section > div > div > p {
-        font-size: 24px !important;
-        line-height: 36px !important;
-    }
-}
 
 @media (max-width: 1024px) {
     .why-choose-us-section {
         padding: 60px 0;
-    }
-
-    .why-choose-us-section h2 {
-        font-size: 42px !important;
-        line-height: 48px !important;
-    }
-
-    .why-choose-us-section > div > div > p {
-        font-size: 22px !important;
-        line-height: 33px !important;
     }
 
     .container-custom {
@@ -317,18 +296,6 @@ const secondRowReasons = computed(() => props.reasons.slice(3, 5));
 @media (max-width: 768px) {
     .why-choose-us-section {
         padding: 40px 0;
-    }
-
-    .why-choose-us-section h2 {
-        font-size: 36px !important;
-        line-height: 42px !important;
-        margin-bottom: 1.5rem !important;
-    }
-
-    .why-choose-us-section > div > div > p {
-        font-size: 20px !important;
-        line-height: 30px !important;
-        margin-bottom: 2.5rem !important;
     }
 
     .reason-card {
@@ -356,9 +323,14 @@ const secondRowReasons = computed(() => props.reasons.slice(3, 5));
         height: 36px !important;
     }
 
-    /* Single column on mobile */
+    /* Single column on mobile - both rows full width */
     .grid {
         grid-template-columns: 1fr !important;
+    }
+
+    /* Make second row full width on mobile */
+    .flex.justify-center > .grid {
+        width: 100% !important;
     }
 }
 
@@ -370,18 +342,6 @@ const secondRowReasons = computed(() => props.reasons.slice(3, 5));
     .container-custom {
         padding-left: 1rem;
         padding-right: 1rem;
-    }
-
-    .why-choose-us-section h2 {
-        font-size: 28px !important;
-        line-height: 36px !important;
-        margin-bottom: 1rem !important;
-    }
-
-    .why-choose-us-section > div > div > p {
-        font-size: 18px !important;
-        line-height: 27px !important;
-        margin-bottom: 2rem !important;
     }
 
     .reason-card {

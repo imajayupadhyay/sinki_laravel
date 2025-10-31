@@ -6,7 +6,7 @@
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
             <!-- Section Header -->
             <div class="text-left mb-16 lg:mb-20">
-                <h2 class="text-white font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
+                <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
                     Key Benefits
                 </h2>
                 <p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] animate-slide-up-delayed">

@@ -10,26 +10,14 @@
                     class="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-16 items-center"
                     :class="imagePosition === 'right' ? 'lg:flex-row-reverse' : ''"
                 >
-                    <!-- Image Side -->
+                    <!-- Content Side - Shows first on mobile -->
                     <div
-                        class="image-container w-full lg:w-[35%] flex-shrink-0"
-                    >
-                        <div class="relative rounded-3xl overflow-hidden shadow-xl">
-                            <img 
-                                :src="imageSrc" 
-                                :alt="imageAlt"
-                                class="w-full h-auto object-cover"
-                            />
-                        </div>
-                    </div>
-
-                    <!-- Content Side -->
-                    <div
-                        class="content-container w-full lg:w-[65%] flex-grow"
+                        class="content-container w-full lg:w-[65%] flex-grow order-1 lg:order-none"
+                        :class="imagePosition === 'right' ? 'lg:order-2' : ''"
                     >
                         <!-- Main Heading -->
                         <h2
-                            class="section-title text-brand-dark font-semibold mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] 2xl:text-[72px] leading-tight break-words"
+                            class="section-title text-brand-dark font-semibold mb-6 sm:mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] break-words"
                         >
                             {{ title }}
                         </h2>
@@ -44,10 +32,10 @@
 
                         <!-- Description Paragraphs -->
                         <div class="section-description space-y-4 sm:space-y-5 mb-8 sm:mb-10">
-                            <p 
+                            <p
                                 v-for="(paragraph, index) in descriptions"
                                 :key="index"
-                                class="text-gray-600 text-base sm:text-lg lg:text-[18px] leading-relaxed"
+                                class="text-gray-600 text-base sm:text-lg md:text-xl lg:text-[28px] leading-relaxed lg:leading-[42px]"
                             >
                                 {{ paragraph }}
                             </p>
@@ -73,6 +61,20 @@
                                     </svg>
                                 </div>
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Image Side - Shows second on mobile -->
+                    <div
+                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2 lg:order-none"
+                        :class="imagePosition === 'right' ? 'lg:order-1' : ''"
+                    >
+                        <div class="relative rounded-3xl overflow-hidden shadow-xl">
+                            <img
+                                :src="imageSrc"
+                                :alt="imageAlt"
+                                class="w-full h-48 sm:h-56 md:h-64 lg:h-auto object-cover"
+                            />
                         </div>
                     </div>
                 </div>

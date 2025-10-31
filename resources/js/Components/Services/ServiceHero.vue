@@ -1,7 +1,7 @@
 <template>
     <!-- Service Hero Section - Reusable Component -->
     <section
-        class="service-hero-section relative flex items-center justify-center overflow-hidden pt-32 sm:pt-40 lg:pt-48 pb-20 sm:pb-28 lg:pb-36"
+        class="service-hero-section relative flex items-center justify-center overflow-hidden pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36"
         :style="{
             backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
             backgroundColor: backgroundColor || '#121212',
@@ -22,24 +22,24 @@
         <!-- Content Container -->
         <div class="container-custom relative z-10 px-4 sm:px-6 lg:px-8 xl:px-[100px]">
             <div class="max-w-[1518px] mx-auto">
-                <!-- Content limited to 50% width for proper line breaking -->
-                <div class="max-w-[60%]">
+                <!-- Content with responsive width for proper line breaking -->
+                <div class="max-w-full sm:max-w-[90%] md:max-w-[80%] lg:max-w-[70%] xl:max-w-[60%]">
                     <!-- Main Heading - Left Aligned with line break -->
                     <h1
-                        :class="['service-hero-title text-white font-semibold mb-6 sm:mb-8 animate-fadeInUp leading-[1.1]', titleClasses]"
+                        :class="['service-hero-title text-white font-semibold mb-4 sm:mb-6 md:mb-8 animate-fadeInUp leading-[1.1] sm:leading-[1.15] md:leading-[1.1]', titleClasses]"
                     >
                         {{ title }}
                     </h1>
 
                     <!-- Subtitle/Description - Left Aligned -->
                     <p
-                        :class="['service-hero-subtitle text-white/90 leading-relaxed mb-10 sm:mb-12 animate-fadeInUp animation-delay-200', subtitleClasses]"
+                        :class="['service-hero-subtitle text-white/90 leading-relaxed mb-8 sm:mb-10 md:mb-12 animate-fadeInUp animation-delay-200', subtitleClasses]"
                     >
                         {{ subtitle }}
                     </p>
 
                     <!-- CTA Button - Left Aligned -->
-                    <div class="flex animate-fadeInUp animation-delay-400">
+                    <div class="flex justify-start animate-fadeInUp animation-delay-400">
                         <button
                             v-if="ctaText"
                             @click="handleCtaClick"
@@ -106,11 +106,11 @@ const props = defineProps({
     },
     titleClasses: {
         type: String,
-        default: 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
+        default: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl'
     },
     subtitleClasses: {
         type: String,
-        default: 'text-lg sm:text-xl md:text-2xl lg:text-[26px]'
+        default: 'text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[26px]'
     },
     showDecorativeElements: {
         type: Boolean,
@@ -160,11 +160,15 @@ const handleCtaClick = () => {
 /* Hero Title Styles */
 .service-hero-title {
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 /* Hero Subtitle Styles */
 .service-hero-subtitle {
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    line-height: 1.5;
 }
 
 /* CTA Button Styles */
@@ -224,95 +228,40 @@ const handleCtaClick = () => {
 
 /* Responsive Styles */
 
+/* Override inline minHeight with responsive values */
+.service-hero-section {
+    min-height: 90vh !important;
+}
+
+/* Extra Large Screens (2XL) */
+@media (min-width: 1536px) {
+    .service-hero-section {
+        min-height: 95vh !important;
+    }
+}
+
 /* Extra Large Screens */
 @media (max-width: 1536px) {
-    .service-hero-title {
-        font-size: 6rem;
-        line-height: 1.1;
-    }
-
-    .service-hero-subtitle {
-        font-size: 1.625rem;
-        line-height: 1.6;
+    .service-hero-section {
+        min-height: 90vh !important;
     }
 }
 
-/* Large Screens */
+/* Large Screens (XL) */
 @media (max-width: 1280px) {
     .service-hero-section {
-        padding-top: 140px;
-        padding-bottom: 100px;
-    }
-
-    .max-w-\[50\%\] {
-        max-width: 55%;
-    }
-
-    .service-hero-title {
-        font-size: 5rem;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-    }
-
-    .service-hero-subtitle {
-        font-size: 1.5rem;
-        line-height: 1.6;
-        margin-bottom: 2.5rem;
+        min-height: 85vh !important;
+        padding-top: 11rem;
+        padding-bottom: 6rem;
     }
 }
 
-/* Laptop/Tablet Landscape */
+/* Large Screens (LG) - Laptop/Tablet Landscape */
 @media (max-width: 1024px) {
     .service-hero-section {
-        min-height: 85vh;
-        padding-top: 120px;
-        padding-bottom: 80px;
-    }
-
-    .max-w-\[50\%\] {
-        max-width: 65%;
-    }
-
-    .service-hero-title {
-        font-size: 4.5rem;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-    }
-
-    .service-hero-subtitle {
-        font-size: 1.375rem;
-        line-height: 1.6;
-        margin-bottom: 2.5rem;
-    }
-
-    .service-cta-button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
-}
-
-/* Tablet Portrait */
-@media (max-width: 768px) {
-    .service-hero-section {
-        min-height: 80vh;
-        padding-top: 140px;
-        padding-bottom: 60px;
-    }
-
-    .max-w-\[50\%\] {
-        max-width: 80%;
-    }
-
-    .service-hero-title {
-        font-size: 3.5rem;
-        line-height: 1.1;
-        margin-bottom: 1.25rem;
-    }
-
-    .service-hero-subtitle {
-        font-size: 1.25rem;
-        line-height: 1.6;
-        margin-bottom: 2rem;
+        min-height: 80vh !important;
+        padding-top: 9rem;
+        padding-bottom: 5rem;
     }
 
     .service-cta-button {
@@ -321,28 +270,12 @@ const handleCtaClick = () => {
     }
 }
 
-/* Mobile Landscape / Large Phones */
-@media (max-width: 640px) {
+/* Medium Screens (MD) - Tablet Portrait */
+@media (max-width: 768px) {
     .service-hero-section {
-        min-height: 100vh;
-        padding-top: 140px;
-        padding-bottom: 50px;
-    }
-
-    .max-w-\[50\%\] {
-        max-width: 100%;
-    }
-
-    .service-hero-title {
-        font-size: 2.75rem;
-        line-height: 1.15;
-        margin-bottom: 1rem;
-    }
-
-    .service-hero-subtitle {
-        font-size: 1.125rem;
-        line-height: 1.5;
-        margin-bottom: 1.5rem;
+        min-height: 60vh !important;
+        padding-top: 6rem;
+        padding-bottom: 3rem;
     }
 
     .service-cta-button {
@@ -357,39 +290,69 @@ const handleCtaClick = () => {
     }
 }
 
+/* Small Screens (SM) - Mobile Landscape / Large Phones */
+@media (max-width: 640px) {
+    .service-hero-section {
+        min-height: 60vh !important;
+        padding-top: 5rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .container-custom {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .service-cta-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8125rem;
+        gap: 0.375rem;
+    }
+
+    .service-cta-button svg {
+        width: 0.875rem;
+        height: 0.875rem;
+    }
+}
+
 /* Small Mobile */
 @media (max-width: 480px) {
     .service-hero-section {
-        padding-top: 120px;
-        padding-bottom: 40px;
+        min-height: 60vh !important;
+        padding-top: 4rem;
+        padding-bottom: 2rem;
     }
 
-    .service-hero-title {
-        font-size: 2rem;
-        line-height: 1.15;
-    }
-
-    .service-hero-subtitle {
-        font-size: 0.9375rem;
-        line-height: 1.5;
+    .container-custom {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 
     .service-cta-button {
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
+        padding: 0.6875rem 1rem;
+        font-size: 0.75rem;
     }
 }
 
 /* Extra Small Mobile */
 @media (max-width: 375px) {
-    .service-hero-title {
-        font-size: 1.75rem;
-        line-height: 1.2;
+    .service-hero-section {
+        min-height: 60vh !important;
+        padding-top: 3.5rem;
+        padding-bottom: 1.5rem;
     }
 
-    .service-hero-subtitle {
-        font-size: 0.875rem;
-        line-height: 1.5;
+    .container-custom {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .service-cta-button {
+        max-width: 260px;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.6875rem;
     }
 }
 </style>

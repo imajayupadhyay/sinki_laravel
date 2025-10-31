@@ -3,7 +3,7 @@
         <div class="max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-16 xl:px-20 2xl:px-24">
             <!-- Section Header -->
             <div class="text-center mb-12 lg:mb-16 xl:mb-20">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-semibold text-[#121212] leading-tight lg:leading-[64px] max-w-[1200px] mx-auto">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] font-semibold text-[#121212] leading-tight lg:leading-[64px] max-w-[1200px] mx-auto">
                     {{ title }}
                 </h2>
             </div>

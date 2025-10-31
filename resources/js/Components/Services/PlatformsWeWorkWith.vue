@@ -13,7 +13,7 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[58px] leading-tight lg:leading-[64px] mb-6 max-w-[852px] animate-slide-up">
+                    <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 max-w-[852px] animate-slide-up">
                         {{ title }}
                     </h2>
 

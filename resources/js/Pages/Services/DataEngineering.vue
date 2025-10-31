@@ -15,9 +15,8 @@
             :background-image="heroBackgroundImage"
             background-color="#121212"
             overlay-gradient="linear-gradient(180deg, rgba(18,18,18,0.4) 0%, rgba(18,18,18,0.4) 100%)"
-            min-height="95vh"
-            title-classes="text-[5rem]"
-            subtitle-classes="text-[1.25rem] sm:text-[1.375rem] md:text-[1.5rem] lg:text-[1.625rem] xl:text-[1.75rem] leading-[1.6]"
+            title-classes="text-[2.5rem] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[5rem]"
+            subtitle-classes="text-sm sm:text-base md:text-lg lg:text-xl xl:text-[1.375rem] 2xl:text-[1.5rem] leading-[1.6]"
             :show-decorative-elements="true"
             @cta-click="handleCtaClick"
         />

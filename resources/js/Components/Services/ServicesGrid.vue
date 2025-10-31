@@ -3,12 +3,12 @@
 
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
             <!-- Main Heading -->
-            <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[58px] leading-tight lg:leading-[64px] mb-6 text-center max-w-[1210px] mx-auto animate-slide-up">
+            <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 text-center max-w-[1210px] mx-auto animate-slide-up">
                 {{ title }}
             </h2>
 
             <!-- Description -->
-            <p v-if="description" class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] mb-16 text-center max-w-[1210px] mx-auto animate-slide-up-delayed">
+            <p v-if="description" class="text-brand-dark text-base sm:text-lg md:text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] mb-16 text-center max-w-[1210px] mx-auto animate-slide-up-delayed">
                 {{ description }}
             </p>
 
@@ -241,30 +241,9 @@ const props = defineProps({
     }
 }
 
-@media (max-width: 1280px) {
-    .services-grid-section h2 {
-        font-size: 64px;
-        line-height: 70px;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 26px;
-        line-height: 39px;
-    }
-}
 
 /* New breakpoint for 1200px range */
 @media (max-width: 1200px) {
-    .services-grid-section h2 {
-        font-size: 56px !important;
-        line-height: 62px !important;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 24px !important;
-        line-height: 36px !important;
-    }
-
     .icon-wrapper {
         width: 75px !important;
         height: 75px !important;
@@ -290,28 +269,9 @@ const props = defineProps({
     .services-grid-section {
         padding: 60px 0;
     }
-
-    .services-grid-section h2 {
-        font-size: 52px;
-        line-height: 58px;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 22px;
-        line-height: 33px;
-    }
 }
 
 @media (max-width: 768px) {
-    .services-grid-section h2 {
-        font-size: 40px;
-        line-height: 48px;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 20px;
-        line-height: 30px;
-    }
 
     .icon-wrapper {
         width: 70px !important;
@@ -338,16 +298,6 @@ const props = defineProps({
         padding: 40px 0;
     }
 
-    .services-grid-section h2 {
-        font-size: 32px;
-        line-height: 40px;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 18px;
-        line-height: 27px;
-    }
-
     .service-card {
         padding: 1.5rem !important;
     }
@@ -356,16 +306,6 @@ const props = defineProps({
 @media (max-width: 480px) {
     .services-grid-section {
         padding: 30px 0;
-    }
-
-    .services-grid-section h2 {
-        font-size: 28px;
-        line-height: 36px;
-    }
-
-    .services-grid-section > div > p {
-        font-size: 16px;
-        line-height: 24px;
     }
 
     .service-card {
