@@ -51,6 +51,9 @@
             background-image="/images/heroobannersinki.png"
         />
 
+        <!-- Our Approach Section -->
+        <OurApproach />
+
         <!-- Additional Sections Will Go Here -->
     
 
@@ -67,6 +70,7 @@ import ServiceHero from '@/Components/Services/ServiceHero.vue';
 import ParnerBadge from '@/Components/Services/ParnerBadge.vue';
 import ImageContentSection from '@/Components/Services/ImageContentSection.vue';
 import ServicesGrid from '@/Components/Services/ServicesGrid.vue';
+import OurApproach from '@/Components/Services/OurApproach.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
