@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,16 @@ Route::get('/terms-and-conditions', function () {
 Route::get('/privacy-policy', function () {
     return Inertia::render('PrivacyPolicy');
 })->name('privacy-policy');
+
+
+// Services Routes Group
+Route::prefix('services')->name('services.')->group(function () {
+    
+    // Data Engineering & Modernization Services
+    Route::get('/data-engineering', [ServiceController::class, 'dataEngineering'])
+        ->name('data-engineering');
+});
+
 
 // Include admin routes
 require __DIR__.'/admin.php';
