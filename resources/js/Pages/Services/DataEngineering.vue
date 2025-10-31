@@ -57,6 +57,14 @@
         <!-- Key Benefits Section -->
         <KeyBenefits />
 
+        <!-- Platforms We Work With Section -->
+        <PlatformsWeWorkWith
+            section-id="platforms-data-engineering"
+            section-label="Platforms We Work With"
+            title="Built on the Platforms You Trust"
+            description="We bring Databricks to life on the enterprise platforms you already rely on."
+        />
+
         <!-- Additional Sections Will Go Here -->
     
 
@@ -75,6 +83,7 @@ import ImageContentSection from '@/Components/Services/ImageContentSection.vue';
 import ServicesGrid from '@/Components/Services/ServicesGrid.vue';
 import OurApproach from '@/Components/Services/OurApproach.vue';
 import KeyBenefits from '@/Components/Services/KeyBenefits.vue';
+import PlatformsWeWorkWith from '@/Components/Services/PlatformsWeWorkWith.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
