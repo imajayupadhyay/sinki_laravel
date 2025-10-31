@@ -1,5 +1,5 @@
 <template>
-    <section class="our-approach-section bg-gray-50 py-20 lg:py-32 relative overflow-hidden">
+    <section class="our-approach-section bg-white py-20 lg:py-32 relative overflow-hidden">
         <!-- Background decorative elements -->
         <div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed"></div>
