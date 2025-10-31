@@ -1,15 +1,5 @@
 <template>
-    <section class="services-grid-section relative overflow-hidden py-20 lg:py-32" :class="backgroundColor">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 z-0" v-if="backgroundImage">
-            <img
-                :src="backgroundImage"
-                alt="Background"
-                class="w-full h-full object-cover"
-                @error="handleImageError"
-            >
-            <div class="absolute inset-0"></div>
-        </div>
+    <section class="services-grid-section relative overflow-hidden py-20 lg:py-32">
 
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
             <!-- Main Heading -->
@@ -81,17 +71,8 @@ const props = defineProps({
     backgroundColor: {
         type: String,
         default: 'bg-white'
-    },
-    backgroundImage: {
-        type: String,
-        default: ''
     }
 });
-
-// Handle image loading errors
-const handleImageError = (event) => {
-    console.error('Failed to load background image:', event.target.src);
-};
 </script>
 
 <style scoped>
@@ -103,7 +84,7 @@ const handleImageError = (event) => {
 /* Services Grid Section Styles */
 .services-grid-section {
     position: relative;
-    background: #ffffff;
+    background: linear-gradient(180deg, #f5f5dc 0%, #fffef8 100%);
 }
 
 /* Container Custom */

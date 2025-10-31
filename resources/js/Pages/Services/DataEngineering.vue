@@ -48,7 +48,6 @@
             title="Our Data Engineering & Modernization Services"
             description="We offer a comprehensive suite of data engineering and modernization services."
             :services="dataEngineeringServices"
-            background-image="/images/heroobannersinki.png"
         />
 
         <!-- Our Approach Section -->
@@ -63,6 +62,12 @@
             section-label="Platforms We Work With"
             title="Built on the Platforms You Trust"
             description="We bring Databricks to life on the enterprise platforms you already rely on."
+        />
+
+        <!-- Why Choose Us Section -->
+        <WhyChooseUs
+            title="Why Choose us for your Data Engineering needs?"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         />
 
         <!-- Additional Sections Will Go Here -->
@@ -84,6 +89,7 @@ import ServicesGrid from '@/Components/Services/ServicesGrid.vue';
 import OurApproach from '@/Components/Services/OurApproach.vue';
 import KeyBenefits from '@/Components/Services/KeyBenefits.vue';
 import PlatformsWeWorkWith from '@/Components/Services/PlatformsWeWorkWith.vue';
+import WhyChooseUs from '@/Components/Services/WhyChooseUs.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 
 // Hero background image - you can change this to your uploaded image path
