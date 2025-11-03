@@ -190,6 +190,15 @@ class BlogsController extends Controller
             ->with('success', 'Blog duplicated successfully. You can now edit the duplicated post.');
     }
 
+    public function preview(Blog $blog)
+    {
+        if ($blog->status === 'published') {
+            return redirect()->route('blog.show', $blog->slug);
+        }
+
+        return redirect()->route('blog.preview', $blog->slug);
+    }
+
     public function destroy(Blog $blog)
     {
         $blog->tags()->detach();

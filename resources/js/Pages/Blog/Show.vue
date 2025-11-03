@@ -5,6 +5,17 @@
             <meta name="keywords" :content="blog.meta_keywords" />
         </Head>
 
+        <!-- Preview Banner -->
+        <div v-if="isPreview" class="bg-yellow-500 text-black px-4 py-2 text-center font-medium">
+            <span class="inline-flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                You are viewing a preview of this draft blog post. This is not visible to the public.
+            </span>
+        </div>
+
         <!-- Header Component -->
         <Header />
 
@@ -273,6 +284,10 @@ const props = defineProps({
     relatedBlogs: {
         type: Array,
         default: () => []
+    },
+    isPreview: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -474,7 +489,6 @@ const handleImageError = (event) => {
     margin: 2rem 0;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
 }
 
 .blog-content :deep(figure) {

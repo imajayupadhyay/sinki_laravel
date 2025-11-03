@@ -251,6 +251,13 @@
                                 {{ blogForm.processing ? 'Updating...' : 'Update Blog Post' }}
                             </button>
                             <Link
+                                :href="route('admin.blogs.preview', blog.id)"
+                                target="_blank"
+                                class="w-full px-4 py-2 text-sm font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md transition-colors duration-200 text-center block"
+                            >
+                                Preview Blog Post
+                            </Link>
+                            <Link
                                 :href="route('admin.blogs.index')"
                                 class="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200 text-center block"
                             >
