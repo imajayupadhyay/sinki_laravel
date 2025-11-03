@@ -257,9 +257,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <BlogCTA />
-
         <!-- Footer Component -->
         <FooterSection />
     </div>

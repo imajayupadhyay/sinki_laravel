@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, onUnmounted } from 'vue';
+import { ref, onMounted, watch, onUnmounted, nextTick } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
@@ -253,6 +253,8 @@ const insertCTA = () => {
 let htmlViewMode = false;
 let originalContent = '';
 
+// Removed JavaScript sticky functionality - using pure CSS flexbox solution
+
 const toggleHTMLView = () => {
     if (!htmlViewMode) {
         // Switch to HTML view
@@ -380,6 +382,10 @@ onUnmounted(() => {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
 :deep(.ql-toolbar) {
@@ -387,6 +393,17 @@ onUnmounted(() => {
     border-bottom: 1px solid #e5e7eb;
     background: #f9fafb;
     padding: 12px;
+    border-radius: 8px 8px 0 0;
+    margin: 0;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: box-shadow 0.2s ease;
+}
+
+:deep(.ql-toolbar:hover) {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 :deep(.ql-container) {
@@ -394,11 +411,16 @@ onUnmounted(() => {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    border-radius: 0 0 8px 8px;
+    overflow-y: auto;
+    flex: 1;
+    height: 0;
 }
 
 :deep(.ql-editor) {
     padding: 16px;
-    min-height: 400px;
+    min-height: calc(100vh - 200px);
+    height: auto;
 }
 
 :deep(.ql-editor.ql-blank::before) {
