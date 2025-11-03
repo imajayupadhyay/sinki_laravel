@@ -2,6 +2,7 @@
     <div class="min-h-screen bg-white">
         <Head title="Data Engineering & Modernization Services | Sinki.ai">
             <meta name="description" content="We help enterprises design, modernize, and manage data systems that accelerate insights, drive innovation, and optimize costs." />
+            <meta name="robots" content="noindex, nofollow" />
         </Head>
 
         <!-- Header Component -->
