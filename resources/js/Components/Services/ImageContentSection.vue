@@ -12,8 +12,8 @@
                 >
                     <!-- Content Side - Shows first on mobile -->
                     <div
-                        class="content-container w-full lg:w-[65%] flex-grow order-1 lg:order-none"
-                        :class="imagePosition === 'right' ? 'lg:order-2' : ''"
+                        class="content-container w-full lg:w-[65%] flex-grow order-1"
+                        :class="imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'"
                     >
                         <!-- Main Heading -->
                         <h2
@@ -35,7 +35,7 @@
                             <p
                                 v-for="(paragraph, index) in descriptions"
                                 :key="index"
-                                class="text-gray-600 text-base sm:text-lg md:text-xl lg:text-[28px] leading-relaxed lg:leading-[42px]"
+                                class="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed"
                             >
                                 {{ paragraph }}
                             </p>
@@ -66,14 +66,14 @@
 
                     <!-- Image Side - Shows second on mobile -->
                     <div
-                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2 lg:order-none"
-                        :class="imagePosition === 'right' ? 'lg:order-1' : ''"
+                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2"
+                        :class="imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'"
                     >
                         <div class="relative rounded-3xl overflow-hidden shadow-xl">
                             <img
                                 :src="imageSrc"
                                 :alt="imageAlt"
-                                class="w-full h-48 sm:h-56 md:h-64 lg:h-auto object-cover"
+                                class="w-full h-48 sm:h-56 md:h-64 lg:h-[65vh] object-cover"
                             />
                         </div>
                     </div>
@@ -248,7 +248,7 @@ const handleCtaClick = () => {
     }
     
     .section-description p {
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
@@ -264,18 +264,18 @@ const handleCtaClick = () => {
         line-height: 1.1;
         margin-bottom: 1.5rem;
     }
-    
+
     .section-subtitle {
         font-size: 22px;
         margin-bottom: 1.5rem;
     }
-    
+
     .section-description {
         margin-bottom: 2rem;
     }
-    
+
     .section-description p {
-        font-size: 16px;
+        font-size: 15px;
     }
     
     .cta-button {
@@ -296,18 +296,18 @@ const handleCtaClick = () => {
         line-height: 1.1;
         margin-bottom: 1.25rem;
     }
-    
+
     .section-subtitle {
         font-size: 20px;
         margin-bottom: 1.25rem;
     }
-    
+
     .section-description {
         margin-bottom: 1.75rem;
     }
-    
+
     .section-description p {
-        font-size: 15px;
+        font-size: 14px;
     }
     
     .cta-button {
