@@ -1,6 +1,84 @@
 <template>
     <div class="quill-editor-wrapper">
         <div ref="editorRef" class="quill-editor"></div>
+
+        <!-- CTA Modal -->
+        <div v-if="showCTAModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="cancelCTA">
+            <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Insert CTA Block</h3>
+
+                <form @submit.prevent="submitCTA" class="space-y-4">
+                    <!-- Title -->
+                    <div>
+                        <label for="cta-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        <input
+                            id="cta-title"
+                            v-model="ctaForm.title"
+                            type="text"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            placeholder="Enter CTA title"
+                            required
+                        />
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="cta-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea
+                            id="cta-description"
+                            v-model="ctaForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            placeholder="Enter CTA description"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Button Text -->
+                    <div>
+                        <label for="cta-button-text" class="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+                        <input
+                            id="cta-button-text"
+                            v-model="ctaForm.buttonText"
+                            type="text"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            placeholder="Enter button text"
+                            required
+                        />
+                    </div>
+
+                    <!-- Button URL -->
+                    <div>
+                        <label for="cta-button-url" class="block text-sm font-medium text-gray-700 mb-1">Button URL</label>
+                        <input
+                            id="cta-button-url"
+                            v-model="ctaForm.buttonUrl"
+                            type="url"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            placeholder="Enter button URL (e.g., /contact)"
+                            required
+                        />
+                    </div>
+
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button
+                            type="button"
+                            @click="cancelCTA"
+                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            Insert CTA
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -230,24 +308,36 @@ const insertTable = () => {
     }
 };
 
+// CTA Modal state
+const showCTAModal = ref(false);
+const ctaForm = ref({
+    title: 'Want to Boost Your Business with AI?',
+    description: 'Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.',
+    buttonText: 'Schedule A Free Consultation',
+    buttonUrl: '/contact'
+});
+let ctaInsertRange = null;
+
 const insertCTA = () => {
-    const title = prompt('CTA Title:', 'Want to Boost Your Business with AI?') || 'Want to Boost Your Business with AI?';
-    const description = prompt('CTA Description:', 'Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.') || 'Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.';
-    const buttonText = prompt('Button Text:', 'Schedule A Free Consultation') || 'Schedule A Free Consultation';
-    const buttonUrl = prompt('Button URL:', '/contact') || '/contact';
-
-    const ctaData = {
-        title,
-        description,
-        buttonText,
-        buttonUrl
-    };
-
-    const range = quill.getSelection();
-    if (range) {
-        quill.insertEmbed(range.index, 'cta', ctaData);
-        quill.setSelection(range.index + 1);
+    ctaInsertRange = quill.getSelection();
+    if (ctaInsertRange) {
+        showCTAModal.value = true;
     }
+};
+
+const submitCTA = () => {
+    if (ctaInsertRange) {
+        const ctaData = { ...ctaForm.value };
+        quill.insertEmbed(ctaInsertRange.index, 'cta', ctaData);
+        quill.setSelection(ctaInsertRange.index + 1);
+    }
+    showCTAModal.value = false;
+    ctaInsertRange = null;
+};
+
+const cancelCTA = () => {
+    showCTAModal.value = false;
+    ctaInsertRange = null;
 };
 
 let htmlViewMode = false;
