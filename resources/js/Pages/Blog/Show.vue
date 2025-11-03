@@ -467,6 +467,34 @@ const handleImageError = (event) => {
     line-height: 1.6;
 }
 
+/* Image Styling - Full Width */
+.blog-content :deep(img) {
+    width: 100%;
+    height: auto;
+    margin: 2rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.blog-content :deep(figure) {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.blog-content :deep(figure img) {
+    margin: 0 auto;
+}
+
+.blog-content :deep(figcaption) {
+    font-size: 16px;
+    color: #666666;
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 /* Table Styling */
 .blog-content :deep(table) {
     width: 100%;
