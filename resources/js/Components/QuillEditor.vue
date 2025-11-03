@@ -9,6 +9,98 @@ import { ref, onMounted, watch, onUnmounted } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
+// Custom CTA Blot
+const BlockEmbed = Quill.import('blots/block/embed');
+
+class CTABlot extends BlockEmbed {
+    static create(value) {
+        const node = super.create();
+        node.setAttribute('data-cta', JSON.stringify(value));
+        node.innerHTML = `
+            <div style="
+                position: relative;
+                border-radius: 25px;
+                padding: 48px 32px;
+                text-align: center;
+                overflow: hidden;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                min-height: 300px;
+                background-color: #F6F6E0;
+                border: 2px dashed #FF3621;
+            ">
+                <div style="
+                    position: absolute;
+                    top: -10px;
+                    left: 10px;
+                    background: #FF3621;
+                    color: white;
+                    padding: 2px 8px;
+                    font-size: 12px;
+                    border-radius: 4px;
+                    font-weight: bold;
+                    z-index: 20;
+                ">CTA Block</div>
+                <div style="position: relative; z-index: 10; margin: 0 auto;">
+                    <h2 style="
+                        color: #121212;
+                        font-weight: 600;
+                        font-size: 32px;
+                        line-height: 1.2;
+                        margin-bottom: 16px;
+                        margin-top: 0;
+                        font-family: 'Instrument Sans', sans-serif;
+                    ">${value.title}</h2>
+                    <p style="
+                        color: #666666;
+                        font-size: 18px;
+                        line-height: 1.5;
+                        margin-bottom: 32px;
+                        margin-top: 0;
+                        font-family: 'Instrument Sans', sans-serif;
+                    ">${value.description}</p>
+                    <a href="${value.buttonUrl}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 12px 24px;
+                        background-color: black;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 50px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        transition: all 0.3s ease;
+                        border: 2px solid black;
+                        font-family: 'Instrument Sans', sans-serif;
+                    ">
+                        <span>${value.buttonText}</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        `;
+        return node;
+    }
+
+    static value(node) {
+        const data = node.getAttribute('data-cta');
+        return data ? JSON.parse(data) : {};
+    }
+
+    static formats(node) {
+        return this.value(node);
+    }
+}
+
+CTABlot.blotName = 'cta';
+CTABlot.tagName = 'div';
+CTABlot.className = 'blog-cta-embed';
+
+Quill.register(CTABlot);
+
 const props = defineProps({
     modelValue: {
         type: String,
@@ -70,7 +162,10 @@ const initializeEditor = () => {
                     ['clean'],
 
                     // Custom HTML view button
-                    ['html-view']
+                    ['html-view'],
+
+                    // Custom CTA button
+                    ['cta-insert']
                 ],
                 handlers: {
                     'table': function() {
@@ -78,6 +173,9 @@ const initializeEditor = () => {
                     },
                     'html-view': function() {
                         toggleHTMLView();
+                    },
+                    'cta-insert': function() {
+                        insertCTA();
                     }
                 }
             },
@@ -129,6 +227,26 @@ const insertTable = () => {
         if (range) {
             quill.clipboard.dangerouslyPasteHTML(range.index, tableHTML);
         }
+    }
+};
+
+const insertCTA = () => {
+    const title = prompt('CTA Title:', 'Want to Boost Your Business with AI?') || 'Want to Boost Your Business with AI?';
+    const description = prompt('CTA Description:', 'Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.') || 'Let Jellyfish Technologies build powerful generative and predictive AI solutions to streamline your operations and increase ROI.';
+    const buttonText = prompt('Button Text:', 'Schedule A Free Consultation') || 'Schedule A Free Consultation';
+    const buttonUrl = prompt('Button URL:', '/contact') || '/contact';
+
+    const ctaData = {
+        title,
+        description,
+        buttonText,
+        buttonUrl
+    };
+
+    const range = quill.getSelection();
+    if (range) {
+        quill.insertEmbed(range.index, 'cta', ctaData);
+        quill.setSelection(range.index + 1);
     }
 };
 
@@ -216,6 +334,23 @@ const addCustomButtons = () => {
         htmlButton.style.padding = '0 8px';
         htmlButton.style.fontSize = '12px';
         htmlButton.style.fontWeight = 'bold';
+    }
+
+    // Add custom CTA button
+    const ctaButton = document.querySelector('.ql-cta-insert');
+    if (ctaButton) {
+        ctaButton.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        `;
+        ctaButton.title = 'Insert CTA';
+        ctaButton.style.background = '#FF3621';
+        ctaButton.style.color = 'white';
+        ctaButton.style.borderRadius = '4px';
+        ctaButton.style.border = 'none';
+        ctaButton.style.padding = '6px';
+        ctaButton.style.margin = '0 2px';
     }
 };
 
@@ -360,6 +495,133 @@ onUnmounted(() => {
 
 :deep(.ql-html-view:hover) {
     background: #f3f4f6;
+}
+
+/* CTA button styling */
+:deep(.ql-cta-insert) {
+    background: #FF3621 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: white !important;
+    cursor: pointer;
+    padding: 6px !important;
+    margin: 0 2px !important;
+}
+
+:deep(.ql-cta-insert:hover) {
+    background: #e53e3e !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* CTA content styling in editor */
+:deep(.ql-editor .blog-cta-wrapper),
+:deep(.ql-editor div.blog-cta-wrapper) {
+    margin: 20px 0 !important;
+    padding: 0 !important;
+    border: 2px dashed #FF3621 !important;
+    border-radius: 8px !important;
+    position: relative !important;
+    display: block !important;
+}
+
+:deep(.ql-editor .blog-cta-wrapper::before),
+:deep(.ql-editor div.blog-cta-wrapper::before) {
+    content: 'CTA Block' !important;
+    position: absolute !important;
+    top: -10px !important;
+    left: 10px !important;
+    background: #FF3621 !important;
+    color: white !important;
+    padding: 2px 8px !important;
+    font-size: 12px !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+    z-index: 20 !important;
+}
+
+:deep(.ql-editor .blog-cta-container),
+:deep(.ql-editor div.blog-cta-container) {
+    position: relative !important;
+    border-radius: 20px !important;
+    padding: 40px 24px !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    min-height: 250px !important;
+    background-color: #F6F6E0 !important;
+    background-image: none !important;
+    display: block !important;
+}
+
+:deep(.ql-editor .blog-cta-content),
+:deep(.ql-editor div.blog-cta-content) {
+    position: relative !important;
+    z-index: 10 !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+:deep(.ql-editor .blog-cta-container h2),
+:deep(.ql-editor div.blog-cta-container h2) {
+    color: #121212 !important;
+    font-weight: 600 !important;
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+    text-shadow: none !important;
+    display: block !important;
+}
+
+:deep(.ql-editor .blog-cta-container p),
+:deep(.ql-editor div.blog-cta-container p) {
+    color: #666666 !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 24px !important;
+    margin-top: 0 !important;
+    text-shadow: none !important;
+    display: block !important;
+}
+
+:deep(.ql-editor .blog-cta-container a),
+:deep(.ql-editor div.blog-cta-container a) {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 10px 20px !important;
+    background-color: black !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid black !important;
+    text-shadow: none !important;
+}
+
+:deep(.ql-editor .blog-cta-container a:hover),
+:deep(.ql-editor div.blog-cta-container a:hover) {
+    background-color: transparent !important;
+    color: black !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+    text-decoration: none !important;
+}
+
+:deep(.ql-editor .blog-cta-container a span),
+:deep(.ql-editor div.blog-cta-container a span) {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+:deep(.ql-editor .blog-cta-container a svg),
+:deep(.ql-editor div.blog-cta-container a svg) {
+    fill: none !important;
+    stroke: currentColor !important;
 }
 
 /* Focus styling */

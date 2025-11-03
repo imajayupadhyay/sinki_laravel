@@ -257,6 +257,9 @@
             </div>
         </section>
 
+        <!-- CTA Section -->
+        <BlogCTA />
+
         <!-- Footer Component -->
         <FooterSection />
     </div>
@@ -264,8 +267,10 @@
 
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import { onMounted, nextTick } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import BlogCTA from '@/Components/BlogCTA.vue';
 
 // Props from BlogController
 const props = defineProps({
@@ -315,6 +320,97 @@ const handleImageError = (event) => {
         event.target.src = '/images/placeholder.png';
     }
 };
+
+// Process CTA blocks in blog content
+const processCTABlocks = () => {
+    nextTick(() => {
+        const blogContent = document.querySelector('.blog-content');
+        if (!blogContent) return;
+
+        // Find all CTA embed elements
+        const ctaElements = blogContent.querySelectorAll('.blog-cta-embed[data-cta]');
+
+        ctaElements.forEach(element => {
+            try {
+                const ctaData = JSON.parse(element.getAttribute('data-cta'));
+
+                // Create the properly styled CTA HTML
+                const ctaHTML = `
+                    <div class="blog-cta-wrapper-processed" style="padding: 0;">
+                        <div class="blog-cta-container-processed" style="
+                            position: relative;
+                            border-radius: 25px;
+                            padding: 48px 32px;
+                            text-align: center;
+                            overflow: hidden;
+                            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                            min-height: 320px;
+                            background-color: #F6F6E0;
+                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            display: block;
+                        ">
+                            <div style="position: relative; z-index: 10; margin: 0 auto;">
+                                <h2 style="
+                                    color: #121212;
+                                    font-weight: 600;
+                                    font-size: 36px;
+                                    line-height: 1.2;
+                                    margin-bottom: 16px;
+                                    margin-top: 0;
+                                    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                    display: block;
+                                ">${ctaData.title}</h2>
+                                <p style="
+                                    color: #666666;
+                                    font-size: 20px;
+                                    line-height: 1.5;
+                                    margin-bottom: 32px;
+                                    margin-top: 0;
+                                    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    margin-bottom: 32px;
+                                    display: block;
+                                ">${ctaData.description}</p>
+                                <a href="${ctaData.buttonUrl}" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 12px;
+                                    padding: 14px 28px;
+                                    background-color: black;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 50px;
+                                    font-weight: bold;
+                                    font-size: 18px;
+                                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+                                    transition: all 0.3s ease;
+                                    border: 2px solid black;
+                                    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                    margin: 0 auto;
+                                " onmouseover="this.style.backgroundColor='transparent'; this.style.color='black';" onmouseout="this.style.backgroundColor='black'; this.style.color='white';">
+                                    <span style="color: inherit; text-decoration: none;">${ctaData.buttonText}</span>
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transition: transform 0.3s ease;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Replace the element with the styled version
+                element.outerHTML = ctaHTML;
+            } catch (error) {
+                console.warn('Failed to process CTA block:', error);
+            }
+        });
+    });
+};
+
+onMounted(() => {
+    processCTABlocks();
+});
 </script>
 
 <style scoped>
@@ -434,6 +530,19 @@ const handleImageError = (event) => {
     color: #121212;
 }
 
+/* Override default link styling for CTA buttons specifically */
+.blog-content :deep(.blog-cta-container a),
+.blog-content :deep(div.blog-cta-container a) {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.blog-content :deep(.blog-cta-container a:hover),
+.blog-content :deep(div.blog-cta-container a:hover) {
+    color: black !important;
+    text-decoration: none !important;
+}
+
 .blog-content :deep(blockquote) {
     border-left: 4px solid #FF3621;
     padding-left: 1.5rem;
@@ -489,6 +598,123 @@ const handleImageError = (event) => {
     margin: 2rem 0;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* CTA Block Styling in Blog Content - More Specific Selectors */
+.blog-content :deep(.blog-cta-wrapper),
+.blog-content :deep(div.blog-cta-wrapper) {
+    margin: 3rem 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    display: block !important;
+}
+
+.blog-content :deep(.blog-cta-container),
+.blog-content :deep(div.blog-cta-container) {
+    position: relative !important;
+    border-radius: 25px !important;
+    padding: 48px 32px !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+    min-height: 320px !important;
+    background-color: #F6F6E0 !important;
+    background-image: none !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    display: block !important;
+}
+
+.blog-content :deep(.blog-cta-container:hover),
+.blog-content :deep(div.blog-cta-container:hover) {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.blog-content :deep(.blog-cta-content),
+.blog-content :deep(div.blog-cta-content) {
+    position: relative !important;
+    z-index: 10 !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+.blog-content :deep(.blog-cta-container h2),
+.blog-content :deep(div.blog-cta-container h2) {
+    color: #121212 !important;
+    font-weight: 600 !important;
+    font-size: 36px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 16px !important;
+    margin-top: 0 !important;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    text-shadow: none !important;
+    display: block !important;
+}
+
+.blog-content :deep(.blog-cta-container p),
+.blog-content :deep(div.blog-cta-container p) {
+    color: #666666 !important;
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 32px !important;
+    margin-top: 0 !important;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    max-width: 600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-shadow: none !important;
+    display: block !important;
+}
+
+.blog-content :deep(.blog-cta-container a),
+.blog-content :deep(div.blog-cta-container a) {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px 28px !important;
+    background-color: black !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid black !important;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    text-shadow: none !important;
+    margin: 0 auto !important;
+}
+
+.blog-content :deep(.blog-cta-container a:hover),
+.blog-content :deep(div.blog-cta-container a:hover) {
+    background-color: transparent !important;
+    color: black !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+    text-decoration: none !important;
+}
+
+.blog-content :deep(.blog-cta-container a span),
+.blog-content :deep(div.blog-cta-container a span) {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.blog-content :deep(.blog-cta-container a svg),
+.blog-content :deep(div.blog-cta-container a svg) {
+    transition: transform 0.3s ease !important;
+    fill: none !important;
+    stroke: currentColor !important;
+}
+
+.blog-content :deep(.blog-cta-container a svg) {
+    transition: transform 0.3s ease;
+}
+
+.blog-content :deep(.blog-cta-container a:hover svg) {
+    transform: translateX(4px);
 }
 
 .blog-content :deep(figure) {
@@ -748,6 +974,29 @@ const handleImageError = (event) => {
         line-height: 30px;
     }
 
+    /* CTA Block Responsive */
+    .blog-content :deep(.blog-cta-container) {
+        padding: 32px 16px;
+        min-height: 280px;
+        border-radius: 20px;
+    }
+
+    .blog-content :deep(.blog-cta-container h2) {
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    .blog-content :deep(.blog-cta-container p) {
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    .blog-content :deep(.blog-cta-container a) {
+        padding: 12px 20px;
+        font-size: 16px;
+        gap: 8px;
+    }
+
     /* Mobile grid adjustments */
     .grid.lg\\:grid-cols-12,
     .grid.lg\\:grid-cols-4 {
@@ -769,6 +1018,36 @@ const handleImageError = (event) => {
 
     .hero-section .lg\\:col-span-5 {
         order: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    /* CTA Block Extra Small */
+    .blog-content :deep(.blog-cta-container) {
+        padding: 24px 12px;
+        min-height: 240px;
+        border-radius: 16px;
+    }
+
+    .blog-content :deep(.blog-cta-container h2) {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .blog-content :deep(.blog-cta-container p) {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .blog-content :deep(.blog-cta-container a) {
+        padding: 10px 16px;
+        font-size: 14px;
+        gap: 6px;
+    }
+
+    .blog-content :deep(.blog-cta-container a svg) {
+        width: 16px;
+        height: 16px;
     }
 }
 
