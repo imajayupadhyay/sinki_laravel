@@ -1,8 +1,13 @@
 <template>
     <div class="min-h-screen bg-white">
         <Head :title="blog.meta_title || blog.title">
-            <meta name="description" :content="blog.meta_description" />
-            <meta name="keywords" :content="blog.meta_keywords" />
+            <meta v-if="!isPreview" name="description" :content="blog.meta_description" />
+            <meta v-if="!isPreview" name="keywords" :content="blog.meta_keywords" />
+
+            <!-- Prevent indexing of preview pages -->
+            <meta v-if="isPreview" name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+            <meta v-if="isPreview" name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+            <meta v-if="isPreview" name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
         </Head>
 
         <!-- Preview Banner -->
