@@ -737,7 +737,7 @@ onMounted(() => {
     width: 100%;
     border-collapse: collapse;
     margin: 2rem 0;
-    border: 1px solid #CDD7D1;
+    border: 2px solid #B8C5BA;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -756,8 +756,8 @@ onMounted(() => {
     line-height: 30px;
     letter-spacing: 0.5px;
     color: #121212;
-    border-bottom: 1px solid #CDD7D1;
-    border-right: 1px solid #CDD7D1;
+    border-bottom: 1px solid #B8C5BA;
+    border-right: 1px solid #B8C5BA;
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -788,11 +788,11 @@ onMounted(() => {
     padding: 16px 20px;
     font-size: 21px;
     font-weight: 400;
-    line-height: 28px;
+    line-height: 37.8px;
     letter-spacing: 0.42px;
     color: #121212;
-    border-bottom: 1px solid #CDD7D1;
-    border-right: 1px solid #CDD7D1;
+    border-bottom: 1px solid #B8C5BA;
+    border-right: 1px solid #B8C5BA;
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -808,7 +808,7 @@ onMounted(() => {
 .blog-content :deep(td:first-child) {
     font-weight: 600;
     font-size: 22px;
-    line-height: 26px;
+    line-height: 26.4px;
     letter-spacing: 0.44px;
     width: 200px;
 }
