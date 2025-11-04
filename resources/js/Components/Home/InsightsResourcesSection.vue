@@ -54,7 +54,7 @@
                             <img
                                 :src="blog.image || '/assets/images/blog1.png'"
                                 :alt="blog.title"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                class="w-full h-full group-hover:scale-110 transition-transform duration-500"
                                 @error="handleImageError"
                             >
                             <div class="blog-image-placeholder hidden items-center justify-center w-full h-full bg-gray-200">
