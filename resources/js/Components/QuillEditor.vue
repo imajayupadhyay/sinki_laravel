@@ -87,9 +87,197 @@ import { ref, onMounted, watch, onUnmounted, nextTick } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
-// Custom CTA Blot
+// Custom Image Blot with Resize and Alignment
 const BlockEmbed = Quill.import('blots/block/embed');
+const Image = Quill.import('formats/image');
 
+class CustomImage extends Image {
+    static create(value) {
+        const node = super.create(value);
+
+        // Set default attributes
+        if (typeof value === 'object') {
+            node.setAttribute('src', value.src || value);
+            node.setAttribute('data-align', value.align || 'center');
+            node.setAttribute('data-width', value.width || '100');
+            node.setAttribute('alt', value.alt || '');
+
+            // Apply styles based on alignment and width
+            this.applyStyles(node, value.align || 'center', value.width || '100');
+        } else {
+            node.setAttribute('src', value);
+            node.setAttribute('data-align', 'center');
+            node.setAttribute('data-width', '100');
+            this.applyStyles(node, 'center', '100');
+        }
+
+        // Add resize handles and controls
+        this.addControls(node);
+
+        return node;
+    }
+
+    static applyStyles(node, align, width) {
+        // Remove existing alignment classes
+        node.classList.remove('image-left', 'image-center', 'image-right');
+
+        // Apply alignment
+        switch(align) {
+            case 'left':
+                node.classList.add('image-left');
+                node.style.float = 'left';
+                node.style.marginRight = '20px';
+                node.style.marginLeft = '0';
+                break;
+            case 'right':
+                node.classList.add('image-right');
+                node.style.float = 'right';
+                node.style.marginLeft = '20px';
+                node.style.marginRight = '0';
+                break;
+            case 'center':
+            default:
+                node.classList.add('image-center');
+                node.style.float = 'none';
+                node.style.margin = '1rem auto';
+                node.style.display = 'block';
+                break;
+        }
+
+        // Apply width
+        node.style.width = width + '%';
+        node.style.maxWidth = '100%';
+        node.style.height = 'auto';
+    }
+
+    static addControls(node) {
+        // Don't add controls if they already exist
+        if (node.querySelector('.image-controls')) return;
+
+        // Create control overlay
+        const controls = document.createElement('div');
+        controls.className = 'image-controls';
+        controls.innerHTML = `
+            <div class="image-toolbar">
+                <button type="button" class="image-btn align-left" title="Align Left">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2z"/>
+                    </svg>
+                </button>
+                <button type="button" class="image-btn align-center" title="Align Center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3h18v2H3V3zm3 4h12v2H6V7zm-3 4h18v2H3v-2zm3 4h12v2H6v-2z"/>
+                    </svg>
+                </button>
+                <button type="button" class="image-btn align-right" title="Align Right">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3h18v2H3V3zm6 4h12v2H9V7zm-6 4h18v2H3v-2zm6 4h12v2H9v-2z"/>
+                    </svg>
+                </button>
+                <div class="image-size-control">
+                    <label>Size:</label>
+                    <select class="size-select">
+                        <option value="25">25%</option>
+                        <option value="50">50%</option>
+                        <option value="75">75%</option>
+                        <option value="100" selected>100%</option>
+                    </select>
+                </div>
+                <button type="button" class="image-btn delete-image" title="Delete Image">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+
+        // Position controls
+        node.style.position = 'relative';
+        node.appendChild(controls);
+
+        // Add event listeners
+        this.addControlListeners(node, controls);
+    }
+
+    static addControlListeners(node, controls) {
+        // Alignment buttons
+        controls.querySelector('.align-left').addEventListener('click', () => {
+            this.updateImage(node, { align: 'left' });
+        });
+
+        controls.querySelector('.align-center').addEventListener('click', () => {
+            this.updateImage(node, { align: 'center' });
+        });
+
+        controls.querySelector('.align-right').addEventListener('click', () => {
+            this.updateImage(node, { align: 'right' });
+        });
+
+        // Size control
+        controls.querySelector('.size-select').addEventListener('change', (e) => {
+            this.updateImage(node, { width: e.target.value });
+        });
+
+        // Delete button
+        controls.querySelector('.delete-image').addEventListener('click', () => {
+            node.remove();
+        });
+
+        // Show/hide controls on hover
+        node.addEventListener('mouseenter', () => {
+            controls.style.opacity = '1';
+        });
+
+        node.addEventListener('mouseleave', () => {
+            controls.style.opacity = '0';
+        });
+    }
+
+    static updateImage(node, updates) {
+        const currentAlign = node.getAttribute('data-align') || 'center';
+        const currentWidth = node.getAttribute('data-width') || '100';
+
+        const newAlign = updates.align || currentAlign;
+        const newWidth = updates.width || currentWidth;
+
+        node.setAttribute('data-align', newAlign);
+        node.setAttribute('data-width', newWidth);
+
+        this.applyStyles(node, newAlign, newWidth);
+
+        // Update size select value
+        const sizeSelect = node.querySelector('.size-select');
+        if (sizeSelect) {
+            sizeSelect.value = newWidth;
+        }
+    }
+
+    static value(node) {
+        return {
+            src: node.getAttribute('src'),
+            align: node.getAttribute('data-align') || 'center',
+            width: node.getAttribute('data-width') || '100',
+            alt: node.getAttribute('alt') || ''
+        };
+    }
+
+    static formats(node) {
+        return {
+            align: node.getAttribute('data-align'),
+            width: node.getAttribute('data-width'),
+            alt: node.getAttribute('alt')
+        };
+    }
+}
+
+CustomImage.blotName = 'customImage';
+CustomImage.tagName = 'IMG';
+CustomImage.className = 'custom-image';
+
+// Register the custom image format
+Quill.register(CustomImage, true);
+
+// Custom CTA Blot
 class CTABlot extends BlockEmbed {
     static create(value) {
         const node = super.create();
@@ -231,7 +419,7 @@ const initializeEditor = () => {
                     ['blockquote', 'code-block'],
 
                     // Links and media
-                    ['link', 'image', 'video'],
+                    ['link', 'custom-image', 'video'],
 
                     // Table (we'll add custom implementation)
                     ['table'],
@@ -246,6 +434,9 @@ const initializeEditor = () => {
                     ['cta-insert']
                 ],
                 handlers: {
+                    'custom-image': function() {
+                        insertCustomImage();
+                    },
                     'table': function() {
                         insertTable();
                     },
@@ -283,6 +474,38 @@ const initializeEditor = () => {
 
     // Add custom table functionality
     addCustomButtons();
+};
+
+const insertCustomImage = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+
+    input.addEventListener('change', function() {
+        const file = input.files[0];
+        if (file) {
+            // Create a FileReader to convert the file to a data URL
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const range = quill.getSelection();
+                if (range) {
+                    // Insert the custom image with default settings
+                    quill.insertEmbed(range.index, 'customImage', {
+                        src: e.target.result,
+                        align: 'center',
+                        width: '100',
+                        alt: file.name
+                    });
+
+                    // Move cursor after the image
+                    quill.setSelection(range.index + 1);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    input.click();
 };
 
 const insertTable = () => {
@@ -400,6 +623,23 @@ const toggleHTMLView = () => {
 };
 
 const addCustomButtons = () => {
+    // Add custom image button
+    const imageButton = document.querySelector('.ql-custom-image');
+    if (imageButton) {
+        imageButton.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 4h16v12l-4-4-4 4-4-4-4 4V4zm16-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 10l2.5-3.21L16.5 11l-4.5 6h-8l4-5 4 4z"/>
+            </svg>
+        `;
+        imageButton.title = 'Insert Image with Controls';
+        imageButton.style.background = '#3b82f6';
+        imageButton.style.color = 'white';
+        imageButton.style.borderRadius = '4px';
+        imageButton.style.border = 'none';
+        imageButton.style.padding = '6px';
+        imageButton.style.margin = '0 2px';
+    }
+
     // Add custom table button
     const tableButton = document.querySelector('.ql-table');
     if (tableButton) {
@@ -742,6 +982,126 @@ onUnmounted(() => {
     box-shadow: 0 0 0 3px rgba(255, 54, 33, 0.1);
 }
 
+/* Custom Image Controls Styling */
+:deep(.ql-editor .custom-image) {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+:deep(.ql-editor .custom-image:hover) {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+:deep(.ql-editor .image-controls) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+:deep(.ql-editor .image-toolbar) {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+:deep(.ql-editor .image-btn) {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    padding: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+:deep(.ql-editor .image-btn:hover) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+:deep(.ql-editor .image-btn.delete-image:hover) {
+    background: rgba(239, 68, 68, 0.8);
+}
+
+:deep(.ql-editor .image-size-control) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: white;
+    font-size: 12px;
+}
+
+:deep(.ql-editor .size-select) {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    padding: 4px 6px;
+    font-size: 11px;
+    outline: none;
+}
+
+:deep(.ql-editor .size-select option) {
+    background: #333;
+    color: white;
+}
+
+/* Image alignment styles */
+:deep(.ql-editor .image-left) {
+    float: left;
+    margin: 0.5rem 1rem 0.5rem 0;
+}
+
+:deep(.ql-editor .image-right) {
+    float: right;
+    margin: 0.5rem 0 0.5rem 1rem;
+}
+
+:deep(.ql-editor .image-center) {
+    display: block;
+    margin: 1rem auto;
+    float: none;
+}
+
+/* Clear floats after images */
+:deep(.ql-editor p:after) {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Custom image button styling */
+:deep(.ql-custom-image) {
+    background: #3b82f6 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: white !important;
+    cursor: pointer;
+    padding: 6px !important;
+    margin: 0 2px !important;
+}
+
+:deep(.ql-custom-image:hover) {
+    background: #2563eb !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Responsive toolbar */
 :deep(.ql-toolbar) {
     display: flex;
@@ -753,6 +1113,21 @@ onUnmounted(() => {
     :deep(.ql-toolbar .ql-formats) {
         margin-right: 8px;
         margin-bottom: 4px;
+    }
+
+    :deep(.ql-editor .image-toolbar) {
+        flex-direction: column;
+        padding: 6px;
+        gap: 4px;
+    }
+
+    :deep(.ql-editor .image-size-control) {
+        font-size: 10px;
+    }
+
+    :deep(.ql-editor .size-select) {
+        padding: 2px 4px;
+        font-size: 10px;
     }
 }
 </style>
