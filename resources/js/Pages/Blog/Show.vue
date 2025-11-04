@@ -758,6 +758,10 @@ onMounted(() => {
     border-bottom: 1px solid #CDD7D1;
     border-right: 1px solid #CDD7D1;
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    word-break: normal;
 }
 
 .blog-content :deep(th:last-child) {
@@ -782,6 +786,10 @@ onMounted(() => {
     border-bottom: 1px solid #CDD7D1;
     border-right: 1px solid #CDD7D1;
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    word-break: normal;
 }
 
 .blog-content :deep(td:last-child) {
@@ -816,6 +824,10 @@ onMounted(() => {
         font-size: 18px;
         line-height: 22px;
         letter-spacing: 0.36px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        word-break: normal;
     }
 
     .blog-content :deep(td) {
@@ -823,6 +835,10 @@ onMounted(() => {
         font-size: 16px;
         line-height: 24px;
         letter-spacing: 0.32px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        word-break: normal;
     }
 
     .blog-content :deep(td:first-child) {
