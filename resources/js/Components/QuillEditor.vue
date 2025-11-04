@@ -87,195 +87,8 @@ import { ref, onMounted, watch, onUnmounted, nextTick } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
-// Custom Image Blot with Resize and Alignment
+// Enhanced Image with inline controls
 const BlockEmbed = Quill.import('blots/block/embed');
-const Image = Quill.import('formats/image');
-
-class CustomImage extends Image {
-    static create(value) {
-        const node = super.create(value);
-
-        // Set default attributes
-        if (typeof value === 'object') {
-            node.setAttribute('src', value.src || value);
-            node.setAttribute('data-align', value.align || 'center');
-            node.setAttribute('data-width', value.width || '100');
-            node.setAttribute('alt', value.alt || '');
-
-            // Apply styles based on alignment and width
-            this.applyStyles(node, value.align || 'center', value.width || '100');
-        } else {
-            node.setAttribute('src', value);
-            node.setAttribute('data-align', 'center');
-            node.setAttribute('data-width', '100');
-            this.applyStyles(node, 'center', '100');
-        }
-
-        // Add resize handles and controls
-        this.addControls(node);
-
-        return node;
-    }
-
-    static applyStyles(node, align, width) {
-        // Remove existing alignment classes
-        node.classList.remove('image-left', 'image-center', 'image-right');
-
-        // Apply alignment
-        switch(align) {
-            case 'left':
-                node.classList.add('image-left');
-                node.style.float = 'left';
-                node.style.marginRight = '20px';
-                node.style.marginLeft = '0';
-                break;
-            case 'right':
-                node.classList.add('image-right');
-                node.style.float = 'right';
-                node.style.marginLeft = '20px';
-                node.style.marginRight = '0';
-                break;
-            case 'center':
-            default:
-                node.classList.add('image-center');
-                node.style.float = 'none';
-                node.style.margin = '1rem auto';
-                node.style.display = 'block';
-                break;
-        }
-
-        // Apply width
-        node.style.width = width + '%';
-        node.style.maxWidth = '100%';
-        node.style.height = 'auto';
-    }
-
-    static addControls(node) {
-        // Don't add controls if they already exist
-        if (node.querySelector('.image-controls')) return;
-
-        // Create control overlay
-        const controls = document.createElement('div');
-        controls.className = 'image-controls';
-        controls.innerHTML = `
-            <div class="image-toolbar">
-                <button type="button" class="image-btn align-left" title="Align Left">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2z"/>
-                    </svg>
-                </button>
-                <button type="button" class="image-btn align-center" title="Align Center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 3h18v2H3V3zm3 4h12v2H6V7zm-3 4h18v2H3v-2zm3 4h12v2H6v-2z"/>
-                    </svg>
-                </button>
-                <button type="button" class="image-btn align-right" title="Align Right">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 3h18v2H3V3zm6 4h12v2H9V7zm-6 4h18v2H3v-2zm6 4h12v2H9v-2z"/>
-                    </svg>
-                </button>
-                <div class="image-size-control">
-                    <label>Size:</label>
-                    <select class="size-select">
-                        <option value="25">25%</option>
-                        <option value="50">50%</option>
-                        <option value="75">75%</option>
-                        <option value="100" selected>100%</option>
-                    </select>
-                </div>
-                <button type="button" class="image-btn delete-image" title="Delete Image">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                    </svg>
-                </button>
-            </div>
-        `;
-
-        // Position controls
-        node.style.position = 'relative';
-        node.appendChild(controls);
-
-        // Add event listeners
-        this.addControlListeners(node, controls);
-    }
-
-    static addControlListeners(node, controls) {
-        // Alignment buttons
-        controls.querySelector('.align-left').addEventListener('click', () => {
-            this.updateImage(node, { align: 'left' });
-        });
-
-        controls.querySelector('.align-center').addEventListener('click', () => {
-            this.updateImage(node, { align: 'center' });
-        });
-
-        controls.querySelector('.align-right').addEventListener('click', () => {
-            this.updateImage(node, { align: 'right' });
-        });
-
-        // Size control
-        controls.querySelector('.size-select').addEventListener('change', (e) => {
-            this.updateImage(node, { width: e.target.value });
-        });
-
-        // Delete button
-        controls.querySelector('.delete-image').addEventListener('click', () => {
-            node.remove();
-        });
-
-        // Show/hide controls on hover
-        node.addEventListener('mouseenter', () => {
-            controls.style.opacity = '1';
-        });
-
-        node.addEventListener('mouseleave', () => {
-            controls.style.opacity = '0';
-        });
-    }
-
-    static updateImage(node, updates) {
-        const currentAlign = node.getAttribute('data-align') || 'center';
-        const currentWidth = node.getAttribute('data-width') || '100';
-
-        const newAlign = updates.align || currentAlign;
-        const newWidth = updates.width || currentWidth;
-
-        node.setAttribute('data-align', newAlign);
-        node.setAttribute('data-width', newWidth);
-
-        this.applyStyles(node, newAlign, newWidth);
-
-        // Update size select value
-        const sizeSelect = node.querySelector('.size-select');
-        if (sizeSelect) {
-            sizeSelect.value = newWidth;
-        }
-    }
-
-    static value(node) {
-        return {
-            src: node.getAttribute('src'),
-            align: node.getAttribute('data-align') || 'center',
-            width: node.getAttribute('data-width') || '100',
-            alt: node.getAttribute('alt') || ''
-        };
-    }
-
-    static formats(node) {
-        return {
-            align: node.getAttribute('data-align'),
-            width: node.getAttribute('data-width'),
-            alt: node.getAttribute('alt')
-        };
-    }
-}
-
-CustomImage.blotName = 'customImage';
-CustomImage.tagName = 'IMG';
-CustomImage.className = 'custom-image';
-
-// Register the custom image format
-Quill.register(CustomImage, true);
 
 // Custom CTA Blot
 class CTABlot extends BlockEmbed {
@@ -419,7 +232,7 @@ const initializeEditor = () => {
                     ['blockquote', 'code-block'],
 
                     // Links and media
-                    ['link', 'custom-image', 'video'],
+                    ['link', 'image', 'video'],
 
                     // Table (we'll add custom implementation)
                     ['table'],
@@ -434,8 +247,8 @@ const initializeEditor = () => {
                     ['cta-insert']
                 ],
                 handlers: {
-                    'custom-image': function() {
-                        insertCustomImage();
+                    'image': function() {
+                        insertEnhancedImage();
                     },
                     'table': function() {
                         insertTable();
@@ -474,9 +287,14 @@ const initializeEditor = () => {
 
     // Add custom table functionality
     addCustomButtons();
+
+    // Add controls to existing images
+    setTimeout(() => {
+        addImageControls();
+    }, 500);
 };
 
-const insertCustomImage = () => {
+const insertEnhancedImage = () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -484,20 +302,21 @@ const insertCustomImage = () => {
     input.addEventListener('change', function() {
         const file = input.files[0];
         if (file) {
-            // Create a FileReader to convert the file to a data URL
             const reader = new FileReader();
             reader.onload = function(e) {
                 const range = quill.getSelection();
                 if (range) {
-                    // Insert the custom image with default settings
-                    quill.insertEmbed(range.index, 'customImage', {
-                        src: e.target.result,
-                        align: 'center',
-                        width: '100',
-                        alt: file.name
-                    });
+                    // Insert regular image first
+                    quill.insertEmbed(range.index, 'image', e.target.result);
 
-                    // Move cursor after the image
+                    // Add controls to the specific image after insertion
+                    setTimeout(() => {
+                        const newImage = quill.root.querySelector(`img[src="${e.target.result}"]`);
+                        if (newImage && !newImage.closest('.enhanced-image-wrapper')) {
+                            addControlsToImage(newImage);
+                        }
+                    }, 200);
+
                     quill.setSelection(range.index + 1);
                 }
             };
@@ -506,6 +325,174 @@ const insertCustomImage = () => {
     });
 
     input.click();
+};
+
+// Function to add controls to all images in the editor
+const addImageControls = () => {
+    const images = quill.root.querySelectorAll('img');
+    images.forEach(img => {
+        // Check if image is already wrapped or has controls
+        if (!img.closest('.enhanced-image-wrapper') && !img.querySelector('.image-controls')) {
+            addControlsToImage(img);
+        }
+    });
+};
+
+// Simplified approach - add controls without wrapping
+const addControlsToImage = (img) => {
+    try {
+        // Check if image already has controls
+        if (img.hasAttribute('data-has-controls')) {
+            return;
+        }
+
+        // Mark image as having controls
+        img.setAttribute('data-has-controls', 'true');
+        img.setAttribute('data-align', img.getAttribute('data-align') || 'center');
+        img.setAttribute('data-width', img.getAttribute('data-width') || '100');
+
+        // Set initial styles
+        img.style.position = 'relative';
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        img.style.borderRadius = '8px';
+        img.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        img.style.transition = 'all 0.3s ease';
+
+        // Apply initial alignment
+        updateImageAlignment(img, 'center');
+
+        // Add hover events for controls
+        img.addEventListener('mouseenter', () => showImageControls(img));
+        img.addEventListener('mouseleave', () => hideImageControls(img));
+
+    } catch (error) {
+        console.error('Error adding image controls:', error);
+    }
+};
+
+// Show image controls
+const showImageControls = (img) => {
+    // Remove any existing controls
+    hideImageControls(img);
+
+    const controls = document.createElement('div');
+    controls.className = 'floating-image-controls';
+    controls.innerHTML = `
+        <div class="image-toolbar">
+            <button type="button" class="image-btn align-left" title="Align Left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z"/>
+                </svg>
+            </button>
+            <button type="button" class="image-btn align-center" title="Center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z"/>
+                </svg>
+            </button>
+            <button type="button" class="image-btn align-right" title="Align Right">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"/>
+                </svg>
+            </button>
+            <select class="size-select" title="Image Size">
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100" selected>100%</option>
+            </select>
+            <button type="button" class="image-btn delete-image" title="Delete">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+            </button>
+        </div>
+    `;
+
+    // Position controls above the image
+    const rect = img.getBoundingClientRect();
+    const editorRect = quill.root.getBoundingClientRect();
+
+    controls.style.position = 'absolute';
+    controls.style.top = (rect.top - editorRect.top - 40) + 'px';
+    controls.style.left = (rect.left - editorRect.left) + 'px';
+    controls.style.zIndex = '1000';
+
+    quill.root.appendChild(controls);
+
+    // Add event listeners
+    controls.querySelector('.align-left').addEventListener('click', () => {
+        updateImageAlignment(img, 'left');
+        hideImageControls(img);
+    });
+
+    controls.querySelector('.align-center').addEventListener('click', () => {
+        updateImageAlignment(img, 'center');
+        hideImageControls(img);
+    });
+
+    controls.querySelector('.align-right').addEventListener('click', () => {
+        updateImageAlignment(img, 'right');
+        hideImageControls(img);
+    });
+
+    controls.querySelector('.size-select').addEventListener('change', (e) => {
+        updateImageSize(img, e.target.value);
+    });
+
+    controls.querySelector('.delete-image').addEventListener('click', () => {
+        img.remove();
+        hideImageControls(img);
+    });
+
+    // Set current size
+    const currentWidth = img.getAttribute('data-width') || '100';
+    controls.querySelector('.size-select').value = currentWidth;
+};
+
+// Hide image controls
+const hideImageControls = (img) => {
+    const existingControls = quill.root.querySelector('.floating-image-controls');
+    if (existingControls) {
+        existingControls.remove();
+    }
+};
+
+// Update image alignment
+const updateImageAlignment = (img, align) => {
+    img.setAttribute('data-align', align);
+
+    // Remove existing alignment classes
+    img.classList.remove('img-left', 'img-center', 'img-right');
+
+    switch(align) {
+        case 'left':
+            img.classList.add('img-left');
+            img.style.float = 'left';
+            img.style.margin = '0.5rem 1rem 0.5rem 0';
+            img.style.display = 'block';
+            break;
+        case 'right':
+            img.classList.add('img-right');
+            img.style.float = 'right';
+            img.style.margin = '0.5rem 0 0.5rem 1rem';
+            img.style.display = 'block';
+            break;
+        case 'center':
+        default:
+            img.classList.add('img-center');
+            img.style.float = 'none';
+            img.style.margin = '1rem auto';
+            img.style.display = 'block';
+            break;
+    }
+};
+
+// Update image size
+const updateImageSize = (img, width) => {
+    img.setAttribute('data-width', width);
+    img.style.width = width + '%';
+    img.style.maxWidth = '100%';
 };
 
 const insertTable = () => {
@@ -565,23 +552,77 @@ const cancelCTA = () => {
 
 let htmlViewMode = false;
 let originalContent = '';
+let urlMappings = new Map(); // Store URL mappings for shorter placeholders
 
-// Removed JavaScript sticky functionality - using pure CSS flexbox solution
+// Function to create shorter placeholders for long URLs
+const createImagePlaceholders = (html) => {
+    urlMappings.clear();
+    let imageCounter = 1;
+
+    return html.replace(/src="data:image\/[^"]*"/g, (match) => {
+        const placeholder = `[IMAGE_${imageCounter}]`;
+        urlMappings.set(placeholder, match);
+        imageCounter++;
+        return `src="${placeholder}"`;
+    });
+};
+
+// Function to restore original URLs from placeholders
+const restoreImageUrls = (html) => {
+    let restoredHtml = html;
+    urlMappings.forEach((originalUrl, placeholder) => {
+        restoredHtml = restoredHtml.replace(new RegExp(`src="${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'), originalUrl);
+    });
+    return restoredHtml;
+};
+
+// Function to add helpful template for image styling
+const addImageStyleTemplate = (html) => {
+    if (html.includes('[IMAGE_')) {
+        const template = `<!--
+IMAGE STYLING GUIDE:
+- Replace [IMAGE_X] with your image URL
+- Add inline styles for custom sizing:
+  style="width: 300px; height: 200px; float: left; margin: 10px;"
+- Common properties:
+  * width: 50%, 300px, auto
+  * height: auto, 200px
+  * float: left, right, none
+  * margin: 10px, 1rem
+  * border-radius: 8px
+  * box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+
+Example: <img src="your-url-here" style="width: 50%; float: left; margin: 0 20px 20px 0; border-radius: 8px;" alt="description">
+-->
+
+${html}`;
+        return template;
+    }
+    return html;
+};
 
 const toggleHTMLView = () => {
     if (!htmlViewMode) {
         // Switch to HTML view
         originalContent = quill.root.innerHTML;
+
+        // Create shortened version with placeholders
+        const shortenedContent = createImagePlaceholders(originalContent);
+        const contentWithTemplate = addImageStyleTemplate(shortenedContent);
+
         const textarea = document.createElement('textarea');
-        textarea.value = originalContent;
+        textarea.value = contentWithTemplate;
         textarea.style.width = '100%';
         textarea.style.height = props.height;
-        textarea.style.fontFamily = 'monospace';
-        textarea.style.fontSize = '14px';
+        textarea.style.fontFamily = '"Fira Code", "Consolas", "Monaco", monospace';
+        textarea.style.fontSize = '13px';
+        textarea.style.lineHeight = '1.6';
         textarea.style.border = 'none';
         textarea.style.outline = 'none';
         textarea.style.resize = 'vertical';
-        textarea.style.padding = '12px';
+        textarea.style.padding = '16px';
+        textarea.style.backgroundColor = '#f8f9fa';
+        textarea.style.color = '#333';
 
         // Replace editor with textarea
         quill.root.style.display = 'none';
@@ -598,15 +639,24 @@ const toggleHTMLView = () => {
 
         // Listen for changes in HTML
         textarea.addEventListener('input', () => {
-            emit('update:modelValue', textarea.value);
+            // Restore URLs before saving
+            const restoredContent = restoreImageUrls(textarea.value);
+            emit('update:modelValue', restoredContent);
         });
 
     } else {
         // Switch back to visual view
         const textarea = quill.root.parentNode.querySelector('textarea');
         if (textarea) {
-            quill.root.innerHTML = textarea.value;
+            // Restore URLs and set content
+            const restoredContent = restoreImageUrls(textarea.value);
+            quill.root.innerHTML = restoredContent;
             textarea.remove();
+
+            // Re-add controls to images
+            setTimeout(() => {
+                addImageControls();
+            }, 200);
         }
 
         quill.root.style.display = '';
@@ -623,23 +673,6 @@ const toggleHTMLView = () => {
 };
 
 const addCustomButtons = () => {
-    // Add custom image button
-    const imageButton = document.querySelector('.ql-custom-image');
-    if (imageButton) {
-        imageButton.innerHTML = `
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4 4h16v12l-4-4-4 4-4-4-4 4V4zm16-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 10l2.5-3.21L16.5 11l-4.5 6h-8l4-5 4 4z"/>
-            </svg>
-        `;
-        imageButton.title = 'Insert Image with Controls';
-        imageButton.style.background = '#3b82f6';
-        imageButton.style.color = 'white';
-        imageButton.style.borderRadius = '4px';
-        imageButton.style.border = 'none';
-        imageButton.style.padding = '6px';
-        imageButton.style.margin = '0 2px';
-    }
-
     // Add custom table button
     const tableButton = document.querySelector('.ql-table');
     if (tableButton) {
@@ -982,54 +1015,52 @@ onUnmounted(() => {
     box-shadow: 0 0 0 3px rgba(255, 54, 33, 0.1);
 }
 
-/* Custom Image Controls Styling */
-:deep(.ql-editor .custom-image) {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+/* Enhanced Image Styling */
+:deep(.ql-editor img[data-has-controls]) {
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-:deep(.ql-editor .custom-image:hover) {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+:deep(.ql-editor img[data-has-controls]:hover) {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px);
 }
 
-:deep(.ql-editor .image-controls) {
+/* Floating Image Controls */
+:deep(.ql-editor .floating-image-controls) {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 100;
+    z-index: 1000;
+    pointer-events: all;
 }
 
 :deep(.ql-editor .image-toolbar) {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 8px;
-    padding: 8px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 6px;
+    padding: 6px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 :deep(.ql-editor .image-btn) {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     color: white;
     cursor: pointer;
-    padding: 6px;
+    padding: 5px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
 }
 
 :deep(.ql-editor .image-btn:hover) {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     transform: scale(1.1);
 }
 
@@ -1037,23 +1068,20 @@ onUnmounted(() => {
     background: rgba(239, 68, 68, 0.8);
 }
 
-:deep(.ql-editor .image-size-control) {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: white;
-    font-size: 12px;
-}
-
 :deep(.ql-editor .size-select) {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     color: white;
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 3px 6px;
     font-size: 11px;
     outline: none;
+    min-width: 50px;
+}
+
+:deep(.ql-editor .size-select:hover) {
+    background: rgba(255, 255, 255, 0.25);
 }
 
 :deep(.ql-editor .size-select option) {
@@ -1061,45 +1089,31 @@ onUnmounted(() => {
     color: white;
 }
 
-/* Image alignment styles */
-:deep(.ql-editor .image-left) {
+/* Image Alignment Classes */
+:deep(.ql-editor .img-left) {
     float: left;
     margin: 0.5rem 1rem 0.5rem 0;
+    clear: left;
 }
 
-:deep(.ql-editor .image-right) {
+:deep(.ql-editor .img-right) {
     float: right;
     margin: 0.5rem 0 0.5rem 1rem;
+    clear: right;
 }
 
-:deep(.ql-editor .image-center) {
+:deep(.ql-editor .img-center) {
     display: block;
     margin: 1rem auto;
     float: none;
-}
-
-/* Clear floats after images */
-:deep(.ql-editor p:after) {
-    content: "";
-    display: table;
     clear: both;
 }
 
-/* Custom image button styling */
-:deep(.ql-custom-image) {
-    background: #3b82f6 !important;
-    border: none !important;
-    border-radius: 4px !important;
-    color: white !important;
-    cursor: pointer;
-    padding: 6px !important;
-    margin: 0 2px !important;
-}
-
-:deep(.ql-custom-image:hover) {
-    background: #2563eb !important;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* Clear floats */
+:deep(.ql-editor):after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* Responsive toolbar */
