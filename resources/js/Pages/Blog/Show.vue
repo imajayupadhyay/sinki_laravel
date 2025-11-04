@@ -741,6 +741,7 @@ onMounted(() => {
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    table-layout: auto;
 }
 
 .blog-content :deep(thead) {
@@ -748,7 +749,7 @@ onMounted(() => {
 }
 
 .blog-content :deep(th) {
-    padding: 20px 24px;
+    padding: 16px 20px;
     text-align: left;
     font-size: 25px;
     font-weight: 600;
@@ -762,6 +763,13 @@ onMounted(() => {
     overflow-wrap: break-word;
     hyphens: auto;
     word-break: normal;
+    white-space: nowrap;
+    width: auto;
+}
+
+.blog-content :deep(th:first-child) {
+    width: 200px;
+    white-space: normal;
 }
 
 .blog-content :deep(th:last-child) {
@@ -777,10 +785,10 @@ onMounted(() => {
 }
 
 .blog-content :deep(td) {
-    padding: 20px 24px;
+    padding: 16px 20px;
     font-size: 21px;
     font-weight: 400;
-    line-height: 37.8px;
+    line-height: 28px;
     letter-spacing: 0.42px;
     color: #121212;
     border-bottom: 1px solid #CDD7D1;
@@ -790,6 +798,7 @@ onMounted(() => {
     overflow-wrap: break-word;
     hyphens: auto;
     word-break: normal;
+    vertical-align: top;
 }
 
 .blog-content :deep(td:last-child) {
@@ -799,8 +808,9 @@ onMounted(() => {
 .blog-content :deep(td:first-child) {
     font-weight: 600;
     font-size: 22px;
-    line-height: 26.4px;
+    line-height: 26px;
     letter-spacing: 0.44px;
+    width: 200px;
 }
 
 .blog-content :deep(tbody tr:last-child td) {
