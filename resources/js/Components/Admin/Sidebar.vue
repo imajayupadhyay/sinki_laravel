@@ -103,6 +103,23 @@
                     Tags
                 </Link>
 
+                <!-- Service Pages Section -->
+                <div class="pt-4 pb-2">
+                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Services Management</h3>
+                </div>
+
+                <!-- Service Pages -->
+                <Link
+                    :href="route('admin.service-pages.index')"
+                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                    :class="isActive('admin.service-pages') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                >
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    Service Pages
+                </Link>
+
                 <!-- System Section -->
                 <div class="pt-4 pb-2">
                     <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</h3>
@@ -197,6 +214,13 @@ const isActive = (routeName) => {
     )) return true;
     if (routeName === 'admin.categories' && currentComponent === 'Admin/Categories/Index') return true;
     if (routeName === 'admin.tags' && currentComponent === 'Admin/Tags/Index') return true;
+
+    // Service Pages management routes
+    if (routeName === 'admin.service-pages' && (
+        currentComponent === 'Admin/ServicePages/Index' ||
+        currentComponent === 'Admin/ServicePages/Create' ||
+        currentComponent === 'Admin/ServicePages/Edit'
+    )) return true;
 
     return false;
 };

@@ -62,10 +62,19 @@ Route::get('/privacy-policy', function () {
 
 // Services Routes Group
 Route::prefix('services')->name('services.')->group(function () {
-    
-    // Data Engineering & Modernization Services
+
+    // Legacy static service routes (keeping for backwards compatibility)
     Route::get('/data-engineering', [ServiceController::class, 'dataEngineering'])
         ->name('data-engineering');
+
+    // Services index page (optional - shows all published services)
+    Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])
+        ->name('index');
+
+    // Dynamic service pages - this should be last to avoid conflicts
+    Route::get('/{slug}', [App\Http\Controllers\ServicePageController::class, 'show'])
+        ->name('show')
+        ->where('slug', '[a-zA-Z0-9\-]+');
 });
 
 

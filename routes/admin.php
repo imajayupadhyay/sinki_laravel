@@ -93,6 +93,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/upload/featured-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'uploadFeaturedImage'])->name('upload.featured-image');
     Route::delete('/upload/delete-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'deleteImage'])->name('upload.delete-image');
 
+    // Service Pages Management
+    Route::resource('service-pages', App\Http\Controllers\Admin\ServicePageController::class);
+    Route::post('/service-pages/{servicePage}/toggle-featured', [App\Http\Controllers\Admin\ServicePageController::class, 'toggleFeatured'])->name('service-pages.toggle-featured');
+    Route::put('/service-pages/{servicePage}/status', [App\Http\Controllers\Admin\ServicePageController::class, 'updateStatus'])->name('service-pages.update-status');
+    Route::post('/service-pages/sort-order', [App\Http\Controllers\Admin\ServicePageController::class, 'updateSortOrder'])->name('service-pages.sort-order');
+    Route::post('/service-pages/upload-image', [App\Http\Controllers\Admin\ServicePageController::class, 'uploadImage'])->name('service-pages.upload-image');
+    Route::get('/service-pages/{servicePage}/preview', [App\Http\Controllers\Admin\ServicePageController::class, 'preview'])->name('service-pages.preview');
+
     // Settings (placeholder for future)
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings/Index');
