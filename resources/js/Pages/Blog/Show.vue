@@ -97,7 +97,7 @@
                         <div class="lg:col-span-3">
                             <!-- Blog Content -->
                             <div
-                                class="blog-content text-[#121212] text-[21px] font-normal leading-[37.8px] tracking-[0.42px] text-justify font-instrument-sans space-y-8"
+                                class="blog-content text-[#121212] text-[21px] font-normal leading-[37.8px] tracking-[0.42px] md:text-justify font-instrument-sans space-y-8"
                                 v-html="blog.content"
                             ></div>
 
