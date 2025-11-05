@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ServicePage;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -266,9 +267,30 @@ class ServicePageController extends Controller
      */
     public function preview(ServicePage $servicePage)
     {
+        // Fetch latest published blogs for insights section
+        $blogs = Blog::with(['category', 'author'])
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->limit(3)
+            ->get()
+            ->map(function ($blog) {
+                return [
+                    'id' => $blog->id,
+                    'title' => $blog->title,
+                    'slug' => $blog->slug,
+                    'featured_image' => $blog->featured_image,
+                    'category' => $blog->category ? [
+                        'id' => $blog->category->id,
+                        'name' => $blog->category->name,
+                        'slug' => $blog->category->slug,
+                    ] : null,
+                ];
+            });
+
         return Inertia::render('Services/DynamicServicePage', [
             'servicePage' => $servicePage,
-            'isPreview' => true
+            'isPreview' => true,
+            'blogs' => $blogs
         ]);
     }
 }
