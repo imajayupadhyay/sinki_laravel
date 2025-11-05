@@ -67,7 +67,7 @@
                             </div>
 
                             <!-- Title -->
-                            <h3 class="text-[30px] font-semibold text-[#121212] mb-[19px] leading-[36px] tracking-[0.6px] max-w-[512px] min-h-[72px]">
+                            <h3 class="text-[30px] font-semibold text-[#121212] mb-[19px] leading-[36px] tracking-[0.6px] max-w-[512px] min-h-[72px] line-clamp-2">
                                 {{ blog.title }}
                             </h3>
 

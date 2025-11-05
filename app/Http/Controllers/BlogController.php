@@ -54,6 +54,55 @@ class BlogController extends Controller
         ]);
     }
 
+    public function preview($slug)
+    {
+        $blog = Blog::with(['category', 'author', 'tags'])
+            ->where('slug', $slug)
+            ->where('status', 'draft')
+            ->firstOrFail();
+
+        return Inertia::render('Blog/Show', [
+            'blog' => [
+                'id' => $blog->id,
+                'title' => $blog->title,
+                'slug' => $blog->slug,
+                'content' => $blog->content,
+                'excerpt' => $blog->excerpt ?: $this->generateExcerpt($blog->content),
+                'featured_image' => $blog->featured_image,
+                'meta_title' => $blog->meta_title ?: $blog->title,
+                'meta_description' => $blog->meta_description ?: $this->generateExcerpt($blog->content),
+                'meta_keywords' => $blog->meta_keywords,
+                'category' => $blog->category ? [
+                    'id' => $blog->category->id,
+                    'name' => $blog->category->name,
+                    'slug' => $blog->category->slug,
+                ] : null,
+                'author' => [
+                    'id' => $blog->author->id,
+                    'name' => $blog->author->name,
+                    'profile_image' => $blog->author->profile_image,
+                    'profile_image_url' => $blog->author->profile_image_url,
+                    'avatar' => $blog->author->profile_image_url,
+                    'role' => $blog->author->role ?? 'Author',
+                ],
+                'tags' => $blog->tags->map(function ($tag) {
+                    return [
+                        'id' => $tag->id,
+                        'name' => $tag->name,
+                        'slug' => $tag->slug,
+                    ];
+                }),
+                'published_at' => $blog->created_at->format('M d, Y'),
+                'published_at_human' => $blog->created_at->diffForHumans(),
+                'read_time' => $this->calculateReadTime($blog->content),
+            ],
+            'previousBlog' => null,
+            'nextBlog' => null,
+            'relatedBlogs' => [],
+            'isPreview' => true,
+        ]);
+    }
+
     public function show($slug)
     {
         $blog = Blog::with(['category', 'author', 'tags'])

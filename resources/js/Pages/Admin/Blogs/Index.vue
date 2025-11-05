@@ -113,6 +113,13 @@
                                         Edit
                                     </Link>
                                     <Link
+                                        :href="route('admin.blogs.preview', blog.id)"
+                                        target="_blank"
+                                        class="text-green-600 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1 rounded-md transition-colors duration-200"
+                                    >
+                                        Preview
+                                    </Link>
+                                    <Link
                                         :href="route('admin.blogs.duplicate', blog.id)"
                                         class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-md transition-colors duration-200"
                                     >

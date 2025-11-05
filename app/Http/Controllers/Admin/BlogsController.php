@@ -42,10 +42,12 @@ class BlogsController extends Controller
     {
         $categories = Category::orderBy('name')->get(['id', 'name']);
         $tags = Tag::orderBy('name')->get(['id', 'name']);
+        $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
 
         return Inertia::render('Admin/Blogs/Create', [
             'categories' => $categories,
             'tags' => $tags,
+            'users' => $users,
         ]);
     }
 
@@ -62,6 +64,7 @@ class BlogsController extends Controller
             'featured_image' => 'nullable|string',
             'status' => 'required|in:draft,published',
             'category_id' => 'nullable|exists:categories,id',
+            'author_id' => 'required|exists:users,id',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
             'published_at' => 'nullable|date',
@@ -78,7 +81,7 @@ class BlogsController extends Controller
             $validated['slug'] = $validated['slug'] . '-' . ($slugCount + 1);
         }
 
-        $validated['author_id'] = auth()->id();
+        // Author ID is now provided from the form instead of defaulting to auth user
 
         if ($validated['status'] === 'published' && empty($validated['published_at'])) {
             $validated['published_at'] = now();
@@ -98,6 +101,7 @@ class BlogsController extends Controller
     {
         $categories = Category::orderBy('name')->get(['id', 'name']);
         $tags = Tag::orderBy('name')->get(['id', 'name']);
+        $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
 
         $blog->load(['category', 'tags']);
 
@@ -114,11 +118,13 @@ class BlogsController extends Controller
                 'featured_image' => $blog->featured_image,
                 'status' => $blog->status,
                 'category_id' => $blog->category_id,
+                'author_id' => $blog->author_id,
                 'tags' => $blog->tags->pluck('id')->toArray(),
                 'published_at' => $blog->published_at ? $blog->published_at->format('Y-m-d\TH:i') : null,
             ],
             'categories' => $categories,
             'tags' => $tags,
+            'users' => $users,
         ]);
     }
 
@@ -140,6 +146,7 @@ class BlogsController extends Controller
             'featured_image' => 'nullable|string',
             'status' => 'required|in:draft,published',
             'category_id' => 'nullable|exists:categories,id',
+            'author_id' => 'required|exists:users,id',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
             'published_at' => 'nullable|date',
@@ -188,6 +195,15 @@ class BlogsController extends Controller
 
         return redirect()->route('admin.blogs.edit', $duplicatedBlog->id)
             ->with('success', 'Blog duplicated successfully. You can now edit the duplicated post.');
+    }
+
+    public function preview(Blog $blog)
+    {
+        if ($blog->status === 'published') {
+            return redirect()->route('blog.show', $blog->slug);
+        }
+
+        return redirect()->route('blog.preview', $blog->slug);
     }
 
     public function destroy(Blog $blog)

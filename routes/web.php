@@ -46,6 +46,7 @@ Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('thank-yo
 
 // Blog Routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}/preview', [BlogController::class, 'preview'])->name('blog.preview');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Terms and Conditions Route

@@ -167,6 +167,26 @@
                                 </div>
                             </div>
 
+                            <!-- Author -->
+                            <div>
+                                <label for="author_id" class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+                                <select
+                                    id="author_id"
+                                    v-model="blogForm.author_id"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+                                    :class="{ 'border-red-500': blogForm.errors.author_id }"
+                                    required
+                                >
+                                    <option value="">Select an author</option>
+                                    <option v-for="user in users" :key="user.id" :value="user.id">
+                                        {{ user.name }}
+                                    </option>
+                                </select>
+                                <div v-if="blogForm.errors.author_id" class="text-red-600 text-sm mt-1">
+                                    {{ blogForm.errors.author_id }}
+                                </div>
+                            </div>
+
                             <!-- Published At -->
                             <div>
                                 <label for="published_at" class="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
@@ -279,6 +299,10 @@ const props = defineProps({
     tags: {
         type: Array,
         default: () => []
+    },
+    users: {
+        type: Array,
+        default: () => []
     }
 });
 
@@ -294,6 +318,7 @@ const blogForm = useForm({
     featured_image: '',
     status: 'draft',
     category_id: '',
+    author_id: '',
     tags: [],
     published_at: ''
 });
