@@ -14,18 +14,62 @@ class ServicePageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $servicePages = ServicePage::ordered()
-            ->with([])
-            ->select([
+        $query = ServicePage::query();
+
+        // Search filter
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('subtitle', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status') && $request->status !== 'all') {
+            $query->where('status', $request->status);
+        }
+
+        // Featured filter
+        if ($request->filled('featured') && $request->featured !== 'all') {
+            $query->where('is_featured', $request->featured === 'featured' ? true : false);
+        }
+
+        // Date range filter
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort_by', 'sort_order');
+        $sortOrder = $request->get('sort_order', 'asc');
+
+        if ($sortBy === 'sort_order') {
+            $query->ordered();
+        } else {
+            $query->orderBy($sortBy, $sortOrder);
+        }
+
+        // Pagination
+        $perPage = $request->get('per_page', 10);
+        $servicePages = $query->select([
                 'id', 'title', 'slug', 'status', 'is_featured',
                 'sort_order', 'created_at', 'updated_at'
             ])
-            ->paginate(20);
+            ->paginate($perPage)
+            ->withQueryString();
 
         return Inertia::render('Admin/ServicePages/Index', [
-            'servicePages' => $servicePages
+            'servicePages' => $servicePages,
+            'filters' => $request->only(['search', 'status', 'featured', 'date_from', 'date_to', 'sort_by', 'sort_order', 'per_page'])
         ]);
     }
 

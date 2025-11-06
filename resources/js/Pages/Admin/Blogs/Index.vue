@@ -46,6 +46,7 @@
                                     type="text"
                                     placeholder="Search by title, content..."
                                     class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
+                                    @keyup.enter="applyFilters"
                                 />
                                 <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -538,7 +539,7 @@ const applyFilters = () => {
     const params = {};
 
     // Only include non-default values
-    if (filterForm.search) params.search = filterForm.search;
+    if (filterForm.search && filterForm.search.trim()) params.search = filterForm.search.trim();
     if (filterForm.status !== 'all') params.status = filterForm.status;
     if (filterForm.category !== 'all') params.category = filterForm.category;
     if (filterForm.author !== 'all') params.author = filterForm.author;
@@ -551,7 +552,8 @@ const applyFilters = () => {
     router.visit(route('admin.blogs.index'), {
         method: 'get',
         data: params,
-        preserveState: true
+        preserveState: true,
+        preserveScroll: true
     });
 };
 
@@ -574,12 +576,10 @@ const clearFilters = () => {
 
 // Auto-apply filters on certain changes (debounced search)
 let searchTimeout;
-watch(() => filterForm.search, (newValue) => {
+watch(() => filterForm.search, () => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
-        if (newValue !== props.filters.search) {
-            applyFilters();
-        }
+        applyFilters();
     }, 500);
 });
 
