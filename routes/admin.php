@@ -106,10 +106,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         return Inertia::render('Admin/Settings/Index');
     })->name('settings.index');
 
-    // Analytics (placeholder for future)
-    Route::get('/analytics', function () {
-        return Inertia::render('Admin/Analytics/Index');
-    })->name('analytics.index');
 
     // Logout route
     Route::post('/logout', function () {
