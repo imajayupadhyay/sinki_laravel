@@ -101,6 +101,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/service-pages/upload-image', [App\Http\Controllers\Admin\ServicePageController::class, 'uploadImage'])->name('service-pages.upload-image');
     Route::get('/service-pages/{servicePage}/preview', [App\Http\Controllers\Admin\ServicePageController::class, 'preview'])->name('service-pages.preview');
 
+    // Profile Management
+    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
+    Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
+
     // Settings (placeholder for future)
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings/Index');
