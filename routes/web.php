@@ -63,9 +63,6 @@ Route::get('/privacy-policy', function () {
 // Services Routes Group
 Route::prefix('services')->name('services.')->group(function () {
 
-    // Legacy static service routes (keeping for backwards compatibility)
-    Route::get('/data-engineering', [ServiceController::class, 'dataEngineering'])
-        ->name('data-engineering');
 
     // Services index page (optional - shows all published services)
     Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])
