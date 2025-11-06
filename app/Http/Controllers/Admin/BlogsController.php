@@ -13,28 +13,81 @@ use Inertia\Inertia;
 
 class BlogsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::with(['category', 'author', 'tags'])
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->map(function ($blog) {
-                return [
-                    'id' => $blog->id,
-                    'title' => $blog->title,
-                    'slug' => $blog->slug,
-                    'status' => $blog->status,
-                    'category' => $blog->category ? $blog->category->name : 'Uncategorized',
-                    'author' => $blog->author->name,
-                    'tags' => $blog->tags->pluck('name')->join(', '),
-                    'published_at' => $blog->published_at ? $blog->published_at->format('M d, Y') : null,
-                    'created_at' => $blog->created_at->format('M d, Y'),
-                    'created_at_human' => $blog->created_at->diffForHumans(),
-                ];
+        $query = Blog::with(['category', 'author', 'tags']);
+
+        // Search filter
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%")
+                  ->orWhere('excerpt', 'like', "%{$search}%");
             });
+        }
+
+        // Status filter
+        if ($request->filled('status') && $request->status !== 'all') {
+            $query->where('status', $request->status);
+        }
+
+        // Category filter
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category_id', $request->category);
+        }
+
+        // Author filter
+        if ($request->filled('author') && $request->author !== 'all') {
+            $query->where('author_id', $request->author);
+        }
+
+        // Date range filter
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+        $query->orderBy($sortBy, $sortOrder);
+
+        // Pagination
+        $perPage = $request->get('per_page', 10);
+        $blogs = $query->paginate($perPage)->withQueryString();
+
+        // Transform the data
+        $blogs->getCollection()->transform(function ($blog) {
+            return [
+                'id' => $blog->id,
+                'title' => $blog->title,
+                'slug' => $blog->slug,
+                'status' => $blog->status,
+                'category' => $blog->category ? $blog->category->name : 'Uncategorized',
+                'category_id' => $blog->category_id,
+                'author' => $blog->author->name,
+                'author_id' => $blog->author_id,
+                'tags' => $blog->tags->pluck('name')->join(', '),
+                'published_at' => $blog->published_at ? $blog->published_at->format('M d, Y') : null,
+                'created_at' => $blog->created_at->format('M d, Y'),
+                'created_at_human' => $blog->created_at->diffForHumans(),
+                'created_at_raw' => $blog->created_at->format('Y-m-d'),
+            ];
+        });
+
+        // Get filter options
+        $categories = Category::orderBy('name')->get(['id', 'name']);
+        $authors = \App\Models\User::orderBy('name')->get(['id', 'name']);
 
         return Inertia::render('Admin/Blogs/Index', [
-            'blogs' => $blogs
+            'blogs' => $blogs,
+            'categories' => $categories,
+            'authors' => $authors,
+            'filters' => $request->only(['search', 'status', 'category', 'author', 'date_from', 'date_to', 'sort_by', 'sort_order', 'per_page'])
         ]);
     }
 
