@@ -11,8 +11,8 @@
                     <div class="flex-1 flex flex-col justify-center lg:max-w-sm footer-col">
                         <!-- Logo -->
                         <div class="mb-6">
-                            <img 
-                                src="/images/sinkidarkmode.png"
+                            <img
+                                :src="footerData?.content?.logo_url || '/images/sinkidarkmode.png'"
                                 alt="Sinki Logo"
                                 class="h-20 w-auto"
                                 @error="handleImageError"
@@ -21,7 +21,7 @@
 
                         <!-- Description -->
                         <p class="text-white text-xl leading-[28px] tracking-[0.4px]">
-                            Data & AI That Drives Real Business Impact
+                            {{ footerData?.content?.description || 'Data & AI That Drives Real Business Impact' }}
                         </p>
                     </div>
 
@@ -31,9 +31,9 @@
                             Quick Links
                         </h3>
                         <ul class="space-y-5">
-                            <li v-for="(link, index) in quickLinks" :key="index">
-                                <a 
-                                    :href="link.url" 
+                            <li v-for="(link, index) in (footerData?.links?.quick_links || quickLinks)" :key="link.id || index">
+                                <a
+                                    :href="link.url"
                                     class="text-white text-xl font-medium hover:text-brand-red transition-colors duration-300 inline-block relative"
                                 >
                                     {{ link.name }}
@@ -48,9 +48,9 @@
                             Services
                         </h3>
                         <ul class="space-y-5">
-                            <li v-for="(service, index) in services" :key="index">
-                                <a 
-                                    :href="service.url" 
+                            <li v-for="(service, index) in (footerData?.links?.services || services)" :key="service.id || index">
+                                <a
+                                    :href="service.url"
                                     class="text-white text-xl font-medium hover:text-brand-red transition-colors duration-300 inline-block relative"
                                 >
                                     {{ service.name }}
@@ -65,7 +65,7 @@
                 <div class="pt-8 pb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <!-- Footer Links (Left Side) -->
                     <div class="flex items-center gap-4 text-white text-lg font-medium order-2 sm:order-1 flex-wrap justify-center sm:justify-start">
-                        <template v-for="(link, index) in bottomLinks" :key="index">
+                        <template v-for="(link, index) in (footerData?.links?.bottom_links || bottomLinks)" :key="link.id || index">
                             <a
                                 :href="link.url"
                                 class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
@@ -73,7 +73,7 @@
                                 {{ link.name }}
                             </a>
                             <span
-                                v-if="index < bottomLinks.length - 1"
+                                v-if="index < (footerData?.links?.bottom_links || bottomLinks).length - 1"
                                 class="text-white/30"
                             >
                                 |
@@ -83,7 +83,7 @@
 
                     <!-- Copyright (Right Side) -->
                     <p class="text-white text-lg font-medium leading-[25.2px] tracking-[0.36px] order-1 sm:order-2">
-                        Copyright © {{ currentYear }} All Rights Reserved.
+                        Copyright © {{ currentYear }} {{ footerData?.content?.copyright_text || 'All Rights Reserved.' }}
                     </p>
                 </div>
 
@@ -93,9 +93,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
-// Quick Links Data
+// Footer data from API
+const footerData = ref(null);
+const isLoading = ref(true);
+
+// Default/fallback data
 const quickLinks = ref([
     { name: 'Company', url: '#company' },
     { name: 'Insights', url: '#insights' },
@@ -103,15 +107,13 @@ const quickLinks = ref([
     { name: 'Contact Us', url: '/contact' }
 ]);
 
-// Services Data
 const services = ref([
     { name: 'Data Engineering & Modernization', url: '#services' },
     { name: 'Data Management & Governance', url: '#services' },
     { name: 'Data Analytics & Business Intelligence', url: '#services' },
-    { name: 'Data Science', url: '#services' }
+    { name: 'AI & ML Solutions', url: '#services' }
 ]);
 
-// Bottom Links Data
 const bottomLinks = ref([
     { name: 'Privacy Policy', url: '/privacy-policy' },
     { name: "Terms & Conditions", url: '/terms-and-conditions' }
@@ -120,11 +122,30 @@ const bottomLinks = ref([
 // Current Year
 const currentYear = computed(() => new Date().getFullYear());
 
+// Fetch footer data from API
+const fetchFooterData = async () => {
+    try {
+        const response = await fetch('/api/footer');
+        if (response.ok) {
+            footerData.value = await response.json();
+        }
+    } catch (error) {
+        console.error('Error fetching footer data:', error);
+    } finally {
+        isLoading.value = false;
+    }
+};
+
 // Handle image loading errors
 const handleImageError = (event) => {
     console.error('Failed to load footer logo:', event.target.src);
     event.target.style.display = 'none';
 };
+
+// Fetch data on component mount
+onMounted(() => {
+    fetchFooterData();
+});
 </script>
 
 <style scoped>

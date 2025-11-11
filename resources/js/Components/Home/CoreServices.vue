@@ -83,7 +83,8 @@
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Management Consulting</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Cloud Data Management</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Governance</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation & Management</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Quality & Observability</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Migration</span>
                     </div>
                 </div>
@@ -112,9 +113,11 @@
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Analytics Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Dashboards Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Platforms</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">BI Modernization</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization & Reporting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Databricks SQL Analytics</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Advanced Analytics & Predictive Insights</span>
                     </div>
                 </div>
 
@@ -141,11 +144,12 @@
                     
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Machine Learning</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Model Deployment</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Gen AI</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Strategy & Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">GenAI</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">ML & Predictive Analytics</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps & AI Platforms</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">LLMOps</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Enterprise RAG Applications</span>
                     </div>
                 </div>
 

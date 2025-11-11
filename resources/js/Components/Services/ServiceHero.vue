@@ -11,13 +11,8 @@
             minHeight: minHeight || '90vh'
         }"
     >
-        <!-- Background Overlay -->
-        <div 
-            class="absolute inset-0 z-0"
-            :style="{
-                background: overlayGradient || 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)'
-            }"
-        ></div>
+
+       
 
         <!-- Content Container -->
         <div class="container-custom relative z-10 px-4 sm:px-6 lg:px-8 xl:px-[100px]">

@@ -22,10 +22,94 @@
                     <!-- Desktop Navigation - Centered -->
                     <div class="hidden 2xl:flex items-center absolute left-1/2 transform -translate-x-1/2 z-0">
                         <div class="flex items-center space-x-10">
-                            <div class="nav-item">
-                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                            <div class="nav-item relative group">
+                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Services
+                                    <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
                                 </a>
+
+                                <!-- Services Mega Menu -->
+                                <div class="services-mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-[750px] bg-white border border-gray-200 rounded-2xl shadow-xl z-50 p-8">
+                                    <div class="grid grid-cols-2 gap-8">
+                                        <!-- Data Engineering & Modernization -->
+                                        <a href="/services/data-engineering" class="service-mega-item block p-5 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[110px]">
+                                            <div class="flex items-start space-x-4 h-full">
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[15px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-5 mb-2">
+                                                        Data Engineering &<br>Modernization
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[13px] leading-5">
+                                                        Modern data pipelines &<br>infrastructure solutions
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- Data Management & Governance -->
+                                        <a href="/services/data-management" class="service-mega-item block p-5 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[110px]">
+                                            <div class="flex items-start space-x-4 h-full">
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[15px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-5 mb-2">
+                                                        Data Management &<br>Governance
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[13px] leading-5">
+                                                        Data quality, security &<br>compliance frameworks
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- Data Analytics & Business Intelligence -->
+                                        <a href="/services/data-analytics" class="service-mega-item block p-5 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[110px]">
+                                            <div class="flex items-start space-x-4 h-full">
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[15px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-5 mb-2">
+                                                        Data Analytics &<br>Business Intelligence
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[13px] leading-5">
+                                                        Advanced analytics &<br>reporting solutions
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- AI & ML Solutions -->
+                                        <a href="/services/ai-ml-solutions" class="service-mega-item block p-5 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[110px]">
+                                            <div class="flex items-start space-x-4 h-full">
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[15px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-5 mb-2">
+                                                        AI & ML Solutions
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[13px] leading-5">
+                                                        Machine learning &<br>artificial intelligence services
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="nav-item">
                                 <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -103,10 +187,94 @@
                     <!-- Medium Screen Navigation (lg to 2xl) -->
                     <div class="hidden lg:flex 2xl:hidden items-center justify-center flex-1 mx-8">
                         <div class="flex items-center space-x-6">
-                            <div class="nav-item">
-                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
+                            <div class="nav-item relative group">
+                                <a href="#services" @click.prevent="scrollToSection('services')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'services' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Services
+                                    <svg class="w-3 h-3 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
                                 </a>
+
+                                <!-- Medium Screen Services Mega Menu -->
+                                <div class="services-mega-menu-md absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-[650px] bg-white border border-gray-200 rounded-2xl shadow-xl z-50 p-6">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <!-- Data Engineering & Modernization -->
+                                        <a href="/services/data-engineering" class="service-mega-item block p-4 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[95px]">
+                                            <div class="flex items-start space-x-3 h-full">
+                                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[14px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-4 mb-2">
+                                                        Data Engineering &<br>Modernization
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[11px] leading-4">
+                                                        Modern data pipelines &<br>infrastructure solutions
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- Data Management & Governance -->
+                                        <a href="/services/data-management" class="service-mega-item block p-4 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[95px]">
+                                            <div class="flex items-start space-x-3 h-full">
+                                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[14px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-4 mb-2">
+                                                        Data Management &<br>Governance
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[11px] leading-4">
+                                                        Data quality, security &<br>compliance frameworks
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- Data Analytics & Business Intelligence -->
+                                        <a href="/services/data-analytics" class="service-mega-item block p-4 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[95px]">
+                                            <div class="flex items-start space-x-3 h-full">
+                                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[14px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-4 mb-2">
+                                                        Data Analytics &<br>Business Intelligence
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[11px] leading-4">
+                                                        Advanced analytics &<br>reporting solutions
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <!-- AI & ML Solutions -->
+                                        <a href="/services/ai-ml-solutions" class="service-mega-item block p-4 bg-white border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item min-h-[95px]">
+                                            <div class="flex items-start space-x-3 h-full">
+                                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300 mt-1">
+                                                    <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                                    <h3 class="text-brand-dark text-[14px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-4 mb-2">
+                                                        AI & ML Solutions
+                                                    </h3>
+                                                    <p class="text-gray-600 text-[11px] leading-4">
+                                                        Machine learning &<br>artificial intelligence services
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="nav-item">
                                 <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -203,21 +371,70 @@
                 <!-- Menu Items -->
                 <div class="flex flex-col space-y-4">
                     <!-- Services -->
-                    <a
-                        href="#services"
-                        @click.prevent="scrollToSection('services'); closeMobileMenu()"
-                        class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
-                    >
-                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
-                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                            </svg>
+                    <div class="mobile-services-menu">
+                        <button
+                            @click="toggleMobileServicesMenu"
+                            class="mobile-menu-link group w-full flex items-center justify-between px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
+                        >
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
+                                    <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Services</span>
+                                    <p class="text-gray-500 text-xs font-normal">Our Solutions</p>
+                                </div>
+                            </div>
+                            <div class="w-6 h-6 flex items-center justify-center">
+                                <svg :class="['w-4 h-4 text-brand-red transition-transform duration-300', mobileServicesMenuOpen ? 'rotate-180' : '']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </div>
+                        </button>
+
+                        <!-- Mobile Services Submenu -->
+                        <div :class="['mobile-services-submenu overflow-hidden transition-all duration-300', mobileServicesMenuOpen ? 'max-h-[350px] opacity-100 mt-2' : 'max-h-0 opacity-0']">
+                            <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+                                <a href="/services/data-engineering" @click="closeMobileMenu" class="mobile-service-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">Data Engineering & Modernization</span>
+                                </a>
+
+                                <a href="/services/data-management" @click="closeMobileMenu" class="mobile-service-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">Data Management & Governance</span>
+                                </a>
+
+                                <a href="/services/data-analytics" @click="closeMobileMenu" class="mobile-service-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">Data Analytics & Business Intelligence</span>
+                                </a>
+
+                                <a href="/services/ai-ml-solutions" @click="closeMobileMenu" class="mobile-service-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">AI & ML Solutions</span>
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Services</span>
-                            <p class="text-gray-500 text-xs font-normal">Our Solutions</p>
-                        </div>
-                    </a>
+                    </div>
 
                     <!-- Our Approach -->
                     <a
@@ -386,6 +603,7 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const mobileMenuOpen = ref(false);
+const mobileServicesMenuOpen = ref(false);
 const scrollProgress = ref(0);
 const isSticky = ref(false);
 const activeSection = ref('');
@@ -406,7 +624,12 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
     mobileMenuOpen.value = false;
+    mobileServicesMenuOpen.value = false;
     document.body.style.overflow = '';
+};
+
+const toggleMobileServicesMenu = () => {
+    mobileServicesMenuOpen.value = !mobileServicesMenuOpen.value;
 };
 
 // Smooth scroll to section
@@ -795,6 +1018,63 @@ onUnmounted(() => {
 
 .mega-menu-item .group\/item:hover h3 {
     color: #FF3621;
+}
+
+/* Services Mega Menu Styles */
+.services-mega-menu {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.services-mega-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.group:hover .services-mega-menu {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.services-mega-menu-md {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.services-mega-menu-md::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.group:hover .services-mega-menu-md {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.service-mega-item {
+    transform: translateY(3px);
+    transition: all 0.3s ease;
+}
+
+.service-mega-item:hover {
+    transform: translateY(0);
+    box-shadow: 0 8px 25px rgba(255, 54, 33, 0.15);
 }
 
 /* Mobile Menu Link Animation */
