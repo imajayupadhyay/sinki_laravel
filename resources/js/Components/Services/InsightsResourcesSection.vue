@@ -46,7 +46,7 @@
                         </div>
 
                         <!-- Title -->
-                        <h3 class="text-xl lg:text-2xl xl:text-3xl font-semibold text-[#121212] mb-4 lg:mb-5 xl:mb-6 leading-[1.2] tracking-[0.6px] min-h-[60px] lg:min-h-[72px] xl:min-h-[84px]">
+                        <h3 class="text-lg lg:text-xl xl:text-2xl font-semibold text-[#121212] mb-4 lg:mb-5 xl:mb-6 leading-[1.3] tracking-[0.4px] min-h-[54px] lg:min-h-[60px] xl:min-h-[66px] line-clamp-2 overflow-hidden">
                             {{ blog.title }}
                         </h3>
 
@@ -178,6 +178,15 @@ h3 {
 .group {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     border: 1px solid #E0EAE4;
+}
+
+/* Line clamp utility for title truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Custom responsive adjustments */

@@ -308,26 +308,26 @@
         font-size: 40px;
         line-height: 48px;
     }
-    
+
     .what-we-do-section > div > p {
         font-size: 20px;
         line-height: 30px;
     }
-    
+
     .icon-wrapper {
         width: 70px !important;
         height: 70px !important;
     }
-    
+
     .icon-wrapper svg {
         width: 36px !important;
         height: 36px !important;
     }
-    
+
     .service-card h3 {
         font-size: 22px !important;
     }
-    
+
     .service-card p {
         font-size: 18px !important;
         line-height: 27px !important;
@@ -338,17 +338,17 @@
     .what-we-do-section {
         padding: 40px 0;
     }
-    
+
     .what-we-do-section h2 {
-        font-size: 32px;
-        line-height: 40px;
+        font-size: 28px !important;
+        line-height: 36px !important;
     }
-    
+
     .what-we-do-section > div > p {
         font-size: 18px;
         line-height: 27px;
     }
-    
+
     .service-card {
         padding: 1.5rem !important;
     }
@@ -358,36 +358,36 @@
     .what-we-do-section {
         padding: 30px 0;
     }
-    
+
     .what-we-do-section h2 {
-        font-size: 28px;
-        line-height: 36px;
+        font-size: 24px !important;
+        line-height: 32px !important;
     }
-    
+
     .what-we-do-section > div > p {
         font-size: 16px;
         line-height: 24px;
     }
-    
+
     .service-card {
         padding: 1.25rem !important;
     }
-    
+
     .icon-wrapper {
         width: 60px !important;
         height: 60px !important;
     }
-    
+
     .icon-wrapper svg {
         width: 32px !important;
         height: 32px !important;
     }
-    
+
     .service-card h3 {
         font-size: 18px !important;
         line-height: 26px !important;
     }
-    
+
     .service-card p {
         font-size: 16px !important;
         line-height: 24px !important;

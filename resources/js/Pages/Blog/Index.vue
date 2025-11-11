@@ -67,7 +67,7 @@
                             </div>
 
                             <!-- Title -->
-                            <h3 class="text-[30px] font-semibold text-[#121212] mb-[19px] leading-[36px] tracking-[0.6px] max-w-[512px] min-h-[72px] line-clamp-2">
+                            <h3 class="text-[24px] font-semibold text-[#121212] mb-[19px] leading-[30px] tracking-[0.48px] max-w-[512px] min-h-[60px] line-clamp-2">
                                 {{ blog.title }}
                             </h3>
 
@@ -213,6 +213,15 @@ const props = defineProps({
     transition-duration: 300ms;
 }
 
+/* Line clamp utility for title truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Typography adjustments to match Figma exact specifications */
 h1 {
     font-family: 'Instrument Sans', sans-serif;
@@ -245,6 +254,11 @@ article {
         line-height: 66px;
     }
 
+    .text-\[24px\] {
+        font-size: 20px;
+        line-height: 26px;
+    }
+
     .text-\[30px\] {
         font-size: 24px;
         line-height: 32px;
@@ -268,6 +282,11 @@ article {
 
     .text-\[18px\] {
         font-size: 16px;
+    }
+
+    .text-\[24px\] {
+        font-size: 18px;
+        line-height: 24px;
     }
 
     .text-\[30px\] {

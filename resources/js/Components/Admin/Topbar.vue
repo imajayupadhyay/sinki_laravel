@@ -97,12 +97,15 @@
                                 <p class="text-xs text-gray-500">{{ $page.props.auth?.user?.email || 'admin@sinki.ai' }}</p>
                             </div>
 
-                            <a href="#" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200">
+                            <Link
+                                :href="route('admin.profile.show')"
+                                class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
+                            >
                                 <svg class="mr-3 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
                                 Profile
-                            </a>
+                            </Link>
 
                             <Link
                                 :href="route('admin.settings.index')"
@@ -135,8 +138,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { usePage, router, Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { router, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     pageTitle: {
@@ -151,7 +154,6 @@ const props = defineProps({
 
 const emit = defineEmits(['toggle-mobile-menu']);
 
-const page = usePage();
 const showNotifications = ref(false);
 const showProfileMenu = ref(false);
 

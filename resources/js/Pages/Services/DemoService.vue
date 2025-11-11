@@ -1,7 +1,18 @@
+<!--
+    DemoService.vue
+
+    This is a demo service page template that was previously used as DataEngineering.vue.
+    It has been renamed for reference purposes only.
+
+    The application now uses dynamic service pages managed through the admin panel.
+    All service pages are created via Admin → Service Pages and rendered through DynamicServicePage.vue.
+
+    This file can be used as a reference for service page structure and components.
+-->
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Data Engineering & Modernization Services | Sinki.ai">
-            <meta name="description" content="We help enterprises design, modernize, and manage data systems that accelerate insights, drive innovation, and optimize costs." />
+        <Head title="Demo Service Page | Sinki.ai">
+            <meta name="description" content="Demo service page template for reference." />
             <meta name="robots" content="noindex, nofollow" />
         </Head>
 
