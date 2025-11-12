@@ -74,6 +74,10 @@ Route::prefix('services')->name('services.')->group(function () {
         ->where('slug', '[a-zA-Z0-9\-]+');
 });
 
+// API Routes
+Route::prefix('api')->name('api.')->group(function () {
+    Route::get('/footer', [App\Http\Controllers\Api\FooterController::class, 'index'])->name('footer.index');
+});
 
 // Include admin routes
 require __DIR__.'/admin.php';

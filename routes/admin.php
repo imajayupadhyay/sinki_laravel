@@ -108,6 +108,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
     Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
 
+    // Footer Management
+    Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
+    Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
+    Route::post('/footer/links', [App\Http\Controllers\Admin\FooterController::class, 'storeLink'])->name('footer.links.store');
+    Route::put('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'updateLink'])->name('footer.links.update');
+    Route::delete('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'destroyLink'])->name('footer.links.destroy');
+
     // Settings (placeholder for future)
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings/Index');

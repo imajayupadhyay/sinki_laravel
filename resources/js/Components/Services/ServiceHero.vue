@@ -11,13 +11,8 @@
             minHeight: minHeight || '90vh'
         }"
     >
-        <!-- Background Overlay -->
-        <div 
-            class="absolute inset-0 z-0"
-            :style="{
-                background: overlayGradient || 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)'
-            }"
-        ></div>
+
+       
 
         <!-- Content Container -->
         <div class="container-custom relative z-10 px-4 sm:px-6 lg:px-8 xl:px-[100px]">
@@ -43,7 +38,7 @@
                         <button
                             v-if="ctaText"
                             @click="handleCtaClick"
-                            class="service-cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-white border-2 border-brand-red rounded-full text-white hover:text-brand-red text-base sm:text-lg font-bold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                            class="service-cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-white border-2 border-brand-red rounded-full text-white hover:text-brand-white text-base sm:text-lg font-bold tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                         >
                             {{ ctaText }}
                             <div class="w-6 h-6 flex items-center justify-center">

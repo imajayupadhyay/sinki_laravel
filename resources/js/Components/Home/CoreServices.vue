@@ -26,7 +26,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
                 
                 <!-- Card 1: Data Engineering & Modernization -->
-                <div class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+                <div @click="navigateToService('/services/data-engineering')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
                     <!-- Icon and Arrow -->
                     <div class="flex items-start justify-between mb-4 sm:mb-6">
                         <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- Card 2: Data Management & Governance -->
-                <div class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+                <div @click="navigateToService('/services/data-management')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
                     <!-- Icon and Arrow -->
                     <div class="flex items-start justify-between mb-4 sm:mb-6">
                         <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
@@ -83,13 +83,14 @@
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Management Consulting</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Cloud Data Management</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Governance</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation & Management</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Quality & Observability</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation</span>
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Migration</span>
                     </div>
                 </div>
 
                 <!-- Card 3: Data Analytics & Business Intelligence -->
-                <div class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+                <div @click="navigateToService('/services/data-analytics')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
                     <!-- Icon and Arrow -->
                     <div class="flex items-start justify-between mb-4 sm:mb-6">
                         <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
@@ -112,14 +113,16 @@
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
                         <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Analytics Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Dashboards Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Platforms</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">BI Modernization</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization & Reporting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Databricks SQL Analytics</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Advanced Analytics & Predictive Insights</span>
                     </div>
                 </div>
 
                 <!-- Card 4: AI & ML Solutions -->
-                <div class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+                <div @click="navigateToService('/services/ai-ml-solutions')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
                     <!-- Icon and Arrow -->
                     <div class="flex items-start justify-between mb-4 sm:mb-6">
                         <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
@@ -141,11 +144,12 @@
                     
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Machine Learning</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Development</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Model Deployment</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Gen AI</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Strategy & Consulting</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">GenAI</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">ML & Predictive Analytics</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps & AI Platforms</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">LLMOps</span>
+                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Enterprise RAG Applications</span>
                     </div>
                 </div>
 
@@ -155,7 +159,11 @@
 </template>
 
 <script setup>
-// No props needed
+import { router } from '@inertiajs/vue3'
+
+const navigateToService = (url) => {
+    router.visit(url)
+}
 </script>
 
 <style scoped>

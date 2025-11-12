@@ -1,0 +1,14 @@
+# Database Backup Configuration
+# Copy this file to backup_config.sh and update with your actual values
+
+# Remote server details
+REMOTE_HOST="192.168.1.100"  # Your server IP or domain
+REMOTE_USER="ubuntu"         # SSH username
+
+# Database details
+DB_NAME="sinki_laravel"      # Your Laravel database name
+DB_USER="root"               # MySQL username
+DB_PASSWORD="your_password"  # MySQL password
+
+# Local backup settings
+BACKUP_DIR="./database_backups"  # Where to store backups locally
