@@ -47,7 +47,7 @@
                                 </a>
                                 <!-- Mega Menu Dropdown -->
                                 <div class="mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6">
-                               
+                              
                                     <div class="space-y-4">
                                         <!-- Blog Item -->
                                         <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item">
@@ -184,7 +184,7 @@
                 :class="servicesMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
             >
                 <!-- Dropdown Arrow Indicator - Positioned relative to Services nav item -->
-                <div class="services-arrow absolute -top-2">
+                <div ref="servicesArrow" class="services-arrow absolute -top-2">
                     <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
                 </div>
                 <div class="flex px-40 py-8">
@@ -586,6 +586,7 @@ const isLoading = ref(false);
 const loadingProgress = ref(0);
 const calendlyContainer = ref(null);
 const servicesMegaMenuVisible = ref(false);
+const servicesArrow = ref(null);
 let progressInterval = null;
 let megaMenuTimeout = null;
 const toggleMobileMenu = () => {
@@ -611,6 +612,7 @@ const showServicesMegaMenu = () => {
         megaMenuTimeout = null;
     }
     servicesMegaMenuVisible.value = true;
+    updateArrowPosition();
 };
 const hideServicesMegaMenu = () => {
     megaMenuTimeout = setTimeout(() => {
@@ -743,15 +745,51 @@ const handleScroll = () => {
         }
     }
 };
+// Update arrow position to center under Services nav item
+const updateArrowPosition = () => {
+    nextTick(() => {
+        if (servicesArrow.value && servicesMegaMenuVisible.value) {
+            // Find all nav links that contain "Services" text
+            const allNavLinks = document.querySelectorAll('a[href="#services"]');
+            let activeServicesLink = null;
+            // Find the visible Services link based on screen size
+            for (const link of allNavLinks) {
+                const navItem = link.closest('.nav-item');
+                if (navItem) {
+                    const isVisible = window.getComputedStyle(navItem).display !== 'none';
+                    if (isVisible) {
+                        activeServicesLink = link;
+                        break;
+                    }
+                }
+            }
+            if (activeServicesLink) {
+                const linkRect = activeServicesLink.getBoundingClientRect();
+                const megaMenuContainer = servicesArrow.value.parentElement;
+                const containerRect = megaMenuContainer.getBoundingClientRect();
+                // Calculate the center position of the Services link
+                const linkCenterX = linkRect.left + (linkRect.width / 2);
+                // Calculate position relative to the mega menu container
+                const relativePosition = linkCenterX - containerRect.left;
+                // Position the arrow at the center, minus half the arrow width (8px for w-4=16px)
+                servicesArrow.value.style.left = `${relativePosition - 8}px`;
+                servicesArrow.value.style.transform = 'none';
+            }
+        }
+    });
+};
 onMounted(() => {
     window.addEventListener('keydown', handleEscape);
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', updateArrowPosition);
     // Initial calculation
     handleScroll();
+    updateArrowPosition();
 });
 onUnmounted(() => {
     window.removeEventListener('keydown', handleEscape);
     window.removeEventListener('scroll', handleScroll);
+    window.removeEventListener('resize', updateArrowPosition);
     document.body.style.overflow = '';
     if (progressInterval) {
         clearInterval(progressInterval);
@@ -965,19 +1003,12 @@ onUnmounted(() => {
 }
 /* Arrow indicator styles */
 .services-arrow {
-    /* For 2xl+ screens (Desktop): Position arrow under Services nav item */
-    left: calc(50% - 220px);
+    /* Position will be dynamically calculated by JavaScript */
+    left: 0;
+    transition: left 0.3s ease;
 }
-
 .services-arrow div {
     box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* Medium screens (lg to 2xl): Adjust arrow position for centered navigation */
-@media (min-width: 1024px) and (max-width: 1535px) {
-    .services-arrow {
-        left: calc(50% - 280px);
-    }
 }
 /* Professional responsive adjustments for mega menu alignment */
 @media (max-width: 1920px) {
