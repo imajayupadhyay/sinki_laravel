@@ -46,7 +46,7 @@
                             <button
                                 v-if="ctaText"
                                 @click="handleCtaClick"
-                                class="cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                                class="cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                             >
                                 {{ ctaText }}
                                 <div class="w-6 h-6 flex items-center justify-center">

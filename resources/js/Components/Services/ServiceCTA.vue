@@ -28,7 +28,7 @@
                         <div class="animate-fade-in-up">
                             <a
                                 :href="ctaLink"
-                                class="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-brand-red border-2 border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize hover:bg-transparent hover:text-brand-red transition-all duration-300 btn-hover-effect shadow-lg hover:shadow-2xl group"
+                                class="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-brand-red border-2 border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize hover:bg-transparent hover:text-brand-white transition-all duration-300 btn-hover-effect shadow-lg hover:shadow-2xl group"
                             >
                                 <span class="whitespace-nowrap">{{ ctaText }}</span>
                                 <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 transform group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

@@ -38,7 +38,7 @@
                         <button
                             v-if="ctaText"
                             @click="handleCtaClick"
-                            class="service-cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-white border-2 border-brand-red rounded-full text-white hover:text-brand-red text-base sm:text-lg font-bold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                            class="service-cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-white border-2 border-brand-red rounded-full text-white hover:text-brand-white text-base sm:text-lg font-bold tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                         >
                             {{ ctaText }}
                             <div class="w-6 h-6 flex items-center justify-center">

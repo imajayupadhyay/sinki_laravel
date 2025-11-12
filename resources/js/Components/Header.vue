@@ -9,7 +9,7 @@
 
     <!-- Navigation Section -->
     <div id="navigation">
-        <nav class="navigation bg-white/75 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
+        <nav class="navigation bg-white/90 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
                 <div class="flex items-center justify-between h-[80px] px-6 relative">
                     <!-- Logo -->
