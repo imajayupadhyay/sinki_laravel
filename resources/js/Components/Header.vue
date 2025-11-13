@@ -8,6 +8,11 @@
     </div>
     <!-- Navigation Section -->
     <div id="navigation" class="relative">
+        <!-- Full Screen Overlay for Services Menu -->
+        <div
+            class="services-overlay fixed inset-0 bg-black/50 transition-all duration-300 ease-out z-40"
+            :class="servicesMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
+        ></div>
         <nav class="navigation bg-white/90 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
                 <div class="flex items-center justify-between h-[80px] px-6 relative">
@@ -179,9 +184,9 @@
             <div
                 @mouseenter="showServicesMegaMenu"
                 @mouseleave="hideServicesMegaMenu"
-                class="services-mega-menu absolute top-full mt-2 left-0 right-0 border border-gray-200 rounded-2xl shadow-xl z-50 mx-6 transition-all duration-300"
+                class="services-mega-menu absolute top-full mt-2 left-0 right-0 border border-gray-200 rounded-2xl shadow-xl z-60 mx-6 transition-all duration-200 ease-out"
                 style="background-color: #FFF9F8;"
-                :class="servicesMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
+                :class="servicesMegaMenuVisible ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform translate-y-4'"
             >
                 <!-- Dropdown Arrow Indicator - Positioned relative to Services nav item -->
                 <div ref="servicesArrow" class="services-arrow absolute -top-2">
@@ -617,7 +622,7 @@ const showServicesMegaMenu = () => {
 const hideServicesMegaMenu = () => {
     megaMenuTimeout = setTimeout(() => {
         servicesMegaMenuVisible.value = false;
-    }, 100); // Small delay to prevent flickering
+    }, 50); // Minimal delay to prevent flickering
 };
 // Smooth scroll to section
 const scrollToSection = (sectionId) => {
@@ -991,15 +996,11 @@ onUnmounted(() => {
 .mega-menu-item .group\/item:hover h3 {
     color: #FF3621;
 }
-/* Services Mega Menu Styles - Full Header Width */
+/* Services Mega Menu Styles - Full Header Width - Override default styles */
 .services-mega-menu {
-    backdrop-filter: blur(20px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08);
-    /* Professional full-width positioning */
-    width: auto; /* Let left/right margins control width naturally */
-    max-width: none; /* Remove any width restrictions */
+    /* Override default styles to use enhanced animations above */
+    width: auto !important;
+    max-width: none !important;
 }
 /* Arrow indicator styles */
 .services-arrow {
@@ -1024,14 +1025,7 @@ onUnmounted(() => {
     left: 0;
     right: 0;
 }
-.service-mega-item {
-    transform: translateY(3px);
-    transition: all 0.3s ease;
-}
-.service-mega-item:hover {
-    transform: translateY(0);
-    box-shadow: 0 8px 25px rgba(255, 54, 33, 0.15);
-}
+/* Service mega items styling moved to enhanced animation section above */
 /* Mobile Menu Link Animation */
 .mobile-menu-link {
     animation: slideInRight 0.3s ease-out forwards;
@@ -1230,6 +1224,72 @@ section[id] {
         height: 500px !important;
     }
 }
+/* Services Menu Overlay Styles */
+.services-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced Services Mega Menu Animations */
+.services-mega-menu {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(10px);
+}
+
+@keyframes megaMenuSlideIn {
+    from {
+        transform: translateY(15px) scale(0.98);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Enhanced Service Items Animation */
+.service-mega-item {
+    transform: translateY(5px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: itemSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.service-mega-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.service-mega-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.service-mega-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.service-mega-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes itemSlideUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.service-mega-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(255, 54, 33, 0.2), 0 5px 15px rgba(255, 54, 33, 0.1);
+}
+
 /* Safety net for positioning */
 #navigation {
     position: relative;
