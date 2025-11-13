@@ -204,7 +204,7 @@
                                             Data Engineering & Modernization
                                         </h3>
                                         <p class="text-gray-600 text-[14px] leading-5">
-                                            Build scalable data pipelines and modernize your infrastructure for optimal performance.
+                                            Design, build, and modernize scalable data pipelines that drive enterprise intelligence.
                                         </p>
                                         <div class="flex items-center mt-3 text-brand-red opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
                                             <span class="text-sm font-semibold">Learn More</span>
@@ -228,7 +228,7 @@
                                             Data Management & Governance
                                         </h3>
                                         <p class="text-gray-600 text-[14px] leading-5">
-                                            Ensure data quality, security, and compliance with robust governance frameworks.
+                                            Establish unified control, compliance, and trust across your entire data ecosystem.
                                         </p>
                                         <div class="flex items-center mt-3 text-brand-red opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
                                             <span class="text-sm font-semibold">Learn More</span>
@@ -249,10 +249,10 @@
                                     </div>
                                     <div class="flex-1 min-w-0 flex flex-col justify-start">
                                         <h3 class="text-brand-dark text-[16px] font-bold group-hover/item:text-brand-red transition-colors duration-300 leading-5 mb-2">
-                                            Data Analytics & BI
+                                            Data Analytics & Business Intelligence
                                         </h3>
                                         <p class="text-gray-600 text-[14px] leading-5">
-                                            Transform data into actionable insights with advanced analytics and reporting.
+                                            Transform raw data into actionable insights that drive smarter decisions.
                                         </p>
                                         <div class="flex items-center mt-3 text-brand-red opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
                                             <span class="text-sm font-semibold">Learn More</span>
@@ -276,7 +276,7 @@
                                             AI & ML Solutions
                                         </h3>
                                         <p class="text-gray-600 text-[14px] leading-5">
-                                            Leverage artificial intelligence and machine learning for competitive advantage.
+                                            Accelerate innovation with scalable AI models and intelligent automation.
                                         </p>
                                         <div class="flex items-center mt-3 text-brand-red opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
                                             <span class="text-sm font-semibold">Learn More</span>
