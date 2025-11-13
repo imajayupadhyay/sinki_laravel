@@ -176,33 +176,45 @@
         </section>
 
         <!-- Previous/Next Navigation -->
-        <section v-if="previousBlog || nextBlog" class="py-16 bg-white">
+        <section class="py-8 bg-white">
             <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
                 <div class="max-w-[1720px] mx-auto">
                     <div class="flex items-center justify-center gap-4">
                         <!-- Previous Button -->
-                        <Link
+                        <button
                             v-if="previousBlog"
-                            :href="route('blog.show', previousBlog.slug)"
-                            class="bg-black text-white px-8 py-4 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
+                            @click="$inertia.visit(route('blog.show', previousBlog.slug))"
+                            class="bg-black text-white px-8 py-3 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
                         >
                             Previous
-                        </Link>
+                        </button>
 
-                        <!-- Spacer when previous doesn't exist -->
-                        <div v-else class="min-w-[120px]"></div>
+                        <!-- Disabled Previous Button -->
+                        <button
+                            v-else
+                            disabled
+                            class="bg-gray-300 text-gray-500 px-8 py-3 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans flex items-center justify-center min-w-[120px] cursor-not-allowed"
+                        >
+                            Previous
+                        </button>
 
                         <!-- Next Button -->
-                        <Link
+                        <button
                             v-if="nextBlog"
-                            :href="route('blog.show', nextBlog.slug)"
-                            class="bg-black text-white px-8 py-4 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
+                            @click="$inertia.visit(route('blog.show', nextBlog.slug))"
+                            class="bg-black text-white px-8 py-3 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center min-w-[120px]"
                         >
                             Next
-                        </Link>
+                        </button>
 
-                        <!-- Spacer when next doesn't exist -->
-                        <div v-else class="min-w-[120px]"></div>
+                        <!-- Disabled Next Button -->
+                        <button
+                            v-else
+                            disabled
+                            class="bg-gray-300 text-gray-500 px-8 py-3 rounded-[10px] font-semibold text-[16px] leading-[19.2px] tracking-[0.32px] font-instrument-sans flex items-center justify-center min-w-[120px] cursor-not-allowed"
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </div>
@@ -268,11 +280,10 @@
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { onMounted, nextTick } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
-import BlogCTA from '@/Components/BlogCTA.vue';
 
 // Props from BlogController
 const props = defineProps({
