@@ -482,42 +482,42 @@
                         </div>
                     </a>
                     <!-- Insights -->
-                    <a
-                        href="#insights"
-                        @click.prevent="scrollToSection('insights'); closeMobileMenu()"
-                        class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
-                    >
-                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
-                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
+                    <div class="mobile-insights-menu">
+                        <button
+                            @click="toggleMobileInsightsMenu"
+                            class="mobile-menu-link group w-full flex items-center justify-between px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
+                        >
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
+                                    <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Insights</span>
+                                    <p class="text-gray-500 text-xs font-normal">Resources & Blog</p>
+                                </div>
+                            </div>
+                            <div class="w-6 h-6 flex items-center justify-center">
+                                <svg :class="['w-4 h-4 text-brand-red transition-transform duration-300', mobileInsightsMenuOpen ? 'rotate-180' : '']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <!-- Mobile Insights Submenu -->
+                        <div :class="['mobile-insights-submenu overflow-hidden transition-all duration-300', mobileInsightsMenuOpen ? 'max-h-[200px] opacity-100 mt-2' : 'max-h-0 opacity-0']">
+                            <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+                                <a href="/blog" @click="closeMobileMenu" class="mobile-insight-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">Blog</span>
+                                </a>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Insights</span>
-                            <p class="text-gray-500 text-xs font-normal">Resources & Blog</p>
-                        </div>
-                        <div class="w-6 h-6 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-brand-red transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
-                    </a>
-                    <!-- Blog -->
-                    <a
-                        href="/blog"
-                        @click="closeMobileMenu"
-                        class="mobile-menu-link group flex items-center px-4 py-4 border border-gray-200 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300"
-                    >
-                        <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-brand-red group-hover:scale-110 transition-all duration-300">
-                            <svg class="w-6 h-6 text-brand-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-brand-dark text-base font-bold uppercase group-hover:text-brand-red transition-colors duration-300">Blog</span>
-                            <p class="text-gray-500 text-xs font-normal">Latest insights & updates</p>
-                        </div>
-                    </a>
+                    </div>
                     <!-- Book a Meeting -->
                     <button
                         @click="openCalendlyModalMobile"
@@ -605,6 +605,7 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 const mobileMenuOpen = ref(false);
 const mobileServicesMenuOpen = ref(false);
+const mobileInsightsMenuOpen = ref(false);
 const scrollProgress = ref(0);
 const isSticky = ref(false);
 const activeSection = ref('');
@@ -628,10 +629,14 @@ const toggleMobileMenu = () => {
 const closeMobileMenu = () => {
     mobileMenuOpen.value = false;
     mobileServicesMenuOpen.value = false;
+    mobileInsightsMenuOpen.value = false;
     document.body.style.overflow = '';
 };
 const toggleMobileServicesMenu = () => {
     mobileServicesMenuOpen.value = !mobileServicesMenuOpen.value;
+};
+const toggleMobileInsightsMenu = () => {
+    mobileInsightsMenuOpen.value = !mobileInsightsMenuOpen.value;
 };
 // Mega menu visibility controls
 const showServicesMegaMenu = () => {
