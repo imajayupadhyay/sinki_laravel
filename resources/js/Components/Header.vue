@@ -13,6 +13,11 @@
             class="services-overlay fixed inset-0 bg-black/50 transition-all duration-300 ease-out z-40"
             :class="servicesMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
         ></div>
+        <!-- Full Screen Overlay for Insights Menu -->
+        <div
+            class="insights-overlay fixed inset-0 bg-black/50 transition-all duration-300 ease-out z-40"
+            :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
+        ></div>
         <nav class="navigation bg-white/90 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
                 <div class="flex items-center justify-between h-[80px] px-6 relative">
@@ -43,7 +48,7 @@
                                     Platforms
                                 </a>
                             </div>
-                            <div class="nav-item relative group">
+                            <div class="nav-item relative group" @mouseenter="showInsightsMegaMenu" @mouseleave="hideInsightsMegaMenu">
                                 <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
                                     <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,11 +56,19 @@
                                     </svg>
                                 </a>
                                 <!-- Mega Menu Dropdown -->
-                                <div class="mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6">
-                              
+                                <div
+                                    @mouseenter="showInsightsMegaMenu"
+                                    @mouseleave="hideInsightsMegaMenu"
+                                    class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
+                                    :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
+                                >
+                                    <!-- Dropdown Arrow Indicator -->
+                                    <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
+                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: rgba(255,255,255,0.95);"></div>
+                                    </div>
                                     <div class="space-y-4">
                                         <!-- Blog Item -->
-                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item">
+                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-4">
                                                 <!-- Icon -->
                                                 <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
@@ -121,7 +134,7 @@
                                     Platforms
                                 </a>
                             </div>
-                            <div class="nav-item relative group">
+                            <div class="nav-item relative group" @mouseenter="showInsightsMegaMenu" @mouseleave="hideInsightsMegaMenu">
                                 <a href="#insights" @click.prevent="scrollToSection('insights')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300 flex items-center', activeSection === 'insights' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
                                     Insights
                                     <svg class="w-3 h-3 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,10 +142,19 @@
                                     </svg>
                                 </a>
                                 <!-- Medium Screen Mega Menu Dropdown -->
-                                <div class="mega-menu absolute left-1/2 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5">
+                                <div
+                                    @mouseenter="showInsightsMegaMenu"
+                                    @mouseleave="hideInsightsMegaMenu"
+                                    class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
+                                    :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
+                                >
+                                    <!-- Dropdown Arrow Indicator -->
+                                    <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
+                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: rgba(255,255,255,0.95);"></div>
+                                    </div>
                                     <div class="space-y-3">
                                         <!-- Blog Item -->
-                                        <a href="/blog" class="mega-menu-item block p-3 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item">
+                                        <a href="/blog" class="mega-menu-item block p-3 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-3">
                                                 <!-- Icon -->
                                                 <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
@@ -591,6 +613,7 @@ const isLoading = ref(false);
 const loadingProgress = ref(0);
 const calendlyContainer = ref(null);
 const servicesMegaMenuVisible = ref(false);
+const insightsMegaMenuVisible = ref(false);
 const servicesArrow = ref(null);
 let progressInterval = null;
 let megaMenuTimeout = null;
@@ -622,6 +645,21 @@ const showServicesMegaMenu = () => {
 const hideServicesMegaMenu = () => {
     megaMenuTimeout = setTimeout(() => {
         servicesMegaMenuVisible.value = false;
+    }, 50); // Minimal delay to prevent flickering
+};
+
+// Insights menu visibility controls
+const showInsightsMegaMenu = () => {
+    if (megaMenuTimeout) {
+        clearTimeout(megaMenuTimeout);
+        megaMenuTimeout = null;
+    }
+    insightsMegaMenuVisible.value = true;
+};
+
+const hideInsightsMegaMenu = () => {
+    megaMenuTimeout = setTimeout(() => {
+        insightsMegaMenuVisible.value = false;
     }, 50); // Minimal delay to prevent flickering
 };
 // Smooth scroll to section
@@ -1011,6 +1049,33 @@ onUnmounted(() => {
 .services-arrow div {
     box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
 }
+/* Insights arrow styles */
+.insights-arrow div {
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+}
+/* Insights Mega Menu Positioning - Match Services spacing */
+.insights-mega-menu {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 35px;
+}
+.insights-mega-menu-medium {
+    backdrop-filter: blur(20px);
+    transform: translateX(-50%) translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 35px;
+}
+.group:hover .insights-mega-menu,
+.group:hover .insights-mega-menu-medium {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
 /* Professional responsive adjustments for mega menu alignment */
 @media (max-width: 1920px) {
     .services-mega-menu {
@@ -1228,7 +1293,10 @@ section[id] {
 .services-overlay {
     background: rgba(0, 0, 0, 0.5);
 }
-
+/* Insights Menu Overlay Styles */
+.insights-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
 /* Enhanced Services Mega Menu Animations */
 .services-mega-menu {
     backdrop-filter: blur(20px);
@@ -1238,7 +1306,6 @@ section[id] {
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.1);
     transform: translateY(10px);
 }
-
 @keyframes megaMenuSlideIn {
     from {
         transform: translateY(15px) scale(0.98);
@@ -1249,7 +1316,6 @@ section[id] {
         opacity: 1;
     }
 }
-
 /* Enhanced Service Items Animation */
 .service-mega-item {
     transform: translateY(5px);
@@ -1257,23 +1323,18 @@ section[id] {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: itemSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-
 .service-mega-item:nth-child(1) {
     animation-delay: 0.1s;
 }
-
 .service-mega-item:nth-child(2) {
     animation-delay: 0.2s;
 }
-
 .service-mega-item:nth-child(3) {
     animation-delay: 0.3s;
 }
-
 .service-mega-item:nth-child(4) {
     animation-delay: 0.4s;
 }
-
 @keyframes itemSlideUp {
     from {
         transform: translateY(10px);
@@ -1284,12 +1345,10 @@ section[id] {
         opacity: 1;
     }
 }
-
 .service-mega-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 40px rgba(255, 54, 33, 0.2), 0 5px 15px rgba(255, 54, 33, 0.1);
 }
-
 /* Safety net for positioning */
 #navigation {
     position: relative;
