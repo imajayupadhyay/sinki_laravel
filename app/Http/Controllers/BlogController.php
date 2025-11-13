@@ -122,23 +122,53 @@ class BlogController extends Controller
             ->orderBy('published_at', 'asc')
             ->first();
 
-        // Get related blogs (same category, excluding current blog)
-        $relatedBlogs = Blog::with(['category', 'author'])
-            ->where('category_id', $blog->category_id)
-            ->where('id', '!=', $blog->id)
-            ->where('status', 'published')
-            ->limit(3)
-            ->get()
-            ->map(function ($blog) {
-                return [
-                    'id' => $blog->id,
-                    'title' => $blog->title,
-                    'slug' => $blog->slug,
-                    'excerpt' => $blog->excerpt ?: $this->generateExcerpt($blog->content),
-                    'featured_image' => $blog->featured_image,
-                    'published_at' => $blog->published_at->format('M d, Y'),
-                ];
-            });
+        // Get related blogs (same category first, then fallback to other published blogs)
+        $relatedBlogs = collect();
+
+        // First, try to get blogs from same category
+        if ($blog->category_id) {
+            $relatedBlogs = Blog::with(['category', 'author'])
+                ->where('category_id', $blog->category_id)
+                ->where('id', '!=', $blog->id)
+                ->where('status', 'published')
+                ->limit(3)
+                ->get();
+        }
+
+        // If we don't have enough related blogs from same category, fill with other published blogs
+        if ($relatedBlogs->count() < 3) {
+            $excludeIds = $relatedBlogs->pluck('id')->push($blog->id)->toArray();
+
+            $additionalBlogs = Blog::with(['category', 'author'])
+                ->whereNotIn('id', $excludeIds)
+                ->where('status', 'published')
+                ->orderBy('published_at', 'desc')
+                ->limit(3 - $relatedBlogs->count())
+                ->get();
+
+            $relatedBlogs = $relatedBlogs->merge($additionalBlogs);
+        }
+
+        // Log for debugging (remove in production)
+        if (config('app.env') !== 'production') {
+            logger('Related blogs debug', [
+                'current_blog_id' => $blog->id,
+                'current_blog_category_id' => $blog->category_id,
+                'related_blogs_count' => $relatedBlogs->count(),
+                'related_blogs_ids' => $relatedBlogs->pluck('id')->toArray(),
+            ]);
+        }
+
+        $relatedBlogs = $relatedBlogs->map(function ($blog) {
+            return [
+                'id' => $blog->id,
+                'title' => $blog->title,
+                'slug' => $blog->slug,
+                'excerpt' => $blog->excerpt ?: $this->generateExcerpt($blog->content),
+                'featured_image' => $blog->featured_image,
+                'published_at' => $blog->published_at->format('M d, Y'),
+            ];
+        });
 
         return Inertia::render('Blog/Show', [
             'blog' => [
