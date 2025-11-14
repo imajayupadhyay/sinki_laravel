@@ -13,6 +13,10 @@ Disallow: /login
 Disallow: /auth/
 Disallow: /register/
 Disallow: /password/
+# Allow specific API routes needed for SSR
+Allow: /api/footer
+
+# Block other API routes
 Disallow: /api/
 
 # Block temporary and cache files
