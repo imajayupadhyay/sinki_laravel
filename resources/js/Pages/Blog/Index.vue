@@ -45,7 +45,7 @@
                             <img
                                 :src="blog.featured_image || '/images/default-blog.jpg'"
                                 :alt="blog.title"
-                                class="w-full h-[288px] object-cover transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
+                                class="w-full h-[288px] transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
                             />
                             
                             <!-- Arrow Icon Overlay (positioned absolutely on top right) -->

@@ -12,11 +12,13 @@
         <div
             class="services-overlay fixed inset-0 bg-black/50 transition-all duration-300 ease-out z-40"
             :class="servicesMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
+            @click="hideServicesMegaMenu"
         ></div>
         <!-- Full Screen Overlay for Insights Menu -->
         <div
             class="insights-overlay fixed inset-0 bg-black/50 transition-all duration-300 ease-out z-40"
             :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
+            @click="hideInsightsMegaMenu"
         ></div>
         <nav class="navigation bg-white/90 backdrop-blur-sm shadow-custom z-50 rounded-[20px] border border-gray-200" :class="isSticky ? 'nav-sticky' : 'nav-floating'">
             <div class="container-custom">
@@ -37,6 +39,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </a>
+                                <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
+                                <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
                             </div>
                             <div class="nav-item">
                                 <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-base font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -55,16 +59,21 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </a>
+                                <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
+                                <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
                                 <!-- Mega Menu Dropdown -->
                                 <div
                                     @mouseenter="showInsightsMegaMenu"
                                     @mouseleave="hideInsightsMegaMenu"
-                                    class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
+                                    class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
+                                    style="background-color: #FFF9F8;"
                                     :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
                                 >
+                                    <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
+                                    <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
                                     <!-- Dropdown Arrow Indicator -->
                                     <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
-                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: rgba(255,255,255,0.95);"></div>
+                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
                                     </div>
                                     <div class="space-y-4">
                                         <!-- Blog Item -->
@@ -123,6 +132,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </a>
+                                <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
+                                <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
                             </div>
                             <div class="nav-item">
                                 <a href="#approach" @click.prevent="scrollToSection('approach')" :class="['nav-link text-sm font-bold uppercase tracking-wide transition-colors duration-300', activeSection === 'approach' ? 'text-brand-red active' : 'text-brand-dark hover:text-brand-red']">
@@ -141,16 +152,21 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </a>
+                                <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
+                                <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
                                 <!-- Medium Screen Mega Menu Dropdown -->
                                 <div
                                     @mouseenter="showInsightsMegaMenu"
                                     @mouseleave="hideInsightsMegaMenu"
-                                    class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
+                                    class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
+                                    style="background-color: #FFF9F8;"
                                     :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
                                 >
+                                    <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
+                                    <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
                                     <!-- Dropdown Arrow Indicator -->
                                     <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
-                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: rgba(255,255,255,0.95);"></div>
+                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
                                     </div>
                                     <div class="space-y-3">
                                         <!-- Blog Item -->
@@ -206,10 +222,12 @@
             <div
                 @mouseenter="showServicesMegaMenu"
                 @mouseleave="hideServicesMegaMenu"
-                class="services-mega-menu absolute top-full mt-2 left-0 right-0 border border-gray-200 rounded-2xl shadow-xl z-60 mx-6 transition-all duration-200 ease-out"
+                class="services-mega-menu absolute top-full left-0 right-0 border border-gray-200 rounded-2xl shadow-xl z-60 mx-6 transition-all duration-150 ease-out"
                 style="background-color: #FFF9F8;"
                 :class="servicesMegaMenuVisible ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform translate-y-4'"
             >
+                <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
+                <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
                 <!-- Dropdown Arrow Indicator - Positioned relative to Services nav item -->
                 <div ref="servicesArrow" class="services-arrow absolute -top-2">
                     <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
@@ -617,7 +635,8 @@ const servicesMegaMenuVisible = ref(false);
 const insightsMegaMenuVisible = ref(false);
 const servicesArrow = ref(null);
 let progressInterval = null;
-let megaMenuTimeout = null;
+let servicesMegaMenuTimeout = null;
+let insightsMegaMenuTimeout = null;
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
     if (mobileMenuOpen.value) {
@@ -640,32 +659,44 @@ const toggleMobileInsightsMenu = () => {
 };
 // Mega menu visibility controls
 const showServicesMegaMenu = () => {
-    if (megaMenuTimeout) {
-        clearTimeout(megaMenuTimeout);
-        megaMenuTimeout = null;
+    // Clear any pending timeouts for both menus
+    if (servicesMegaMenuTimeout) {
+        clearTimeout(servicesMegaMenuTimeout);
+        servicesMegaMenuTimeout = null;
     }
+    if (insightsMegaMenuTimeout) {
+        clearTimeout(insightsMegaMenuTimeout);
+        insightsMegaMenuTimeout = null;
+    }
+    // Hide insights menu immediately when switching to services
+    insightsMegaMenuVisible.value = false;
     servicesMegaMenuVisible.value = true;
     updateArrowPosition();
 };
 const hideServicesMegaMenu = () => {
-    megaMenuTimeout = setTimeout(() => {
+    servicesMegaMenuTimeout = setTimeout(() => {
         servicesMegaMenuVisible.value = false;
-    }, 50); // Minimal delay to prevent flickering
+    }, 150); // Reduced delay for faster switching
 };
-
 // Insights menu visibility controls
 const showInsightsMegaMenu = () => {
-    if (megaMenuTimeout) {
-        clearTimeout(megaMenuTimeout);
-        megaMenuTimeout = null;
+    // Clear any pending timeouts for both menus
+    if (insightsMegaMenuTimeout) {
+        clearTimeout(insightsMegaMenuTimeout);
+        insightsMegaMenuTimeout = null;
     }
+    if (servicesMegaMenuTimeout) {
+        clearTimeout(servicesMegaMenuTimeout);
+        servicesMegaMenuTimeout = null;
+    }
+    // Hide services menu immediately when switching to insights
+    servicesMegaMenuVisible.value = false;
     insightsMegaMenuVisible.value = true;
 };
-
 const hideInsightsMegaMenu = () => {
-    megaMenuTimeout = setTimeout(() => {
+    insightsMegaMenuTimeout = setTimeout(() => {
         insightsMegaMenuVisible.value = false;
-    }, 50); // Minimal delay to prevent flickering
+    }, 150); // Reduced delay for faster switching
 };
 // Smooth scroll to section
 const scrollToSection = (sectionId) => {
@@ -842,8 +873,11 @@ onUnmounted(() => {
     if (progressInterval) {
         clearInterval(progressInterval);
     }
-    if (megaMenuTimeout) {
-        clearTimeout(megaMenuTimeout);
+    if (servicesMegaMenuTimeout) {
+        clearTimeout(servicesMegaMenuTimeout);
+    }
+    if (insightsMegaMenuTimeout) {
+        clearTimeout(insightsMegaMenuTimeout);
     }
 });
 </script>
@@ -1062,7 +1096,7 @@ onUnmounted(() => {
 .insights-mega-menu {
     backdrop-filter: blur(20px);
     transform: translateX(-50%) translateY(0);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
     margin-top: 35px;
@@ -1070,7 +1104,7 @@ onUnmounted(() => {
 .insights-mega-menu-medium {
     backdrop-filter: blur(20px);
     transform: translateX(-50%) translateY(0);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
     margin-top: 35px;
@@ -1306,7 +1340,7 @@ section[id] {
 .services-mega-menu {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 16px;
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.1);
     transform: translateY(10px);
