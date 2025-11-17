@@ -115,6 +115,10 @@ import { Head, Link } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
 import ContactCTA from '@/Components/Contact/ContactCTA.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for blog index page
+useCanonical('https://www.sinki.ai/blog');
 
 // Props
 const props = defineProps({

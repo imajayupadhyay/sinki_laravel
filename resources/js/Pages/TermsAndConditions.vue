@@ -349,8 +349,12 @@ import { Head } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
 
 const activeSection = ref('introduction');
+
+// Set canonical URL for terms page
+useCanonical('https://www.sinki.ai/terms-and-conditions');
 
 const scrollToSection = (sectionId) => {
     if (typeof document !== 'undefined') {

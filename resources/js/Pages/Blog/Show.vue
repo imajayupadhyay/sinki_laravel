@@ -284,6 +284,7 @@ import { Head } from '@inertiajs/vue3';
 import { onMounted, nextTick } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
 
 // Props from BlogController
 const props = defineProps({
@@ -308,6 +309,11 @@ const props = defineProps({
         default: false
     }
 });
+
+// Set canonical URL for individual blog posts (not for previews)
+if (!props.isPreview && props.blog?.slug) {
+    useCanonical(`https://www.sinki.ai/blog/${props.blog.slug}`);
+}
 
 // Track failed images to prevent infinite loops
 const failedImages = new Set();

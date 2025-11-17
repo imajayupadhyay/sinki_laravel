@@ -95,6 +95,10 @@
 import { Head, Link } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for services index page
+useCanonical('https://www.sinki.ai/services');
 
 const props = defineProps({
     servicePages: {

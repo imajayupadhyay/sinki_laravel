@@ -25,6 +25,9 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Canonical URL -->
+        <link rel="canonical" id="canonical-url" href="">
+
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
         <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">

@@ -50,6 +50,7 @@ import WhatSetsUsApartSection from '@/Components/Home/WhatSetsUsApartSection.vue
 import InsightsResourcesSection from '@/Components/Home/InsightsResourcesSection.vue';
 import CTASection from '@/Components/CTASection.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
 
 // Define props to receive data from the backend
 const props = defineProps({
@@ -58,6 +59,9 @@ const props = defineProps({
         default: () => []
     }
 });
+
+// Set canonical URL for homepage
+useCanonical('https://www.sinki.ai/');
 
 </script>
 
