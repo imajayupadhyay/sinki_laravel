@@ -19,8 +19,16 @@ Allow: /api/footer
 # Block other API routes
 Disallow: /api/
 
-# Block temporary and cache files
-Disallow: /storage/
+# Allow public assets and images
+Allow: /storage/app/public/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+
+# Block temporary and cache files (except public storage)
+Disallow: /storage/logs/
+Disallow: /storage/framework/
 Disallow: /vendor/
 Disallow: /.env
 Disallow: /config/
@@ -29,7 +37,6 @@ Disallow: /database/
 
 # Block development and testing files
 Disallow: /tests/
-Disallow: /resources/
 Disallow: /*.log
 Disallow: /*.sql
 Disallow: /*.zip
