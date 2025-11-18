@@ -42,8 +42,8 @@ Disallow: /*.sql
 Disallow: /*.zip
 Disallow: /*.tar.gz
 
-# Sitemap location (you can add this later)
-# Sitemap: https://sinki.ai/sitemap.xml
+# Sitemap location
+Sitemap: https://sinki.ai/sitemap.xml
 
 # Crawl-delay (optional - adds small delay between requests)
 Crawl-delay: 1

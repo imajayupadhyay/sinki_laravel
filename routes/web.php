@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,9 @@ Route::prefix('services')->name('services.')->group(function () {
         ->name('show')
         ->where('slug', '[a-zA-Z0-9\-]+');
 });
+
+// Sitemap Route
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // API Routes
 Route::prefix('api')->name('api.')->group(function () {
