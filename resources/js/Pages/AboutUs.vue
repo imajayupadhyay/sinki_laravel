@@ -1,5 +1,31 @@
 <template>
     <div class="min-h-screen bg-[#FFFBE5]">
+        <Head title="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services">
+            <meta name="description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+            <meta name="keywords" content="about sinki.ai, databricks consulting, data engineering experts, helsinki inspired data solutions, certified databricks specialists, enterprise data strategy, lakehouse architecture, data modernization team" />
+
+            <!-- Open Graph / Facebook -->
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services" />
+            <meta property="og:description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+            <meta property="og:url" content="https://www.sinki.ai/about-us" />
+            <meta property="og:site_name" content="Sinki.ai" />
+            <meta property="og:image" content="https://www.sinki.ai/images/sinki-about-og-image.jpg" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+
+            <!-- Twitter -->
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services" />
+            <meta name="twitter:description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+            <meta name="twitter:image" content="https://www.sinki.ai/images/sinki-about-og-image.jpg" />
+
+            <!-- Additional SEO -->
+            <meta name="robots" content="index, follow" />
+            <meta name="author" content="Sinki.ai" />
+            <link rel="canonical" href="https://www.sinki.ai/about-us" />
+
+        </Head>
         <!-- Header Navigation -->
         <Header />
 
@@ -57,6 +83,7 @@
 
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 import AboutHero from '@/Components/AboutUs/AboutHero.vue';
@@ -67,6 +94,81 @@ import OurApproachSection from '@/Components/AboutUs/OurApproachSection.vue';
 import WhyPartnerWithUs from '@/Components/AboutUs/WhyPartnerWithUs.vue';
 import LeadershipSection from '@/Components/AboutUs/LeadershipSection.vue';
 import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for About Us page
+useCanonical('https://www.sinki.ai/about-us');
+
+// Add structured data on component mount
+onMounted(() => {
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Sinki.ai",
+        "url": "https://www.sinki.ai",
+        "logo": "https://www.sinki.ai/images/sinki-logo.png",
+        "description": "Expert Databricks consulting and data engineering services helping enterprises turn complex data into actionable intelligence.",
+        "foundingDate": "2023",
+        "serviceArea": {
+            "@type": "Place",
+            "name": "Global"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Databricks Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Data Engineering & Modernization",
+                        "description": "Design and build resilient lakehouse architectures & automated pipelines"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Data Management & Governance",
+                        "description": "Establish strong governance with Unity Catalog-aligned lineage and compliance automation"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Data Analytics & Business Intelligence",
+                        "description": "Transform raw data into interactive dashboards and insights"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "AI & ML Solutions",
+                        "description": "Operationalize AI with scalable, production-ready models"
+                    }
+                }
+            ]
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-XXX-XXX-XXXX",
+            "contactType": "customer service",
+            "availableLanguage": "English"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/sinki-ai",
+            "https://twitter.com/sinki_ai"
+        ]
+    };
+
+    // Create script element and add to head
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+});
 
 // Define page meta
 defineOptions({
