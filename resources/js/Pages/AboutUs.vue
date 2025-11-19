@@ -32,6 +32,18 @@
         <!-- Leadership Section -->
         <LeadershipSection />
 
+        <!-- Why Partner With Us Section -->
+        <WhyPartnerWithUs />
+
+        <!-- CTA Section -->
+        <ServiceCTA
+            title="Wherever you are in your data journey, we can<br />help you move faster."
+            description="We'll help you adopt, scale, and succeed with Databricks."
+            cta-text="Start A Conversation"
+            cta-link="/contact"
+            background-image="/images/cta.webp"
+        />
+
         <!-- Future sections will be added here -->
         <!-- <AboutStats /> -->
         <!-- <AboutStory /> -->
@@ -52,7 +64,9 @@ import PartnerBadge from '@/Components/Services/ParnerBadge.vue';
 import AboutStorySection from '@/Components/AboutUs/AboutStorySection.vue';
 import WhatWeDoSection from '@/Components/AboutUs/WhatWeDoSection.vue';
 import OurApproachSection from '@/Components/AboutUs/OurApproachSection.vue';
+import WhyPartnerWithUs from '@/Components/AboutUs/WhyPartnerWithUs.vue';
 import LeadershipSection from '@/Components/AboutUs/LeadershipSection.vue';
+import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
 
 // Define page meta
 defineOptions({
