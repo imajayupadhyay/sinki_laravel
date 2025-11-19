@@ -43,7 +43,7 @@
                 'Sinki.ai combines Databricks-certified expertise, strategic data thinking, and hands-on engineering to help enterprises turn their data into a foundation that is reliable, compliant, and ready to deliver real business impact, just like a city built for its citizens.',
                 'As Helsinki balances functionality with thoughtful design, Sinki.ai delivers structured, reliable, and actionable data solutions that help organizations make smarter decisions.'
             ]"
-            :image-src="'/images/helsinki-placeholder.jpg'"
+            :image-src="'/images/our story image.png'"
             :image-alt="'Helsinki city representing our inspiration'"
             :image-position="'left'"
             :background-color="'bg-white'"

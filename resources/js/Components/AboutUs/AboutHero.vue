@@ -1,8 +1,14 @@
 <template>
-    <section class="relative bg-gradient-to-br from-[#2D0A0A] via-[#1a0505] to-[#0a0202] overflow-hidden min-h-[90vh]">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.3) 0%, transparent 50%);"></div>
+    <section class="relative overflow-hidden min-h-[90vh]">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img
+                src="/images/ABoutbanner.png"
+                alt="About Us Banner"
+                class="w-full h-full object-cover"
+            />
+            <!-- Optional overlay for text readability -->
+            <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
 
         <div class="relative max-w-[1440px] mx-auto px-6 lg:px-20 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36">
@@ -41,9 +47,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Bottom Gradient Fade -->
-        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FFFBE5] to-transparent"></div>
     </section>
 </template>
 
