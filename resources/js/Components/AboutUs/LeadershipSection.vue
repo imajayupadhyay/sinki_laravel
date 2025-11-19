@@ -27,30 +27,30 @@
                 </div>
 
                 <!-- Right Content - Team Cards in Horizontal Layout (70%) -->
-                <div class="w-full lg:w-[70%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div class="w-full lg:w-[70%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
                     <div
                         v-for="(member, index) in teamMembers"
                         :key="index"
-                        class="team-card bg-white rounded-3xl p-6 lg:p-8 flex flex-col items-center text-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
+                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center text-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
                         :style="`animation-delay: ${0.6 + index * 0.2}s`"
                     >
                         <!-- Profile Image -->
-                        <div class="flex-shrink-0 mb-4">
-                            <div class="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl overflow-hidden bg-gray-200">
+                        <div class="flex-shrink-0 mb-3 w-full">
+                            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200">
                                 <img
                                     :src="member.image"
                                     :alt="member.name"
-                                    class="w-full h-full object-cover"
+                                    class="w-full h-full object-contain"
                                 />
                             </div>
                         </div>
 
                         <!-- Member Info -->
                         <div class="flex-1">
-                            <h3 class="text-brand-dark text-lg lg:text-xl font-semibold mb-1">
+                            <h3 class="text-brand-dark text-base lg:text-lg font-semibold mb-0.5">
                                 {{ member.name }}
                             </h3>
-                            <p class="text-gray-600 text-sm lg:text-base font-medium">
+                            <p class="text-gray-600 text-xs lg:text-sm font-medium">
                                 {{ member.position }}
                             </p>
                         </div>
@@ -84,17 +84,17 @@ const props = defineProps({
             {
                 name: 'Gaurav Chauhan',
                 position: 'Founder & CEO',
-                image: '/images/team/gaurav-placeholder.jpg'
+                image: '/images/Mr Gaurav Chauhan.png'
             },
             {
                 name: 'Amit Kumar Pandey',
                 position: 'Co-Founder & CTO',
-                image: '/images/team/amit-placeholder.jpg'
+                image: '/images/Mr Amit Pandey.png'
             },
             {
                 name: 'Neeraj Kumar',
                 position: 'Chief Operating Officer',
-                image: '/images/team/neeraj-placeholder.jpg'
+                image: '/images/Mr Neeraj Kumar.png'
             }
         ]
     }
@@ -212,15 +212,15 @@ const props = defineProps({
     }
 
     .team-card {
-        padding: 1.5rem !important;
+        padding: 1rem !important;
     }
 
     .team-card h3 {
-        font-size: 18px !important;
+        font-size: 16px !important;
     }
 
     .team-card p {
-        font-size: 14px !important;
+        font-size: 12px !important;
     }
 }
 
@@ -231,7 +231,7 @@ const props = defineProps({
 
     .grid {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 1rem;
     }
 
     .leadership-section h2 {
@@ -245,7 +245,7 @@ const props = defineProps({
     }
 
     .team-card {
-        padding: 1.25rem !important;
+        padding: 1rem !important;
     }
 }
 
