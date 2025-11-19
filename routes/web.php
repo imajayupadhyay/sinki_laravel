@@ -75,6 +75,11 @@ Route::prefix('services')->name('services.')->group(function () {
         ->where('slug', '[a-zA-Z0-9\-]+');
 });
 
+// About Us Route
+Route::get('/about-us', function () {
+    return Inertia::render('AboutUs');
+})->name('about-us');
+
 // Sitemap Route
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
