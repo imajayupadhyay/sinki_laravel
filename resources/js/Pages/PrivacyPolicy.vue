@@ -100,19 +100,19 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Personal Data</td>
-                                            <td class="border border-gray-300 px-6 py-4">Any information that relates to an identified or identifiable natural person.</td>
-                                            <td class="border border-gray-300 px-6 py-4">This includes everything from your name and email to your IP address and browsing history.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Term">Personal Data</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Definition">Any information that relates to an identified or identifiable natural person.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Context & Significance">This includes everything from your name and email to your IP address and browsing history.</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Website</td>
-                                            <td class="border border-gray-300 px-6 py-4">The Sinki.ai corporate website at https://sinki.ai/ and any related online marketing platforms we operate.</td>
-                                            <td class="border border-gray-300 px-6 py-4">This is the primary area where we act as a Data Controller (collecting data for our own use).</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Term">Website</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Definition">The Sinki.ai corporate website at https://sinki.ai/ and any related online marketing platforms we operate.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Context & Significance">This is the primary area where we act as a Data Controller (collecting data for our own use).</td>
                                         </tr>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Services</td>
-                                            <td class="border border-gray-300 px-6 py-4">AI, Data Strategy, Digital Plant solutions, and related consulting and implementation work provided to our clients.</td>
-                                            <td class="border border-gray-300 px-6 py-4">When processing data as part of these Services, we act as a Data Processor under the strict direction of our client (the Data Controller).</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Term">Services</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Definition">AI, Data Strategy, Digital Plant solutions, and related consulting and implementation work provided to our clients.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Context & Significance">When processing data as part of these Services, we act as a Data Processor under the strict direction of our client (the Data Controller).</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -165,19 +165,19 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Business Contact Information</td>
-                                            <td class="border border-gray-300 px-6 py-4">Name, Job Title, Company Name, Work Email, Work Phone Number, Business Address.</td>
-                                            <td class="border border-gray-300 px-6 py-4">Contract / Legitimate Interest: To respond to your requests, manage contractual relationships, or pursue legitimate business development.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Data Category">Business Contact Information</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Specific Examples">Name, Job Title, Company Name, Work Email, Work Phone Number, Business Address.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Purpose of Collection (Legal Basis - GDPR)">Contract / Legitimate Interest: To respond to your requests, manage contractual relationships, or pursue legitimate business development.</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Communication Data</td>
-                                            <td class="border border-gray-300 px-6 py-4">Information provided in contact forms, subscription sign-ups, or email correspondence.</td>
-                                            <td class="border border-gray-300 px-6 py-4">Consent / Legitimate Interest: To send relevant marketing materials, newsletters, and improve customer service.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Data Category">Communication Data</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Specific Examples">Information provided in contact forms, subscription sign-ups, or email correspondence.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Purpose of Collection (Legal Basis - GDPR)">Consent / Legitimate Interest: To send relevant marketing materials, newsletters, and improve customer service.</td>
                                         </tr>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Recruitment Data</td>
-                                            <td class="border border-gray-300 px-6 py-4">CVs, cover letters, and application details submitted for employment.</td>
-                                            <td class="border border-gray-300 px-6 py-4">Legitimate Interest: To evaluate candidates for open positions.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Data Category">Recruitment Data</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Specific Examples">CVs, cover letters, and application details submitted for employment.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Purpose of Collection (Legal Basis - GDPR)">Legitimate Interest: To evaluate candidates for open positions.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -195,14 +195,14 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Usage and Technical Data</td>
-                                            <td class="border border-gray-300 px-6 py-4">IP address, browser type, operating system, pages viewed, time spent on pages, referral URL, device identifiers.</td>
-                                            <td class="border border-gray-300 px-6 py-4">Legitimate Interest: To monitor the security and performance of our Website, analyze site traffic, and improve user experience.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Data Category">Usage and Technical Data</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Specific Examples">IP address, browser type, operating system, pages viewed, time spent on pages, referral URL, device identifiers.</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Purpose of Collection (Legal Basis - GDPR)">Legitimate Interest: To monitor the security and performance of our Website, analyze site traffic, and improve user experience.</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Tracking Data</td>
-                                            <td class="border border-gray-300 px-6 py-4">Cookies and similar technologies (web beacons, pixels).</td>
-                                            <td class="border border-gray-300 px-6 py-4">Consent: To personalize content, analyze marketing campaign effectiveness, and deliver targeted advertising. (See Section 4.1.)</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Data Category">Tracking Data</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Specific Examples">Cookies and similar technologies (web beacons, pixels).</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Purpose of Collection (Legal Basis - GDPR)">Consent: To personalize content, analyze marketing campaign effectiveness, and deliver targeted advertising. (See Section 4.1.)</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -271,28 +271,28 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Access</td>
-                                            <td class="border border-gray-300 px-6 py-4">You have the right to request copies of the personal data we hold about you.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Access</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">You have the right to request copies of the personal data we hold about you.</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Rectification</td>
-                                            <td class="border border-gray-300 px-6 py-4">You have the right to request correction of any information you believe to be inaccurate or incomplete.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Rectification</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">You have the right to request correction of any information you believe to be inaccurate or incomplete.</td>
                                         </tr>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Erasure</td>
-                                            <td class="border border-gray-300 px-6 py-4">You have the right to request the deletion of your personal data from our systems (the "Right to be Forgotten").</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Erasure</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">You have the right to request the deletion of your personal data from our systems (the "Right to be Forgotten").</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Object / Opt-Out</td>
-                                            <td class="border border-gray-300 px-6 py-4">You have the right to object to our processing of your personal data for direct marketing purposes or, where applicable, to opt out of the "sale" or "sharing" of your data.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Object / Opt-Out</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">You have the right to object to our processing of your personal data for direct marketing purposes or, where applicable, to opt out of the "sale" or "sharing" of your data.</td>
                                         </tr>
                                         <tr>
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Portability</td>
-                                            <td class="border border-gray-300 px-6 py-4">You have the right to request that we transfer the data we have collected to another organization or directly to you, subject to certain conditions.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Portability</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">You have the right to request that we transfer the data we have collected to another organization or directly to you, subject to certain conditions.</td>
                                         </tr>
                                         <tr class="bg-gray-50">
-                                            <td class="border border-gray-300 px-6 py-4 font-semibold">Right to Withdraw Consent</td>
-                                            <td class="border border-gray-300 px-6 py-4">If we rely on your consent to process your data, you may withdraw that consent at any time.</td>
+                                            <td class="border border-gray-300 px-6 py-4 font-semibold" data-label="Right">Right to Withdraw Consent</td>
+                                            <td class="border border-gray-300 px-6 py-4" data-label="Description">If we rely on your consent to process your data, you may withdraw that consent at any time.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -367,8 +367,12 @@ import { Head } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
 
 const activeSection = ref('introduction');
+
+// Set canonical URL for privacy policy page
+useCanonical('https://www.sinki.ai/privacy-policy');
 
 const scrollToSection = (sectionId) => {
     if (typeof document !== 'undefined') {
@@ -739,40 +743,64 @@ aside nav::-webkit-scrollbar-thumb {
     }
 
     /* Stack table cells on mobile */
-    table, thead, tbody, th, td, tr {
-        display: block;
+    .overflow-x-auto {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 100%;
+        display: table;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    thead, tbody, tr {
+        display: table-row-group;
     }
 
     thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+        display: table-row;
     }
 
     tr {
+        display: table-row;
         border: 1px solid #ccc;
         margin-bottom: 1rem;
-        padding: 1rem;
         border-radius: 0.5rem;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    td {
+    th, td {
+        display: table-cell;
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        padding: 0.75rem 0 0.75rem 35%;
+        padding: 0.75rem;
         text-align: left;
+        vertical-align: top;
+        min-width: 120px;
+    }
+
+    th {
+        background-color: #f9fafb;
+        font-weight: bold;
+        color: #121212;
+        position: sticky;
+        top: 0;
+        z-index: 2;
     }
 
     td:before {
         content: attr(data-label) ": ";
-        position: absolute;
-        left: 0;
-        width: 30%;
-        padding-right: 10px;
-        white-space: nowrap;
+        display: block;
         font-weight: bold;
         color: #121212;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 }
 </style>

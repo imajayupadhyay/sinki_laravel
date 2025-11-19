@@ -139,6 +139,7 @@ import ServiceCTA from '@/Components/Services/ServiceCTA.vue';
 import InsightsResourcesSection from '@/Components/Services/InsightsResourcesSection.vue';
 import FAQSection from '@/Components/Services/FAQSection.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
 
 const props = defineProps({
     servicePage: {
@@ -154,6 +155,11 @@ const props = defineProps({
         default: () => []
     }
 });
+
+// Set canonical URL for dynamic service pages (not for previews)
+if (!props.isPreview && props.servicePage?.slug) {
+    useCanonical(`https://www.sinki.ai/services/${props.servicePage.slug}`);
+}
 
 // Computed property to order sections based on the configuration
 const orderedSections = computed(() => {

@@ -22,6 +22,10 @@ import HeaderSimple from '@/Components/HeaderSimple.vue';
 import ContactHero from '@/Components/Contact/ContactHero.vue';
 import ContactCTA from '@/Components/Contact/ContactCTA.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for contact page
+useCanonical('https://www.sinki.ai/contact');
 </script>
 
 <style scoped>

@@ -69,6 +69,10 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import HeaderSimple from '@/Components/HeaderSimple.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for thank you page
+useCanonical('https://www.sinki.ai/thank-you');
 
 const showLoading = ref(true);
 const calendlyEmbed = ref(null);

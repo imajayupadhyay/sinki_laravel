@@ -45,7 +45,7 @@
                             <img
                                 :src="blog.featured_image || '/images/default-blog.jpg'"
                                 :alt="blog.title"
-                                class="w-full h-[288px] object-cover transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
+                                class="w-full h-[288px] transition-transform duration-300 group-hover:scale-105 rounded-[20px]"
                             />
                             
                             <!-- Arrow Icon Overlay (positioned absolutely on top right) -->
@@ -115,6 +115,10 @@ import { Head, Link } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
 import ContactCTA from '@/Components/Contact/ContactCTA.vue';
 import FooterSection from '@/Components/FooterSection.vue';
+import { useCanonical } from '@/composables/useCanonical.js';
+
+// Set canonical URL for blog index page
+useCanonical('https://www.sinki.ai/blog');
 
 // Props
 const props = defineProps({
