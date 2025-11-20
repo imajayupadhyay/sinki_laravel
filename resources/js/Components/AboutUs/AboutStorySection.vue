@@ -1,10 +1,10 @@
 <template>
     <!-- About Story Section - Based on ImageContentSection with modifications -->
     <section
-        class="about-story-section py-16 sm:py-20 lg:py-28"
+        class="about-story-section py-20 sm:py-24 lg:py-32"
         :class="backgroundColor"
     >
-        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
+        <div class="container-custom mx-auto px-6 sm:px-8 lg:px-12 xl:px-20">
             <div class="max-w-[1518px] mx-auto">
                 <div
                     class="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-16 items-center"
@@ -16,7 +16,7 @@
                         :class="imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'"
                     >
                         <!-- Our Story Header -->
-                        <div class="section-header mb-6 sm:mb-8">
+                        <div class="section-header mb-8 sm:mb-10">
                             <span class="section-tag text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider">
                                 {{ headerTag }}
                             </span>
@@ -24,7 +24,7 @@
 
                         <!-- Main Heading -->
                         <h2
-                            class="section-title text-brand-dark font-semibold mb-6 sm:mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] break-words"
+                            class="section-title text-brand-dark font-semibold mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] break-words"
                         >
                             {{ title }}
                         </h2>
@@ -32,13 +32,13 @@
                         <!-- Subtitle (Optional) -->
                         <h3
                             v-if="subtitle"
-                            class="section-subtitle text-gray-700 font-medium mb-6 text-xl sm:text-2xl lg:text-[26px] leading-relaxed"
+                            class="section-subtitle text-gray-700 font-medium mb-4 text-xl sm:text-2xl lg:text-[26px] leading-relaxed"
                         >
                             {{ subtitle }}
                         </h3>
 
                         <!-- Description Paragraphs -->
-                        <div class="section-description space-y-4 sm:space-y-5">
+                        <div class="section-description space-y-6 sm:space-y-7">
                             <p
                                 v-for="(paragraph, index) in descriptions"
                                 :key="index"

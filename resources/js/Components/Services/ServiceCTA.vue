@@ -1,6 +1,6 @@
 <template>
-    <section class="service-cta-section bg-white pt-16 lg:pt-20 pb-20 lg:pb-24 relative overflow-hidden">
-        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
+    <section class="service-cta-section bg-white pt-20 lg:pt-24 pb-20 lg:pb-28 relative overflow-hidden">
+        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20">
             <!-- CTA Card Container with spacing -->
             <div class="cta-card-wrapper px-2 sm:px-4 lg:px-16">
                 <!-- CTA Card with Background Image -->

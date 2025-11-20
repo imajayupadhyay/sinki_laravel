@@ -4,7 +4,7 @@
         <div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-20 w-40 h-40 bg-brand-red/10 rounded-full blur-3xl animate-pulse-delayed"></div>
 
-        <div class="w-full px-6 sm:px-12 lg:px-24 xl:px-32">
+        <div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20">
             <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
                 <!-- Left Content (30%) -->
                 <div class="w-full lg:w-[30%] space-y-8">
@@ -21,7 +21,7 @@
                     </h2>
 
                     <!-- Description -->
-                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up" style="animation-delay: 0.4s">
+                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up mt-4" style="animation-delay: 0.4s">
                         {{ description }}
                     </p>
                 </div>
@@ -40,7 +40,7 @@
                                 <img
                                     :src="member.image"
                                     :alt="member.name"
-                                    class="w-full h-full object-contain"
+                                    class="w-full h-full"
                                 />
                             </div>
                         </div>

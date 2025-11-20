@@ -4,18 +4,18 @@
         <div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed"></div>
 
-        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 xl:px-20">
             <!-- Section Header -->
-            <div class="text-center mb-16 lg:mb-20">
+            <div class="text-center mb-18 lg:mb-24">
                 <!-- Header Tag -->
-                <div class="section-header mb-6">
+                <div class="section-header mb-8">
                     <span class="text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider">
                         {{ headerTag }}
                     </span>
                 </div>
 
                 <!-- Main Title -->
-                <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
+                <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
                     {{ title }}
                 </h2>
 
@@ -26,7 +26,7 @@
             </div>
 
             <!-- Flow Steps -->
-            <div class="relative mb-16 lg:mb-20">
+            <div class="relative mb-18 lg:mb-24">
                 <!-- Desktop Flow (lg and up) -->
                 <div class="hidden lg:block">
                     <!-- Steps Container -->

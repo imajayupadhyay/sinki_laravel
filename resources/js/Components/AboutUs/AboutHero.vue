@@ -15,7 +15,7 @@
             <div class="flex flex-col lg:flex-row gap-12 items-center">
                 <!-- Left Side - Content (75%) -->
                 <div class="flex-1 lg:w-3/4 space-y-6" data-aos="fade-right">
-                    <h1 class="text-[48px] lg:text-[64px] xl:text-[72px] leading-[1.1] font-bold text-white">
+                    <h1 class="text-[48px] lg:text-[64px] xl:text-[72px] leading-[1.1] font-bold text-white mt-6">
                         We Turn Complex Data<br />
                         into Clear, Actionable Intelligence
                     </h1>

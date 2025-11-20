@@ -1,8 +1,8 @@
 <template>
     <!-- Partner Badge Section -->
     <section class="partner-badge-section bg-brand-light border-b border-gray-200">
-        <div class="container mx-auto px-3 sm:px-6">
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 h-auto sm:h-[50px] py-3 sm:py-0">
+        <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 h-auto sm:h-[60px] py-4 sm:py-0">
                 <span class="text-brand-dark text-base sm:text-xl font-medium tracking-wide text-center">
                     An Official Databricks Partner
                 </span>

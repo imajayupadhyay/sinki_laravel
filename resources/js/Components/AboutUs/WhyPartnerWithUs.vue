@@ -3,11 +3,11 @@
         <!-- Light Background -->
         <div class="absolute inset-0 z-0 bg-white"></div>
 
-        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
+        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10">
             <!-- Section Header - Center Aligned -->
-            <div class="text-center mb-16 lg:mb-20">
+            <div class="text-center mb-18 lg:mb-24">
                 <!-- Main Title -->
-                <h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-6 animate-slide-up">
+                <h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
                     Why Partner With Us
                 </h2>
 
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Features Grid - 2x3 Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8">
 
                 <!-- Feature 1: Certified Databricks Expertise -->
                 <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
