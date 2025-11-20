@@ -84,6 +84,42 @@ git fetch origin
 git reset --hard origin/$BRANCH
 git pull origin $BRANCH
 
+# Force create staging robots.txt to prevent Google indexing (remove old one first)
+echo -e "${BLUE}➤ Removing old robots.txt and creating staging version...${NC}"
+rm -f $PROJECT_DIR/public/robots.txt
+cat > $PROJECT_DIR/public/robots.txt << 'EOF'
+User-agent: *
+Disallow: /
+
+# Block all search engines from indexing staging site
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: Twitterbot
+Disallow: /
+
+# This is a staging environment - do not index
+EOF
+echo -e "${GREEN}✓ Staging robots.txt created to block all crawlers${NC}"
+
 # Set proper ownership
 echo -e "${YELLOW}➤ Setting proper ownership...${NC}"
 chown -R $WEB_USER:$WEB_USER $PROJECT_DIR
@@ -133,40 +169,6 @@ if ! grep -q "INERTIA_SSR_URL=http://127.0.0.1:13715" $PROJECT_DIR/.env; then
     echo "INERTIA_SSR_URL=http://127.0.0.1:13715" >> $PROJECT_DIR/.env
 fi
 
-# Create staging-specific robots.txt to prevent Google indexing
-echo -e "${BLUE}➤ Creating staging robots.txt to prevent indexing...${NC}"
-cat > $PROJECT_DIR/public/robots.txt << 'EOF'
-User-agent: *
-Disallow: /
-
-# Block all search engines from indexing staging site
-User-agent: Googlebot
-Disallow: /
-
-User-agent: Bingbot
-Disallow: /
-
-User-agent: Slurp
-Disallow: /
-
-User-agent: DuckDuckBot
-Disallow: /
-
-User-agent: Baiduspider
-Disallow: /
-
-User-agent: YandexBot
-Disallow: /
-
-User-agent: facebookexternalhit
-Disallow: /
-
-User-agent: Twitterbot
-Disallow: /
-
-# This is a staging environment - do not index
-EOF
-echo -e "${GREEN}✓ Staging robots.txt created to block all crawlers${NC}"
 
 echo -e "${YELLOW}➤ Caching configurations...${NC}"
 sudo -u $WEB_USER php artisan config:cache
