@@ -6,8 +6,8 @@
 
         <div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20">
             <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-                <!-- Left Content (30%) -->
-                <div class="w-full lg:w-[30%] space-y-8">
+                <!-- Left Content (35%) -->
+                <div class="w-full lg:w-[35%] space-y-8">
                     <!-- Header Tag -->
                     <div class="animate-slide-up">
                         <span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80">
@@ -26,12 +26,12 @@
                     </p>
                 </div>
 
-                <!-- Right Content - Team Cards in Horizontal Layout (70%) -->
-                <div class="w-full lg:w-[70%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+                <!-- Right Content - Team Cards in Horizontal Layout (65%) -->
+                <div class="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
                     <div
                         v-for="(member, index) in teamMembers"
                         :key="index"
-                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center text-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
+                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
                         :style="`animation-delay: ${0.6 + index * 0.2}s`"
                     >
                         <!-- Profile Image -->
@@ -46,7 +46,7 @@
                         </div>
 
                         <!-- Member Info -->
-                        <div class="flex-1">
+                        <div class="flex-1 text-left w-full">
                             <h3 class="text-brand-dark text-base lg:text-lg font-semibold mb-0.5">
                                 {{ member.name }}
                             </h3>
