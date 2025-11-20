@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Laravel CI/CD Deployment Script for sinki.ai with SSR (Server Version)
+# Laravel CI/CD Deployment Script for sinki-staging.teamjft.com with SSR (Server Version)
 # Author: Deployment Script with Inertia SSR Support
 # Date: 2025-10-08
 
@@ -14,14 +14,14 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-PROJECT_DIR="/var/www/sinki.io"
-BRANCH="main"  # Deploy from main branch
+PROJECT_DIR="/var/www/sinki-staging"
+BRANCH="ssr"  # Deploy from SSR branch
 WEB_USER="www-data"
-SSR_DAEMON_NAME="sinki-ssr"
+SSR_DAEMON_NAME="sinki-staging-ssr"
 
 echo -e "${GREEN}========================================${NC}"
-echo -e "${GREEN}  Starting SSR Deployment for sinki.ai${NC}"
-echo -e "${GREEN}  🚀 From Main Branch${NC}"
+echo -e "${GREEN}  Starting SSR Deployment for STAGING${NC}"
+echo -e "${GREEN}  🚀 From SSR Branch (sinki-staging.teamjft.com)${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 
@@ -71,18 +71,54 @@ echo -e "${BLUE}➤ Stopping SSR daemon...${NC}"
 if command -v pm2 &> /dev/null && pm2 list | grep -q $SSR_DAEMON_NAME; then
     pm2 stop $SSR_DAEMON_NAME || true
     echo -e "${GREEN}✓ SSR daemon stopped (PM2)${NC}"
-elif systemctl is-active --quiet sinki-ssr 2>/dev/null; then
-    systemctl stop sinki-ssr || true
+elif systemctl is-active --quiet sinki-staging-ssr 2>/dev/null; then
+    systemctl stop sinki-staging-ssr || true
     echo -e "${GREEN}✓ SSR daemon stopped (systemd)${NC}"
 else
     echo -e "${YELLOW}⚠ SSR daemon not running${NC}"
 fi
 
-# Pull latest code from GitHub (main branch)
+# Pull latest code from GitHub (SSR branch)
 echo -e "${YELLOW}➤ Pulling latest code from GitHub (branch: $BRANCH)...${NC}"
 git fetch origin
 git reset --hard origin/$BRANCH
 git pull origin $BRANCH
+
+# Force create staging robots.txt to prevent Google indexing (remove old one first)
+echo -e "${BLUE}➤ Removing old robots.txt and creating staging version...${NC}"
+rm -f $PROJECT_DIR/public/robots.txt
+cat > $PROJECT_DIR/public/robots.txt << 'EOF'
+User-agent: *
+Disallow: /
+
+# Block all search engines from indexing staging site
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: Twitterbot
+Disallow: /
+
+# This is a staging environment - do not index
+EOF
+echo -e "${GREEN}✓ Staging robots.txt created to block all crawlers${NC}"
 
 # Set proper ownership
 echo -e "${YELLOW}➤ Setting proper ownership...${NC}"
@@ -129,9 +165,10 @@ fi
 if ! grep -q "INERTIA_SSR_ENABLED=true" $PROJECT_DIR/.env; then
     echo "INERTIA_SSR_ENABLED=true" >> $PROJECT_DIR/.env
 fi
-if ! grep -q "INERTIA_SSR_URL=http://127.0.0.1:13714" $PROJECT_DIR/.env; then
-    echo "INERTIA_SSR_URL=http://127.0.0.1:13714" >> $PROJECT_DIR/.env
+if ! grep -q "INERTIA_SSR_URL=http://127.0.0.1:13715" $PROJECT_DIR/.env; then
+    echo "INERTIA_SSR_URL=http://127.0.0.1:13715" >> $PROJECT_DIR/.env
 fi
+
 
 echo -e "${YELLOW}➤ Caching configurations...${NC}"
 sudo -u $WEB_USER php artisan config:cache
@@ -187,9 +224,9 @@ else
     echo -e "${YELLOW}⚠ PM2 not available, setting up systemd service...${NC}"
 
     # Create systemd service file
-    tee /etc/systemd/system/sinki-ssr.service > /dev/null <<EOF
+    tee /etc/systemd/system/sinki-staging-ssr.service > /dev/null <<EOF
 [Unit]
-Description=Sinki SSR Daemon
+Description=Sinki Staging SSR Daemon
 After=network.target
 
 [Service]
@@ -207,8 +244,8 @@ EOF
 
     # Reload systemd and start service
     systemctl daemon-reload
-    systemctl enable sinki-ssr
-    systemctl restart sinki-ssr
+    systemctl enable sinki-staging-ssr
+    systemctl restart sinki-staging-ssr
     echo -e "${GREEN}✓ SSR daemon started with systemd${NC}"
 fi
 
@@ -245,22 +282,22 @@ if command -v pm2 &> /dev/null; then
     fi
 else
     # Check systemd status
-    if systemctl is-active --quiet sinki-ssr; then
+    if systemctl is-active --quiet sinki-staging-ssr; then
         echo -e "${GREEN}✓ SSR daemon is running properly (systemd)${NC}"
     else
         echo -e "${RED}✗ Warning: SSR daemon may not be running properly${NC}"
-        systemctl status sinki-ssr --lines=5 --no-pager
+        systemctl status sinki-staging-ssr --lines=5 --no-pager
     fi
 fi
 
-# Test SSR endpoint
+# Test SSR endpoint (corrected to use port 13715 for staging)
 echo -e "${BLUE}➤ Testing SSR endpoint...${NC}"
-if curl -f -X POST http://127.0.0.1:13714 -H "Content-Type: application/json" -d '{"component":"Home","props":{}}' > /dev/null 2>&1; then
+if curl -f -X POST http://127.0.0.1:13715 -H "Content-Type: application/json" -d '{"component":"Home","props":{}}' > /dev/null 2>&1; then
     echo -e "${GREEN}✓ SSR endpoint responding correctly${NC}"
 else
-    echo -e "${YELLOW}⚠ SSR endpoint not responding on port 13714, checking alternative ports...${NC}"
+    echo -e "${YELLOW}⚠ SSR endpoint not responding on port 13715, checking alternative ports...${NC}"
     # Try common SSR ports
-    for port in 13714 3000 8080; do
+    for port in 13715 13714 3000 8080; do
         if curl -f -X POST http://127.0.0.1:$port -H "Content-Type: application/json" -d '{"component":"Home","props":{}}' > /dev/null 2>&1; then
             echo -e "${GREEN}✓ SSR endpoint responding on port $port${NC}"
             break
@@ -296,7 +333,7 @@ echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}  SSR Deployment Completed Successfully!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
-echo -e "${GREEN}✓ Code pulled from main branch${NC}"
+echo -e "${GREEN}✓ Code pulled from SSR branch${NC}"
 echo -e "${GREEN}✓ Dependencies updated${NC}"
 echo -e "${GREEN}✓ Frontend assets built (with SSR)${NC}"
 echo -e "${GREEN}✓ SSR daemon started and verified${NC}"
@@ -304,7 +341,7 @@ echo -e "${GREEN}✓ Database migrations run${NC}"
 echo -e "${GREEN}✓ Cache cleared and optimized${NC}"
 echo -e "${GREEN}✓ Application is live with SSR!${NC}"
 echo ""
-echo -e "Website: ${GREEN}https://sinki.ai${NC}"
+echo -e "Website: ${GREEN}https://sinki-staging.teamjft.com${NC}"
 
 # Display appropriate status based on process manager
 if command -v pm2 &> /dev/null; then
@@ -314,16 +351,16 @@ if command -v pm2 &> /dev/null; then
     pm2 status $SSR_DAEMON_NAME
     SSR_MONITOR_CMD="pm2 logs $SSR_DAEMON_NAME"
 else
-    echo -e "SSR Status: ${BLUE}$(systemctl is-active sinki-ssr)${NC}"
+    echo -e "SSR Status: ${BLUE}$(systemctl is-active sinki-staging-ssr)${NC}"
     echo ""
     echo -e "${BLUE}Systemd SSR Service Status:${NC}"
-    systemctl status sinki-ssr --no-pager --lines=3
-    SSR_MONITOR_CMD="sudo journalctl -u sinki-ssr -f"
+    systemctl status sinki-staging-ssr --no-pager --lines=3
+    SSR_MONITOR_CMD="sudo journalctl -u sinki-staging-ssr -f"
 fi
 
 echo ""
 echo -e "${YELLOW}📋 Post-deployment checklist:${NC}"
-echo -e "  1. Verify website loads: https://sinki.ai"
+echo -e "  1. Verify website loads: https://sinki-staging.teamjft.com"
 echo -e "  2. Check page source (Ctrl+U) shows full HTML content"
 echo -e "  3. Test with Google's Mobile-Friendly Test"
 echo -e "  4. Monitor SSR daemon: ${SSR_MONITOR_CMD}"

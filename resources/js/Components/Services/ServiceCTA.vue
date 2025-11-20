@@ -1,6 +1,6 @@
 <template>
-    <section class="service-cta-section bg-white pt-16 lg:pt-20 pb-20 lg:pb-24 relative overflow-hidden">
-        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
+    <section class="service-cta-section bg-white pb-20 lg:pb-28 relative overflow-hidden">
+        <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20">
             <!-- CTA Card Container with spacing -->
             <div class="cta-card-wrapper px-2 sm:px-4 lg:px-16">
                 <!-- CTA Card with Background Image -->
@@ -15,8 +15,7 @@
                     <!-- Content -->
                     <div class="relative z-10 max-w-[1469px] mx-auto h-full flex flex-col justify-center">
                         <!-- Main Heading -->
-                        <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[52px] 2xl:text-[60px] leading-tight sm:leading-tight md:leading-tight lg:leading-[1.1] xl:leading-[1.1] 2xl:leading-[66px] mb-4 sm:mb-5 md:mb-6 animate-slide-up px-2 sm:px-4 md:px-6">
-                            {{ title }}
+                        <h2 class="text-white font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] 2xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-[1.1] xl:leading-[1.1] 2xl:leading-[52px] mb-4 sm:mb-5 md:mb-6 animate-slide-up px-2 sm:px-4 md:px-6" v-html="title">
                         </h2>
 
                         <!-- Description -->
@@ -201,7 +200,7 @@ const props = defineProps({
 /* Responsive Typography - Fine-tuned */
 @media (max-width: 1536px) {
     h2 {
-        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-size: clamp(2rem, 4vw, 3rem);
     }
 
     p {
@@ -215,7 +214,7 @@ const props = defineProps({
     }
 
     h2 {
-        font-size: clamp(2rem, 4.5vw, 3.5rem);
+        font-size: clamp(1.75rem, 3.5vw, 2.75rem);
     }
 
     p {
@@ -233,7 +232,7 @@ const props = defineProps({
     }
 
     h2 {
-        font-size: clamp(1.75rem, 4vw, 3rem);
+        font-size: clamp(1.5rem, 3.5vw, 2.5rem);
         margin-bottom: 1.25rem;
     }
 
