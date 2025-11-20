@@ -133,6 +133,41 @@ if ! grep -q "INERTIA_SSR_URL=http://127.0.0.1:13715" $PROJECT_DIR/.env; then
     echo "INERTIA_SSR_URL=http://127.0.0.1:13715" >> $PROJECT_DIR/.env
 fi
 
+# Create staging-specific robots.txt to prevent Google indexing
+echo -e "${BLUE}➤ Creating staging robots.txt to prevent indexing...${NC}"
+cat > $PROJECT_DIR/public/robots.txt << 'EOF'
+User-agent: *
+Disallow: /
+
+# Block all search engines from indexing staging site
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: Twitterbot
+Disallow: /
+
+# This is a staging environment - do not index
+EOF
+echo -e "${GREEN}✓ Staging robots.txt created to block all crawlers${NC}"
+
 echo -e "${YELLOW}➤ Caching configurations...${NC}"
 sudo -u $WEB_USER php artisan config:cache
 sudo -u $WEB_USER php artisan route:cache
