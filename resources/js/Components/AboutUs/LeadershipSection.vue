@@ -1,5 +1,13 @@
 <template>
-    <section class="leadership-section bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 lg:py-32 relative overflow-hidden w-full">
+    <section
+        class="leadership-section py-20 lg:py-32 relative overflow-hidden w-full"
+        :style="{
+            backgroundImage: 'url(/images/aboutussecbanner.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        }"
+    >
         <!-- Background decorative elements -->
         <div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-20 w-40 h-40 bg-brand-red/10 rounded-full blur-3xl animate-pulse-delayed"></div>

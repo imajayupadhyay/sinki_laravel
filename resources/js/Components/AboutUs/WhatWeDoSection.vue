@@ -1,7 +1,13 @@
 <template>
-    <section class="what-we-do-section relative overflow-hidden py-20 lg:py-32">
-        <!-- Dark Background -->
-        <div class="absolute inset-0 z-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
+    <section
+        class="what-we-do-section relative overflow-hidden py-20 lg:py-32"
+        :style="{
+            backgroundImage: 'url(/images/aboutussecbanner.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        }"
+    >
 
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10">
             <!-- Section Header - Center Aligned -->
