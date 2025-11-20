@@ -1,5 +1,5 @@
 <template>
-    <section class="service-cta-section bg-white pt-20 lg:pt-24 pb-20 lg:pb-28 relative overflow-hidden">
+    <section class="service-cta-section bg-white pb-20 lg:pb-28 relative overflow-hidden">
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20">
             <!-- CTA Card Container with spacing -->
             <div class="cta-card-wrapper px-2 sm:px-4 lg:px-16">

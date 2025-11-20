@@ -1,5 +1,5 @@
 <template>
-    <section class="why-partner-section relative overflow-hidden py-20 lg:py-32">
+    <section class="why-partner-section relative overflow-hidden pt-20 lg:pt-32">
         <!-- Light Background -->
         <div class="absolute inset-0 z-0 bg-white"></div>
 

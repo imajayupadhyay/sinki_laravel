@@ -15,13 +15,13 @@ NC='\033[0m' # No Color
 
 # Configuration
 PROJECT_DIR="/var/www/sinki.io"
-BRANCH="ssr"  # Deploy from SSR branch
+BRANCH="main"  # Deploy from main branch
 WEB_USER="www-data"
 SSR_DAEMON_NAME="sinki-ssr"
 
 echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}  Starting SSR Deployment for sinki.ai${NC}"
-echo -e "${GREEN}  🚀 From SSR Branch${NC}"
+echo -e "${GREEN}  🚀 From Main Branch${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 
@@ -78,7 +78,7 @@ else
     echo -e "${YELLOW}⚠ SSR daemon not running${NC}"
 fi
 
-# Pull latest code from GitHub (SSR branch)
+# Pull latest code from GitHub (main branch)
 echo -e "${YELLOW}➤ Pulling latest code from GitHub (branch: $BRANCH)...${NC}"
 git fetch origin
 git reset --hard origin/$BRANCH
@@ -296,7 +296,7 @@ echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}  SSR Deployment Completed Successfully!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
-echo -e "${GREEN}✓ Code pulled from SSR branch${NC}"
+echo -e "${GREEN}✓ Code pulled from main branch${NC}"
 echo -e "${GREEN}✓ Dependencies updated${NC}"
 echo -e "${GREEN}✓ Frontend assets built (with SSR)${NC}"
 echo -e "${GREEN}✓ SSR daemon started and verified${NC}"
