@@ -1,10 +1,10 @@
 <template>
-    <section class="our-approach-section bg-white py-20 lg:py-32 relative overflow-hidden">
+    <section class="our-approach-section bg-white py-20 lg:py-32 relative overflow-hidden w-full">
         <!-- Background decorative elements -->
         <div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed"></div>
 
-        <div class="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 xl:px-20">
+        <div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20 2xl:px-24">
             <!-- Section Header -->
             <div class="text-center mb-18 lg:mb-24">
                 <!-- Header Tag -->
@@ -16,12 +16,12 @@
 
                 <!-- Main Title -->
                 <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
-                    {{ title }}
+                    Our Data-First Approach
                 </h2>
 
                 <!-- Subtitle -->
                 <p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-delayed">
-                    {{ subtitle }}
+                    How We Transform Your Data Vision Into Reality
                 </p>
             </div>
 
@@ -59,7 +59,7 @@
                         <div
                             v-for="(step, index) in approachSteps"
                             :key="index"
-                            class="flex-1 relative z-10 max-w-[300px]"
+                            class="flex-1 relative z-10 max-w-[400px]"
                             :style="`animation-delay: ${0.3 + index * 0.2}s`"
                         >
                             <!-- Step Circle with Icon -->
@@ -78,6 +78,9 @@
                                 <h3 class="text-brand-dark text-[20px] font-semibold leading-[26px] tracking-[0.4px]">
                                     {{ step.number }}. {{ step.title }}
                                 </h3>
+                                <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
+                                    {{ step.shortDescription }}
+                                </p>
                                 <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
                                     {{ step.description }}
                                 </p>
@@ -110,6 +113,9 @@
                             <h3 class="text-brand-dark text-[18px] font-semibold leading-[24px] tracking-[0.36px] mb-2">
                                 {{ step.number }}. {{ step.title }}
                             </h3>
+                            <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
+                                {{ step.shortDescription }}
+                            </p>
                             <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
                                 {{ step.description }}
                             </p>
@@ -124,7 +130,7 @@
             <!-- CTA Button Section -->
             <div class="flex justify-center animate-slide-up" style="animation-delay: 1.8s">
                 <button
-                    @click="handleCtaClick"
+                    @click="openCalendlyModal"
                     class="cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                 >
                     {{ ctaText }}
@@ -142,11 +148,63 @@
                 </button>
             </div>
         </div>
+
+        <!-- Calendly Modal -->
+        <Teleport to="body">
+            <Transition name="modal-fade">
+                <div v-if="showCalendlyModal" class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" @click.self="closeCalendlyModal">
+                    <div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden relative">
+                        <!-- Close Button -->
+                        <button
+                            @click="closeCalendlyModal"
+                            class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                        >
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+
+                        <!-- Modal Header -->
+                        <div class="bg-gradient-to-r from-brand-dark to-gray-800 px-8 py-6">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">Book a Discovery Session</h2>
+                            <p class="text-gray-300 mt-2">Let's discuss how we can help unlock the value of your data</p>
+                        </div>
+
+                        <!-- Loading Progress Bar -->
+                        <div v-if="isLoading" class="calendly-loading-container px-8 py-20">
+                            <div class="text-center mb-6">
+                                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-brand-red mb-4"></div>
+                                <p class="text-lg font-semibold text-brand-dark">Loading Calendar...</p>
+                                <p class="text-sm text-gray-500 mt-2">{{ loadingProgress }}%</p>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-brand-red to-red-500 h-full rounded-full transition-all duration-300 ease-out"
+                                    :style="{ width: loadingProgress + '%' }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <!-- Calendly Widget -->
+                        <div v-show="!isLoading" class="calendly-widget-wrapper" style="height: 700px; overflow: hidden;">
+                            <div
+                                ref="calendlyContainer"
+                                class="calendly-inline-widget"
+                                data-url="https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services"
+                                style="min-width:320px;height:100%;"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+            </Transition>
+        </Teleport>
     </section>
 </template>
 
 <script setup>
-import { reactive, defineProps, defineEmits } from 'vue';
+import { reactive, defineProps, defineEmits, ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 // Props for customization
 const props = defineProps({
@@ -171,33 +229,134 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['cta-click']);
 
+// Calendly modal functionality
+const showCalendlyModal = ref(false);
+const isLoading = ref(false);
+const loadingProgress = ref(0);
+const calendlyContainer = ref(null);
+let progressInterval = null;
+
+const openCalendlyModal = () => {
+    showCalendlyModal.value = true;
+    isLoading.value = true;
+    loadingProgress.value = 0;
+    document.body.style.overflow = 'hidden';
+
+    // Simulate loading progress from 0 to 100
+    let progress = 0;
+    progressInterval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 95) {
+            loadingProgress.value = 95;
+            clearInterval(progressInterval);
+        } else {
+            loadingProgress.value = Math.floor(progress);
+        }
+    }, 150);
+
+    // Load Calendly script and initialize widget
+    nextTick(() => {
+        loadCalendlyScript();
+    });
+};
+
+const closeCalendlyModal = () => {
+    showCalendlyModal.value = false;
+    isLoading.value = false;
+    loadingProgress.value = 0;
+    document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+};
+
+const loadCalendlyScript = () => {
+    // Check if script already exists
+    if (document.querySelector('script[src*="calendly.com"]')) {
+        initializeCalendlyWidget();
+        return;
+    }
+
+    // Create and load Calendly script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => {
+        initializeCalendlyWidget();
+    };
+    document.head.appendChild(script);
+};
+
+const initializeCalendlyWidget = () => {
+    // Wait a bit for Calendly to fully initialize
+    setTimeout(() => {
+        if (window.Calendly && calendlyContainer.value) {
+            window.Calendly.initInlineWidget({
+                url: 'https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services',
+                parentElement: calendlyContainer.value,
+            });
+        }
+
+        // Complete the progress bar and hide loading
+        setTimeout(() => {
+            loadingProgress.value = 100;
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 300);
+        }, 800);
+    }, 500);
+};
+
+// Handle escape key to close modal
+const handleEscape = (e) => {
+    if (e.key === 'Escape' && showCalendlyModal.value) {
+        closeCalendlyModal();
+    }
+};
+
 // Handle CTA click
 const handleCtaClick = () => {
+    openCalendlyModal();
     emit('cta-click');
 };
 
-// Approach steps data - Updated to match screenshot
+onMounted(() => {
+    window.addEventListener('keydown', handleEscape);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleEscape);
+    document.body.style.overflow = '';
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+});
+
+// Approach steps data - Updated with new structured content
 const approachSteps = reactive([
     {
-        number: "01",
-        title: "Define",
-        description: "We start by getting clear on what you need. We map your business goals, challenges, and desired outcomes so every solution is aligned from day one, no assumptions, no misdirection.",
+        number: "1",
+        title: "DEFINE",
+        shortDescription: "We start by getting clear on what you need.",
+        description: "We map your business goals, challenges, and desired outcomes so every solution is aligned from day one, no assumptions, no misdirection.",
         icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
         </svg>`
     },
     {
-        number: "02",
-        title: "Build",
-        description: "We engineer with purpose and precision. From data platforms and pipelines to BI and AI models, our Databricks-certified team builds reliable, scalable solutions using modern architecture and hands-on engineering.",
+        number: "2",
+        title: "BUILD",
+        shortDescription: "We engineer with purpose and precision.",
+        description: "From data platforms and pipelines to BI and AI models, our Databricks-certified team builds reliable, scalable solutions using modern architecture and hands-on engineering.",
         icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
         </svg>`
     },
     {
-        number: "03",
-        title: "Elevate",
-        description: "Delivery is only the starting point. We help you operationalize, adopt, optimize, and extend your data capabilities, ensuring long-term value and continuous improvement.",
+        number: "3",
+        title: "ELEVATE",
+        shortDescription: "Delivery is only the starting point.",
+        description: "We help you operationalize, adopt, optimize, and extend your data capabilities, ensuring long-term value and continuous improvement.",
         icon: `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
         </svg>`
@@ -441,6 +600,92 @@ const approachSteps = reactive([
 
     .cta-button {
         transition: none;
+    }
+}
+
+/* Calendly Modal Styles */
+.calendly-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    animation: fadeInModal 0.3s ease-out;
+}
+
+.calendly-modal-container {
+    animation: slideUpModal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal Transition Classes */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
+}
+
+.modal-fade-enter-active .calendly-modal-container,
+.modal-fade-leave-active .calendly-modal-container {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.modal-fade-enter-from .calendly-modal-container,
+.modal-fade-leave-to .calendly-modal-container {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+}
+
+/* Loading Spinner Animation */
+@keyframes spinCalendly {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spinCalendly 1s linear infinite;
+}
+
+/* Mobile Responsive Modal */
+@media (max-width: 768px) {
+    .calendly-modal-container {
+        max-height: 95vh;
+        margin: 0 1rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 600px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendly-modal-container {
+        border-radius: 1.5rem;
+    }
+
+    .calendly-widget-wrapper {
+        height: 500px !important;
     }
 }
 </style>
