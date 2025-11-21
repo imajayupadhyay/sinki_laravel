@@ -89,60 +89,63 @@
                 </div>
 
                 <!-- Mobile/Tablet Flow (below lg) -->
-                <div class="lg:hidden space-y-8">
+                <div class="lg:hidden">
                     <div
                         v-for="(step, index) in approachSteps"
                         :key="index"
-                        class="flex items-start gap-6"
+                        class="relative"
+                        :class="index < approachSteps.length - 1 ? 'mb-8' : ''"
                     >
-                        <!-- Step Circle with Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="step-circle w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center shadow-lg">
-                                <component
-                                    :is="'div'"
-                                    v-html="step.icon"
-                                    class="w-8 h-8 text-white"
-                                />
+                        <div class="flex items-start gap-6">
+                            <!-- Step Circle with Icon -->
+                            <div class="flex-shrink-0 relative z-10">
+                                <div class="step-circle w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center shadow-lg">
+                                    <component
+                                        :is="'div'"
+                                        v-html="step.icon"
+                                        class="w-8 h-8 text-white"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Step Content -->
+                            <div class="flex-1 pt-2">
+                                <h3 class="text-brand-dark text-[18px] font-semibold leading-[24px] tracking-[0.36px] mb-2">
+                                    {{ step.number }}. {{ step.title }}
+                                </h3>
+                                <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
+                                    {{ step.shortDescription }}
+                                </p>
+                                <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
+                                    {{ step.description }}
+                                </p>
                             </div>
                         </div>
 
-                        <!-- Step Content -->
-                        <div class="flex-1 pt-2">
-                            <h3 class="text-brand-dark text-[18px] font-semibold leading-[24px] tracking-[0.36px] mb-2">
-                                {{ step.number }}. {{ step.title }}
-                            </h3>
-                            <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
-                                {{ step.shortDescription }}
-                            </p>
-                            <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
-                                {{ step.description }}
-                            </p>
+                        <!-- Connecting line for mobile - positioned after each step -->
+                        <div v-if="index < approachSteps.length - 1" class="flex justify-start ml-[35px] mt-4 mb-4">
+                            <div class="w-[2px] h-8 bg-brand-red rounded-full"></div>
                         </div>
-
-                        <!-- Connecting line for mobile -->
-                        <div v-if="index < approachSteps.length - 1" class="absolute left-[35px] mt-[70px] w-[2px] h-8 bg-brand-red"></div>
                     </div>
                 </div>
             </div>
 
             <!-- CTA Button Section -->
-            <div class="flex justify-center">
+            <div class="flex justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-18">
                 <button
                     @click="openCalendlyModal"
-                    class="cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                    class="cta-button group inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                 >
                     {{ ctaText }}
-                    <div class="w-6 h-6 flex items-center justify-center">
-                        <svg
-                            class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                        >
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </div>
+                    <svg
+                        class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -512,9 +515,24 @@ const approachSteps = reactive([
         margin-bottom: 2.5rem !important;
     }
 
+    /* Mobile step content */
+    .flex-1.pt-2 h3 {
+        font-size: 16px !important;
+        line-height: 22px !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .flex-1.pt-2 p {
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0.5rem !important;
+    }
+
     .cta-button {
-        padding: 0.75rem 1.5rem;
-        font-size: 15px;
+        width: 85% !important;
+        max-width: none !important;
+        padding: 0.625rem 1.5rem !important;
+        font-size: 15px !important;
     }
 }
 
@@ -522,7 +540,6 @@ const approachSteps = reactive([
     .our-approach-section {
         padding: 30px 0;
     }
-
 
     .our-approach-section h2 {
         font-size: 28px !important;
@@ -537,14 +554,34 @@ const approachSteps = reactive([
     }
 
     .space-y-8 > * + * {
-        margin-top: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    /* Mobile flow line improvements */
+    .step-circle {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .step-circle .w-8 {
+        width: 28px !important;
+        height: 28px !important;
+    }
+
+    /* Mobile connecting lines - cleaned up since restructured */
+
+    /* CTA button spacing on mobile */
+    .flex.justify-center {
+        margin-top: 3rem !important;
     }
 
     .cta-button {
-        width: 100%;
-        max-width: 280px;
-        padding: 0.75rem 1.5rem;
-        font-size: 14px;
+        width: 90% !important;
+        max-width: none !important;
+        min-width: 320px;
+        padding: 0.625rem 1.75rem !important;
+        font-size: 16px !important;
+        margin: 0 auto;
     }
 }
 

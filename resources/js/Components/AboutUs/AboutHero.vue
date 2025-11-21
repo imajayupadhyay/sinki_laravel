@@ -11,16 +11,19 @@
             <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
 
-        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36">
-            <div class="flex flex-col lg:flex-row gap-12 items-center">
+        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-28 sm:pt-32 md:pt-36 lg:pt-40 xl:pt-48 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-36">
+            <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
                 <!-- Left Side - Content (75%) -->
-                <div class="flex-1 lg:w-3/4 space-y-6">
-                    <h1 class="text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] font-bold text-white mt-6 animate-slide-up">
-                        We Turn Complex Data<br />
-                        into Clear, Actionable Intelligence
+                <div class="flex-1 lg:w-3/4 space-y-4 sm:space-y-5 md:space-y-6">
+                    <h1 class="text-[28px] sm:text-[32px] md:text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] sm:leading-[1.15] md:leading-[1.1] font-bold text-white mt-2 sm:mt-4 md:mt-6 animate-slide-up">
+                        We Turn Complex Data<br class="hidden sm:block" />
+                        <span class="sm:hidden"> into Clear,</span>
+                        <span class="hidden sm:inline"> into Clear, Actionable Intelligence</span>
+                        <br class="sm:hidden" />
+                        <span class="sm:hidden">Actionable Intelligence</span>
                     </h1>
 
-                    <p class="text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed">
+                    <p class="text-[16px] sm:text-[18px] md:text-xl lg:text-[28px] leading-relaxed sm:leading-[28px] md:leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed">
                         Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.
                     </p>
                 </div>
@@ -29,7 +32,7 @@
                 <div class="lg:w-1/4 flex justify-center lg:justify-end">
                     <div class="relative">
                         <!-- Right Side Logo Image -->
-                        <div class="relative w-[280px] h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in">
+                        <div class="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in">
                             <img
                                 src="/images/rightlogo.png"
                                 alt="Sinki Logo"
