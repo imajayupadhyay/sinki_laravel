@@ -16,7 +16,7 @@
                         :class="imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'"
                     >
                         <!-- Our Story Header -->
-                        <div class="section-header mb-8 sm:mb-10 animate-fade-in-up">
+                        <div class="section-header mb-4 sm:mb-6 animate-fade-in-up">
                             <span class="section-tag text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider">
                                 {{ headerTag }}
                             </span>
@@ -38,7 +38,7 @@
                         </h3>
 
                         <!-- Description Paragraphs -->
-                        <div class="section-description space-y-6 sm:space-y-7">
+                        <div class="section-description space-y-4 sm:space-y-5 lg:space-y-6 xl:space-y-7">
                             <p
                                 v-for="(paragraph, index) in descriptions"
                                 :key="index"
@@ -232,6 +232,27 @@ const props = defineProps({
     }
 }
 
+/* Medium Large Screens */
+@media (max-width: 1400px) {
+    .section-title {
+        font-size: 56px !important;
+        line-height: 1.1;
+    }
+
+    .section-subtitle {
+        font-size: 22px;
+    }
+
+    .section-description {
+        space-y: 1rem;
+    }
+
+    .section-description p {
+        font-size: 15px;
+        margin-bottom: 1rem;
+    }
+}
+
 /* Large Screens */
 @media (max-width: 1280px) {
     .section-title {
@@ -309,6 +330,10 @@ const props = defineProps({
         padding-bottom: 2.5rem;
     }
 
+    .section-header {
+        margin-bottom: 1.5rem !important;
+    }
+
     .section-title {
         font-size: 36px !important;
         line-height: 1.1;
@@ -326,12 +351,16 @@ const props = defineProps({
     }
 
     .section-description p {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
+    .section-header {
+        margin-bottom: 1rem !important;
+    }
+
     .section-title {
         font-size: 32px !important;
         line-height: 1.1;
@@ -339,6 +368,10 @@ const props = defineProps({
 
     .section-subtitle {
         font-size: 17px;
+    }
+
+    .section-description p {
+        font-size: 11px;
     }
 }
 </style>
