@@ -91,7 +91,7 @@ const props = defineProps({
         default: () => [
             {
                 name: 'Gaurav Chauhan',
-                position: 'Founder & CEO',
+                position: 'Co-Founder & CEO',
                 image: '/images/Mr Gaurav Chauhan.png'
             },
             {
