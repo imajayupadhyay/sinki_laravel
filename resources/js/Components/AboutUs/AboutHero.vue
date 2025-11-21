@@ -1,9 +1,9 @@
 <template>
-    <section class="relative overflow-hidden min-h-[90vh]">
+    <section class="relative overflow-hidden min-h-[65vh]">
         <!-- Background Image -->
         <div class="absolute inset-0">
             <img
-                src="/images/ABoutbanner.png"
+                src="/images/aboutheroback.png"
                 alt="About Us Banner"
                 class="w-full h-full object-cover"
             />
@@ -28,20 +28,13 @@
                 <!-- Right Side - 3D Logo (25%) -->
                 <div class="lg:w-1/4 flex justify-center lg:justify-end" data-aos="fade-left">
                     <div class="relative">
-                        <!-- 3D Sinki Logo -->
+                        <!-- Right Side Logo Image -->
                         <div class="relative w-[280px] h-[280px] lg:w-[300px] lg:h-[300px]">
-                            <!-- Main Logo Container with 3D effect -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF3621] to-[#CC2B1A] rounded-[48px] shadow-2xl transform rotate-6 opacity-90"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF3621] to-[#CC2B1A] rounded-[48px] shadow-2xl transform -rotate-3 opacity-70"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF4A38] to-[#FF3621] rounded-[48px] shadow-2xl flex items-center justify-center">
-                                <!-- Sinki Icon -->
-                                <svg class="w-32 h-32 lg:w-36 lg:h-36 text-white" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M60 60L100 100L60 140M100 60L140 100L100 140" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-
-                            <!-- Glow Effect -->
-                            <div class="absolute -inset-4 bg-[#FF3621] rounded-[52px] blur-xl opacity-30 animate-pulse"></div>
+                            <img
+                                src="/images/rightlogo.png"
+                                alt="Sinki Logo"
+                                class="w-full h-full object-contain"
+                            />
                         </div>
                     </div>
                 </div>
@@ -79,28 +72,28 @@ onMounted(() => {
     animation: float 6s ease-in-out infinite;
 }
 
-/* Responsive height adjustments to match services page */
+/* Responsive height adjustments */
 @media (min-width: 1536px) {
     section {
-        min-height: 95vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1536px) {
     section {
-        min-height: 90vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1280px) {
     section {
-        min-height: 85vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1024px) {
     section {
-        min-height: 80vh !important;
+        min-height: 65vh !important;
     }
 }
 
