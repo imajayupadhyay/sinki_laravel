@@ -11,29 +11,29 @@
             <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
 
-        <div class="relative max-w-[1440px] mx-auto px-6 lg:px-20 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36">
+        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36">
             <div class="flex flex-col lg:flex-row gap-12 items-center">
                 <!-- Left Side - Content (75%) -->
-                <div class="flex-1 lg:w-3/4 space-y-6" data-aos="fade-right">
-                    <h1 class="text-[48px] lg:text-[64px] xl:text-[72px] leading-[1.1] font-bold text-white mt-6">
+                <div class="flex-1 lg:w-3/4 space-y-6">
+                    <h1 class="text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] font-bold text-white mt-6 animate-slide-up">
                         We Turn Complex Data<br />
                         into Clear, Actionable Intelligence
                     </h1>
 
-                    <p class="text-[18px] lg:text-[20px] leading-relaxed text-white/80 max-w-[600px]">
+                    <p class="text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed">
                         Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.
                     </p>
                 </div>
 
                 <!-- Right Side - 3D Logo (25%) -->
-                <div class="lg:w-1/4 flex justify-center lg:justify-end" data-aos="fade-left">
+                <div class="lg:w-1/4 flex justify-center lg:justify-end">
                     <div class="relative">
                         <!-- Right Side Logo Image -->
-                        <div class="relative w-[280px] h-[280px] lg:w-[300px] lg:h-[300px]">
+                        <div class="relative w-[280px] h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in">
                             <img
                                 src="/images/rightlogo.png"
                                 alt="Sinki Logo"
-                                class="w-full h-full object-contain"
+                                class="w-full h-full object-contain animate-glow"
                             />
                         </div>
                     </div>
@@ -58,7 +58,49 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Custom animations */
+/* Modern entrance animations */
+@keyframes slideUp {
+    0% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpDelayed {
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatIn {
+    0% {
+        transform: translateY(30px) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+}
+
 @keyframes float {
     0%, 100% {
         transform: translateY(0px) rotate(0deg);
@@ -66,6 +108,30 @@ onMounted(() => {
     50% {
         transform: translateY(-10px) rotate(2deg);
     }
+}
+
+/* Animation classes */
+.animate-slide-up {
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.animate-slide-up-delayed {
+    animation: slideUpDelayed 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.animate-float-in {
+    animation: floatIn 1.2s ease-out forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+}
+
+.animate-glow {
+    animation: glow 3s ease-in-out infinite;
+    animation-delay: 2s;
 }
 
 .animate-float {
