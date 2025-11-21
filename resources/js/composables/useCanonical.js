@@ -5,6 +5,11 @@ export function useCanonical(customUrl = null) {
     const page = usePage();
 
     const setCanonicalUrl = (url) => {
+        // Skip during SSR - document doesn't exist on the server
+        if (typeof document === 'undefined') {
+            return;
+        }
+
         const canonicalLink = document.getElementById('canonical-url');
         if (canonicalLink) {
             canonicalLink.setAttribute('href', url);
@@ -22,7 +27,15 @@ export function useCanonical(customUrl = null) {
         if (!canonicalUrl) {
             // Fallback: construct from current URL
             const baseUrl = 'https://www.sinki.ai';
-            let path = window.location.pathname;
+            let path;
+
+            // Skip during SSR - window doesn't exist on the server
+            if (typeof window !== 'undefined') {
+                path = window.location.pathname;
+            } else {
+                // Use page.url for SSR fallback
+                path = page.url || '/';
+            }
 
             // Remove trailing slash except for root
             if (path !== '/' && path.endsWith('/')) {
@@ -45,7 +58,7 @@ export function useCanonical(customUrl = null) {
         () => {
             updateCanonical();
         },
-        { immediate: true }
+        { immediate: typeof window !== 'undefined' } // Only run immediately on client-side
     );
 
     return {
