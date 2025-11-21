@@ -7,12 +7,12 @@
             <!-- Section Header - Center Aligned -->
             <div class="text-center mb-18 lg:mb-24">
                 <!-- Main Title -->
-                <h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
+                <h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 simple-fade-title">
                     Why Partner With Us
                 </h2>
 
                 <!-- Subtitle -->
-                <p class="text-gray-700 text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] mx-auto animate-slide-up-delayed">
+                <p class="text-gray-700 text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] mx-auto simple-fade-subtitle">
                     We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.
                 </p>
             </div>
@@ -21,7 +21,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8">
 
                 <!-- Feature 1: Certified Databricks Expertise -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-1">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Feature 2: End-to-End Implementation -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-2">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Feature 3: Tailored Data Solutions -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-3">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -93,7 +93,7 @@
                 </div>
 
                 <!-- Feature 4: Scalable & Secure Delivery -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-4">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -117,7 +117,7 @@
                 </div>
 
                 <!-- Feature 5: Collaborative Partnership -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-5">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -141,7 +141,7 @@
                 </div>
 
                 <!-- Feature 6: Continuous Improvement -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500">
+                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-6">
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -211,11 +211,11 @@ const props = defineProps({
     background-color: #FF3621;
 }
 
-/* Slide Up Animations */
-@keyframes slideUp {
+/* Simple Fade Up Animation */
+@keyframes simpleFadeUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -223,14 +223,52 @@ const props = defineProps({
     }
 }
 
-.animate-slide-up {
-    animation: slideUp 0.8s ease-out;
-    animation-fill-mode: backwards;
+.simple-fade-title {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
 }
 
-.animate-slide-up-delayed {
-    animation: slideUp 0.8s ease-out 0.4s;
-    animation-fill-mode: backwards;
+.simple-fade-subtitle {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+
+.fade-up-1 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+}
+
+.fade-up-2 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.8s;
+    animation-fill-mode: both;
+}
+
+.fade-up-3 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.0s;
+    animation-fill-mode: both;
+}
+
+.fade-up-4 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: both;
+}
+
+.fade-up-5 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.4s;
+    animation-fill-mode: both;
+}
+
+.fade-up-6 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.6s;
+    animation-fill-mode: both;
 }
 
 /* Feature Card Styles */

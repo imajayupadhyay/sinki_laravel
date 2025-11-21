@@ -1,13 +1,13 @@
 <template>
     <div class="min-h-screen bg-[#FFFBE5]">
-        <Head title="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services">
-            <meta name="description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+        <Head title="About Sinki.ai | Databricks Experts & Consulting Services">
+            <meta name="description" content="We are Databricks experts who support your entire Databricks journey, from platform build-out to GenAI. We modernize your data infrastructure, implement GenAI on Databricks, and accelerate your migration to the Databricks Data Intelligence Platform." />
             <meta name="keywords" content="about sinki.ai, databricks consulting, data engineering experts, helsinki inspired data solutions, certified databricks specialists, enterprise data strategy, lakehouse architecture, data modernization team" />
 
             <!-- Open Graph / Facebook -->
             <meta property="og:type" content="website" />
-            <meta property="og:title" content="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services" />
-            <meta property="og:description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+            <meta property="og:title" content="About Sinki.ai | Databricks Experts & Consulting Services" />
+            <meta property="og:description" content="We are Databricks experts who support your entire Databricks journey, from platform build-out to GenAI. We modernize your data infrastructure, implement GenAI on Databricks, and accelerate your migration to the Databricks Data Intelligence Platform." />
             <meta property="og:url" content="https://www.sinki.ai/about-us" />
             <meta property="og:site_name" content="Sinki.ai" />
             <meta property="og:image" content="https://www.sinki.ai/images/sinki-about-og-image.jpg" />
@@ -16,8 +16,8 @@
 
             <!-- Twitter -->
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="About Us - Sinki.ai | Expert Databricks Consulting & Data Engineering Services" />
-            <meta name="twitter:description" content="Learn about Sinki.ai, expert Databricks consultants helping enterprises turn complex data into actionable intelligence. Discover our story, approach, and leadership team." />
+            <meta name="twitter:title" content="About Sinki.ai | Databricks Experts & Consulting Services" />
+            <meta name="twitter:description" content="We are Databricks experts who support your entire Databricks journey, from platform build-out to GenAI. We modernize your data infrastructure, implement GenAI on Databricks, and accelerate your migration to the Databricks Data Intelligence Platform." />
             <meta name="twitter:image" content="https://www.sinki.ai/images/sinki-about-og-image.jpg" />
 
             <!-- Additional SEO -->

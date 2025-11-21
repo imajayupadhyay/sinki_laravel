@@ -1,9 +1,9 @@
 <template>
-    <section class="relative overflow-hidden min-h-[90vh]">
+    <section class="relative overflow-hidden min-h-[65vh]">
         <!-- Background Image -->
         <div class="absolute inset-0">
             <img
-                src="/images/ABoutbanner.png"
+                src="/images/aboutheroback.png"
                 alt="About Us Banner"
                 class="w-full h-full object-cover"
             />
@@ -11,37 +11,33 @@
             <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
 
-        <div class="relative max-w-[1440px] mx-auto px-6 lg:px-20 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16 sm:pb-20 md:pb-28 lg:pb-36">
-            <div class="flex flex-col lg:flex-row gap-12 items-center">
+        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-28 sm:pt-32 md:pt-36 lg:pt-40 xl:pt-48 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-36">
+            <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
                 <!-- Left Side - Content (75%) -->
-                <div class="flex-1 lg:w-3/4 space-y-6" data-aos="fade-right">
-                    <h1 class="text-[48px] lg:text-[64px] xl:text-[72px] leading-[1.1] font-bold text-white mt-6">
-                        We Turn Complex Data<br />
-                        into Clear, Actionable Intelligence
+                <div class="flex-1 lg:w-3/4 space-y-4 sm:space-y-5 md:space-y-6">
+                    <h1 class="text-[28px] sm:text-[32px] md:text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] sm:leading-[1.15] md:leading-[1.1] font-bold text-white mt-2 sm:mt-4 md:mt-6 animate-slide-up">
+                        We Turn Complex Data<br class="hidden sm:block" />
+                        <span class="sm:hidden"> into Clear,</span>
+                        <span class="hidden sm:inline"> into Clear, Actionable Intelligence</span>
+                        <br class="sm:hidden" />
+                        <span class="sm:hidden">Actionable Intelligence</span>
                     </h1>
 
-                    <p class="text-[18px] lg:text-[20px] leading-relaxed text-white/80 max-w-[600px]">
+                    <p class="text-[16px] sm:text-[18px] md:text-xl lg:text-[28px] leading-relaxed sm:leading-[28px] md:leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed">
                         Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.
                     </p>
                 </div>
 
                 <!-- Right Side - 3D Logo (25%) -->
-                <div class="lg:w-1/4 flex justify-center lg:justify-end" data-aos="fade-left">
+                <div class="lg:w-1/4 flex justify-center lg:justify-end">
                     <div class="relative">
-                        <!-- 3D Sinki Logo -->
-                        <div class="relative w-[280px] h-[280px] lg:w-[300px] lg:h-[300px]">
-                            <!-- Main Logo Container with 3D effect -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF3621] to-[#CC2B1A] rounded-[48px] shadow-2xl transform rotate-6 opacity-90"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF3621] to-[#CC2B1A] rounded-[48px] shadow-2xl transform -rotate-3 opacity-70"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#FF4A38] to-[#FF3621] rounded-[48px] shadow-2xl flex items-center justify-center">
-                                <!-- Sinki Icon -->
-                                <svg class="w-32 h-32 lg:w-36 lg:h-36 text-white" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M60 60L100 100L60 140M100 60L140 100L100 140" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-
-                            <!-- Glow Effect -->
-                            <div class="absolute -inset-4 bg-[#FF3621] rounded-[52px] blur-xl opacity-30 animate-pulse"></div>
+                        <!-- Right Side Logo Image -->
+                        <div class="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in">
+                            <img
+                                src="/images/rightlogo.png"
+                                alt="Sinki Logo"
+                                class="w-full h-full object-contain animate-glow"
+                            />
                         </div>
                     </div>
                 </div>
@@ -65,7 +61,49 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Custom animations */
+/* Modern entrance animations */
+@keyframes slideUp {
+    0% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpDelayed {
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatIn {
+    0% {
+        transform: translateY(30px) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+}
+
 @keyframes float {
     0%, 100% {
         transform: translateY(0px) rotate(0deg);
@@ -75,32 +113,56 @@ onMounted(() => {
     }
 }
 
+/* Animation classes */
+.animate-slide-up {
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.animate-slide-up-delayed {
+    animation: slideUpDelayed 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.animate-float-in {
+    animation: floatIn 1.2s ease-out forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+}
+
+.animate-glow {
+    animation: glow 3s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
 .animate-float {
     animation: float 6s ease-in-out infinite;
 }
 
-/* Responsive height adjustments to match services page */
+/* Responsive height adjustments */
 @media (min-width: 1536px) {
     section {
-        min-height: 95vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1536px) {
     section {
-        min-height: 90vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1280px) {
     section {
-        min-height: 85vh !important;
+        min-height: 65vh !important;
     }
 }
 
 @media (max-width: 1024px) {
     section {
-        min-height: 80vh !important;
+        min-height: 65vh !important;
     }
 }
 

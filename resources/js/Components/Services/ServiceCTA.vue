@@ -208,6 +208,26 @@ const props = defineProps({
     }
 }
 
+/* Specific adjustments for screens smaller than 1400px */
+@media (max-width: 1400px) {
+    .cta-card {
+        padding: 2.5rem 1.5rem;
+        min-height: 350px;
+    }
+
+    h2 {
+        font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: clamp(1rem, 1.5vw, 1.25rem);
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+}
+
 @media (max-width: 1280px) {
     .cta-card {
         padding: 3rem 2rem;

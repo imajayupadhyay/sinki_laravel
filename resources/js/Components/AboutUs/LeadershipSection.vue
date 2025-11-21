@@ -1,52 +1,60 @@
 <template>
-    <section class="leadership-section bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 lg:py-32 relative overflow-hidden w-full">
+    <section
+        class="leadership-section py-20 lg:py-32 relative overflow-hidden w-full"
+        :style="{
+            backgroundImage: 'url(/images/aboutussecbanner.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        }"
+    >
         <!-- Background decorative elements -->
         <div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-20 w-40 h-40 bg-brand-red/10 rounded-full blur-3xl animate-pulse-delayed"></div>
 
         <div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20">
             <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-                <!-- Left Content (30%) -->
-                <div class="w-full lg:w-[30%] space-y-8">
+                <!-- Left Content (35%) -->
+                <div class="w-full lg:w-[35%] space-y-8">
                     <!-- Header Tag -->
-                    <div class="animate-slide-up">
+                    <div class="animate-fade-in-up">
                         <span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80">
                             {{ headerTag }}
                         </span>
                     </div>
 
                     <!-- Main Title -->
-                    <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up" style="animation-delay: 0.2s">
+                    <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up-title">
                         {{ title }}
                     </h2>
 
                     <!-- Description -->
-                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up mt-4" style="animation-delay: 0.4s">
+                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up-subtitle mt-4">
                         {{ description }}
                     </p>
                 </div>
 
-                <!-- Right Content - Team Cards in Horizontal Layout (70%) -->
-                <div class="w-full lg:w-[70%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+                <!-- Right Content - Team Cards in Horizontal Layout (65%) -->
+                <div class="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
                     <div
                         v-for="(member, index) in teamMembers"
                         :key="index"
-                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center text-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
-                        :style="`animation-delay: ${0.6 + index * 0.2}s`"
+                        class="team-card bg-white rounded-2xl p-4 lg:p-4 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card"
+                        :style="`animation-delay: ${0.8 + index * 0.2}s`"
                     >
                         <!-- Profile Image -->
                         <div class="flex-shrink-0 mb-3 w-full">
-                            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200">
+                            <div class="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-200">
                                 <img
                                     :src="member.image"
                                     :alt="member.name"
-                                    class="w-full h-full"
+                                    class="w-full h-full object-cover object-center"
                                 />
                             </div>
                         </div>
 
                         <!-- Member Info -->
-                        <div class="flex-1">
+                        <div class="flex-1 text-left w-full">
                             <h3 class="text-brand-dark text-base lg:text-lg font-semibold mb-0.5">
                                 {{ member.name }}
                             </h3>
@@ -83,7 +91,7 @@ const props = defineProps({
         default: () => [
             {
                 name: 'Gaurav Chauhan',
-                position: 'Founder & CEO',
+                position: 'Co-Founder & CEO',
                 image: '/images/Mr Gaurav Chauhan.png'
             },
             {
@@ -133,7 +141,75 @@ const props = defineProps({
     animation-delay: 1s;
 }
 
-/* Slide Up Animations */
+/* Enhanced Modern Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpSubtitle {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes teamCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9) rotateY(15deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateY(0deg);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.animate-slide-up-title {
+    animation: slideUpTitle 1s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.animate-slide-up-subtitle {
+    animation: slideUpSubtitle 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.animate-team-card {
+    animation: teamCardIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* Legacy animations for backward compatibility */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -172,11 +248,46 @@ const props = defineProps({
     transition: transform 0.3s ease;
 }
 
+/* Image Container Responsive Styles */
+.team-card .aspect-\[3\/4\] {
+    aspect-ratio: 3/4;
+    /* Fallback for browsers that don't support aspect-ratio */
+    position: relative;
+}
+
+/* Fallback for older browsers */
+.team-card .aspect-\[3\/4\]::before {
+    content: '';
+    display: block;
+    padding-top: 133.33%; /* 4/3 ratio fallback */
+}
+
+/* Ensure image positioning works with fallback */
+.team-card .aspect-\[3\/4\] img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 /* Responsive Styles */
 @media (max-width: 1280px) {
     .leadership-section h2 {
         font-size: 60px !important;
         line-height: 1.1;
+    }
+
+    /* Adjust image aspect ratio for larger tablets */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 4/5;
+    }
+
+    /* Fallback padding adjustment for 4/5 ratio */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 125%; /* 5/4 ratio fallback */
     }
 }
 
@@ -222,6 +333,16 @@ const props = defineProps({
     .team-card p {
         font-size: 12px !important;
     }
+
+    /* Adjust image aspect ratio for mobile tablets */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 1/1;
+    }
+
+    /* Fallback padding adjustment for square ratio */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 100%; /* 1/1 ratio fallback */
+    }
 }
 
 @media (max-width: 640px) {
@@ -246,6 +367,16 @@ const props = defineProps({
 
     .team-card {
         padding: 1rem !important;
+    }
+
+    /* Square aspect ratio for small mobile screens */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 1/1;
+    }
+
+    /* Fallback padding for square ratio on small screens */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 100%; /* 1/1 ratio fallback */
     }
 }
 
