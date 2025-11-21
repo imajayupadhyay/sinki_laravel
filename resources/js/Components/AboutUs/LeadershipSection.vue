@@ -44,11 +44,11 @@
                     >
                         <!-- Profile Image -->
                         <div class="flex-shrink-0 mb-3 w-full">
-                            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200">
+                            <div class="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-200">
                                 <img
                                     :src="member.image"
                                     :alt="member.name"
-                                    class="w-full h-full"
+                                    class="w-full h-full object-cover object-center"
                                 />
                             </div>
                         </div>
@@ -248,11 +248,46 @@ const props = defineProps({
     transition: transform 0.3s ease;
 }
 
+/* Image Container Responsive Styles */
+.team-card .aspect-\[3\/4\] {
+    aspect-ratio: 3/4;
+    /* Fallback for browsers that don't support aspect-ratio */
+    position: relative;
+}
+
+/* Fallback for older browsers */
+.team-card .aspect-\[3\/4\]::before {
+    content: '';
+    display: block;
+    padding-top: 133.33%; /* 4/3 ratio fallback */
+}
+
+/* Ensure image positioning works with fallback */
+.team-card .aspect-\[3\/4\] img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 /* Responsive Styles */
 @media (max-width: 1280px) {
     .leadership-section h2 {
         font-size: 60px !important;
         line-height: 1.1;
+    }
+
+    /* Adjust image aspect ratio for larger tablets */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 4/5;
+    }
+
+    /* Fallback padding adjustment for 4/5 ratio */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 125%; /* 5/4 ratio fallback */
     }
 }
 
@@ -298,6 +333,16 @@ const props = defineProps({
     .team-card p {
         font-size: 12px !important;
     }
+
+    /* Adjust image aspect ratio for mobile tablets */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 1/1;
+    }
+
+    /* Fallback padding adjustment for square ratio */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 100%; /* 1/1 ratio fallback */
+    }
 }
 
 @media (max-width: 640px) {
@@ -322,6 +367,16 @@ const props = defineProps({
 
     .team-card {
         padding: 1rem !important;
+    }
+
+    /* Square aspect ratio for small mobile screens */
+    .team-card .aspect-\[3\/4\] {
+        aspect-ratio: 1/1;
+    }
+
+    /* Fallback padding for square ratio on small screens */
+    .team-card .aspect-\[3\/4\]::before {
+        padding-top: 100%; /* 1/1 ratio fallback */
     }
 }
 

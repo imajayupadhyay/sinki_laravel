@@ -12,7 +12,7 @@
                 >
                     <!-- Content Side - Shows first on mobile -->
                     <div
-                        class="content-container w-full lg:w-[65%] flex-grow order-1"
+                        class="content-container w-full lg:w-[70%] flex-grow order-1"
                         :class="imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'"
                     >
                         <!-- Our Story Header -->
@@ -52,7 +52,7 @@
 
                     <!-- Image Side - Shows second on mobile -->
                     <div
-                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2 animate-scale-in"
+                        class="image-container w-full lg:w-[30%] flex-shrink-0 order-2 animate-scale-in"
                         :class="imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'"
                     >
                         <div class="relative rounded-3xl overflow-hidden shadow-xl">
