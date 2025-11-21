@@ -39,7 +39,7 @@
                     <div
                         v-for="(member, index) in teamMembers"
                         :key="index"
-                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card"
+                        class="team-card bg-white rounded-2xl p-4 lg:p-4 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card"
                         :style="`animation-delay: ${0.8 + index * 0.2}s`"
                     >
                         <!-- Profile Image -->
