@@ -16,7 +16,7 @@
                         :class="imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'"
                     >
                         <!-- Our Story Header -->
-                        <div class="section-header mb-8 sm:mb-10">
+                        <div class="section-header mb-8 sm:mb-10 animate-fade-in-up">
                             <span class="section-tag text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider">
                                 {{ headerTag }}
                             </span>
@@ -24,7 +24,7 @@
 
                         <!-- Main Heading -->
                         <h2
-                            class="section-title text-brand-dark font-semibold mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] break-words"
+                            class="section-title text-brand-dark font-semibold mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] break-words animate-fade-in-up-delayed"
                         >
                             {{ title }}
                         </h2>
@@ -32,7 +32,7 @@
                         <!-- Subtitle (Optional) -->
                         <h3
                             v-if="subtitle"
-                            class="section-subtitle text-gray-700 font-medium mb-4 text-xl sm:text-2xl lg:text-[26px] leading-relaxed"
+                            class="section-subtitle text-gray-700 font-medium mb-4 text-xl sm:text-2xl lg:text-[26px] leading-relaxed animate-fade-in-up-more"
                         >
                             {{ subtitle }}
                         </h3>
@@ -42,7 +42,8 @@
                             <p
                                 v-for="(paragraph, index) in descriptions"
                                 :key="index"
-                                class="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed"
+                                class="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed animate-fade-in-up-staggered"
+                                :style="{ animationDelay: `${1.2 + index * 0.3}s` }"
                                 v-html="paragraph"
                             >
                             </p>
@@ -51,7 +52,7 @@
 
                     <!-- Image Side - Shows second on mobile -->
                     <div
-                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2"
+                        class="image-container w-full lg:w-[35%] flex-shrink-0 order-2 animate-scale-in"
                         :class="imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'"
                     >
                         <div class="relative rounded-3xl overflow-hidden shadow-xl">
@@ -111,6 +112,58 @@ const props = defineProps({
 </script>
 
 <style scoped>
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.animate-fade-in-up-delayed {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.animate-fade-in-up-more {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.animate-fade-in-up-staggered {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.animate-scale-in {
+    animation: scaleIn 1s ease-out forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+}
+
 /* Font Family - Instrument Sans */
 .about-story-section {
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

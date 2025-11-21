@@ -13,19 +13,19 @@
             <!-- Section Header - Center Aligned -->
             <div class="text-center mb-18 lg:mb-24">
                 <!-- Header Tag -->
-                <div class="section-header mb-8">
+                <div class="section-header mb-8 animate-fade-in-up">
                     <span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80">
                         {{ headerTag }}
                     </span>
                 </div>
 
                 <!-- Main Title -->
-                <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
+                <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up-title">
                     {{ title }}
                 </h2>
 
                 <!-- Subtitle -->
-                <p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-delayed whitespace-nowrap lg:whitespace-nowrap md:whitespace-normal sm:whitespace-normal">
+                <p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-subtitle whitespace-nowrap lg:whitespace-nowrap md:whitespace-normal sm:whitespace-normal">
                     {{ subtitle }}
                 </p>
             </div>
@@ -34,7 +34,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8">
 
                 <!-- Service 1: Data Engineering & Modernization -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
+                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1">
                     <div class="flex items-start gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Service 2: Data Management & Governance -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
+                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-2">
                     <div class="flex items-start gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
@@ -83,7 +83,7 @@
                 </div>
 
                 <!-- Service 3: Data Analytics & Business Intelligence -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
+                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-3">
                     <div class="flex items-start gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
@@ -107,7 +107,7 @@
                 </div>
 
                 <!-- Service 4: AI & ML Solutions -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
+                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-4">
                     <div class="flex items-start gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
@@ -157,9 +157,64 @@ const props = defineProps({
         default: () => []
     }
 });
+
 </script>
 
 <style scoped>
+/* Simple Fade Up Animation */
+@keyframes simpleFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+.animate-slide-up-title {
+    animation: simpleFadeUp 1s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+
+.animate-slide-up-subtitle {
+    animation: simpleFadeUp 1s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+}
+
+.fade-up-1 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 0.8s;
+    animation-fill-mode: both;
+}
+
+.fade-up-2 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.0s;
+    animation-fill-mode: both;
+}
+
+.fade-up-3 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: both;
+}
+
+.fade-up-4 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.4s;
+    animation-fill-mode: both;
+}
+
 /* Font Family - Instrument Sans */
 .what-we-do-section {
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

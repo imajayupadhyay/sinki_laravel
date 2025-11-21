@@ -17,19 +17,19 @@
                 <!-- Left Content (35%) -->
                 <div class="w-full lg:w-[35%] space-y-8">
                     <!-- Header Tag -->
-                    <div class="animate-slide-up">
+                    <div class="animate-fade-in-up">
                         <span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80">
                             {{ headerTag }}
                         </span>
                     </div>
 
                     <!-- Main Title -->
-                    <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up" style="animation-delay: 0.2s">
+                    <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up-title">
                         {{ title }}
                     </h2>
 
                     <!-- Description -->
-                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up mt-4" style="animation-delay: 0.4s">
+                    <p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up-subtitle mt-4">
                         {{ description }}
                     </p>
                 </div>
@@ -39,8 +39,8 @@
                     <div
                         v-for="(member, index) in teamMembers"
                         :key="index"
-                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-slide-up"
-                        :style="`animation-delay: ${0.6 + index * 0.2}s`"
+                        class="team-card bg-white rounded-2xl p-4 lg:p-6 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card"
+                        :style="`animation-delay: ${0.8 + index * 0.2}s`"
                     >
                         <!-- Profile Image -->
                         <div class="flex-shrink-0 mb-3 w-full">
@@ -141,7 +141,75 @@ const props = defineProps({
     animation-delay: 1s;
 }
 
-/* Slide Up Animations */
+/* Enhanced Modern Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpSubtitle {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes teamCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9) rotateY(15deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateY(0deg);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.animate-slide-up-title {
+    animation: slideUpTitle 1s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.animate-slide-up-subtitle {
+    animation: slideUpSubtitle 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.animate-team-card {
+    animation: teamCardIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* Legacy animations for backward compatibility */
 @keyframes slideUp {
     from {
         opacity: 0;

@@ -15,12 +15,12 @@
                 </div>
 
                 <!-- Main Title -->
-                <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up">
+                <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4">
                     Our Data-First Approach
                 </h2>
 
                 <!-- Subtitle -->
-                <p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-delayed">
+                <p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto">
                     How We Transform Your Data Vision Into Reality
                 </p>
             </div>
@@ -38,7 +38,7 @@
                                 <div class="w-full h-[2px] bg-brand-red"></div>
                                 <!-- Centered Arrow 1 -->
                                 <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full">
-                                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none" class="animate-fade-in" style="animation-delay: 1s">
+                                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
                                         <path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                                     </svg>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="w-full h-[2px] bg-brand-red"></div>
                                 <!-- Centered Arrow 2 -->
                                 <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full">
-                                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none" class="animate-fade-in" style="animation-delay: 1.2s">
+                                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
                                         <path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                                     </svg>
                                 </div>
@@ -60,7 +60,6 @@
                             v-for="(step, index) in approachSteps"
                             :key="index"
                             class="flex-1 relative z-10 max-w-[400px]"
-                            :style="`animation-delay: ${0.3 + index * 0.2}s`"
                         >
                             <!-- Step Circle with Icon -->
                             <div class="flex justify-center mb-6">
@@ -94,8 +93,7 @@
                     <div
                         v-for="(step, index) in approachSteps"
                         :key="index"
-                        class="flex items-start gap-6 animate-slide-up"
-                        :style="`animation-delay: ${0.3 + index * 0.2}s`"
+                        class="flex items-start gap-6"
                     >
                         <!-- Step Circle with Icon -->
                         <div class="flex-shrink-0">
@@ -128,7 +126,7 @@
             </div>
 
             <!-- CTA Button Section -->
-            <div class="flex justify-center animate-slide-up" style="animation-delay: 1.8s">
+            <div class="flex justify-center">
                 <button
                     @click="openCalendlyModal"
                     class="cta-button group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
@@ -417,44 +415,9 @@ const approachSteps = reactive([
     animation-delay: 1s;
 }
 
-/* Slide Up Animations */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* Animations removed */
 
-.animate-slide-up {
-    animation: slideUp 0.8s ease-out;
-    animation-fill-mode: backwards;
-}
-
-.animate-slide-up-delayed {
-    animation: slideUp 0.8s ease-out 0.4s;
-    animation-fill-mode: backwards;
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-    animation-fill-mode: backwards;
-}
+/* All legacy animations removed */
 
 /* Step Circle Styles */
 .step-circle {
