@@ -7,6 +7,8 @@ use App\Models\HomepageHeroSection;
 use App\Models\HomepagePartnerBadge;
 use App\Models\WhatWeDoSection;
 use App\Models\WhatWeDoItem;
+use App\Models\OutcomesSection;
+use App\Models\OutcomesItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -18,11 +20,13 @@ class HomepageController extends Controller
         $heroSection = HomepageHeroSection::active()->first();
         $partnerBadge = HomepagePartnerBadge::active()->first();
         $whatWeDoSection = WhatWeDoSection::with('items')->active()->first();
+        $outcomesSection = OutcomesSection::with('items')->active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
-            'whatWeDoSection' => $whatWeDoSection
+            'whatWeDoSection' => $whatWeDoSection,
+            'outcomesSection' => $outcomesSection
         ]);
     }
 
@@ -243,5 +247,84 @@ class HomepageController extends Controller
         $item->delete();
 
         return back()->with('success', 'What We Do item deleted successfully!');
+    }
+
+    public function updateOutcomes(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'heading' => 'required|string|max:500',
+            'description' => 'required|string',
+            'is_active' => 'boolean'
+        ]);
+
+        $outcomesSection = OutcomesSection::active()->first();
+
+        if ($outcomesSection) {
+            $outcomesSection->update($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        } else {
+            $outcomesSection = OutcomesSection::create($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Outcomes section updated successfully!');
+    }
+
+    public function storeOutcomesItem(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $outcomesSection = OutcomesSection::active()->first();
+
+        if (!$outcomesSection) {
+            return back()->withErrors(['error' => 'Outcomes section not found.']);
+        }
+
+        // If no sort_order provided, set to next available
+        $sortOrder = $request->sort_order ?? ($outcomesSection->items()->max('sort_order') + 1);
+
+        OutcomesItem::create([
+            'outcomes_section_id' => $outcomesSection->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon_svg' => $request->icon_svg,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Outcomes item added successfully!');
+    }
+
+    public function updateOutcomesItem(Request $request, OutcomesItem $item)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $item->update($request->only([
+            'title', 'description', 'icon_svg', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Outcomes item updated successfully!');
+    }
+
+    public function deleteOutcomesItem(OutcomesItem $item)
+    {
+        $item->delete();
+
+        return back()->with('success', 'Outcomes item deleted successfully!');
     }
 }

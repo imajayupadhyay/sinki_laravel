@@ -17,7 +17,7 @@
         <WhatWeDo :what-we-do-section="whatWeDoSection" />
         
         <!-- Outcomes You Can Expect Section -->
-        <Outcomes />
+        <Outcomes :outcomes-section="outcomesSection" />
         
         <!-- Our Approach Section -->
         <OurApproach />
@@ -67,6 +67,10 @@ const props = defineProps({
         default: () => null
     },
     whatWeDoSection: {
+        type: Object,
+        default: () => null
+    },
+    outcomesSection: {
         type: Object,
         default: () => null
     }

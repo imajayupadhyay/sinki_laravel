@@ -120,6 +120,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/what-we-do/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatWeDoItem'])->name('homepage.what-we-do.items.store');
     Route::put('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatWeDoItem'])->name('homepage.what-we-do.items.update');
     Route::delete('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatWeDoItem'])->name('homepage.what-we-do.items.delete');
+    Route::put('/homepage/outcomes', [App\Http\Controllers\Admin\HomepageController::class, 'updateOutcomes'])->name('homepage.outcomes.update');
+    Route::post('/homepage/outcomes/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeOutcomesItem'])->name('homepage.outcomes.items.store');
+    Route::put('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateOutcomesItem'])->name('homepage.outcomes.items.update');
+    Route::delete('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOutcomesItem'])->name('homepage.outcomes.items.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

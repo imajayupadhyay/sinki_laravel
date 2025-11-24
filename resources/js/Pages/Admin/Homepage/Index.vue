@@ -558,6 +558,296 @@
             </div>
         </div>
 
+        <!-- Outcomes Section Card -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Outcomes Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the outcomes you can expect section content</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateOutcomes" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Label -->
+                        <div>
+                            <label for="outcomes_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="outcomes_label"
+                                v-model="outcomesForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                :class="{ 'border-red-500': outcomesErrors.label }"
+                            />
+                            <p v-if="outcomesErrors.label" class="mt-1 text-sm text-red-600">{{ outcomesErrors.label }}</p>
+                        </div>
+
+                        <!-- Active Status -->
+                        <div class="flex items-start">
+                            <div class="mt-8">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="outcomesForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Section Active</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heading -->
+                    <div class="mt-6">
+                        <label for="outcomes_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Heading
+                        </label>
+                        <input
+                            type="text"
+                            id="outcomes_heading"
+                            v-model="outcomesForm.heading"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                            :class="{ 'border-red-500': outcomesErrors.heading }"
+                        />
+                        <p v-if="outcomesErrors.heading" class="mt-1 text-sm text-red-600">{{ outcomesErrors.heading }}</p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-6">
+                        <label for="outcomes_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Description
+                        </label>
+                        <textarea
+                            id="outcomes_description"
+                            v-model="outcomesForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                            :class="{ 'border-red-500': outcomesErrors.description }"
+                        ></textarea>
+                        <p v-if="outcomesErrors.description" class="mt-1 text-sm text-red-600">{{ outcomesErrors.description }}</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            :disabled="outcomesForm.processing"
+                            class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                        >
+                            <svg v-if="outcomesForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {{ outcomesForm.processing ? 'Updating...' : 'Update Section Info' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Outcomes Items Management -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Outcome Items</h3>
+                            <p class="text-sm text-gray-600 mt-1">Manage individual outcome cards</p>
+                        </div>
+                        <button
+                            @click="showAddOutcomeModal"
+                            class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 transition ease-in-out duration-150"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Add Outcome Item
+                        </button>
+                    </div>
+
+                    <!-- Outcomes Items List -->
+                    <div v-if="outcomesSection?.items?.length" class="space-y-4">
+                        <div
+                            v-for="(item, index) in outcomesSection.items"
+                            :key="item.id"
+                            class="bg-gray-50 border border-gray-200 rounded-lg p-4"
+                        >
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start space-x-4 flex-1">
+                                    <!-- Icon Preview -->
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center">
+                                            <div v-html="item.icon_svg" class="w-6 h-6 text-white"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-gray-900 mb-1">{{ item.title }}</h4>
+                                        <p class="text-sm text-gray-600 mb-2">{{ item.description }}</p>
+                                        <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                            <span>Sort Order: {{ item.sort_order }}</span>
+                                            <span :class="item.is_active ? 'text-green-600' : 'text-red-600'">
+                                                {{ item.is_active ? 'Active' : 'Inactive' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="flex items-center space-x-2 ml-4">
+                                    <button
+                                        @click="editOutcomeItem(item)"
+                                        class="text-blue-600 hover:text-blue-900 text-sm"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        @click="deleteOutcomeItem(item.id)"
+                                        class="text-red-600 hover:text-red-900 text-sm"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No Items Message -->
+                    <div v-else class="text-center py-8">
+                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        <h3 class="text-sm font-medium text-gray-900 mb-1">No outcome items</h3>
+                        <p class="text-sm text-gray-600">Get started by adding your first outcome item.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Outcome Item Modal -->
+        <div v-if="showAddOutcomeItemModal || showEditOutcomeItemModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+                <div class="mt-3">
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            {{ showEditOutcomeItemModal ? 'Edit Outcome Item' : 'Add New Outcome Item' }}
+                        </h3>
+                        <button @click="closeOutcomeModal" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <form @submit.prevent="submitOutcomeItem" class="mt-6 space-y-6">
+                        <!-- Title -->
+                        <div>
+                            <label for="outcome_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Title <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="outcome_title"
+                                v-model="outcomeItemForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                :class="{ 'border-red-500': outcomeItemErrors.title }"
+                            />
+                            <p v-if="outcomeItemErrors.title" class="mt-1 text-sm text-red-600">{{ outcomeItemErrors.title }}</p>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="outcome_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="outcome_description"
+                                v-model="outcomeItemForm.description"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                :class="{ 'border-red-500': outcomeItemErrors.description }"
+                            ></textarea>
+                            <p v-if="outcomeItemErrors.description" class="mt-1 text-sm text-red-600">{{ outcomeItemErrors.description }}</p>
+                        </div>
+
+                        <!-- Icon SVG -->
+                        <div>
+                            <label for="outcome_icon_svg" class="block text-sm font-medium text-gray-700 mb-2">
+                                Icon SVG <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="outcome_icon_svg"
+                                v-model="outcomeItemForm.icon_svg"
+                                rows="6"
+                                placeholder="Paste your SVG code here..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none font-mono text-sm"
+                                :class="{ 'border-red-500': outcomeItemErrors.icon_svg }"
+                            ></textarea>
+                            <p v-if="outcomeItemErrors.icon_svg" class="mt-1 text-sm text-red-600">{{ outcomeItemErrors.icon_svg }}</p>
+                            <p class="mt-1 text-xs text-gray-500">Paste the complete SVG code including the opening and closing tags.</p>
+                        </div>
+
+                        <!-- Icon Preview -->
+                        <div v-if="outcomeItemForm.icon_svg" class="flex items-center space-x-4">
+                            <span class="text-sm font-medium text-gray-700">Preview:</span>
+                            <div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center">
+                                <div v-html="outcomeItemForm.icon_svg" class="w-6 h-6 text-white"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sort Order and Active Status -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="outcome_sort_order" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Sort Order
+                                </label>
+                                <input
+                                    type="number"
+                                    id="outcome_sort_order"
+                                    v-model="outcomeItemForm.sort_order"
+                                    min="1"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    :class="{ 'border-red-500': outcomeItemErrors.sort_order }"
+                                />
+                                <p v-if="outcomeItemErrors.sort_order" class="mt-1 text-sm text-red-600">{{ outcomeItemErrors.sort_order }}</p>
+                            </div>
+
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="outcomeItemForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="flex items-center justify-end pt-6 border-t border-gray-200 space-x-3">
+                            <button
+                                type="button"
+                                @click="closeOutcomeModal"
+                                class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                :disabled="outcomeItemForm.processing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                            >
+                                {{ outcomeItemForm.processing ? 'Saving...' : (showEditOutcomeItemModal ? 'Update Outcome' : 'Add Outcome') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -577,7 +867,8 @@ import AdminLayout from '@/Components/Admin/AdminLayout.vue'
 const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
-    whatWeDoSection: Object
+    whatWeDoSection: Object,
+    outcomesSection: Object
 })
 
 const imagePreview = ref(null)
@@ -586,11 +877,18 @@ const errors = ref({})
 const partnerErrors = ref({})
 const whatWeDoErrors = ref({})
 const itemErrors = ref({})
+const outcomesErrors = ref({})
+const outcomeItemErrors = ref({})
 
 // What We Do Modal states
 const showAddItemModal = ref(false)
 const showEditItemModal = ref(false)
 const editingItemId = ref(null)
+
+// Outcomes Modal states
+const showAddOutcomeItemModal = ref(false)
+const showEditOutcomeItemModal = ref(false)
+const editingOutcomeItemId = ref(null)
 
 // Initialize hero form with existing data or defaults
 const form = useForm({
@@ -616,8 +914,25 @@ const whatWeDoForm = useForm({
     is_active: props.whatWeDoSection?.is_active ?? true
 })
 
+// Initialize Outcomes form with existing data or defaults
+const outcomesForm = useForm({
+    label: props.outcomesSection?.label || 'Outcomes You Can Expect',
+    heading: props.outcomesSection?.heading || 'Real Results You\'ll Achieve With Us',
+    description: props.outcomesSection?.description || 'Think outcomes, not overhead. Our expertise ensures Databricks delivers exactly what you need.',
+    is_active: props.outcomesSection?.is_active ?? true
+})
+
 // Initialize item form for adding/editing items
 const itemForm = useForm({
+    title: '',
+    description: '',
+    icon_svg: '',
+    sort_order: 1,
+    is_active: true
+})
+
+// Initialize outcome item form for adding/editing outcome items
+const outcomeItemForm = useForm({
     title: '',
     description: '',
     icon_svg: '',
@@ -801,6 +1116,100 @@ const deleteItem = (itemId) => {
     if (confirm('Are you sure you want to delete this service container?')) {
         const deleteForm = useForm({})
         deleteForm.delete(route('admin.homepage.what-we-do.items.delete', itemId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // Force page refresh to remove deleted item
+                window.location.reload()
+            }
+        })
+    }
+}
+
+// Outcomes Functions
+const updateOutcomes = () => {
+    outcomesForm.put(route('admin.homepage.outcomes.update'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            outcomesErrors.value = formErrors
+        },
+        onSuccess: () => {
+            outcomesErrors.value = {}
+        }
+    })
+}
+
+const showAddOutcomeModal = () => {
+    // Reset form
+    outcomeItemForm.title = ''
+    outcomeItemForm.description = ''
+    outcomeItemForm.icon_svg = ''
+    outcomeItemForm.sort_order = 1
+    outcomeItemForm.is_active = true
+    outcomeItemErrors.value = {}
+
+    showAddOutcomeItemModal.value = true
+}
+
+const closeOutcomeModal = () => {
+    showAddOutcomeItemModal.value = false
+    showEditOutcomeItemModal.value = false
+    editingOutcomeItemId.value = null
+    outcomeItemForm.clearErrors()
+    outcomeItemErrors.value = {}
+}
+
+const submitOutcomeItem = () => {
+    if (showEditOutcomeItemModal.value) {
+        updateOutcomeItem()
+    } else {
+        addOutcomeItem()
+    }
+}
+
+const addOutcomeItem = () => {
+    outcomeItemForm.post(route('admin.homepage.outcomes.items.store'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            outcomeItemErrors.value = formErrors
+        },
+        onSuccess: () => {
+            outcomeItemErrors.value = {}
+            closeOutcomeModal()
+            // Force page refresh to show new item
+            window.location.reload()
+        }
+    })
+}
+
+const editOutcomeItem = (item) => {
+    editingOutcomeItemId.value = item.id
+    outcomeItemForm.title = item.title
+    outcomeItemForm.description = item.description
+    outcomeItemForm.icon_svg = item.icon_svg
+    outcomeItemForm.sort_order = item.sort_order
+    outcomeItemForm.is_active = item.is_active
+    showEditOutcomeItemModal.value = true
+}
+
+const updateOutcomeItem = () => {
+    outcomeItemForm.put(route('admin.homepage.outcomes.items.update', editingOutcomeItemId.value), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            outcomeItemErrors.value = formErrors
+        },
+        onSuccess: () => {
+            outcomeItemErrors.value = {}
+            closeOutcomeModal()
+            // Force page refresh to show updated item
+            window.location.reload()
+        }
+    })
+}
+
+const deleteOutcomeItem = (itemId) => {
+    if (confirm('Are you sure you want to delete this outcome item?')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.outcomes.items.delete', itemId), {
             preserveScroll: true,
             onSuccess: () => {
                 // Force page refresh to remove deleted item

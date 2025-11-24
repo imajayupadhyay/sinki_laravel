@@ -41,11 +41,15 @@ Route::get('/', function () {
     // Fetch what we do section data with items
     $whatWeDoSection = \App\Models\WhatWeDoSection::with(['activeItems'])->active()->first();
 
+    // Fetch outcomes section data with items
+    $outcomesSection = \App\Models\OutcomesSection::with(['activeItems'])->active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
         'heroSection' => $heroSection,
         'partnerBadge' => $partnerBadge,
         'whatWeDoSection' => $whatWeDoSection,
+        'outcomesSection' => $outcomesSection,
     ]);
 })->name('home');
 
