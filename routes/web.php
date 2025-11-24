@@ -47,6 +47,9 @@ Route::get('/', function () {
     // Fetch our approach section data
     $ourApproachSection = \App\Models\OurApproachSection::active()->first();
 
+    // Fetch SEO settings
+    $seoSettings = \App\Models\HomepageSeoSetting::active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
         'heroSection' => $heroSection,
@@ -54,6 +57,7 @@ Route::get('/', function () {
         'whatWeDoSection' => $whatWeDoSection,
         'outcomesSection' => $outcomesSection,
         'ourApproachSection' => $ourApproachSection,
+        'seoSettings' => $seoSettings,
     ]);
 })->name('home');
 

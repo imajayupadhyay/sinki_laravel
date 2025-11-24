@@ -127,6 +127,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/homepage/our-approach', [App\Http\Controllers\Admin\HomepageController::class, 'updateOurApproach'])->name('homepage.our-approach.update');
     Route::post('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadOurApproachImage'])->name('homepage.our-approach.image.upload');
     Route::delete('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOurApproachImage'])->name('homepage.our-approach.image.delete');
+    Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
+    Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
+    Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

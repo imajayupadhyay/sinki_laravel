@@ -1,7 +1,25 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Sinki.ai: Your Databricks Strategy & Innovation Partner">
-            <meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." />
+        <Head :title="seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'">
+            <!-- Basic Meta Tags -->
+            <meta name="description" :content="seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta name="keywords" :content="seoSettings?.keywords || 'Databricks, Data Analytics, AI Solutions, Business Intelligence'" v-if="seoSettings?.keywords" />
+
+            <!-- Open Graph Meta Tags -->
+            <meta property="og:title" :content="seoSettings?.og_title || seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'" />
+            <meta property="og:description" :content="seoSettings?.og_description || seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta property="og:url" :content="seoSettings?.og_url || 'https://www.sinki.ai'" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" :content="seoSettings?.og_image_url || '/images/og-default.jpg'" v-if="seoSettings?.og_image_url" />
+
+            <!-- Twitter Meta Tags -->
+            <meta name="twitter:card" :content="seoSettings?.twitter_card || 'summary_large_image'" />
+            <meta name="twitter:title" :content="seoSettings?.twitter_title || seoSettings?.og_title || seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'" />
+            <meta name="twitter:description" :content="seoSettings?.twitter_description || seoSettings?.og_description || seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta name="twitter:image" :content="seoSettings?.twitter_image_url || seoSettings?.og_image_url || '/images/og-default.jpg'" v-if="seoSettings?.twitter_image_url || seoSettings?.og_image_url" />
+
+            <!-- Custom Head Tags -->
+            <template v-if="seoSettings?.custom_head_tags" v-html="seoSettings.custom_head_tags"></template>
         </Head>
 
         <!-- Header Component -->
@@ -75,6 +93,10 @@ const props = defineProps({
         default: () => null
     },
     ourApproachSection: {
+        type: Object,
+        default: () => null
+    },
+    seoSettings: {
         type: Object,
         default: () => null
     }

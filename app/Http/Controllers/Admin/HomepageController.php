@@ -10,6 +10,7 @@ use App\Models\WhatWeDoItem;
 use App\Models\OutcomesSection;
 use App\Models\OutcomesItem;
 use App\Models\OurApproachSection;
+use App\Models\HomepageSeoSetting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -23,13 +24,15 @@ class HomepageController extends Controller
         $whatWeDoSection = WhatWeDoSection::with('items')->active()->first();
         $outcomesSection = OutcomesSection::with('items')->active()->first();
         $ourApproachSection = OurApproachSection::active()->first();
+        $seoSettings = HomepageSeoSetting::active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
             'whatWeDoSection' => $whatWeDoSection,
             'outcomesSection' => $outcomesSection,
-            'ourApproachSection' => $ourApproachSection
+            'ourApproachSection' => $ourApproachSection,
+            'seoSettings' => $seoSettings
         ]);
     }
 
@@ -400,5 +403,95 @@ class HomepageController extends Controller
         ]);
 
         return back()->with('success', 'Our Approach image deleted successfully!');
+    }
+
+    public function updateSeoSettings(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:500',
+            'keywords' => 'nullable|string',
+            'og_title' => 'nullable|string|max:255',
+            'og_description' => 'nullable|string|max:500',
+            'og_url' => 'nullable|url',
+            'twitter_card' => 'nullable|string|in:summary,summary_large_image,app,player',
+            'twitter_title' => 'nullable|string|max:255',
+            'twitter_description' => 'nullable|string|max:500',
+            'custom_head_tags' => 'nullable|string',
+            'is_active' => 'boolean'
+        ]);
+
+        $seoSettings = HomepageSeoSetting::active()->first();
+
+        if ($seoSettings) {
+            $seoSettings->update($request->only([
+                'title', 'description', 'keywords', 'og_title', 'og_description',
+                'og_url', 'twitter_card', 'twitter_title', 'twitter_description',
+                'custom_head_tags', 'is_active'
+            ]));
+        } else {
+            $seoSettings = HomepageSeoSetting::create($request->only([
+                'title', 'description', 'keywords', 'og_title', 'og_description',
+                'og_url', 'twitter_card', 'twitter_title', 'twitter_description',
+                'custom_head_tags', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'SEO settings updated successfully!');
+    }
+
+    public function uploadSeoImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'type' => 'required|in:og_image,twitter_image'
+        ]);
+
+        $seoSettings = HomepageSeoSetting::active()->first();
+
+        if (!$seoSettings) {
+            return back()->withErrors(['error' => 'SEO settings not found.']);
+        }
+
+        $type = $request->type;
+        $fieldName = $type;
+
+        // Delete old image if exists
+        if ($seoSettings->$fieldName) {
+            Storage::disk('public')->delete($seoSettings->$fieldName);
+        }
+
+        // Store new image
+        $imagePath = $request->file('image')->store('homepage/seo', 'public');
+
+        $seoSettings->update([
+            $fieldName => $imagePath
+        ]);
+
+        return back()->with('success', ucfirst(str_replace('_', ' ', $type)) . ' updated successfully!');
+    }
+
+    public function deleteSeoImage(Request $request)
+    {
+        $request->validate([
+            'type' => 'required|in:og_image,twitter_image'
+        ]);
+
+        $seoSettings = HomepageSeoSetting::active()->first();
+        $type = $request->type;
+
+        if (!$seoSettings || !$seoSettings->$type) {
+            return back()->withErrors(['error' => 'No ' . str_replace('_', ' ', $type) . ' found.']);
+        }
+
+        // Delete image file
+        Storage::disk('public')->delete($seoSettings->$type);
+
+        // Remove image path from database
+        $seoSettings->update([
+            $type => null
+        ]);
+
+        return back()->with('success', ucfirst(str_replace('_', ' ', $type)) . ' deleted successfully!');
     }
 }

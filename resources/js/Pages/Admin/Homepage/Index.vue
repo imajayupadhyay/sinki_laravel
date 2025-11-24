@@ -1,5 +1,339 @@
 <template>
     <AdminLayout page-title="Homepage Management" page-subtitle="Manage your website's homepage content">
+        <!-- SEO Settings Section Card -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">SEO Settings</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage meta tags, Open Graph, and Twitter Card settings for better SEO</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateSeoSettings">
+                    <!-- Basic SEO Settings -->
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Title -->
+                            <div>
+                                <label for="seo_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Page Title <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="seo_title"
+                                    v-model="seoForm.title"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="Enter page title"
+                                    :class="{ 'border-red-500': seoErrors.title }"
+                                />
+                                <p v-if="seoErrors.title" class="mt-1 text-sm text-red-600">{{ seoErrors.title }}</p>
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="seoForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">SEO Settings Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Meta Description -->
+                        <div>
+                            <label for="seo_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Meta Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="seo_description"
+                                v-model="seoForm.description"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="Enter meta description (150-160 characters recommended)"
+                                :class="{ 'border-red-500': seoErrors.description }"
+                            ></textarea>
+                            <p v-if="seoErrors.description" class="mt-1 text-sm text-red-600">{{ seoErrors.description }}</p>
+                            <p class="mt-1 text-xs text-gray-500">{{ seoForm.description?.length || 0 }}/160 characters</p>
+                        </div>
+
+                        <!-- Keywords -->
+                        <div>
+                            <label for="seo_keywords" class="block text-sm font-medium text-gray-700 mb-2">
+                                Keywords
+                            </label>
+                            <input
+                                type="text"
+                                id="seo_keywords"
+                                v-model="seoForm.keywords"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter keywords separated by commas"
+                                :class="{ 'border-red-500': seoErrors.keywords }"
+                            />
+                            <p v-if="seoErrors.keywords" class="mt-1 text-sm text-red-600">{{ seoErrors.keywords }}</p>
+                            <p class="mt-1 text-xs text-gray-500">Separate keywords with commas</p>
+                        </div>
+
+                        <!-- Open Graph Settings -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <h3 class="text-md font-medium text-gray-900 mb-4">Open Graph Settings</h3>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="og_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                        OG Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="og_title"
+                                        v-model="seoForm.og_title"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                        placeholder="Leave empty to use page title"
+                                        :class="{ 'border-red-500': seoErrors.og_title }"
+                                    />
+                                    <p v-if="seoErrors.og_title" class="mt-1 text-sm text-red-600">{{ seoErrors.og_title }}</p>
+                                </div>
+
+                                <div>
+                                    <label for="og_url" class="block text-sm font-medium text-gray-700 mb-2">
+                                        OG URL
+                                    </label>
+                                    <input
+                                        type="url"
+                                        id="og_url"
+                                        v-model="seoForm.og_url"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                        placeholder="https://www.sinki.ai"
+                                        :class="{ 'border-red-500': seoErrors.og_url }"
+                                    />
+                                    <p v-if="seoErrors.og_url" class="mt-1 text-sm text-red-600">{{ seoErrors.og_url }}</p>
+                                </div>
+
+                                <div class="lg:col-span-2">
+                                    <label for="og_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                        OG Description
+                                    </label>
+                                    <textarea
+                                        id="og_description"
+                                        v-model="seoForm.og_description"
+                                        rows="2"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                        placeholder="Leave empty to use meta description"
+                                        :class="{ 'border-red-500': seoErrors.og_description }"
+                                    ></textarea>
+                                    <p v-if="seoErrors.og_description" class="mt-1 text-sm text-red-600">{{ seoErrors.og_description }}</p>
+                                </div>
+                            </div>
+
+                            <!-- OG Image Upload -->
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Open Graph Image
+                                </label>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <!-- Upload Area -->
+                                    <div>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                                            <div class="text-center">
+                                                <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                                <div class="mt-2">
+                                                    <label for="og_image" class="cursor-pointer">
+                                                        <span class="text-sm font-medium text-gray-900">
+                                                            Upload OG Image
+                                                        </span>
+                                                        <input
+                                                            id="og_image"
+                                                            type="file"
+                                                            accept="image/*"
+                                                            @change="handleSeoImageUpload($event, 'og_image')"
+                                                            class="sr-only"
+                                                        />
+                                                    </label>
+                                                </div>
+                                                <p class="text-xs text-gray-500">Recommended: 1200x630px</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div>
+                                        <div class="aspect-[1200/630] bg-gray-100 rounded-lg overflow-hidden">
+                                            <div v-if="ogImagePreview || seoSettings?.og_image_url" class="w-full h-full relative group">
+                                                <img
+                                                    :src="ogImagePreview || seoSettings?.og_image_url"
+                                                    alt="Open Graph image preview"
+                                                    class="w-full h-full object-cover"
+                                                />
+                                                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                                    <button
+                                                        @click="deleteSeoImage('og_image')"
+                                                        class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div v-else class="w-full h-full flex items-center justify-center">
+                                                <p class="text-sm text-gray-500">No OG image</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Twitter Card Settings -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <h3 class="text-md font-medium text-gray-900 mb-4">Twitter Card Settings</h3>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="twitter_card" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Card Type
+                                    </label>
+                                    <select
+                                        id="twitter_card"
+                                        v-model="seoForm.twitter_card"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                        :class="{ 'border-red-500': seoErrors.twitter_card }"
+                                    >
+                                        <option value="summary">Summary</option>
+                                        <option value="summary_large_image">Summary Large Image</option>
+                                        <option value="app">App</option>
+                                        <option value="player">Player</option>
+                                    </select>
+                                    <p v-if="seoErrors.twitter_card" class="mt-1 text-sm text-red-600">{{ seoErrors.twitter_card }}</p>
+                                </div>
+
+                                <div>
+                                    <label for="twitter_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Twitter Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="twitter_title"
+                                        v-model="seoForm.twitter_title"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                        placeholder="Leave empty to use OG title"
+                                        :class="{ 'border-red-500': seoErrors.twitter_title }"
+                                    />
+                                    <p v-if="seoErrors.twitter_title" class="mt-1 text-sm text-red-600">{{ seoErrors.twitter_title }}</p>
+                                </div>
+
+                                <div class="lg:col-span-2">
+                                    <label for="twitter_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Twitter Description
+                                    </label>
+                                    <textarea
+                                        id="twitter_description"
+                                        v-model="seoForm.twitter_description"
+                                        rows="2"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                        placeholder="Leave empty to use OG description"
+                                        :class="{ 'border-red-500': seoErrors.twitter_description }"
+                                    ></textarea>
+                                    <p v-if="seoErrors.twitter_description" class="mt-1 text-sm text-red-600">{{ seoErrors.twitter_description }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Twitter Image Upload -->
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Twitter Image
+                                </label>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <!-- Upload Area -->
+                                    <div>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                                            <div class="text-center">
+                                                <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                                <div class="mt-2">
+                                                    <label for="twitter_image" class="cursor-pointer">
+                                                        <span class="text-sm font-medium text-gray-900">
+                                                            Upload Twitter Image
+                                                        </span>
+                                                        <input
+                                                            id="twitter_image"
+                                                            type="file"
+                                                            accept="image/*"
+                                                            @change="handleSeoImageUpload($event, 'twitter_image')"
+                                                            class="sr-only"
+                                                        />
+                                                    </label>
+                                                </div>
+                                                <p class="text-xs text-gray-500">Recommended: 1200x675px</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div>
+                                        <div class="aspect-[1200/675] bg-gray-100 rounded-lg overflow-hidden">
+                                            <div v-if="twitterImagePreview || seoSettings?.twitter_image_url" class="w-full h-full relative group">
+                                                <img
+                                                    :src="twitterImagePreview || seoSettings?.twitter_image_url"
+                                                    alt="Twitter image preview"
+                                                    class="w-full h-full object-cover"
+                                                />
+                                                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                                    <button
+                                                        @click="deleteSeoImage('twitter_image')"
+                                                        class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div v-else class="w-full h-full flex items-center justify-center">
+                                                <p class="text-sm text-gray-500">No Twitter image</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Head Tags -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <div>
+                                <label for="custom_head_tags" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Custom Head Tags
+                                </label>
+                                <textarea
+                                    id="custom_head_tags"
+                                    v-model="seoForm.custom_head_tags"
+                                    rows="4"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none font-mono text-sm"
+                                    placeholder="Enter custom meta tags, schema markup, or other head elements"
+                                    :class="{ 'border-red-500': seoErrors.custom_head_tags }"
+                                ></textarea>
+                                <p v-if="seoErrors.custom_head_tags" class="mt-1 text-sm text-red-600">{{ seoErrors.custom_head_tags }}</p>
+                                <p class="mt-1 text-xs text-gray-500">Add custom HTML tags that will be inserted in the &lt;head&gt; section</p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-6 border-t border-gray-200">
+                            <button
+                                type="submit"
+                                :disabled="seoForm.processing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                            >
+                                <svg v-if="seoForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                {{ seoForm.processing ? 'Updating...' : 'Update SEO Settings' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <!-- Hero Section Card -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
             <div class="px-6 py-4 border-b border-gray-200">
@@ -399,7 +733,7 @@
                     <!-- Existing Items -->
                     <div v-if="whatWeDoSection?.items?.length" class="space-y-4">
                         <div
-                            v-for="(item, index) in whatWeDoSection.items"
+                            v-for="item in whatWeDoSection.items"
                             :key="item.id"
                             class="border border-gray-200 rounded-lg p-4 bg-gray-50"
                         >
@@ -666,7 +1000,7 @@
                     <!-- Outcomes Items List -->
                     <div v-if="outcomesSection?.items?.length" class="space-y-4">
                         <div
-                            v-for="(item, index) in outcomesSection.items"
+                            v-for="item in outcomesSection.items"
                             :key="item.id"
                             class="bg-gray-50 border border-gray-200 rounded-lg p-4"
                         >
@@ -1028,7 +1362,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import AdminLayout from '@/Components/Admin/AdminLayout.vue'
 
@@ -1037,7 +1371,8 @@ const props = defineProps({
     partnerBadge: Object,
     whatWeDoSection: Object,
     outcomesSection: Object,
-    ourApproachSection: Object
+    ourApproachSection: Object,
+    seoSettings: Object
 })
 
 const imagePreview = ref(null)
@@ -1050,6 +1385,9 @@ const outcomesErrors = ref({})
 const outcomeItemErrors = ref({})
 const ourApproachErrors = ref({})
 const approachImagePreview = ref(null)
+const seoErrors = ref({})
+const ogImagePreview = ref(null)
+const twitterImagePreview = ref(null)
 
 // What We Do Modal states
 const showAddItemModal = ref(false)
@@ -1118,6 +1456,21 @@ const ourApproachForm = useForm({
     description: props.ourApproachSection?.description || 'Our proven 3-step approach ensures Databricks adapts to your business needs, not the other way around.',
     image_alt: props.ourApproachSection?.image_alt || 'Our 3-Step Approach',
     is_active: props.ourApproachSection?.is_active ?? true
+})
+
+// Initialize SEO form with existing data or defaults
+const seoForm = useForm({
+    title: props.seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner',
+    description: props.seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.',
+    keywords: props.seoSettings?.keywords || 'Databricks, Data Analytics, AI Solutions, Business Intelligence, Data Strategy, Data Engineering, Machine Learning, Big Data',
+    og_title: props.seoSettings?.og_title || '',
+    og_description: props.seoSettings?.og_description || '',
+    og_url: props.seoSettings?.og_url || 'https://www.sinki.ai',
+    twitter_card: props.seoSettings?.twitter_card || 'summary_large_image',
+    twitter_title: props.seoSettings?.twitter_title || '',
+    twitter_description: props.seoSettings?.twitter_description || '',
+    custom_head_tags: props.seoSettings?.custom_head_tags || '',
+    is_active: props.seoSettings?.is_active ?? true
 })
 
 const updateHeroSection = () => {
@@ -1445,6 +1798,80 @@ const deleteApproachImage = () => {
             onSuccess: () => {
                 approachImagePreview.value = null
                 // Force page refresh to remove image
+                window.location.reload()
+            }
+        })
+    }
+}
+
+// SEO Functions
+const updateSeoSettings = () => {
+    seoForm.put(route('admin.homepage.seo.update'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            seoErrors.value = formErrors
+        },
+        onSuccess: () => {
+            seoErrors.value = {}
+        }
+    })
+}
+
+const handleSeoImageUpload = (event, type) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    // Create preview
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        if (type === 'og_image') {
+            ogImagePreview.value = e.target.result
+        } else if (type === 'twitter_image') {
+            twitterImagePreview.value = e.target.result
+        }
+    }
+    reader.readAsDataURL(file)
+
+    // Upload image
+    const imageForm = useForm({
+        image: file,
+        type: type
+    })
+
+    imageForm.post(route('admin.homepage.seo.image.upload'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            if (type === 'og_image') {
+                ogImagePreview.value = null
+            } else if (type === 'twitter_image') {
+                twitterImagePreview.value = null
+            }
+            // Force page refresh to get updated image
+            window.location.reload()
+        },
+        onError: (formErrors) => {
+            seoErrors.value = formErrors
+            if (type === 'og_image') {
+                ogImagePreview.value = null
+            } else if (type === 'twitter_image') {
+                twitterImagePreview.value = null
+            }
+        }
+    })
+}
+
+const deleteSeoImage = (type) => {
+    if (confirm(`Are you sure you want to delete this ${type.replace('_', ' ')}?`)) {
+        const deleteForm = useForm({ type: type })
+        deleteForm.delete(route('admin.homepage.seo.image.delete'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (type === 'og_image') {
+                    ogImagePreview.value = null
+                } else if (type === 'twitter_image') {
+                    twitterImagePreview.value = null
+                }
+                // Force page refresh to update image display
                 window.location.reload()
             }
         })
