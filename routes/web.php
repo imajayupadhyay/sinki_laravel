@@ -52,6 +52,9 @@ Route::get('/', function () {
         $query->where('is_active', true)->orderBy('sort_order');
     }])->where('is_active', true)->first();
 
+    // Fetch platforms section data with platforms
+    $platformsSection = \App\Models\PlatformsSection::with(['activePlatforms'])->active()->first();
+
     // Fetch SEO settings
     $seoSettings = \App\Models\HomepageSeoSetting::active()->first();
 
@@ -63,6 +66,7 @@ Route::get('/', function () {
         'outcomesSection' => $outcomesSection,
         'ourApproachSection' => $ourApproachSection,
         'coreServicesSection' => $coreServicesSection,
+        'platformsSection' => $platformsSection,
         'seoSettings' => $seoSettings,
     ]);
 })->name('home');

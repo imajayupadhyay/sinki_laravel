@@ -12,6 +12,8 @@ use App\Models\OutcomesItem;
 use App\Models\OurApproachSection;
 use App\Models\CoreServicesSection;
 use App\Models\CoreService;
+use App\Models\PlatformsSection;
+use App\Models\Platform;
 use App\Models\HomepageSeoSetting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -29,6 +31,9 @@ class HomepageController extends Controller
         $coreServicesSection = CoreServicesSection::with(['services' => function($query) {
             $query->orderBy('sort_order');
         }])->first();
+        $platformsSection = PlatformsSection::with(['platforms' => function($query) {
+            $query->orderBy('row_number')->orderBy('sort_order');
+        }])->first();
         $seoSettings = HomepageSeoSetting::active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
@@ -38,6 +43,7 @@ class HomepageController extends Controller
             'outcomesSection' => $outcomesSection,
             'ourApproachSection' => $ourApproachSection,
             'coreServicesSection' => $coreServicesSection,
+            'platformsSection' => $platformsSection,
             'seoSettings' => $seoSettings
         ]);
     }
@@ -589,5 +595,91 @@ class HomepageController extends Controller
         $service->delete();
 
         return back()->with('success', 'Core Service deleted successfully!');
+    }
+
+    public function updatePlatforms(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'heading' => 'required|string|max:500',
+            'description' => 'required|string',
+            'is_active' => 'boolean'
+        ]);
+
+        $platformsSection = PlatformsSection::first();
+
+        if ($platformsSection) {
+            $platformsSection->update($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        } else {
+            $platformsSection = PlatformsSection::create($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Platforms section updated successfully!');
+    }
+
+    public function storePlatform(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image_path' => 'required|string|max:255',
+            'row_number' => 'required|integer|between:1,3',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        // Get or create the platforms section
+        $platformsSection = PlatformsSection::first();
+        if (!$platformsSection) {
+            $platformsSection = PlatformsSection::create([
+                'label' => 'Platforms We Work With',
+                'heading' => 'Built on the Platforms You Trust',
+                'description' => 'We bring Databricks to life on the enterprise platforms you already rely on.',
+                'is_active' => true
+            ]);
+        }
+
+        // If no sort_order provided, set to next available for that row
+        $sortOrder = $request->sort_order ?? (Platform::where('platforms_section_id', $platformsSection->id)
+            ->where('row_number', $request->row_number)
+            ->max('sort_order') + 1);
+
+        Platform::create([
+            'platforms_section_id' => $platformsSection->id,
+            'name' => $request->name,
+            'image_path' => $request->image_path,
+            'row_number' => $request->row_number,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Platform added successfully!');
+    }
+
+    public function updatePlatform(Request $request, Platform $platform)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image_path' => 'required|string|max:255',
+            'row_number' => 'required|integer|between:1,3',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $platform->update($request->only([
+            'name', 'image_path', 'row_number', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Platform updated successfully!');
+    }
+
+    public function deletePlatform(Platform $platform)
+    {
+        $platform->delete();
+
+        return back()->with('success', 'Platform deleted successfully!');
     }
 }

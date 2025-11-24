@@ -40,7 +40,7 @@
         <!-- Our Approach Section -->
         <OurApproach :our-approach-section="ourApproachSection" />
         <CoreServices :core-services-section="coreServicesSection" />
-        <PlatformsSection />
+        <PlatformsSection :platforms-section="platformsSection" />
          <!-- What Sets Us Apart Section -->
     <WhatSetsUsApartSection />
     <InsightsResourcesSection :blogs="latestBlogs" />
@@ -97,6 +97,10 @@ const props = defineProps({
         default: () => null
     },
     coreServicesSection: {
+        type: Object,
+        default: () => null
+    },
+    platformsSection: {
         type: Object,
         default: () => null
     },

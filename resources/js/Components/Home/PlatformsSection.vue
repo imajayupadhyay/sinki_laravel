@@ -8,18 +8,18 @@
                     <!-- Section Label -->
                     <div class="mb-8 animate-fade-in">
                         <span class="text-brand-dark text-lg font-medium uppercase tracking-[1.8px]">
-                            Platforms We Work With
+                            {{ platformsSection?.label || 'Platforms We Work With' }}
                         </span>
                     </div>
 
                     <!-- Main Heading -->
                     <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight lg:leading-[85.8px] mb-6 max-w-[852px] animate-slide-up">
-                        Built on the Platforms You Trust
+                        {{ platformsSection?.heading || 'Built on the Platforms You Trust' }}
                     </h2>
 
                     <!-- Description -->
                     <p class="text-brand-dark text-xl lg:text-[30px] leading-relaxed lg:leading-[45px] mb-12 max-w-[760px] animate-slide-up-delayed">
-                        We bring Databricks to life on the enterprise platforms you already rely on.
+                        {{ platformsSection?.description || 'We bring Databricks to life on the enterprise platforms you already rely on.' }}
                     </p>
 
                     <!-- Decorative Elements -->
@@ -33,14 +33,16 @@
                     <div class="flex flex-col gap-4 sm:gap-6">
 
                         <!-- Row 1 - Single Card (Databricks) -->
-                        <div class="flex justify-center">
+                        <div v-if="groupedPlatforms.row1?.length > 0" class="flex justify-center">
                             <div
+                                v-for="platform in groupedPlatforms.row1"
+                                :key="platform.id"
                                 class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full sm:max-w-[286px]"
                                 :style="{ animationDelay: '0s' }"
                             >
                                 <img
-                                    :src="`/images/platforms/${platforms.row1[0].image}`"
-                                    :alt="platforms.row1[0].name"
+                                    :src="`/images/platforms/${platform.image_path}`"
+                                    :alt="platform.name"
                                     class="max-w-full h-auto object-contain max-h-[60px] sm:max-h-[70px] lg:max-h-[80px] transition-transform duration-300 group-hover:scale-105"
                                     @error="handleImageError"
                                 >
@@ -48,15 +50,15 @@
                         </div>
 
                         <!-- Row 2 - Three Cards (Azure, Google Cloud, AWS) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto w-full">
+                        <div v-if="groupedPlatforms.row2?.length > 0" class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto w-full">
                             <div
-                                v-for="(platform, index) in platforms.row2"
-                                :key="platform.name"
+                                v-for="(platform, index) in groupedPlatforms.row2"
+                                :key="platform.id"
                                 class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full"
                                 :style="{ animationDelay: `${(index + 1) * 0.5}s` }"
                             >
                                 <img
-                                    :src="`/images/platforms/${platform.image}`"
+                                    :src="`/images/platforms/${platform.image_path}`"
                                     :alt="platform.name"
                                     class="max-w-full h-auto object-contain max-h-[50px] sm:max-h-[60px] lg:max-h-[70px] transition-transform duration-300 group-hover:scale-105"
                                     @error="handleImageError"
@@ -65,15 +67,15 @@
                         </div>
 
                         <!-- Row 3 - Two Cards (Power BI, Tableau) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto w-full">
+                        <div v-if="groupedPlatforms.row3?.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto w-full">
                             <div
-                                v-for="(platform, index) in platforms.row3"
-                                :key="platform.name"
+                                v-for="(platform, index) in groupedPlatforms.row3"
+                                :key="platform.id"
                                 class="platform-logo-card group bg-white border border-gray-200 rounded-[25px] p-4 sm:p-6 lg:p-8 hover:shadow-xl hover:border-brand-red transition-all duration-500 cursor-pointer flex items-center justify-center min-h-[100px] sm:min-h-[120px] lg:min-h-[143px] w-full"
                                 :style="{ animationDelay: `${(index + 4) * 0.5}s` }"
                             >
                                 <img
-                                    :src="`/images/platforms/${platform.image}`"
+                                    :src="`/images/platforms/${platform.image_path}`"
                                     :alt="platform.name"
                                     class="max-w-full h-auto object-contain max-h-[50px] sm:max-h-[60px] lg:max-h-[70px] transition-transform duration-300 group-hover:scale-105"
                                     @error="handleImageError"
@@ -94,22 +96,30 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { computed } from 'vue';
 
-// Platform data structure matching your PHP project
-const platforms = reactive({
-    row1: [
-        { name: 'Databricks', image: 'databricks.png' }
-    ],
-    row2: [
-        { name: 'Microsoft Azure', image: 'azure-logo.png' },
-        { name: 'Google Cloud', image: 'Google-Cloud.png' },
-        { name: 'AWS', image: 'aws-logo.png' }
-    ],
-    row3: [
-        { name: 'Power BI', image: 'Power-Bi-Logo.png' },
-        { name: 'Tableau', image: 'Tableau.png' }
-    ]
+// Define props
+const props = defineProps({
+    platformsSection: {
+        type: Object,
+        default: () => null
+    }
+});
+
+// Group platforms by row number for easier template rendering
+const groupedPlatforms = computed(() => {
+    if (!props.platformsSection?.active_platforms?.length) {
+        return { row1: [], row2: [], row3: [] };
+    }
+
+    const platforms = props.platformsSection.active_platforms;
+    const grouped = {
+        row1: platforms.filter(p => p.row_number === 1),
+        row2: platforms.filter(p => p.row_number === 2),
+        row3: platforms.filter(p => p.row_number === 3),
+    };
+
+    return grouped;
 });
 
 // Handle image loading errors

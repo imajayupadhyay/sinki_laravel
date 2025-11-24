@@ -2,7 +2,7 @@
     <AdminLayout page-title="Homepage Management" page-subtitle="Manage your website's homepage content">
         <!-- Sticky Section Navigation -->
         <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
                 <nav class="flex space-x-8 overflow-x-auto py-4" ref="sectionNav">
                     <button
                         v-for="section in sections"
@@ -1684,6 +1684,265 @@
             </div>
         </div>
 
+        <!-- Platforms Section Card -->
+        <div id="platforms-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Platforms Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the platforms section content and platform cards</p>
+            </div>
+
+            <div class="p-6">
+                <!-- Section Info Form -->
+                <form @submit.prevent="updatePlatforms" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <label for="platforms_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="platforms_label"
+                                v-model="platformsForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': platformsErrors.label }"
+                                placeholder="e.g., Platforms We Work With"
+                            />
+                            <p v-if="platformsErrors.label" class="mt-1 text-sm text-red-600">{{ platformsErrors.label }}</p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    v-model="platformsForm.is_active"
+                                    class="sr-only peer"
+                                />
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-700">Section Active</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="platforms_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Heading
+                        </label>
+                        <input
+                            type="text"
+                            id="platforms_heading"
+                            v-model="platformsForm.heading"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': platformsErrors.heading }"
+                            placeholder="e.g., Built on the Platforms You Trust"
+                        />
+                        <p v-if="platformsErrors.heading" class="mt-1 text-sm text-red-600">{{ platformsErrors.heading }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="platforms_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Description
+                        </label>
+                        <textarea
+                            id="platforms_description"
+                            v-model="platformsForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            :class="{ 'border-red-500': platformsErrors.description }"
+                            placeholder="e.g., We bring Databricks to life on the enterprise platforms you already rely on."
+                        ></textarea>
+                        <p v-if="platformsErrors.description" class="mt-1 text-sm text-red-600">{{ platformsErrors.description }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            :disabled="platformsForm.processing"
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                        >
+                            {{ platformsForm.processing ? 'Saving...' : 'Update Section' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Platforms List -->
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-900">Platform Cards</h3>
+                        <button
+                            @click="openAddPlatformModal"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        >
+                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Add Platform
+                        </button>
+                    </div>
+
+                    <!-- Platforms grouped by row -->
+                    <div class="space-y-6">
+                        <template v-for="rowNumber in [1, 2, 3]" :key="rowNumber">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">
+                                    Row {{ rowNumber }}
+                                    <span class="text-xs text-gray-500">
+                                        ({{ rowNumber === 1 ? '1 platform' : rowNumber === 2 ? '3 platforms' : '2 platforms' }})
+                                    </span>
+                                </h4>
+                                <div class="space-y-3">
+                                    <template v-if="getPlatformsByRow(rowNumber).length > 0">
+                                        <div
+                                            v-for="platform in getPlatformsByRow(rowNumber)"
+                                            :key="platform.id"
+                                            class="bg-white p-4 rounded-lg border border-gray-200 flex items-center justify-between"
+                                        >
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-shrink-0">
+                                                    <img
+                                                        :src="`/images/platforms/${platform.image_path}`"
+                                                        :alt="platform.name"
+                                                        class="w-12 h-8 object-contain"
+                                                        @error="$event.target.style.display = 'none'"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">{{ platform.name }}</p>
+                                                    <p class="text-xs text-gray-500">
+                                                        Image: {{ platform.image_path }} | Sort: {{ platform.sort_order }}
+                                                        <span :class="platform.is_active ? 'text-green-600' : 'text-red-600'">
+                                                            | {{ platform.is_active ? 'Active' : 'Inactive' }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <button
+                                                    @click="editPlatform(platform)"
+                                                    class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    @click="deletePlatform(platform)"
+                                                    class="text-red-600 hover:text-red-800 text-sm font-medium"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div v-else class="text-sm text-gray-500 italic text-center py-4">
+                                        No platforms in this row
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Platform Modal -->
+                <div v-if="showPlatformModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
+                                {{ showEditPlatformModal ? 'Edit Platform' : 'Add Platform' }}
+                            </h3>
+                            <button @click="closePlatformModal" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <form @submit.prevent="submitPlatform">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Platform Name</label>
+                                    <input
+                                        type="text"
+                                        v-model="platformForm.name"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': platformFormErrors.name }"
+                                        placeholder="e.g., Databricks"
+                                    />
+                                    <p v-if="platformFormErrors.name" class="mt-1 text-sm text-red-600">{{ platformFormErrors.name }}</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Image Path</label>
+                                    <input
+                                        type="text"
+                                        v-model="platformForm.image_path"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': platformFormErrors.image_path }"
+                                        placeholder="e.g., databricks.png"
+                                    />
+                                    <p v-if="platformFormErrors.image_path" class="mt-1 text-sm text-red-600">{{ platformFormErrors.image_path }}</p>
+                                    <p class="mt-1 text-xs text-gray-500">File should be in /public/images/platforms/</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Row Number</label>
+                                    <select
+                                        v-model="platformForm.row_number"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': platformFormErrors.row_number }"
+                                    >
+                                        <option value="1">Row 1 (1 platform)</option>
+                                        <option value="2">Row 2 (3 platforms)</option>
+                                        <option value="3">Row 3 (2 platforms)</option>
+                                    </select>
+                                    <p v-if="platformFormErrors.row_number" class="mt-1 text-sm text-red-600">{{ platformFormErrors.row_number }}</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                                    <input
+                                        type="number"
+                                        v-model="platformForm.sort_order"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': platformFormErrors.sort_order }"
+                                        placeholder="1"
+                                        min="1"
+                                    />
+                                    <p v-if="platformFormErrors.sort_order" class="mt-1 text-sm text-red-600">{{ platformFormErrors.sort_order }}</p>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            v-model="platformForm.is_active"
+                                            class="sr-only peer"
+                                        />
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                        <span class="ml-3 text-sm font-medium text-gray-700">Platform Active</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    @click="closePlatformModal"
+                                    class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    :disabled="platformForm.processing"
+                                    class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                                >
+                                    {{ platformForm.processing ? 'Saving...' : (showEditPlatformModal ? 'Update Platform' : 'Create Platform') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -1739,6 +1998,11 @@ const sections = ref([
         id: 'core-services-section',
         name: 'Core Services',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>'
+    },
+    {
+        id: 'platforms-section',
+        name: 'Platforms',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16"></path>'
     }
 ])
 
@@ -1785,6 +2049,7 @@ const props = defineProps({
     outcomesSection: Object,
     ourApproachSection: Object,
     coreServicesSection: Object,
+    platformsSection: Object,
     seoSettings: Object
 })
 
@@ -2393,6 +2658,115 @@ const deleteService = (serviceId) => {
             preserveScroll: true,
             onSuccess: () => {
                 window.location.reload() // Refresh to remove deleted service
+            }
+        })
+    }
+}
+
+// Platforms Section Code
+const platformsErrors = ref({})
+const platformFormErrors = ref({})
+const showPlatformModal = ref(false)
+const showEditPlatformModal = ref(false)
+const editingPlatformId = ref(null)
+
+// Platforms Forms
+const platformsForm = useForm({
+    label: props.platformsSection?.label || 'Platforms We Work With',
+    heading: props.platformsSection?.heading || 'Built on the Platforms You Trust',
+    description: props.platformsSection?.description || 'We bring Databricks to life on the enterprise platforms you already rely on.',
+    is_active: props.platformsSection?.is_active || true
+})
+
+const platformForm = useForm({
+    name: '',
+    image_path: '',
+    row_number: 1,
+    sort_order: 1,
+    is_active: true
+})
+
+// Helper function to get platforms by row
+const getPlatformsByRow = (rowNumber) => {
+    if (!props.platformsSection?.platforms) return []
+    return props.platformsSection.platforms
+        .filter(platform => platform.row_number === rowNumber)
+        .sort((a, b) => a.sort_order - b.sort_order)
+}
+
+// Platform section update
+const updatePlatforms = () => {
+    platformsForm.put(route('admin.homepage.platforms.update'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            platformsErrors.value = {}
+        },
+        onError: (errors) => {
+            platformsErrors.value = errors
+        }
+    })
+}
+
+// Platform modal functions
+const openAddPlatformModal = () => {
+    showPlatformModal.value = true
+    showEditPlatformModal.value = false
+    platformForm.reset()
+    platformFormErrors.value = {}
+}
+
+const closePlatformModal = () => {
+    showPlatformModal.value = false
+    showEditPlatformModal.value = false
+    editingPlatformId.value = null
+    platformForm.reset()
+    platformFormErrors.value = {}
+}
+
+const editPlatform = (platform) => {
+    editingPlatformId.value = platform.id
+    platformForm.name = platform.name
+    platformForm.image_path = platform.image_path
+    platformForm.row_number = platform.row_number
+    platformForm.sort_order = platform.sort_order
+    platformForm.is_active = platform.is_active
+    showPlatformModal.value = true
+    showEditPlatformModal.value = true
+}
+
+const submitPlatform = () => {
+    if (showEditPlatformModal.value) {
+        platformForm.put(route('admin.homepage.platforms.platform.update', editingPlatformId.value), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closePlatformModal()
+                window.location.reload()
+            },
+            onError: (errors) => {
+                platformFormErrors.value = errors
+            }
+        })
+    } else {
+        platformForm.post(route('admin.homepage.platforms.platform.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closePlatformModal()
+                window.location.reload()
+            },
+            onError: (errors) => {
+                platformFormErrors.value = errors
+            }
+        })
+    }
+}
+
+const deletePlatform = (platform) => {
+    if (confirm('Are you sure you want to delete this platform? This action cannot be undone.')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.platforms.platform.destroy', platform.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                window.location.reload()
             }
         })
     }

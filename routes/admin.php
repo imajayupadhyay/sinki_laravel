@@ -131,6 +131,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/core-services/service', [App\Http\Controllers\Admin\HomepageController::class, 'storeCoreService'])->name('homepage.core-services.service.store');
     Route::put('/homepage/core-services/service/{service}', [App\Http\Controllers\Admin\HomepageController::class, 'updateCoreService'])->name('homepage.core-services.service.update');
     Route::delete('/homepage/core-services/service/{service}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteCoreService'])->name('homepage.core-services.service.destroy');
+    Route::put('/homepage/platforms', [App\Http\Controllers\Admin\HomepageController::class, 'updatePlatforms'])->name('homepage.platforms.update');
+    Route::post('/homepage/platforms/platform', [App\Http\Controllers\Admin\HomepageController::class, 'storePlatform'])->name('homepage.platforms.platform.store');
+    Route::put('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'updatePlatform'])->name('homepage.platforms.platform.update');
+    Route::delete('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'deletePlatform'])->name('homepage.platforms.platform.destroy');
     Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
     Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
     Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
