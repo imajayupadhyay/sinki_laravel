@@ -14,6 +14,8 @@ use App\Models\CoreServicesSection;
 use App\Models\CoreService;
 use App\Models\PlatformsSection;
 use App\Models\Platform;
+use App\Models\WhatSetsUsApartSection;
+use App\Models\WhatSetsUsApartItem;
 use App\Models\HomepageSeoSetting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -34,6 +36,9 @@ class HomepageController extends Controller
         $platformsSection = PlatformsSection::with(['platforms' => function($query) {
             $query->orderBy('row_number')->orderBy('sort_order');
         }])->first();
+        $whatSetsUsApartSection = WhatSetsUsApartSection::with(['items' => function($query) {
+            $query->orderBy('sort_order');
+        }])->first();
         $seoSettings = HomepageSeoSetting::active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
@@ -44,6 +49,7 @@ class HomepageController extends Controller
             'ourApproachSection' => $ourApproachSection,
             'coreServicesSection' => $coreServicesSection,
             'platformsSection' => $platformsSection,
+            'whatSetsUsApartSection' => $whatSetsUsApartSection,
             'seoSettings' => $seoSettings
         ]);
     }
@@ -681,5 +687,92 @@ class HomepageController extends Controller
         $platform->delete();
 
         return back()->with('success', 'Platform deleted successfully!');
+    }
+
+    public function updateWhatSetsUsApart(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'heading' => 'required|string|max:500',
+            'description' => 'required|string',
+            'background_image' => 'nullable|string|max:255',
+            'background_image_alt' => 'nullable|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $whatSetsUsApartSection = WhatSetsUsApartSection::first();
+
+        if ($whatSetsUsApartSection) {
+            $whatSetsUsApartSection->update($request->only([
+                'label', 'heading', 'description', 'background_image', 'background_image_alt', 'is_active'
+            ]));
+        } else {
+            $whatSetsUsApartSection = WhatSetsUsApartSection::create($request->only([
+                'label', 'heading', 'description', 'background_image', 'background_image_alt', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'What Sets Us Apart section updated successfully!');
+    }
+
+    public function storeWhatSetsUsApartItem(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        // Get or create the what sets us apart section
+        $whatSetsUsApartSection = WhatSetsUsApartSection::first();
+        if (!$whatSetsUsApartSection) {
+            $whatSetsUsApartSection = WhatSetsUsApartSection::create([
+                'label' => 'What Sets Us Apart',
+                'heading' => 'Your Databricks Partner, Every Step of the Way',
+                'description' => 'We don\'t just implement Databricks. We simplify it, tailor it, and make it deliver real business outcomes.',
+                'is_active' => true
+            ]);
+        }
+
+        // If no sort_order provided, set to next available
+        $sortOrder = $request->sort_order ?? (WhatSetsUsApartItem::where('what_sets_us_apart_section_id', $whatSetsUsApartSection->id)
+            ->max('sort_order') + 1);
+
+        WhatSetsUsApartItem::create([
+            'what_sets_us_apart_section_id' => $whatSetsUsApartSection->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon_svg' => $request->icon_svg,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Feature item added successfully!');
+    }
+
+    public function updateWhatSetsUsApartItem(Request $request, WhatSetsUsApartItem $item)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $item->update($request->only([
+            'title', 'description', 'icon_svg', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Feature item updated successfully!');
+    }
+
+    public function deleteWhatSetsUsApartItem(WhatSetsUsApartItem $item)
+    {
+        $item->delete();
+
+        return back()->with('success', 'Feature item deleted successfully!');
     }
 }

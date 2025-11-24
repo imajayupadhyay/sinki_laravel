@@ -55,6 +55,9 @@ Route::get('/', function () {
     // Fetch platforms section data with platforms
     $platformsSection = \App\Models\PlatformsSection::with(['activePlatforms'])->active()->first();
 
+    // Fetch what sets us apart section data with items
+    $whatSetsUsApartSection = \App\Models\WhatSetsUsApartSection::with(['activeItems'])->active()->first();
+
     // Fetch SEO settings
     $seoSettings = \App\Models\HomepageSeoSetting::active()->first();
 
@@ -67,6 +70,7 @@ Route::get('/', function () {
         'ourApproachSection' => $ourApproachSection,
         'coreServicesSection' => $coreServicesSection,
         'platformsSection' => $platformsSection,
+        'whatSetsUsApartSection' => $whatSetsUsApartSection,
         'seoSettings' => $seoSettings,
     ]);
 })->name('home');

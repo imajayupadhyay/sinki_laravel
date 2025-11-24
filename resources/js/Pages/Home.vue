@@ -42,7 +42,7 @@
         <CoreServices :core-services-section="coreServicesSection" />
         <PlatformsSection :platforms-section="platformsSection" />
          <!-- What Sets Us Apart Section -->
-    <WhatSetsUsApartSection />
+    <WhatSetsUsApartSection :what-sets-us-apart-section="whatSetsUsApartSection" />
     <InsightsResourcesSection :blogs="latestBlogs" />
          <!-- CTA Section - Let's Get Started -->
     <CTASection />
@@ -101,6 +101,10 @@ const props = defineProps({
         default: () => null
     },
     platformsSection: {
+        type: Object,
+        default: () => null
+    },
+    whatSetsUsApartSection: {
         type: Object,
         default: () => null
     },

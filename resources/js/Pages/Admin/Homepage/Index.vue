@@ -2,8 +2,8 @@
     <AdminLayout page-title="Homepage Management" page-subtitle="Manage your website's homepage content">
         <!-- Sticky Section Navigation -->
         <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-8">
-            <div class="max-w-7xl mx-auto">
-                <nav class="flex space-x-8 overflow-x-auto py-4" ref="sectionNav">
+            <div class="mx-auto">
+                <nav class="flex space-x-8 overflow-x-auto py-4 px-0" ref="sectionNav">
                     <button
                         v-for="section in sections"
                         :key="section.id"
@@ -1943,6 +1943,275 @@
             </div>
         </div>
 
+        <!-- What Sets Us Apart Section Card -->
+        <div id="what-sets-us-apart-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">What Sets Us Apart Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the what sets us apart section content, background image, and feature items</p>
+            </div>
+
+            <div class="p-6">
+                <!-- Section Info Form -->
+                <form @submit.prevent="updateWhatSetsUsApart" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <label for="what_sets_us_apart_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="what_sets_us_apart_label"
+                                v-model="whatSetsUsApartForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': whatSetsUsApartErrors.label }"
+                                placeholder="e.g., What Sets Us Apart"
+                            />
+                            <p v-if="whatSetsUsApartErrors.label" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartErrors.label }}</p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    v-model="whatSetsUsApartForm.is_active"
+                                    class="sr-only peer"
+                                />
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-700">Section Active</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="what_sets_us_apart_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Heading
+                        </label>
+                        <input
+                            type="text"
+                            id="what_sets_us_apart_heading"
+                            v-model="whatSetsUsApartForm.heading"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': whatSetsUsApartErrors.heading }"
+                            placeholder="e.g., Your Databricks Partner, Every Step of the Way"
+                        />
+                        <p v-if="whatSetsUsApartErrors.heading" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartErrors.heading }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="what_sets_us_apart_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Description
+                        </label>
+                        <textarea
+                            id="what_sets_us_apart_description"
+                            v-model="whatSetsUsApartForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            :class="{ 'border-red-500': whatSetsUsApartErrors.description }"
+                            placeholder="e.g., We don't just implement Databricks. We simplify it, tailor it, and make it deliver real business outcomes."
+                        ></textarea>
+                        <p v-if="whatSetsUsApartErrors.description" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartErrors.description }}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label for="what_sets_us_apart_background_image" class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image Path
+                            </label>
+                            <input
+                                type="text"
+                                id="what_sets_us_apart_background_image"
+                                v-model="whatSetsUsApartForm.background_image"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': whatSetsUsApartErrors.background_image }"
+                                placeholder="e.g., heroobannersinki.png"
+                            />
+                            <p v-if="whatSetsUsApartErrors.background_image" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartErrors.background_image }}</p>
+                            <p class="mt-1 text-xs text-gray-500">File should be in /public/images/</p>
+                        </div>
+
+                        <div>
+                            <label for="what_sets_us_apart_background_image_alt" class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image Alt Text
+                            </label>
+                            <input
+                                type="text"
+                                id="what_sets_us_apart_background_image_alt"
+                                v-model="whatSetsUsApartForm.background_image_alt"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': whatSetsUsApartErrors.background_image_alt }"
+                                placeholder="e.g., Background"
+                            />
+                            <p v-if="whatSetsUsApartErrors.background_image_alt" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartErrors.background_image_alt }}</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            :disabled="whatSetsUsApartForm.processing"
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                        >
+                            {{ whatSetsUsApartForm.processing ? 'Saving...' : 'Update Section' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Feature Items List -->
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-900">Feature Items</h3>
+                        <button
+                            @click="openAddWhatSetsUsApartItemModal"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        >
+                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Add Feature Item
+                        </button>
+                    </div>
+
+                    <!-- Feature Items -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div
+                            v-for="item in whatSetsUsApartSection?.items || []"
+                            :key="item.id"
+                            class="bg-gray-50 rounded-lg p-4 border border-gray-200"
+                        >
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" :d="item.icon_svg"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-xs text-gray-500">Sort: {{ item.sort_order }}</span>
+                                </div>
+                                <span :class="item.is_active ? 'text-green-600' : 'text-red-600'" class="text-xs">
+                                    {{ item.is_active ? 'Active' : 'Inactive' }}
+                                </span>
+                            </div>
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">{{ item.title }}</h4>
+                            <p class="text-xs text-gray-600 mb-3 line-clamp-3">{{ item.description }}</p>
+                            <div class="flex items-center justify-between">
+                                <button
+                                    @click="editWhatSetsUsApartItem(item)"
+                                    class="text-blue-600 hover:text-blue-800 text-xs font-medium"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    @click="deleteWhatSetsUsApartItem(item)"
+                                    class="text-red-600 hover:text-red-800 text-xs font-medium"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Item Modal -->
+                <div v-if="showWhatSetsUsApartItemModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">
+                                {{ showEditWhatSetsUsApartItemModal ? 'Edit Feature Item' : 'Add Feature Item' }}
+                            </h3>
+                            <button @click="closeWhatSetsUsApartItemModal" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <form @submit.prevent="submitWhatSetsUsApartItem">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                                    <input
+                                        type="text"
+                                        v-model="whatSetsUsApartItemForm.title"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': whatSetsUsApartItemErrors.title }"
+                                        placeholder="e.g., We Simplify Databricks"
+                                    />
+                                    <p v-if="whatSetsUsApartItemErrors.title" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartItemErrors.title }}</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                    <textarea
+                                        v-model="whatSetsUsApartItemForm.description"
+                                        rows="3"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': whatSetsUsApartItemErrors.description }"
+                                        placeholder="e.g., Tailored solutions aligned to your business objectives"
+                                    ></textarea>
+                                    <p v-if="whatSetsUsApartItemErrors.description" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartItemErrors.description }}</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Icon SVG Path</label>
+                                    <textarea
+                                        v-model="whatSetsUsApartItemForm.icon_svg"
+                                        rows="2"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': whatSetsUsApartItemErrors.icon_svg }"
+                                        placeholder="e.g., M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z"
+                                    ></textarea>
+                                    <p v-if="whatSetsUsApartItemErrors.icon_svg" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartItemErrors.icon_svg }}</p>
+                                    <p class="mt-1 text-xs text-gray-500">SVG path data for the icon</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                                    <input
+                                        type="number"
+                                        v-model="whatSetsUsApartItemForm.sort_order"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        :class="{ 'border-red-500': whatSetsUsApartItemErrors.sort_order }"
+                                        placeholder="1"
+                                        min="1"
+                                    />
+                                    <p v-if="whatSetsUsApartItemErrors.sort_order" class="mt-1 text-sm text-red-600">{{ whatSetsUsApartItemErrors.sort_order }}</p>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            v-model="whatSetsUsApartItemForm.is_active"
+                                            class="sr-only peer"
+                                        />
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                        <span class="ml-3 text-sm font-medium text-gray-700">Item Active</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    @click="closeWhatSetsUsApartItemModal"
+                                    class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    :disabled="whatSetsUsApartItemForm.processing"
+                                    class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                                >
+                                    {{ whatSetsUsApartItemForm.processing ? 'Saving...' : (showEditWhatSetsUsApartItemModal ? 'Update Item' : 'Create Item') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -2003,6 +2272,11 @@ const sections = ref([
         id: 'platforms-section',
         name: 'Platforms',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16"></path>'
+    },
+    {
+        id: 'what-sets-us-apart-section',
+        name: 'What Sets Us Apart',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>'
     }
 ])
 
@@ -2050,6 +2324,7 @@ const props = defineProps({
     ourApproachSection: Object,
     coreServicesSection: Object,
     platformsSection: Object,
+    whatSetsUsApartSection: Object,
     seoSettings: Object
 })
 
@@ -2764,6 +3039,109 @@ const deletePlatform = (platform) => {
     if (confirm('Are you sure you want to delete this platform? This action cannot be undone.')) {
         const deleteForm = useForm({})
         deleteForm.delete(route('admin.homepage.platforms.platform.destroy', platform.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                window.location.reload()
+            }
+        })
+    }
+}
+
+// What Sets Us Apart Section Code
+const whatSetsUsApartErrors = ref({})
+const whatSetsUsApartItemErrors = ref({})
+const showWhatSetsUsApartItemModal = ref(false)
+const showEditWhatSetsUsApartItemModal = ref(false)
+const editingWhatSetsUsApartItemId = ref(null)
+
+// What Sets Us Apart Forms
+const whatSetsUsApartForm = useForm({
+    label: props.whatSetsUsApartSection?.label || 'What Sets Us Apart',
+    heading: props.whatSetsUsApartSection?.heading || 'Your Databricks Partner, Every Step of the Way',
+    description: props.whatSetsUsApartSection?.description || 'We don\'t just implement Databricks. We simplify it, tailor it, and make it deliver real business outcomes.',
+    background_image: props.whatSetsUsApartSection?.background_image || 'heroobannersinki.png',
+    background_image_alt: props.whatSetsUsApartSection?.background_image_alt || '',
+    is_active: props.whatSetsUsApartSection?.is_active || true
+})
+
+const whatSetsUsApartItemForm = useForm({
+    title: '',
+    description: '',
+    icon_svg: '',
+    sort_order: 1,
+    is_active: true
+})
+
+// What Sets Us Apart section update
+const updateWhatSetsUsApart = () => {
+    whatSetsUsApartForm.put(route('admin.homepage.what-sets-us-apart.update'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            whatSetsUsApartErrors.value = {}
+        },
+        onError: (errors) => {
+            whatSetsUsApartErrors.value = errors
+        }
+    })
+}
+
+// What Sets Us Apart item modal functions
+const openAddWhatSetsUsApartItemModal = () => {
+    showWhatSetsUsApartItemModal.value = true
+    showEditWhatSetsUsApartItemModal.value = false
+    whatSetsUsApartItemForm.reset()
+    whatSetsUsApartItemErrors.value = {}
+}
+
+const closeWhatSetsUsApartItemModal = () => {
+    showWhatSetsUsApartItemModal.value = false
+    showEditWhatSetsUsApartItemModal.value = false
+    editingWhatSetsUsApartItemId.value = null
+    whatSetsUsApartItemForm.reset()
+    whatSetsUsApartItemErrors.value = {}
+}
+
+const editWhatSetsUsApartItem = (item) => {
+    editingWhatSetsUsApartItemId.value = item.id
+    whatSetsUsApartItemForm.title = item.title
+    whatSetsUsApartItemForm.description = item.description
+    whatSetsUsApartItemForm.icon_svg = item.icon_svg
+    whatSetsUsApartItemForm.sort_order = item.sort_order
+    whatSetsUsApartItemForm.is_active = item.is_active
+    showWhatSetsUsApartItemModal.value = true
+    showEditWhatSetsUsApartItemModal.value = true
+}
+
+const submitWhatSetsUsApartItem = () => {
+    if (showEditWhatSetsUsApartItemModal.value) {
+        whatSetsUsApartItemForm.put(route('admin.homepage.what-sets-us-apart.item.update', editingWhatSetsUsApartItemId.value), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeWhatSetsUsApartItemModal()
+                window.location.reload()
+            },
+            onError: (errors) => {
+                whatSetsUsApartItemErrors.value = errors
+            }
+        })
+    } else {
+        whatSetsUsApartItemForm.post(route('admin.homepage.what-sets-us-apart.item.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeWhatSetsUsApartItemModal()
+                window.location.reload()
+            },
+            onError: (errors) => {
+                whatSetsUsApartItemErrors.value = errors
+            }
+        })
+    }
+}
+
+const deleteWhatSetsUsApartItem = (item) => {
+    if (confirm('Are you sure you want to delete this feature item? This action cannot be undone.')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.what-sets-us-apart.item.destroy', item.id), {
             preserveScroll: true,
             onSuccess: () => {
                 window.location.reload()

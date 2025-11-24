@@ -135,6 +135,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/platforms/platform', [App\Http\Controllers\Admin\HomepageController::class, 'storePlatform'])->name('homepage.platforms.platform.store');
     Route::put('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'updatePlatform'])->name('homepage.platforms.platform.update');
     Route::delete('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'deletePlatform'])->name('homepage.platforms.platform.destroy');
+    Route::put('/homepage/what-sets-us-apart', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatSetsUsApart'])->name('homepage.what-sets-us-apart.update');
+    Route::post('/homepage/what-sets-us-apart/item', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.store');
+    Route::put('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.update');
+    Route::delete('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.destroy');
     Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
     Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
     Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
