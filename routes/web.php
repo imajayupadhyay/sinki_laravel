@@ -32,8 +32,12 @@ Route::get('/', function () {
             ];
         });
 
+    // Fetch homepage hero section data
+    $heroSection = \App\Models\HomepageHeroSection::active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
+        'heroSection' => $heroSection,
     ]);
 })->name('home');
 

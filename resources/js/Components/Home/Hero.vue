@@ -3,7 +3,7 @@
     <section
         class="hero-section relative flex items-center justify-center overflow-hidden pt-20 sm:pt-32 pb-16 sm:pb-20"
         :style="{
-            backgroundImage: 'url(/images/heroobannersinki.png)',
+            backgroundImage: heroSection?.background_image ? `url(/storage/${heroSection.background_image})` : 'url(/images/heroobannersinki.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -18,22 +18,22 @@
             <div class="max-w-[1518px] mx-auto text-center">
                 <!-- Main Heading -->
                 <h1 class="hero-title text-brand-dark font-semibold leading-tight sm:leading-relaxed lg:leading-[100px] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[100px] mb-4 sm:mb-8 animate-fadeInUp">
-                    We Help You Unlock The Value Of Your Data
+                    {{ heroSection?.heading || 'We Help You Unlock The Value Of Your Data' }}
                 </h1>
 
                 <!-- Subtitle -->
                 <p class="hero-subtitle text-brand-light text-lg sm:text-xl md:text-2xl lg:text-[26px] leading-snug sm:leading-relaxed lg:leading-[39px] max-w-[95%] sm:max-w-[85%] md:max-w-[80%] lg:max-w-[1200px] mx-auto mb-8 sm:mb-12 animate-fadeInUp animation-delay-200">
-                    We turn raw data into intelligence with Databricks. From data foundations to AI adoption, we deliver secure, scalable systems.
+                    {{ heroSection?.paragraph || 'We turn raw data into intelligence with Databricks. From data foundations to AI adoption, we deliver secure, scalable systems.' }}
                 </p>
 
                 <!-- CTA Buttons -->
                 <div class="hero-cta flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 animate-fadeInUp animation-delay-400">
                     <!-- Primary Button - Book a Strategy Session -->
                     <button
-                        @click="openCalendlyModal"
+                        @click="handleCtaClick"
                         class="btn-primary group inline-flex items-center justify-center gap-3 px-6 sm:px-9 py-3 sm:py-4 bg-brand-red border-2 border-brand-red rounded-full text-white text-base sm:text-lg font-bold capitalize transition-all duration-300 w-full sm:w-auto"
                     >
-                        Schedule Free Consultation
+                        {{ heroSection?.cta_text || 'Schedule Free Consultation' }}
                         <div class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
                             <svg class="w-6 h-6 sm:w-8 sm:h-8 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -102,11 +102,38 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
+const props = defineProps({
+    heroSection: {
+        type: Object,
+        default: () => null
+    }
+});
+
 const showCalendlyModal = ref(false);
 const isLoading = ref(false);
 const loadingProgress = ref(0);
 const calendlyContainer = ref(null);
 let progressInterval = null;
+
+const handleCtaClick = () => {
+    const ctaLink = props.heroSection?.cta_link || '#calendly-modal';
+
+    if (ctaLink === '#calendly-modal' || ctaLink === '#contact') {
+        openCalendlyModal();
+    } else if (ctaLink.startsWith('#')) {
+        // Handle anchor links
+        const element = document.querySelector(ctaLink);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else if (ctaLink.startsWith('http')) {
+        // Handle external links
+        window.open(ctaLink, '_blank');
+    } else {
+        // Handle internal links
+        window.location.href = ctaLink;
+    }
+};
 
 const openCalendlyModal = () => {
     showCalendlyModal.value = true;

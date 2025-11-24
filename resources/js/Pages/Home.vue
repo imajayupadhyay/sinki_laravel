@@ -8,7 +8,7 @@
         <Header />
         
         <!-- Hero Section Component -->
-        <Hero />
+        <Hero :hero-section="heroSection" />
         
         <!-- Partner Badge Component -->
         <PartnerBadge />
@@ -57,6 +57,10 @@ const props = defineProps({
     latestBlogs: {
         type: Array,
         default: () => []
+    },
+    heroSection: {
+        type: Object,
+        default: () => null
     }
 });
 

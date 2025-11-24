@@ -1,14 +1,18 @@
 import { mergeProps, withCtx, unref, createTextVNode, createVNode, withModifiers, withDirectives, createBlock, createCommentVNode, vModelText, openBlock, toDisplayString, vModelSelect, Fragment, renderList, vModelCheckbox, useSSRContext } from "vue";
 import { ssrRenderComponent, ssrRenderAttr, ssrRenderClass, ssrInterpolate, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderList } from "vue/server-renderer";
 import { useForm, Head, Link } from "@inertiajs/vue3";
-import { A as AdminLayout } from "./AdminLayout-CcF1p51h.js";
-import { Q as QuillEditor, I as ImageUpload } from "./ImageUpload-D25dONjG.js";
+import { A as AdminLayout } from "./AdminLayout-CunXkTIM.js";
+import { Q as QuillEditor, I as ImageUpload } from "./ImageUpload-CiZmXII1.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
 import "quill";
 const _sfc_main = {
-  __name: "Create",
+  __name: "Edit",
   __ssrInlineRender: true,
   props: {
+    blog: {
+      type: Object,
+      required: true
+    },
     categories: {
       type: Array,
       default: () => []
@@ -16,112 +20,130 @@ const _sfc_main = {
     tags: {
       type: Array,
       default: () => []
+    },
+    users: {
+      type: Array,
+      default: () => []
     }
   },
   setup(__props) {
+    const props = __props;
     const blogForm = useForm({
-      title: "",
-      slug: "",
-      content: "",
-      excerpt: "",
-      meta_title: "",
-      meta_description: "",
-      meta_keywords: "",
-      featured_image: "",
-      status: "draft",
-      category_id: "",
-      tags: [],
-      published_at: ""
+      title: props.blog.title || "",
+      slug: props.blog.slug || "",
+      content: props.blog.content || "",
+      excerpt: props.blog.excerpt || "",
+      meta_title: props.blog.meta_title || "",
+      meta_description: props.blog.meta_description || "",
+      meta_keywords: props.blog.meta_keywords || "",
+      featured_image: props.blog.featured_image || "",
+      status: props.blog.status || "draft",
+      category_id: props.blog.category_id || "",
+      author_id: props.blog.author_id || "",
+      tags: props.blog.tags || [],
+      published_at: props.blog.published_at || ""
     });
     const submitBlog = () => {
-      blogForm.post(route("admin.blogs.store"));
+      blogForm.put(route("admin.blogs.update", props.blog.id));
     };
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(AdminLayout, mergeProps({
-        "page-title": "Create New Blog Post",
-        "page-subtitle": "Write and publish a new blog post"
+        "page-title": "Edit Blog Post",
+        "page-subtitle": "Update and manage your blog post"
       }, _attrs), {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(ssrRenderComponent(unref(Head), { title: "Create Blog Post - Admin Dashboard" }, null, _parent2, _scopeId));
-            _push2(`<form class="space-y-6" data-v-d58d064d${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-d58d064d${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-d58d064d${_scopeId}><h2 class="text-lg font-semibold text-gray-900" data-v-d58d064d${_scopeId}>Post Content</h2></div><div class="p-6 space-y-6" data-v-d58d064d${_scopeId}><div data-v-d58d064d${_scopeId}><label for="title" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Title</label><input id="title"${ssrRenderAttr("value", unref(blogForm).title)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.title }, "w-full px-4 py-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Enter your blog post title..." required data-v-d58d064d${_scopeId}>`);
+            _push2(ssrRenderComponent(unref(Head), {
+              title: "Edit: " + __props.blog.title + " - Admin Dashboard"
+            }, null, _parent2, _scopeId));
+            _push2(`<form class="space-y-6" data-v-2f7024e6${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-2f7024e6${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-2f7024e6${_scopeId}><h2 class="text-lg font-semibold text-gray-900" data-v-2f7024e6${_scopeId}>Post Content</h2></div><div class="p-6 space-y-6" data-v-2f7024e6${_scopeId}><div data-v-2f7024e6${_scopeId}><label for="title" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Title</label><input id="title"${ssrRenderAttr("value", unref(blogForm).title)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.title }, "w-full px-4 py-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Enter your blog post title..." required data-v-2f7024e6${_scopeId}>`);
             if (unref(blogForm).errors.title) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.title)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.title)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label for="slug" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>URL Slug</label><input id="slug"${ssrRenderAttr("value", unref(blogForm).slug)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.slug }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Leave empty to auto-generate from title" data-v-d58d064d${_scopeId}>`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="slug" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>URL Slug</label><input id="slug"${ssrRenderAttr("value", unref(blogForm).slug)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.slug }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Leave empty to auto-generate from title" data-v-2f7024e6${_scopeId}>`);
             if (unref(blogForm).errors.slug) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.slug)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.slug)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label for="content" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Content</label>`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="content" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Content</label>`);
             _push2(ssrRenderComponent(QuillEditor, {
               modelValue: unref(blogForm).content,
               "onUpdate:modelValue": ($event) => unref(blogForm).content = $event,
-              placeholder: "Start writing your blog post content...",
+              placeholder: "Start editing your blog post content...",
               height: "500px",
               class: { "border-red-500": unref(blogForm).errors.content }
             }, null, _parent2, _scopeId));
             if (unref(blogForm).errors.content) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.content)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.content)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`<p class="text-xs text-gray-500 mt-2" data-v-d58d064d${_scopeId}> Use the toolbar above to format your content. Click &quot;HTML&quot; to edit the source code directly. </p></div><div data-v-d58d064d${_scopeId}><label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Excerpt</label><textarea id="excerpt" rows="3" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.excerpt }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Brief summary of your post (optional)" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).excerpt)}</textarea>`);
+            _push2(`<p class="text-xs text-gray-500 mt-2" data-v-2f7024e6${_scopeId}> Use the toolbar above to format your content. Click &quot;HTML&quot; to edit the source code directly. </p></div><div data-v-2f7024e6${_scopeId}><label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Excerpt</label><textarea id="excerpt" rows="3" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.excerpt }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="Brief summary of your post (optional)" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).excerpt)}</textarea>`);
             if (unref(blogForm).errors.excerpt) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.excerpt)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.excerpt)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div></div></div><div class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-v-d58d064d${_scopeId}><div class="lg:col-span-2 space-y-6" data-v-d58d064d${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-d58d064d${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-d58d064d${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-d58d064d${_scopeId}>SEO Settings</h3></div><div class="p-6 space-y-4" data-v-d58d064d${_scopeId}><div data-v-d58d064d${_scopeId}><label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Meta Title</label><input id="meta_title"${ssrRenderAttr("value", unref(blogForm).meta_title)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_title }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="SEO title for search engines" data-v-d58d064d${_scopeId}>`);
+            _push2(`</div></div></div><div class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-v-2f7024e6${_scopeId}><div class="lg:col-span-2 space-y-6" data-v-2f7024e6${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-2f7024e6${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-2f7024e6${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-2f7024e6${_scopeId}>SEO Settings</h3></div><div class="p-6 space-y-4" data-v-2f7024e6${_scopeId}><div data-v-2f7024e6${_scopeId}><label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Meta Title</label><input id="meta_title"${ssrRenderAttr("value", unref(blogForm).meta_title)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_title }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="SEO title for search engines" data-v-2f7024e6${_scopeId}>`);
             if (unref(blogForm).errors.meta_title) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_title)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_title)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Meta Description</label><textarea id="meta_description" rows="3" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_description }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="SEO description for search engines (150-160 characters)" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).meta_description)}</textarea>`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Meta Description</label><textarea id="meta_description" rows="3" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_description }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="SEO description for search engines (150-160 characters)" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).meta_description)}</textarea>`);
             if (unref(blogForm).errors.meta_description) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_description)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_description)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label for="meta_keywords" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Meta Keywords</label><input id="meta_keywords"${ssrRenderAttr("value", unref(blogForm).meta_keywords)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_keywords }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="keyword1, keyword2, keyword3" data-v-d58d064d${_scopeId}>`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="meta_keywords" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Meta Keywords</label><input id="meta_keywords"${ssrRenderAttr("value", unref(blogForm).meta_keywords)} type="text" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.meta_keywords }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" placeholder="keyword1, keyword2, keyword3" data-v-2f7024e6${_scopeId}>`);
             if (unref(blogForm).errors.meta_keywords) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_keywords)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.meta_keywords)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div></div></div></div><div class="space-y-6" data-v-d58d064d${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-d58d064d${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-d58d064d${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-d58d064d${_scopeId}>Publish Settings</h3></div><div class="p-6 space-y-4" data-v-d58d064d${_scopeId}><div data-v-d58d064d${_scopeId}><label for="status" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Status</label><select id="status" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.status }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-d58d064d${_scopeId}><option value="draft" data-v-d58d064d${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).status) ? ssrLooseContain(unref(blogForm).status, "draft") : ssrLooseEqual(unref(blogForm).status, "draft")) ? " selected" : ""}${_scopeId}>Draft</option><option value="published" data-v-d58d064d${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).status) ? ssrLooseContain(unref(blogForm).status, "published") : ssrLooseEqual(unref(blogForm).status, "published")) ? " selected" : ""}${_scopeId}>Published</option></select>`);
+            _push2(`</div></div></div></div><div class="space-y-6" data-v-2f7024e6${_scopeId}><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-2f7024e6${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-2f7024e6${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-2f7024e6${_scopeId}>Publish Settings</h3></div><div class="p-6 space-y-4" data-v-2f7024e6${_scopeId}><div data-v-2f7024e6${_scopeId}><label for="status" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Status</label><select id="status" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.status }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-2f7024e6${_scopeId}><option value="draft" data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).status) ? ssrLooseContain(unref(blogForm).status, "draft") : ssrLooseEqual(unref(blogForm).status, "draft")) ? " selected" : ""}${_scopeId}>Draft</option><option value="published" data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).status) ? ssrLooseContain(unref(blogForm).status, "published") : ssrLooseEqual(unref(blogForm).status, "published")) ? " selected" : ""}${_scopeId}>Published</option></select>`);
             if (unref(blogForm).errors.status) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.status)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.status)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label for="published_at" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Publish Date</label><input id="published_at"${ssrRenderAttr("value", unref(blogForm).published_at)} type="datetime-local" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.published_at }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-d58d064d${_scopeId}>`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="author_id" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Author</label><select id="author_id" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.author_id }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" required data-v-2f7024e6${_scopeId}><option value="" data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).author_id) ? ssrLooseContain(unref(blogForm).author_id, "") : ssrLooseEqual(unref(blogForm).author_id, "")) ? " selected" : ""}${_scopeId}>Select an author</option><!--[-->`);
+            ssrRenderList(__props.users, (user) => {
+              _push2(`<option${ssrRenderAttr("value", user.id)} data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).author_id) ? ssrLooseContain(unref(blogForm).author_id, user.id) : ssrLooseEqual(unref(blogForm).author_id, user.id)) ? " selected" : ""}${_scopeId}>${ssrInterpolate(user.name)}</option>`);
+            });
+            _push2(`<!--]--></select>`);
+            if (unref(blogForm).errors.author_id) {
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.author_id)}</div>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label for="published_at" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Publish Date</label><input id="published_at"${ssrRenderAttr("value", unref(blogForm).published_at)} type="datetime-local" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.published_at }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-2f7024e6${_scopeId}>`);
             if (unref(blogForm).errors.published_at) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.published_at)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.published_at)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div></div></div><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-d58d064d${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-d58d064d${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-d58d064d${_scopeId}>Organization</h3></div><div class="p-6 space-y-4" data-v-d58d064d${_scopeId}><div data-v-d58d064d${_scopeId}><label for="category_id" class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Category</label><select id="category_id" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.category_id }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-d58d064d${_scopeId}><option value="" data-v-d58d064d${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).category_id) ? ssrLooseContain(unref(blogForm).category_id, "") : ssrLooseEqual(unref(blogForm).category_id, "")) ? " selected" : ""}${_scopeId}>Select a category</option><!--[-->`);
+            _push2(`</div></div></div><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-2f7024e6${_scopeId}><div class="px-6 py-4 border-b border-gray-200" data-v-2f7024e6${_scopeId}><h3 class="text-lg font-semibold text-gray-900" data-v-2f7024e6${_scopeId}>Organization</h3></div><div class="p-6 space-y-4" data-v-2f7024e6${_scopeId}><div data-v-2f7024e6${_scopeId}><label for="category_id" class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Category</label><select id="category_id" class="${ssrRenderClass([{ "border-red-500": unref(blogForm).errors.category_id }, "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"])}" data-v-2f7024e6${_scopeId}><option value="" data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).category_id) ? ssrLooseContain(unref(blogForm).category_id, "") : ssrLooseEqual(unref(blogForm).category_id, "")) ? " selected" : ""}${_scopeId}>Select a category</option><!--[-->`);
             ssrRenderList(__props.categories, (category) => {
-              _push2(`<option${ssrRenderAttr("value", category.id)} data-v-d58d064d${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).category_id) ? ssrLooseContain(unref(blogForm).category_id, category.id) : ssrLooseEqual(unref(blogForm).category_id, category.id)) ? " selected" : ""}${_scopeId}>${ssrInterpolate(category.name)}</option>`);
+              _push2(`<option${ssrRenderAttr("value", category.id)} data-v-2f7024e6${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).category_id) ? ssrLooseContain(unref(blogForm).category_id, category.id) : ssrLooseEqual(unref(blogForm).category_id, category.id)) ? " selected" : ""}${_scopeId}>${ssrInterpolate(category.name)}</option>`);
             });
             _push2(`<!--]--></select>`);
             if (unref(blogForm).errors.category_id) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.category_id)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.category_id)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div><div data-v-d58d064d${_scopeId}><label class="block text-sm font-medium text-gray-700 mb-2" data-v-d58d064d${_scopeId}>Tags</label><div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3" data-v-d58d064d${_scopeId}><!--[-->`);
+            _push2(`</div><div data-v-2f7024e6${_scopeId}><label class="block text-sm font-medium text-gray-700 mb-2" data-v-2f7024e6${_scopeId}>Tags</label><div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3" data-v-2f7024e6${_scopeId}><!--[-->`);
             ssrRenderList(__props.tags, (tag) => {
-              _push2(`<label class="flex items-center" data-v-d58d064d${_scopeId}><input type="checkbox"${ssrRenderAttr("value", tag.id)}${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).tags) ? ssrLooseContain(unref(blogForm).tags, tag.id) : unref(blogForm).tags) ? " checked" : ""} class="rounded border-gray-300 text-brand-red focus:border-brand-red focus:ring-brand-red" data-v-d58d064d${_scopeId}><span class="ml-2 text-sm text-gray-700" data-v-d58d064d${_scopeId}>${ssrInterpolate(tag.name)}</span></label>`);
+              _push2(`<label class="flex items-center" data-v-2f7024e6${_scopeId}><input type="checkbox"${ssrRenderAttr("value", tag.id)}${ssrIncludeBooleanAttr(Array.isArray(unref(blogForm).tags) ? ssrLooseContain(unref(blogForm).tags, tag.id) : unref(blogForm).tags) ? " checked" : ""} class="rounded border-gray-300 text-brand-red focus:border-brand-red focus:ring-brand-red" data-v-2f7024e6${_scopeId}><span class="ml-2 text-sm text-gray-700" data-v-2f7024e6${_scopeId}>${ssrInterpolate(tag.name)}</span></label>`);
             });
             _push2(`<!--]--></div>`);
             if (unref(blogForm).errors.tags) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.tags)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.tags)}</div>`);
             } else {
               _push2(`<!---->`);
             }
@@ -133,11 +155,27 @@ const _sfc_main = {
               "alt-text": "Blog featured image"
             }, null, _parent2, _scopeId));
             if (unref(blogForm).errors.featured_image) {
-              _push2(`<div class="text-red-600 text-sm mt-1" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).errors.featured_image)}</div>`);
+              _push2(`<div class="text-red-600 text-sm mt-1" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).errors.featured_image)}</div>`);
             } else {
               _push2(`<!---->`);
             }
-            _push2(`</div></div><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-d58d064d${_scopeId}><div class="p-6 space-y-3" data-v-d58d064d${_scopeId}><button type="submit"${ssrIncludeBooleanAttr(unref(blogForm).processing) ? " disabled" : ""} class="w-full px-4 py-2 text-sm font-medium text-white bg-brand-red hover:bg-red-600 rounded-md transition-colors duration-200 disabled:opacity-50" data-v-d58d064d${_scopeId}>${ssrInterpolate(unref(blogForm).processing ? "Creating..." : "Create Blog Post")}</button>`);
+            _push2(`</div></div><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" data-v-2f7024e6${_scopeId}><div class="p-6 space-y-3" data-v-2f7024e6${_scopeId}><button type="submit"${ssrIncludeBooleanAttr(unref(blogForm).processing) ? " disabled" : ""} class="w-full px-4 py-2 text-sm font-medium text-white bg-brand-red hover:bg-red-600 rounded-md transition-colors duration-200 disabled:opacity-50" data-v-2f7024e6${_scopeId}>${ssrInterpolate(unref(blogForm).processing ? "Updating..." : "Update Blog Post")}</button>`);
+            _push2(ssrRenderComponent(unref(Link), {
+              href: _ctx.route("admin.blogs.preview", __props.blog.id),
+              target: "_blank",
+              class: "w-full px-4 py-2 text-sm font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md transition-colors duration-200 text-center block"
+            }, {
+              default: withCtx((_2, _push3, _parent3, _scopeId2) => {
+                if (_push3) {
+                  _push3(` Preview Blog Post `);
+                } else {
+                  return [
+                    createTextVNode(" Preview Blog Post ")
+                  ];
+                }
+              }),
+              _: 1
+            }, _parent2, _scopeId));
             _push2(ssrRenderComponent(unref(Link), {
               href: _ctx.route("admin.blogs.index"),
               class: "w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200 text-center block"
@@ -156,7 +194,9 @@ const _sfc_main = {
             _push2(`</div></div></div></div></form>`);
           } else {
             return [
-              createVNode(unref(Head), { title: "Create Blog Post - Admin Dashboard" }),
+              createVNode(unref(Head), {
+                title: "Edit: " + __props.blog.title + " - Admin Dashboard"
+              }, null, 8, ["title"]),
               createVNode("form", {
                 onSubmit: withModifiers(submitBlog, ["prevent"]),
                 class: "space-y-6"
@@ -213,7 +253,7 @@ const _sfc_main = {
                       createVNode(QuillEditor, {
                         modelValue: unref(blogForm).content,
                         "onUpdate:modelValue": ($event) => unref(blogForm).content = $event,
-                        placeholder: "Start writing your blog post content...",
+                        placeholder: "Start editing your blog post content...",
                         height: "500px",
                         class: { "border-red-500": unref(blogForm).errors.content }
                       }, null, 8, ["modelValue", "onUpdate:modelValue", "class"]),
@@ -339,6 +379,32 @@ const _sfc_main = {
                         ]),
                         createVNode("div", null, [
                           createVNode("label", {
+                            for: "author_id",
+                            class: "block text-sm font-medium text-gray-700 mb-2"
+                          }, "Author"),
+                          withDirectives(createVNode("select", {
+                            id: "author_id",
+                            "onUpdate:modelValue": ($event) => unref(blogForm).author_id = $event,
+                            class: ["w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent", { "border-red-500": unref(blogForm).errors.author_id }],
+                            required: ""
+                          }, [
+                            createVNode("option", { value: "" }, "Select an author"),
+                            (openBlock(true), createBlock(Fragment, null, renderList(__props.users, (user) => {
+                              return openBlock(), createBlock("option", {
+                                key: user.id,
+                                value: user.id
+                              }, toDisplayString(user.name), 9, ["value"]);
+                            }), 128))
+                          ], 10, ["onUpdate:modelValue"]), [
+                            [vModelSelect, unref(blogForm).author_id]
+                          ]),
+                          unref(blogForm).errors.author_id ? (openBlock(), createBlock("div", {
+                            key: 0,
+                            class: "text-red-600 text-sm mt-1"
+                          }, toDisplayString(unref(blogForm).errors.author_id), 1)) : createCommentVNode("", true)
+                        ]),
+                        createVNode("div", null, [
+                          createVNode("label", {
                             for: "published_at",
                             class: "block text-sm font-medium text-gray-700 mb-2"
                           }, "Publish Date"),
@@ -430,7 +496,17 @@ const _sfc_main = {
                           type: "submit",
                           disabled: unref(blogForm).processing,
                           class: "w-full px-4 py-2 text-sm font-medium text-white bg-brand-red hover:bg-red-600 rounded-md transition-colors duration-200 disabled:opacity-50"
-                        }, toDisplayString(unref(blogForm).processing ? "Creating..." : "Create Blog Post"), 9, ["disabled"]),
+                        }, toDisplayString(unref(blogForm).processing ? "Updating..." : "Update Blog Post"), 9, ["disabled"]),
+                        createVNode(unref(Link), {
+                          href: _ctx.route("admin.blogs.preview", __props.blog.id),
+                          target: "_blank",
+                          class: "w-full px-4 py-2 text-sm font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md transition-colors duration-200 text-center block"
+                        }, {
+                          default: withCtx(() => [
+                            createTextVNode(" Preview Blog Post ")
+                          ]),
+                          _: 1
+                        }, 8, ["href"]),
                         createVNode(unref(Link), {
                           href: _ctx.route("admin.blogs.index"),
                           class: "w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200 text-center block"
@@ -456,10 +532,10 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Admin/Blogs/Create.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Admin/Blogs/Edit.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const Create = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-d58d064d"]]);
+const Edit = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-2f7024e6"]]);
 export {
-  Create as default
+  Edit as default
 };

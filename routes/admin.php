@@ -108,6 +108,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
     Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
 
+    // Homepage Management
+    Route::get('/homepage', [App\Http\Controllers\Admin\HomepageController::class, 'index'])->name('homepage.index');
+    Route::put('/homepage/hero', [App\Http\Controllers\Admin\HomepageController::class, 'updateHero'])->name('homepage.hero.update');
+    Route::post('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadHeroImage'])->name('homepage.hero.image.upload');
+    Route::delete('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteHeroImage'])->name('homepage.hero.image.delete');
+
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
     Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
