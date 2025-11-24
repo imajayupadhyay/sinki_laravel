@@ -44,12 +44,16 @@ Route::get('/', function () {
     // Fetch outcomes section data with items
     $outcomesSection = \App\Models\OutcomesSection::with(['activeItems'])->active()->first();
 
+    // Fetch our approach section data
+    $ourApproachSection = \App\Models\OurApproachSection::active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
         'heroSection' => $heroSection,
         'partnerBadge' => $partnerBadge,
         'whatWeDoSection' => $whatWeDoSection,
         'outcomesSection' => $outcomesSection,
+        'ourApproachSection' => $ourApproachSection,
     ]);
 })->name('home');
 

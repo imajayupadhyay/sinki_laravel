@@ -20,7 +20,7 @@
         <Outcomes :outcomes-section="outcomesSection" />
         
         <!-- Our Approach Section -->
-        <OurApproach />
+        <OurApproach :our-approach-section="ourApproachSection" />
         <CoreServices />
         <PlatformsSection />
          <!-- What Sets Us Apart Section -->
@@ -71,6 +71,10 @@ const props = defineProps({
         default: () => null
     },
     outcomesSection: {
+        type: Object,
+        default: () => null
+    },
+    ourApproachSection: {
         type: Object,
         default: () => null
     }

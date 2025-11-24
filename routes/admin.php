@@ -124,6 +124,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/outcomes/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeOutcomesItem'])->name('homepage.outcomes.items.store');
     Route::put('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateOutcomesItem'])->name('homepage.outcomes.items.update');
     Route::delete('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOutcomesItem'])->name('homepage.outcomes.items.delete');
+    Route::put('/homepage/our-approach', [App\Http\Controllers\Admin\HomepageController::class, 'updateOurApproach'])->name('homepage.our-approach.update');
+    Route::post('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadOurApproachImage'])->name('homepage.our-approach.image.upload');
+    Route::delete('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOurApproachImage'])->name('homepage.our-approach.image.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

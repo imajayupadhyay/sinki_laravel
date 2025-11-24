@@ -9,6 +9,7 @@ use App\Models\WhatWeDoSection;
 use App\Models\WhatWeDoItem;
 use App\Models\OutcomesSection;
 use App\Models\OutcomesItem;
+use App\Models\OurApproachSection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -21,12 +22,14 @@ class HomepageController extends Controller
         $partnerBadge = HomepagePartnerBadge::active()->first();
         $whatWeDoSection = WhatWeDoSection::with('items')->active()->first();
         $outcomesSection = OutcomesSection::with('items')->active()->first();
+        $ourApproachSection = OurApproachSection::active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
             'whatWeDoSection' => $whatWeDoSection,
-            'outcomesSection' => $outcomesSection
+            'outcomesSection' => $outcomesSection,
+            'ourApproachSection' => $ourApproachSection
         ]);
     }
 
@@ -326,5 +329,76 @@ class HomepageController extends Controller
         $item->delete();
 
         return back()->with('success', 'Outcomes item deleted successfully!');
+    }
+
+    public function updateOurApproach(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'heading' => 'required|string|max:500',
+            'description' => 'required|string',
+            'image_alt' => 'nullable|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $ourApproachSection = OurApproachSection::active()->first();
+
+        if ($ourApproachSection) {
+            $ourApproachSection->update($request->only([
+                'label', 'heading', 'description', 'image_alt', 'is_active'
+            ]));
+        } else {
+            $ourApproachSection = OurApproachSection::create($request->only([
+                'label', 'heading', 'description', 'image_alt', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Our Approach section updated successfully!');
+    }
+
+    public function uploadOurApproachImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $ourApproachSection = OurApproachSection::active()->first();
+
+        if (!$ourApproachSection) {
+            return back()->withErrors(['error' => 'Our Approach section not found.']);
+        }
+
+        // Delete old image if exists
+        if ($ourApproachSection->image_path) {
+            Storage::disk('public')->delete($ourApproachSection->image_path);
+        }
+
+        // Store new image
+        $imagePath = $request->file('image')->store('homepage/our-approach', 'public');
+
+        $ourApproachSection->update([
+            'image_path' => $imagePath
+        ]);
+
+        return back()->with('success', 'Our Approach image updated successfully!');
+    }
+
+    public function deleteOurApproachImage()
+    {
+        $ourApproachSection = OurApproachSection::active()->first();
+
+        if (!$ourApproachSection || !$ourApproachSection->image_path) {
+            return back()->withErrors(['error' => 'No approach image found.']);
+        }
+
+        // Delete image file
+        Storage::disk('public')->delete($ourApproachSection->image_path);
+
+        // Remove image path from database
+        $ourApproachSection->update([
+            'image_path' => null
+        ]);
+
+        return back()->with('success', 'Our Approach image deleted successfully!');
     }
 }

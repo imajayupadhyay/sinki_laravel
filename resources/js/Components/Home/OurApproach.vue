@@ -8,18 +8,18 @@
                     <!-- Section Label -->
                     <div class="mb-6 sm:mb-8 animate-fade-in">
                         <span class="text-brand-dark text-base sm:text-lg font-medium uppercase tracking-[1.8px]">
-                            Our Approach
+                            {{ ourApproachSection?.label || 'Our Approach' }}
                         </span>
                     </div>
 
                     <!-- Main Heading -->
                     <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight sm:leading-tight lg:leading-[85.8px] mb-4 sm:mb-6 max-w-full lg:max-w-[925px] animate-slide-up">
-                        How We Make Databricks Work for You
+                        {{ ourApproachSection?.heading || 'How We Make Databricks Work for You' }}
                     </h2>
 
                     <!-- Description -->
                     <p class="text-brand-dark text-lg sm:text-xl lg:text-[30px] leading-relaxed sm:leading-relaxed lg:leading-[45px] mb-8 sm:mb-12 max-w-full lg:max-w-[747px] animate-slide-up-delayed">
-                        Our proven 3-step approach ensures Databricks adapts to your business needs, not the other way around.
+                        {{ ourApproachSection?.description || 'Our proven 3-step approach ensures Databricks adapts to your business needs, not the other way around.' }}
                     </p>
                 </div>
 
@@ -28,10 +28,10 @@
                     <!-- Responsive Flow Diagram Images -->
                     <div class="diagram-container relative w-full h-[400px] sm:h-[500px] lg:h-[700px] flex items-center justify-center">
 
-                        <!-- Infographic Image -->
-                        <img 
-                            src="/images/Infographic.png"
-                            alt="Our 3-Step Approach"
+                        <!-- Dynamic Infographic Image -->
+                        <img
+                            :src="ourApproachSection?.image_url || '/images/Infographic.png'"
+                            :alt="ourApproachSection?.image_alt || 'Our 3-Step Approach'"
                             class="w-full h-full object-contain transition-all duration-300 hover:scale-105"
                         />
 
@@ -48,7 +48,13 @@
 </template>
 
 <script setup>
-// No props needed
+// Define props to receive ourApproachSection data from parent
+const props = defineProps({
+    ourApproachSection: {
+        type: Object,
+        default: () => null
+    }
+});
 </script>
 
 <style scoped>

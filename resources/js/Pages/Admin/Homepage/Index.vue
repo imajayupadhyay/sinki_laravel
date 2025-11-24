@@ -848,6 +848,174 @@
             </div>
         </div>
 
+        <!-- Our Approach Section Card -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Our Approach Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the our approach section content and image</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateOurApproach" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Label -->
+                        <div>
+                            <label for="approach_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="approach_label"
+                                v-model="ourApproachForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                :class="{ 'border-red-500': ourApproachErrors.label }"
+                            />
+                            <p v-if="ourApproachErrors.label" class="mt-1 text-sm text-red-600">{{ ourApproachErrors.label }}</p>
+                        </div>
+
+                        <!-- Active Status -->
+                        <div class="flex items-start">
+                            <div class="mt-8">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="ourApproachForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Section Active</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heading -->
+                    <div class="mt-6">
+                        <label for="approach_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Heading
+                        </label>
+                        <input
+                            type="text"
+                            id="approach_heading"
+                            v-model="ourApproachForm.heading"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                            :class="{ 'border-red-500': ourApproachErrors.heading }"
+                        />
+                        <p v-if="ourApproachErrors.heading" class="mt-1 text-sm text-red-600">{{ ourApproachErrors.heading }}</p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-6">
+                        <label for="approach_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Description
+                        </label>
+                        <textarea
+                            id="approach_description"
+                            v-model="ourApproachForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                            :class="{ 'border-red-500': ourApproachErrors.description }"
+                        ></textarea>
+                        <p v-if="ourApproachErrors.description" class="mt-1 text-sm text-red-600">{{ ourApproachErrors.description }}</p>
+                    </div>
+
+                    <!-- Image Alt Text -->
+                    <div class="mt-6">
+                        <label for="approach_image_alt" class="block text-sm font-medium text-gray-700 mb-2">
+                            Image Alt Text
+                        </label>
+                        <input
+                            type="text"
+                            id="approach_image_alt"
+                            v-model="ourApproachForm.image_alt"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                            :class="{ 'border-red-500': ourApproachErrors.image_alt }"
+                            placeholder="e.g., Our 3-Step Approach Diagram"
+                        />
+                        <p v-if="ourApproachErrors.image_alt" class="mt-1 text-sm text-red-600">{{ ourApproachErrors.image_alt }}</p>
+                        <p class="mt-1 text-xs text-gray-500">This text will be used for accessibility and SEO</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            :disabled="ourApproachForm.processing"
+                            class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                        >
+                            <svg v-if="ourApproachForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {{ ourApproachForm.processing ? 'Updating...' : 'Update Section Info' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Image Management -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Section Image</h3>
+                            <p class="text-sm text-gray-600 mt-1">Upload an image for the approach section</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Left Column - Upload -->
+                        <div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="mt-4">
+                                        <label for="approach-image-upload" class="cursor-pointer">
+                                            <span class="mt-2 block text-sm font-medium text-gray-900">
+                                                Upload a new approach image
+                                            </span>
+                                            <input id="approach-image-upload" name="approach-image-upload" type="file" class="sr-only" accept="image/*" @change="handleApproachImageUpload" />
+                                        </label>
+                                    </div>
+                                    <p class="mt-2 text-xs text-gray-500">PNG, JPG, GIF, SVG up to 2MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Preview -->
+                        <div>
+                            <div class="aspect-square w-full bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                                <!-- Current Image or Preview -->
+                                <div v-if="approachImagePreview || ourApproachSection?.image_url" class="w-full h-full relative group">
+                                    <img
+                                        :src="approachImagePreview || ourApproachSection?.image_url"
+                                        :alt="ourApproachSection?.image_alt || 'Approach section preview'"
+                                        class="w-full h-full object-contain"
+                                    />
+                                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                        <button
+                                            @click="deleteApproachImage"
+                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors duration-200"
+                                        >
+                                            Delete Image
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Placeholder -->
+                                <div v-else class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <p class="mt-2 text-sm text-gray-500">No image uploaded</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -868,7 +1036,8 @@ const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
     whatWeDoSection: Object,
-    outcomesSection: Object
+    outcomesSection: Object,
+    ourApproachSection: Object
 })
 
 const imagePreview = ref(null)
@@ -879,6 +1048,8 @@ const whatWeDoErrors = ref({})
 const itemErrors = ref({})
 const outcomesErrors = ref({})
 const outcomeItemErrors = ref({})
+const ourApproachErrors = ref({})
+const approachImagePreview = ref(null)
 
 // What We Do Modal states
 const showAddItemModal = ref(false)
@@ -938,6 +1109,15 @@ const outcomeItemForm = useForm({
     icon_svg: '',
     sort_order: 1,
     is_active: true
+})
+
+// Initialize Our Approach form with existing data or defaults
+const ourApproachForm = useForm({
+    label: props.ourApproachSection?.label || 'Our Approach',
+    heading: props.ourApproachSection?.heading || 'How We Make Databricks Work for You',
+    description: props.ourApproachSection?.description || 'Our proven 3-step approach ensures Databricks adapts to your business needs, not the other way around.',
+    image_alt: props.ourApproachSection?.image_alt || 'Our 3-Step Approach',
+    is_active: props.ourApproachSection?.is_active ?? true
 })
 
 const updateHeroSection = () => {
@@ -1213,6 +1393,58 @@ const deleteOutcomeItem = (itemId) => {
             preserveScroll: true,
             onSuccess: () => {
                 // Force page refresh to remove deleted item
+                window.location.reload()
+            }
+        })
+    }
+}
+
+// Our Approach Functions
+const updateOurApproach = () => {
+    ourApproachForm.put(route('admin.homepage.our-approach.update'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            ourApproachErrors.value = formErrors
+        },
+        onSuccess: () => {
+            ourApproachErrors.value = {}
+        }
+    })
+}
+
+const handleApproachImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+        // Create a preview
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            approachImagePreview.value = e.target.result
+        }
+        reader.readAsDataURL(file)
+
+        // Upload the file
+        const formData = new FormData()
+        formData.append('image', file)
+
+        const uploadForm = useForm(formData)
+        uploadForm.post(route('admin.homepage.our-approach.image.upload'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // Force page refresh to show new image
+                window.location.reload()
+            }
+        })
+    }
+}
+
+const deleteApproachImage = () => {
+    if (confirm('Are you sure you want to delete this image?')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.our-approach.image.delete'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                approachImagePreview.value = null
+                // Force page refresh to remove image
                 window.location.reload()
             }
         })
