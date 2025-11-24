@@ -292,6 +292,272 @@
             </div>
         </div>
 
+        <!-- What We Do Section Card -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">What We Do Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the heading, description, and service containers</p>
+            </div>
+
+            <div class="p-6">
+                <!-- Section Info Form -->
+                <form @submit.prevent="updateWhatWeDo" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Label -->
+                        <div>
+                            <label for="what_we_do_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="what_we_do_label"
+                                v-model="whatWeDoForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter section label"
+                                :class="{ 'border-red-500': whatWeDoErrors.label }"
+                            />
+                            <p v-if="whatWeDoErrors.label" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.label }}</p>
+                        </div>
+
+                        <!-- Active Status -->
+                        <div class="flex items-center">
+                            <label class="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    v-model="whatWeDoForm.is_active"
+                                    class="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                                />
+                                <span class="ml-2 text-sm text-gray-700">Active</span>
+                            </label>
+                        </div>
+
+                        <!-- Heading -->
+                        <div class="lg:col-span-2">
+                            <label for="what_we_do_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                                Main Heading
+                            </label>
+                            <input
+                                type="text"
+                                id="what_we_do_heading"
+                                v-model="whatWeDoForm.heading"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter main heading"
+                                :class="{ 'border-red-500': whatWeDoErrors.heading }"
+                            />
+                            <p v-if="whatWeDoErrors.heading" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.heading }}</p>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="lg:col-span-2">
+                            <label for="what_we_do_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description
+                            </label>
+                            <textarea
+                                id="what_we_do_description"
+                                v-model="whatWeDoForm.description"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="Enter section description"
+                                :class="{ 'border-red-500': whatWeDoErrors.description }"
+                            ></textarea>
+                            <p v-if="whatWeDoErrors.description" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.description }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            :disabled="whatWeDoForm.processing"
+                            class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                        >
+                            <svg v-if="whatWeDoForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {{ whatWeDoForm.processing ? 'Updating...' : 'Update Section Info' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Service Items Management -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-medium text-gray-900">Service Containers</h3>
+                        <button
+                            @click="showAddItemModal = true"
+                            type="button"
+                            class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            Add Container
+                        </button>
+                    </div>
+
+                    <!-- Existing Items -->
+                    <div v-if="whatWeDoSection?.items?.length" class="space-y-4">
+                        <div
+                            v-for="(item, index) in whatWeDoSection.items"
+                            :key="item.id"
+                            class="border border-gray-200 rounded-lg p-4 bg-gray-50"
+                        >
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-4 mb-2">
+                                        <span class="text-sm font-medium text-gray-500">Order: {{ item.sort_order }}</span>
+                                        <span class="text-sm font-medium" :class="item.is_active ? 'text-green-600' : 'text-red-600'">
+                                            {{ item.is_active ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </div>
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">{{ item.title }}</h4>
+                                    <p class="text-gray-600 mb-3">{{ item.description }}</p>
+                                    <div class="bg-white p-2 rounded border inline-block">
+                                        <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center" v-html="item.icon_svg"></div>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2 ml-4">
+                                    <button
+                                        @click="editItem(item)"
+                                        class="px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        @click="deleteItem(item.id)"
+                                        class="px-3 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-else class="text-center py-8 text-gray-500">
+                        No service containers added yet. Click "Add Container" to get started.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Item Modal -->
+        <div v-if="showAddItemModal || showEditItemModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        {{ showEditItemModal ? 'Edit Service Container' : 'Add Service Container' }}
+                    </h3>
+                </div>
+
+                <form @submit.prevent="showEditItemModal ? updateItem() : addItem()" class="p-6">
+                    <div class="space-y-6">
+                        <!-- Title -->
+                        <div>
+                            <label for="item_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Title
+                            </label>
+                            <input
+                                type="text"
+                                id="item_title"
+                                v-model="itemForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter container title"
+                                :class="{ 'border-red-500': itemErrors.title }"
+                            />
+                            <p v-if="itemErrors.title" class="mt-1 text-sm text-red-600">{{ itemErrors.title }}</p>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="item_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description
+                            </label>
+                            <textarea
+                                id="item_description"
+                                v-model="itemForm.description"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="Enter container description"
+                                :class="{ 'border-red-500': itemErrors.description }"
+                            ></textarea>
+                            <p v-if="itemErrors.description" class="mt-1 text-sm text-red-600">{{ itemErrors.description }}</p>
+                        </div>
+
+                        <!-- Icon SVG -->
+                        <div>
+                            <label for="item_icon_svg" class="block text-sm font-medium text-gray-700 mb-2">
+                                Icon SVG Code
+                            </label>
+                            <textarea
+                                id="item_icon_svg"
+                                v-model="itemForm.icon_svg"
+                                rows="4"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none font-mono text-xs"
+                                placeholder="Enter SVG code for the icon"
+                                :class="{ 'border-red-500': itemErrors.icon_svg }"
+                            ></textarea>
+                            <p v-if="itemErrors.icon_svg" class="mt-1 text-sm text-red-600">{{ itemErrors.icon_svg }}</p>
+                            <p class="mt-1 text-xs text-gray-500">Paste the complete SVG code including &lt;svg&gt; tags</p>
+                        </div>
+
+                        <!-- Icon Preview -->
+                        <div v-if="itemForm.icon_svg">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Icon Preview</label>
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto" v-html="itemForm.icon_svg"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sort Order & Active Status -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="item_sort_order" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Sort Order
+                                </label>
+                                <input
+                                    type="number"
+                                    id="item_sort_order"
+                                    v-model="itemForm.sort_order"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    min="1"
+                                />
+                            </div>
+                            <div class="flex items-end">
+                                <label class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        v-model="itemForm.is_active"
+                                        class="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                                    />
+                                    <span class="ml-2 text-sm text-gray-700">Active</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Buttons -->
+                    <div class="flex justify-end space-x-3 mt-8">
+                        <button
+                            type="button"
+                            @click="closeItemModal"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            :disabled="itemForm.processing"
+                            class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+                        >
+                            {{ itemForm.processing ? 'Saving...' : (showEditItemModal ? 'Update Container' : 'Add Container') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -310,13 +576,21 @@ import AdminLayout from '@/Components/Admin/AdminLayout.vue'
 
 const props = defineProps({
     heroSection: Object,
-    partnerBadge: Object
+    partnerBadge: Object,
+    whatWeDoSection: Object
 })
 
 const imagePreview = ref(null)
 const partnerLogoPreview = ref(null)
 const errors = ref({})
 const partnerErrors = ref({})
+const whatWeDoErrors = ref({})
+const itemErrors = ref({})
+
+// What We Do Modal states
+const showAddItemModal = ref(false)
+const showEditItemModal = ref(false)
+const editingItemId = ref(null)
 
 // Initialize hero form with existing data or defaults
 const form = useForm({
@@ -332,6 +606,23 @@ const partnerForm = useForm({
     text: props.partnerBadge?.text || 'An Official Databricks Partner',
     logo_alt: props.partnerBadge?.logo_alt || 'Databricks Logo',
     is_active: props.partnerBadge?.is_active ?? true
+})
+
+// Initialize What We Do form with existing data or defaults
+const whatWeDoForm = useForm({
+    label: props.whatWeDoSection?.label || 'What We Do',
+    heading: props.whatWeDoSection?.heading || 'We Simplify Your Databricks Journey End-to-End',
+    description: props.whatWeDoSection?.description || 'Wherever you are in your Databricks journey, planning, migrating, or scaling, we help you move faster and with confidence.',
+    is_active: props.whatWeDoSection?.is_active ?? true
+})
+
+// Initialize item form for adding/editing items
+const itemForm = useForm({
+    title: '',
+    description: '',
+    icon_svg: '',
+    sort_order: 1,
+    is_active: true
 })
 
 const updateHeroSection = () => {
@@ -439,6 +730,80 @@ const deletePartnerLogo = () => {
             preserveScroll: true,
             onSuccess: () => {
                 // Force page refresh to update logo display
+                window.location.reload()
+            }
+        })
+    }
+}
+
+// What We Do Functions
+const updateWhatWeDo = () => {
+    whatWeDoForm.put(route('admin.homepage.what-we-do.update'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            whatWeDoErrors.value = formErrors
+        },
+        onSuccess: () => {
+            whatWeDoErrors.value = {}
+        }
+    })
+}
+
+const closeItemModal = () => {
+    showAddItemModal.value = false
+    showEditItemModal.value = false
+    editingItemId.value = null
+    itemForm.reset()
+    itemErrors.value = {}
+}
+
+const addItem = () => {
+    itemForm.post(route('admin.homepage.what-we-do.items.store'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            itemErrors.value = formErrors
+        },
+        onSuccess: () => {
+            itemErrors.value = {}
+            closeItemModal()
+            // Force page refresh to show new item
+            window.location.reload()
+        }
+    })
+}
+
+const editItem = (item) => {
+    editingItemId.value = item.id
+    itemForm.title = item.title
+    itemForm.description = item.description
+    itemForm.icon_svg = item.icon_svg
+    itemForm.sort_order = item.sort_order
+    itemForm.is_active = item.is_active
+    showEditItemModal.value = true
+}
+
+const updateItem = () => {
+    itemForm.put(route('admin.homepage.what-we-do.items.update', editingItemId.value), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            itemErrors.value = formErrors
+        },
+        onSuccess: () => {
+            itemErrors.value = {}
+            closeItemModal()
+            // Force page refresh to show updated item
+            window.location.reload()
+        }
+    })
+}
+
+const deleteItem = (itemId) => {
+    if (confirm('Are you sure you want to delete this service container?')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.what-we-do.items.delete', itemId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // Force page refresh to remove deleted item
                 window.location.reload()
             }
         })

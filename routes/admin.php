@@ -116,6 +116,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/homepage/partner-badge', [App\Http\Controllers\Admin\HomepageController::class, 'updatePartnerBadge'])->name('homepage.partner-badge.update');
     Route::post('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'uploadPartnerLogo'])->name('homepage.partner-badge.logo.upload');
     Route::delete('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'deletePartnerLogo'])->name('homepage.partner-badge.logo.delete');
+    Route::put('/homepage/what-we-do', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatWeDo'])->name('homepage.what-we-do.update');
+    Route::post('/homepage/what-we-do/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatWeDoItem'])->name('homepage.what-we-do.items.store');
+    Route::put('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatWeDoItem'])->name('homepage.what-we-do.items.update');
+    Route::delete('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatWeDoItem'])->name('homepage.what-we-do.items.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

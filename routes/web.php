@@ -38,10 +38,14 @@ Route::get('/', function () {
     // Fetch homepage partner badge data
     $partnerBadge = \App\Models\HomepagePartnerBadge::active()->first();
 
+    // Fetch what we do section data with items
+    $whatWeDoSection = \App\Models\WhatWeDoSection::with(['activeItems'])->active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
         'heroSection' => $heroSection,
         'partnerBadge' => $partnerBadge,
+        'whatWeDoSection' => $whatWeDoSection,
     ]);
 })->name('home');
 

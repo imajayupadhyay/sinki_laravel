@@ -14,7 +14,7 @@
         <PartnerBadge :partner-badge="partnerBadge" />
         
         <!-- What We Do Section -->
-        <WhatWeDo />
+        <WhatWeDo :what-we-do-section="whatWeDoSection" />
         
         <!-- Outcomes You Can Expect Section -->
         <Outcomes />
@@ -63,6 +63,10 @@ const props = defineProps({
         default: () => null
     },
     partnerBadge: {
+        type: Object,
+        default: () => null
+    },
+    whatWeDoSection: {
         type: Object,
         default: () => null
     }
