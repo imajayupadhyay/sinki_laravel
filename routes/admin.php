@@ -113,6 +113,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/homepage/hero', [App\Http\Controllers\Admin\HomepageController::class, 'updateHero'])->name('homepage.hero.update');
     Route::post('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadHeroImage'])->name('homepage.hero.image.upload');
     Route::delete('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteHeroImage'])->name('homepage.hero.image.delete');
+    Route::put('/homepage/partner-badge', [App\Http\Controllers\Admin\HomepageController::class, 'updatePartnerBadge'])->name('homepage.partner-badge.update');
+    Route::post('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'uploadPartnerLogo'])->name('homepage.partner-badge.logo.upload');
+    Route::delete('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'deletePartnerLogo'])->name('homepage.partner-badge.logo.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

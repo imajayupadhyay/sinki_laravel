@@ -11,7 +11,7 @@
         <Hero :hero-section="heroSection" />
         
         <!-- Partner Badge Component -->
-        <PartnerBadge />
+        <PartnerBadge :partner-badge="partnerBadge" />
         
         <!-- What We Do Section -->
         <WhatWeDo />
@@ -59,6 +59,10 @@ const props = defineProps({
         default: () => []
     },
     heroSection: {
+        type: Object,
+        default: () => null
+    },
+    partnerBadge: {
         type: Object,
         default: () => null
     }

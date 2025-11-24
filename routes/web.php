@@ -35,9 +35,13 @@ Route::get('/', function () {
     // Fetch homepage hero section data
     $heroSection = \App\Models\HomepageHeroSection::active()->first();
 
+    // Fetch homepage partner badge data
+    $partnerBadge = \App\Models\HomepagePartnerBadge::active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
         'heroSection' => $heroSection,
+        'partnerBadge' => $partnerBadge,
     ]);
 })->name('home');
 

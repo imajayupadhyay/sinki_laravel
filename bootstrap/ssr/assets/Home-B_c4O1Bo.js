@@ -78,9 +78,15 @@ const Hero = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-842
 const _sfc_main$9 = {
   __name: "PartnerBadge",
   __ssrInlineRender: true,
+  props: {
+    partnerBadge: {
+      type: Object,
+      default: () => null
+    }
+  },
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "partner-badge-section bg-brand-dark border-b border-white/15" }, _attrs))} data-v-fa2ed72e><div class="container mx-auto px-3 sm:px-6" data-v-fa2ed72e><div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 h-auto sm:h-[50px] py-3 sm:py-0" data-v-fa2ed72e><span class="text-white text-base sm:text-xl font-medium tracking-wide text-center" data-v-fa2ed72e> An Official Databricks Partner </span><div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center" data-v-fa2ed72e><img src="/images/databrickslight.png" alt="Databricks Logo" class="h-5 sm:h-6 partner-logo w-auto max-w-full" data-v-fa2ed72e></div></div></div></section>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "partner-badge-section bg-brand-dark border-b border-white/15" }, _attrs))} data-v-9e650624><div class="container mx-auto px-3 sm:px-6" data-v-9e650624><div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 h-auto sm:h-[50px] py-3 sm:py-0" data-v-9e650624><span class="text-white text-base sm:text-xl font-medium tracking-wide text-center" data-v-9e650624>${ssrInterpolate(__props.partnerBadge?.text || "An Official Databricks Partner")}</span><div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center" data-v-9e650624><img${ssrRenderAttr("src", __props.partnerBadge?.logo_image ? `/storage/${__props.partnerBadge.logo_image}` : "/images/databrickslight.png")}${ssrRenderAttr("alt", __props.partnerBadge?.logo_alt || "Partner Logo")} class="h-5 sm:h-6 partner-logo w-auto max-w-full" data-v-9e650624></div></div></div></section>`);
     };
   }
 };
@@ -90,7 +96,7 @@ _sfc_main$9.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/Home/PartnerBadge.vue");
   return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
 };
-const PartnerBadge = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-fa2ed72e"]]);
+const PartnerBadge = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-9e650624"]]);
 const _sfc_main$8 = {
   __name: "WhatWeDo",
   __ssrInlineRender: true,
@@ -329,16 +335,20 @@ const _sfc_main = {
     heroSection: {
       type: Object,
       default: () => null
+    },
+    partnerBadge: {
+      type: Object,
+      default: () => null
     }
   },
   setup(__props) {
     useCanonical("https://www.sinki.ai/");
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-white" }, _attrs))} data-v-bf267af2>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-white" }, _attrs))} data-v-12b1e4e5>`);
       _push(ssrRenderComponent(unref(Head), { title: "Sinki.ai: Your Databricks Strategy & Innovation Partner" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." data-v-bf267af2${_scopeId}>`);
+            _push2(`<meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." data-v-12b1e4e5${_scopeId}>`);
           } else {
             return [
               createVNode("meta", {
@@ -352,7 +362,7 @@ const _sfc_main = {
       }, _parent));
       _push(ssrRenderComponent(Header, null, null, _parent));
       _push(ssrRenderComponent(Hero, { "hero-section": __props.heroSection }, null, _parent));
-      _push(ssrRenderComponent(PartnerBadge, null, null, _parent));
+      _push(ssrRenderComponent(PartnerBadge, { "partner-badge": __props.partnerBadge }, null, _parent));
       _push(ssrRenderComponent(WhatWeDo, null, null, _parent));
       _push(ssrRenderComponent(Outcomes, null, null, _parent));
       _push(ssrRenderComponent(OurApproach, null, null, _parent));
@@ -372,7 +382,7 @@ _sfc_main.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Home.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const Home = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-bf267af2"]]);
+const Home = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-12b1e4e5"]]);
 export {
   Home as default
 };
