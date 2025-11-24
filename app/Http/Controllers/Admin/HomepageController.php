@@ -10,6 +10,8 @@ use App\Models\WhatWeDoItem;
 use App\Models\OutcomesSection;
 use App\Models\OutcomesItem;
 use App\Models\OurApproachSection;
+use App\Models\CoreServicesSection;
+use App\Models\CoreService;
 use App\Models\HomepageSeoSetting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,6 +26,9 @@ class HomepageController extends Controller
         $whatWeDoSection = WhatWeDoSection::with('items')->active()->first();
         $outcomesSection = OutcomesSection::with('items')->active()->first();
         $ourApproachSection = OurApproachSection::active()->first();
+        $coreServicesSection = CoreServicesSection::with(['services' => function($query) {
+            $query->orderBy('sort_order');
+        }])->first();
         $seoSettings = HomepageSeoSetting::active()->first();
 
         return Inertia::render('Admin/Homepage/Index', [
@@ -32,6 +37,7 @@ class HomepageController extends Controller
             'whatWeDoSection' => $whatWeDoSection,
             'outcomesSection' => $outcomesSection,
             'ourApproachSection' => $ourApproachSection,
+            'coreServicesSection' => $coreServicesSection,
             'seoSettings' => $seoSettings
         ]);
     }
@@ -493,5 +499,95 @@ class HomepageController extends Controller
         ]);
 
         return back()->with('success', ucfirst(str_replace('_', ' ', $type)) . ' deleted successfully!');
+    }
+
+    public function updateCoreServices(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'heading' => 'required|string|max:500',
+            'description' => 'required|string',
+            'is_active' => 'boolean'
+        ]);
+
+        $coreServicesSection = CoreServicesSection::first();
+
+        if ($coreServicesSection) {
+            $coreServicesSection->update($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        } else {
+            $coreServicesSection = CoreServicesSection::create($request->only([
+                'label', 'heading', 'description', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Core Services section updated successfully!');
+    }
+
+    public function storeCoreService(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'icon_svg' => 'required|string',
+            'link_url' => 'nullable|string|max:255',
+            'tags' => 'array',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        // Get or create the core services section
+        $coreServicesSection = CoreServicesSection::first();
+        if (!$coreServicesSection) {
+            $coreServicesSection = CoreServicesSection::create([
+                'label' => 'Core Services',
+                'heading' => 'Databricks Services We Deliver',
+                'description' => 'From data engineering and governance to AI and analytics, we make sure your Databricks investment delivers measurable impact.',
+                'is_active' => true
+            ]);
+        }
+
+        // If no sort_order provided, set to next available
+        $sortOrder = $request->sort_order ?? (CoreService::where('core_services_section_id', $coreServicesSection->id)->max('sort_order') + 1);
+
+        CoreService::create([
+            'core_services_section_id' => $coreServicesSection->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon_svg' => $request->icon_svg,
+            'link_url' => $request->link_url,
+            'tags' => $request->tags,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Core Service added successfully!');
+    }
+
+    public function updateCoreService(Request $request, CoreService $service)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'icon_svg' => 'required|string',
+            'link_url' => 'nullable|string|max:255',
+            'tags' => 'array',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $service->update($request->only([
+            'title', 'description', 'icon_svg', 'link_url', 'tags', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Core Service updated successfully!');
+    }
+
+    public function deleteCoreService(CoreService $service)
+    {
+        $service->delete();
+
+        return back()->with('success', 'Core Service deleted successfully!');
     }
 }

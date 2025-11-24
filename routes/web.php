@@ -47,6 +47,11 @@ Route::get('/', function () {
     // Fetch our approach section data
     $ourApproachSection = \App\Models\OurApproachSection::active()->first();
 
+    // Fetch core services section data with services
+    $coreServicesSection = \App\Models\CoreServicesSection::with(['services' => function($query) {
+        $query->where('is_active', true)->orderBy('sort_order');
+    }])->where('is_active', true)->first();
+
     // Fetch SEO settings
     $seoSettings = \App\Models\HomepageSeoSetting::active()->first();
 
@@ -57,6 +62,7 @@ Route::get('/', function () {
         'whatWeDoSection' => $whatWeDoSection,
         'outcomesSection' => $outcomesSection,
         'ourApproachSection' => $ourApproachSection,
+        'coreServicesSection' => $coreServicesSection,
         'seoSettings' => $seoSettings,
     ]);
 })->name('home');

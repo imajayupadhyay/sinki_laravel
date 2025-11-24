@@ -39,7 +39,7 @@
         
         <!-- Our Approach Section -->
         <OurApproach :our-approach-section="ourApproachSection" />
-        <CoreServices />
+        <CoreServices :core-services-section="coreServicesSection" />
         <PlatformsSection />
          <!-- What Sets Us Apart Section -->
     <WhatSetsUsApartSection />
@@ -93,6 +93,10 @@ const props = defineProps({
         default: () => null
     },
     ourApproachSection: {
+        type: Object,
+        default: () => null
+    },
+    coreServicesSection: {
         type: Object,
         default: () => null
     },

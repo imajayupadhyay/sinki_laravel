@@ -1,7 +1,28 @@
 <template>
     <AdminLayout page-title="Homepage Management" page-subtitle="Manage your website's homepage content">
+        <!-- Sticky Section Navigation -->
+        <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex space-x-8 overflow-x-auto py-4" ref="sectionNav">
+                    <button
+                        v-for="section in sections"
+                        :key="section.id"
+                        @click="scrollToSection(section.id)"
+                        :class="[
+                            'whitespace-nowrap px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 flex items-center space-x-2',
+                            activeSection === section.id
+                                ? 'bg-blue-100 text-blue-700 border-blue-200 border'
+                                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                        ]"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="section.icon"></svg>
+                        <span>{{ section.name }}</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
         <!-- SEO Settings Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+        <div id="seo-settings" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">SEO Settings</h2>
                 <p class="text-sm text-gray-600 mt-1">Manage meta tags, Open Graph, and Twitter Card settings for better SEO</p>
@@ -335,7 +356,7 @@
             </div>
         </div>
         <!-- Hero Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div id="hero-section" class="bg-white rounded-lg shadow-sm border border-gray-200">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Hero Section</h2>
                 <p class="text-sm text-gray-600 mt-1">Customize the main banner section of your homepage</p>
@@ -497,7 +518,7 @@
         </div>
 
         <!-- Partner Badge Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+        <div id="partner-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Partner Badge Section</h2>
                 <p class="text-sm text-gray-600 mt-1">Customize the partner badge that appears below the hero section</p>
@@ -627,7 +648,7 @@
         </div>
 
         <!-- What We Do Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+        <div id="what-we-do-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">What We Do Section</h2>
                 <p class="text-sm text-gray-600 mt-1">Manage the heading, description, and service containers</p>
@@ -893,7 +914,7 @@
         </div>
 
         <!-- Outcomes Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+        <div id="outcomes-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Outcomes Section</h2>
                 <p class="text-sm text-gray-600 mt-1">Manage the outcomes you can expect section content</p>
@@ -1183,7 +1204,7 @@
         </div>
 
         <!-- Our Approach Section Card -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+        <div id="our-approach-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Our Approach Section</h2>
                 <p class="text-sm text-gray-600 mt-1">Manage the our approach section content and image</p>
@@ -1350,6 +1371,319 @@
             </div>
         </div>
 
+        <!-- Core Services Section Card -->
+        <div id="core-services-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Core Services Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the core services section content and service cards</p>
+            </div>
+
+            <div class="p-6">
+                <!-- Section Info Form -->
+                <form @submit.prevent="updateCoreServices" class="mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <label for="core_services_label" class="block text-sm font-medium text-gray-700 mb-2">
+                                Section Label
+                            </label>
+                            <input
+                                type="text"
+                                id="core_services_label"
+                                v-model="coreServicesForm.label"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': coreServicesErrors.label }"
+                                placeholder="e.g., Core Services"
+                            />
+                            <p v-if="coreServicesErrors.label" class="mt-1 text-sm text-red-600">{{ coreServicesErrors.label }}</p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    v-model="coreServicesForm.is_active"
+                                    class="sr-only peer"
+                                />
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-700">Section Active</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="core_services_heading" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Heading
+                        </label>
+                        <input
+                            type="text"
+                            id="core_services_heading"
+                            v-model="coreServicesForm.heading"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': coreServicesErrors.heading }"
+                            placeholder="e.g., Databricks Services We Deliver"
+                        />
+                        <p v-if="coreServicesErrors.heading" class="mt-1 text-sm text-red-600">{{ coreServicesErrors.heading }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="core_services_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Section Description
+                        </label>
+                        <textarea
+                            id="core_services_description"
+                            v-model="coreServicesForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': coreServicesErrors.description }"
+                            placeholder="Enter section description"
+                        ></textarea>
+                        <p v-if="coreServicesErrors.description" class="mt-1 text-sm text-red-600">{{ coreServicesErrors.description }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <button
+                            type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center"
+                            :disabled="coreServicesForm.processing"
+                        >
+                            <svg v-if="coreServicesForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {{ coreServicesForm.processing ? 'Updating...' : 'Update Section Info' }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Service Cards Management -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-medium text-gray-900">Service Cards</h3>
+                        <button
+                            @click="showAddServiceModal = true"
+                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center text-sm"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Add Service Card
+                        </button>
+                    </div>
+
+                    <!-- Service Cards List -->
+                    <div v-if="coreServicesSection?.services?.length" class="space-y-4">
+                        <div
+                            v-for="service in coreServicesSection.services"
+                            :key="service.id"
+                            class="bg-gray-50 rounded-lg p-6 border border-gray-200"
+                        >
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h4 class="font-medium text-gray-900 mb-2">{{ service.title }}</h4>
+                                    <p class="text-sm text-gray-600 mb-3">{{ service.description || 'No description' }}</p>
+
+                                    <!-- Tags Display -->
+                                    <div v-if="service.tags?.length" class="flex flex-wrap gap-2 mb-3">
+                                        <span
+                                            v-for="tag in service.tags"
+                                            :key="tag"
+                                            class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                                        >
+                                            {{ tag }}
+                                        </span>
+                                    </div>
+
+                                    <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                        <span>Status: {{ service.is_active ? 'Active' : 'Inactive' }}</span>
+                                        <span>Order: {{ service.sort_order }}</span>
+                                        <span v-if="service.link_url">Link: {{ service.link_url }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center space-x-2 ml-4">
+                                    <button
+                                        @click="editService(service)"
+                                        class="text-blue-600 hover:text-blue-800 p-2"
+                                        title="Edit Service"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        </svg>
+                                    </button>
+                                    <button
+                                        @click="deleteService(service.id)"
+                                        class="text-red-600 hover:text-red-800 p-2"
+                                        title="Delete Service"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div v-else class="text-center py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">No service cards</h3>
+                        <p class="mt-1 text-sm text-gray-500">Get started by creating your first service card.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Service Modal -->
+        <div v-if="showAddServiceModal || showEditServiceModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" @click.self="closeServiceModal">
+            <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        {{ showEditServiceModal ? 'Edit Service Card' : 'Add Service Card' }}
+                    </h3>
+                    <button @click="closeServiceModal" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <form @submit.prevent="submitServiceForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="service_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Service Title *
+                            </label>
+                            <input
+                                type="text"
+                                id="service_title"
+                                v-model="serviceForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': serviceErrors.title }"
+                                placeholder="Enter service title"
+                                required
+                            />
+                            <p v-if="serviceErrors.title" class="mt-1 text-sm text-red-600">{{ serviceErrors.title }}</p>
+                        </div>
+
+                        <div>
+                            <label for="service_link" class="block text-sm font-medium text-gray-700 mb-2">
+                                Link URL
+                            </label>
+                            <input
+                                type="text"
+                                id="service_link"
+                                v-model="serviceForm.link_url"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': serviceErrors.link_url }"
+                                placeholder="e.g., /services/data-engineering"
+                            />
+                            <p v-if="serviceErrors.link_url" class="mt-1 text-sm text-red-600">{{ serviceErrors.link_url }}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="service_description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Description
+                        </label>
+                        <textarea
+                            id="service_description"
+                            v-model="serviceForm.description"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': serviceErrors.description }"
+                            placeholder="Enter service description"
+                        ></textarea>
+                        <p v-if="serviceErrors.description" class="mt-1 text-sm text-red-600">{{ serviceErrors.description }}</p>
+                    </div>
+
+                    <div>
+                        <label for="service_icon" class="block text-sm font-medium text-gray-700 mb-2">
+                            Icon SVG Path *
+                        </label>
+                        <textarea
+                            id="service_icon"
+                            v-model="serviceForm.icon_svg"
+                            rows="2"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            :class="{ 'border-red-500': serviceErrors.icon_svg }"
+                            placeholder="Enter SVG path for the icon (e.g., M19.428 15.428a2 2 0 00-1.022-.547...)"
+                            required
+                        ></textarea>
+                        <p v-if="serviceErrors.icon_svg" class="mt-1 text-sm text-red-600">{{ serviceErrors.icon_svg }}</p>
+                        <p class="mt-1 text-xs text-gray-500">Enter the SVG path element for the icon</p>
+                    </div>
+
+                    <div>
+                        <label for="service_tags" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tags (comma-separated)
+                        </label>
+                        <input
+                            type="text"
+                            id="service_tags"
+                            v-model="serviceTagsInput"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="e.g., Data Pipelines, Data Integration, Migration"
+                        />
+                        <p class="mt-1 text-xs text-gray-500">Separate multiple tags with commas</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="service_sort_order" class="block text-sm font-medium text-gray-700 mb-2">
+                                Sort Order
+                            </label>
+                            <input
+                                type="number"
+                                id="service_sort_order"
+                                v-model="serviceForm.sort_order"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                :class="{ 'border-red-500': serviceErrors.sort_order }"
+                                placeholder="1"
+                                min="1"
+                            />
+                            <p v-if="serviceErrors.sort_order" class="mt-1 text-sm text-red-600">{{ serviceErrors.sort_order }}</p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    v-model="serviceForm.is_active"
+                                    class="sr-only peer"
+                                />
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-700">Service Active</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
+                        <button
+                            type="button"
+                            @click="closeServiceModal"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center"
+                            :disabled="serviceForm.processing"
+                        >
+                            <svg v-if="serviceForm.processing" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {{ serviceForm.processing ? 'Saving...' : (showEditServiceModal ? 'Update Service' : 'Create Service') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Success/Error Messages -->
         <div v-if="$page.props.flash.success" class="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
             {{ $page.props.flash.success }}
@@ -1362,9 +1696,87 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import AdminLayout from '@/Components/Admin/AdminLayout.vue'
+
+// Section Navigation
+const activeSection = ref('seo-settings')
+const sectionNav = ref(null)
+
+const sections = ref([
+    {
+        id: 'seo-settings',
+        name: 'SEO Settings',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>'
+    },
+    {
+        id: 'hero-section',
+        name: 'Hero Section',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>'
+    },
+    {
+        id: 'partner-section',
+        name: 'Partner Badge',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
+    },
+    {
+        id: 'what-we-do-section',
+        name: 'What We Do',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>'
+    },
+    {
+        id: 'outcomes-section',
+        name: 'Outcomes',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>'
+    },
+    {
+        id: 'our-approach-section',
+        name: 'Our Approach',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>'
+    },
+    {
+        id: 'core-services-section',
+        name: 'Core Services',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>'
+    }
+])
+
+// Scroll to section function
+const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+        const navHeight = 80 // Height of sticky nav
+        const elementPosition = element.offsetTop - navHeight
+        window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+        })
+        activeSection.value = sectionId
+    }
+}
+
+// Update active section on scroll
+const updateActiveSection = () => {
+    const scrollPosition = window.scrollY + 100 // Add offset for sticky nav
+
+    for (const section of sections.value) {
+        const element = document.getElementById(section.id)
+        if (element && element.offsetTop <= scrollPosition &&
+            element.offsetTop + element.offsetHeight > scrollPosition) {
+            activeSection.value = section.id
+            break
+        }
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('scroll', updateActiveSection)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', updateActiveSection)
+})
 
 const props = defineProps({
     heroSection: Object,
@@ -1372,6 +1784,7 @@ const props = defineProps({
     whatWeDoSection: Object,
     outcomesSection: Object,
     ourApproachSection: Object,
+    coreServicesSection: Object,
     seoSettings: Object
 })
 
@@ -1388,6 +1801,14 @@ const approachImagePreview = ref(null)
 const seoErrors = ref({})
 const ogImagePreview = ref(null)
 const twitterImagePreview = ref(null)
+
+// Core Services Modal states
+const coreServicesErrors = ref({})
+const serviceErrors = ref({})
+const showAddServiceModal = ref(false)
+const showEditServiceModal = ref(false)
+const editingServiceId = ref(null)
+const serviceTagsInput = ref('')
 
 // What We Do Modal states
 const showAddItemModal = ref(false)
@@ -1456,6 +1877,24 @@ const ourApproachForm = useForm({
     description: props.ourApproachSection?.description || 'Our proven 3-step approach ensures Databricks adapts to your business needs, not the other way around.',
     image_alt: props.ourApproachSection?.image_alt || 'Our 3-Step Approach',
     is_active: props.ourApproachSection?.is_active ?? true
+})
+
+// Initialize Core Services form with existing data or defaults
+const coreServicesForm = useForm({
+    label: props.coreServicesSection?.label || 'Core Services',
+    heading: props.coreServicesSection?.heading || 'Databricks Services We Deliver',
+    description: props.coreServicesSection?.description || 'From data engineering and governance to AI and analytics, we make sure your Databricks investment delivers measurable impact.',
+    is_active: props.coreServicesSection?.is_active ?? true
+})
+
+// Initialize service form for adding/editing services
+const serviceForm = useForm({
+    title: '',
+    description: '',
+    icon_svg: '',
+    link_url: '',
+    sort_order: 1,
+    is_active: true
 })
 
 // Initialize SEO form with existing data or defaults
@@ -1873,6 +2312,87 @@ const deleteSeoImage = (type) => {
                 }
                 // Force page refresh to update image display
                 window.location.reload()
+            }
+        })
+    }
+}
+
+// Core Services Functions
+const updateCoreServices = () => {
+    coreServicesForm.put(route('admin.homepage.core-services.update'), {
+        preserveScroll: true,
+        onError: (formErrors) => {
+            coreServicesErrors.value = formErrors
+        },
+        onSuccess: () => {
+            coreServicesErrors.value = {}
+        }
+    })
+}
+
+// Service Management Functions
+const closeServiceModal = () => {
+    showAddServiceModal.value = false
+    showEditServiceModal.value = false
+    editingServiceId.value = null
+    serviceForm.reset()
+    serviceErrors.value = {}
+    serviceTagsInput.value = ''
+}
+
+const editService = (service) => {
+    editingServiceId.value = service.id
+    serviceForm.title = service.title
+    serviceForm.description = service.description || ''
+    serviceForm.icon_svg = service.icon_svg
+    serviceForm.link_url = service.link_url || ''
+    serviceForm.sort_order = service.sort_order
+    serviceForm.is_active = service.is_active
+    serviceTagsInput.value = service.tags ? service.tags.join(', ') : ''
+    showEditServiceModal.value = true
+}
+
+const submitServiceForm = () => {
+    // Process tags
+    const tags = serviceTagsInput.value
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(tag => tag.length > 0)
+
+    serviceForm.tags = tags
+
+    if (showEditServiceModal.value) {
+        serviceForm.put(route('admin.homepage.core-services.service.update', editingServiceId.value), {
+            preserveScroll: true,
+            onError: (formErrors) => {
+                serviceErrors.value = formErrors
+            },
+            onSuccess: () => {
+                closeServiceModal()
+                window.location.reload() // Refresh to show updated data
+            }
+        })
+    } else {
+        serviceForm.post(route('admin.homepage.core-services.service.store'), {
+            preserveScroll: true,
+            onError: (formErrors) => {
+                serviceErrors.value = formErrors
+            },
+            onSuccess: () => {
+                closeServiceModal()
+                window.location.reload() // Refresh to show new service
+            }
+        })
+    }
+}
+
+const deleteService = (serviceId) => {
+    if (confirm('Are you sure you want to delete this service? This action cannot be undone.')) {
+        const deleteForm = useForm({})
+        deleteForm.delete(route('admin.homepage.core-services.service.destroy', serviceId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                window.location.reload() // Refresh to remove deleted service
             }
         })
     }
