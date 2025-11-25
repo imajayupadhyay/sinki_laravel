@@ -7,6 +7,7 @@ use App\Models\AboutUsHeroSection;
 use App\Models\AboutUsPartnerBadge;
 use App\Models\AboutUsStorySection;
 use App\Models\AboutUsWhatWeDoSection;
+use App\Models\AboutUsApproachSection;
 use Inertia\Inertia;
 
 class AboutUsController extends Controller
@@ -20,12 +21,16 @@ class AboutUsController extends Controller
         $whatWeDoSection = AboutUsWhatWeDoSection::with(['items' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $approachSection = AboutUsApproachSection::with(['steps' => function($query) {
+            $query->active()->orderBy('sort_order');
+        }])->active()->first();
 
         return Inertia::render('AboutUs', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
             'storySection' => $storySection,
-            'whatWeDoSection' => $whatWeDoSection
+            'whatWeDoSection' => $whatWeDoSection,
+            'approachSection' => $approachSection
         ]);
     }
 }

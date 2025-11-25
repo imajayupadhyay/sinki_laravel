@@ -61,7 +61,15 @@
         />
 
         <!-- Our Approach Section -->
-        <OurApproachSection />
+        <OurApproachSection
+            :header-tag="props.approachSection?.header_tag || 'HOW WE WORK'"
+            :title="props.approachSection?.title || 'Our Data-First Approach'"
+            :subtitle="props.approachSection?.subtitle || 'How We Transform Your Data Vision Into Reality'"
+            :cta-text="props.approachSection?.cta_text || 'Book A Discovery Session'"
+            :cta-link="props.approachSection?.cta_link"
+            :background-color="props.approachSection?.background_color || 'bg-white'"
+            :steps="props.approachSection?.steps || []"
+        />
 
         <!-- Leadership Section -->
         <LeadershipSection />
@@ -98,7 +106,8 @@ const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
     storySection: Object,
-    whatWeDoSection: Object
+    whatWeDoSection: Object,
+    approachSection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

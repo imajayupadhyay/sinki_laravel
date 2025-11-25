@@ -761,6 +761,223 @@
             </div>
         </div>
 
+        <!-- Our Approach Section Card -->
+        <div id="approach-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Our Approach Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the approach section header and process steps</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateApproach">
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Header Tag -->
+                            <div>
+                                <label for="approach_header_tag" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Header Tag <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="approach_header_tag"
+                                    v-model="approachForm.header_tag"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., HOW WE WORK"
+                                    :class="{ 'border-red-500': approachErrors.header_tag }"
+                                />
+                                <p v-if="approachErrors.header_tag" class="mt-1 text-sm text-red-600">{{ approachErrors.header_tag }}</p>
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="approachForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Approach Section Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Title -->
+                        <div>
+                            <label for="approach_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Title <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="approach_title"
+                                v-model="approachForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="e.g., Our Data-First Approach"
+                                :class="{ 'border-red-500': approachErrors.title }"
+                            />
+                            <p v-if="approachErrors.title" class="mt-1 text-sm text-red-600">{{ approachErrors.title }}</p>
+                        </div>
+
+                        <!-- Subtitle -->
+                        <div>
+                            <label for="approach_subtitle" class="block text-sm font-medium text-gray-700 mb-2">
+                                Subtitle <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="approach_subtitle"
+                                v-model="approachForm.subtitle"
+                                rows="2"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="e.g., How We Transform Your Data Vision Into Reality"
+                                :class="{ 'border-red-500': approachErrors.subtitle }"
+                            ></textarea>
+                            <p v-if="approachErrors.subtitle" class="mt-1 text-sm text-red-600">{{ approachErrors.subtitle }}</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- CTA Text -->
+                            <div>
+                                <label for="approach_cta_text" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Call-to-Action Text <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="approach_cta_text"
+                                    v-model="approachForm.cta_text"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., Book A Discovery Session"
+                                    :class="{ 'border-red-500': approachErrors.cta_text }"
+                                />
+                                <p v-if="approachErrors.cta_text" class="mt-1 text-sm text-red-600">{{ approachErrors.cta_text }}</p>
+                            </div>
+
+                            <!-- Background Color -->
+                            <div>
+                                <label for="approach_background_color" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Background Color
+                                </label>
+                                <select
+                                    id="approach_background_color"
+                                    v-model="approachForm.background_color"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    :class="{ 'border-red-500': approachErrors.background_color }"
+                                >
+                                    <option value="bg-white">White</option>
+                                    <option value="bg-gray-50">Light Gray</option>
+                                    <option value="bg-gray-100">Gray</option>
+                                    <option value="bg-blue-50">Light Blue</option>
+                                    <option value="bg-green-50">Light Green</option>
+                                </select>
+                                <p v-if="approachErrors.background_color" class="mt-1 text-sm text-red-600">{{ approachErrors.background_color }}</p>
+                            </div>
+                        </div>
+
+                        <!-- CTA Link -->
+                        <div>
+                            <label for="approach_cta_link" class="block text-sm font-medium text-gray-700 mb-2">
+                                Call-to-Action Link (Optional)
+                            </label>
+                            <input
+                                type="url"
+                                id="approach_cta_link"
+                                v-model="approachForm.cta_link"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="https://example.com"
+                                :class="{ 'border-red-500': approachErrors.cta_link }"
+                            />
+                            <p v-if="approachErrors.cta_link" class="mt-1 text-sm text-red-600">{{ approachErrors.cta_link }}</p>
+                        </div>
+
+                        <!-- Approach Steps Management -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Approach Steps</h3>
+                                <button
+                                    type="button"
+                                    @click="addApproachStep"
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-brand-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                >
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Add Step
+                                </button>
+                            </div>
+
+                            <!-- Approach Steps List -->
+                            <div v-if="approachSection?.steps?.length" class="space-y-4">
+                                <div
+                                    v-for="(step, index) in approachSection.steps"
+                                    :key="step.id"
+                                    class="border border-gray-300 rounded-lg p-4 bg-gray-50"
+                                >
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <div class="flex-shrink-0">
+                                                    <div class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center">
+                                                        <span class="text-white font-bold text-sm">{{ step.number }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h4 class="text-sm font-medium text-gray-900 truncate">{{ step.title }}</h4>
+                                                    <p class="text-xs text-gray-500">Sort Order: {{ step.sort_order }}</p>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span :class="step.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                                        {{ step.is_active ? 'Active' : 'Inactive' }}
+                                                    </span>
+                                                    <button
+                                                        type="button"
+                                                        @click="editApproachStep(step)"
+                                                        class="text-brand-red hover:text-red-700"
+                                                    >
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        @click="deleteApproachStep(step)"
+                                                        class="text-red-600 hover:text-red-800"
+                                                    >
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mb-1"><strong>Short:</strong> {{ step.short_description }}</p>
+                                            <p class="text-sm text-gray-600"><strong>Description:</strong> {{ step.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-else class="text-center py-8 text-gray-500">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                <p>No approach steps found. Run the seeder or add steps manually.</p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end">
+                            <button
+                                type="submit"
+                                :disabled="approachProcessing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span v-if="approachProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                {{ approachProcessing ? 'Saving...' : 'Save Approach Section' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Service Modal -->
         <div v-if="showAddServiceModal" class="fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -890,6 +1107,173 @@
                 </div>
             </div>
         </div>
+
+        <!-- Approach Step Modal -->
+        <div v-if="showAddApproachStepModal" class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Background overlay -->
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="cancelApproachStepEdit"></div>
+
+                <!-- Modal content -->
+                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                                {{ editingApproachStep ? 'Edit Approach Step' : 'Add Approach Step' }}
+                            </h3>
+
+                            <form @submit.prevent="saveApproachStep">
+                                <div class="space-y-4">
+                                    <!-- Number -->
+                                    <div>
+                                        <label for="step-number" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Step Number
+                                        </label>
+                                        <input
+                                            id="step-number"
+                                            v-model.number="approachStepForm.number"
+                                            type="number"
+                                            min="1"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': approachStepErrors.number }"
+                                        />
+                                        <p v-if="approachStepErrors.number" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.number }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Title -->
+                                    <div>
+                                        <label for="step-title" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Title
+                                        </label>
+                                        <input
+                                            id="step-title"
+                                            v-model="approachStepForm.title"
+                                            type="text"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': approachStepErrors.title }"
+                                        />
+                                        <p v-if="approachStepErrors.title" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.title }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Short Description -->
+                                    <div>
+                                        <label for="step-short-description" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Short Description
+                                        </label>
+                                        <input
+                                            id="step-short-description"
+                                            v-model="approachStepForm.short_description"
+                                            type="text"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': approachStepErrors.short_description }"
+                                        />
+                                        <p v-if="approachStepErrors.short_description" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.short_description }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div>
+                                        <label for="step-description" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Description
+                                        </label>
+                                        <textarea
+                                            id="step-description"
+                                            v-model="approachStepForm.description"
+                                            rows="3"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': approachStepErrors.description }"
+                                        ></textarea>
+                                        <p v-if="approachStepErrors.description" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.description }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Icon SVG -->
+                                    <div>
+                                        <label for="step-icon" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Icon SVG
+                                        </label>
+                                        <textarea
+                                            id="step-icon"
+                                            v-model="approachStepForm.icon_svg"
+                                            rows="3"
+                                            placeholder="<path d='...'/>"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red font-mono"
+                                            :class="{ 'border-red-500': approachStepErrors.icon_svg }"
+                                        ></textarea>
+                                        <p v-if="approachStepErrors.icon_svg" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.icon_svg }}
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-500">
+                                            Enter the path elements for the SVG icon (without &lt;svg&gt; wrapper)
+                                        </p>
+                                    </div>
+
+                                    <!-- Sort Order -->
+                                    <div>
+                                        <label for="step-sort-order" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Sort Order
+                                        </label>
+                                        <input
+                                            id="step-sort-order"
+                                            v-model.number="approachStepForm.sort_order"
+                                            type="number"
+                                            min="1"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': approachStepErrors.sort_order }"
+                                        />
+                                        <p v-if="approachStepErrors.sort_order" class="mt-1 text-sm text-red-600">
+                                            {{ approachStepErrors.sort_order }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Is Active -->
+                                    <div class="flex items-center">
+                                        <input
+                                            id="step-is-active"
+                                            v-model="approachStepForm.is_active"
+                                            type="checkbox"
+                                            class="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                                        />
+                                        <label for="step-is-active" class="ml-2 block text-sm text-gray-700">
+                                            Active
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                        type="submit"
+                                        :disabled="approachStepProcessing"
+                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-brand-red text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                    >
+                                        <span v-if="approachStepProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                        {{ approachStepProcessing ? 'Saving...' : (editingApproachStep ? 'Update' : 'Add') }} Step
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="cancelApproachStepEdit"
+                                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:mt-0 sm:w-auto sm:text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AdminLayout>
 </template>
 
@@ -903,7 +1287,8 @@ const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
     storySection: Object,
-    whatWeDoSection: Object
+    whatWeDoSection: Object,
+    approachSection: Object
 });
 
 // Reactive data
@@ -919,6 +1304,10 @@ const whatWeDoProcessing = ref(false);
 const whatWeDoErrors = ref({});
 const showAddServiceModal = ref(false);
 const editingService = ref(null);
+const approachProcessing = ref(false);
+const approachErrors = ref({});
+const showAddApproachStepModal = ref(false);
+const editingApproachStep = ref(null);
 
 // Define sections for navigation
 const sections = ref([
@@ -941,6 +1330,11 @@ const sections = ref([
         id: 'what-we-do-section',
         name: 'What We Do',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>'
+    },
+    {
+        id: 'approach-section',
+        name: 'Our Approach',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'
     }
 ]);
 
@@ -991,6 +1385,31 @@ const serviceForm = reactive({
 
 const serviceProcessing = ref(false);
 const serviceErrors = ref({});
+
+// Approach form
+const approachForm = reactive({
+    header_tag: props.approachSection?.header_tag || 'HOW WE WORK',
+    title: props.approachSection?.title || 'Our Data-First Approach',
+    subtitle: props.approachSection?.subtitle || 'How We Transform Your Data Vision Into Reality',
+    cta_text: props.approachSection?.cta_text || 'Book A Discovery Session',
+    cta_link: props.approachSection?.cta_link || '',
+    background_color: props.approachSection?.background_color || 'bg-white',
+    is_active: props.approachSection?.is_active ?? true
+});
+
+// Approach Step form
+const approachStepForm = reactive({
+    number: 1,
+    title: '',
+    short_description: '',
+    description: '',
+    icon_svg: '',
+    sort_order: 1,
+    is_active: true
+});
+
+const approachStepProcessing = ref(false);
+const approachStepErrors = ref({});
 
 // Methods
 const scrollToSection = (sectionId) => {
@@ -1217,6 +1636,88 @@ const cancelServiceEdit = () => {
     serviceForm.icon_svg = '';
     serviceForm.sort_order = 1;
     serviceForm.is_active = true;
+};
+
+// Approach Section Methods
+const updateApproach = () => {
+    approachProcessing.value = true;
+    approachErrors.value = {};
+
+    router.put(route('admin.about-us.approach.update'), approachForm, {
+        onSuccess: () => {
+            approachProcessing.value = false;
+        },
+        onError: (errors) => {
+            approachErrors.value = errors;
+            approachProcessing.value = false;
+        }
+    });
+};
+
+// Approach Step Methods
+const addApproachStep = () => {
+    approachStepForm.number = props.approachSection?.steps?.length ? Math.max(...props.approachSection.steps.map(s => s.number)) + 1 : 1;
+    approachStepForm.title = '';
+    approachStepForm.short_description = '';
+    approachStepForm.description = '';
+    approachStepForm.icon_svg = '';
+    approachStepForm.sort_order = props.approachSection?.steps?.length ? Math.max(...props.approachSection.steps.map(s => s.sort_order)) + 1 : 1;
+    approachStepForm.is_active = true;
+    editingApproachStep.value = null;
+    showAddApproachStepModal.value = true;
+};
+
+const editApproachStep = (step) => {
+    approachStepForm.number = step.number;
+    approachStepForm.title = step.title;
+    approachStepForm.short_description = step.short_description;
+    approachStepForm.description = step.description;
+    approachStepForm.icon_svg = step.icon_svg;
+    approachStepForm.sort_order = step.sort_order;
+    approachStepForm.is_active = step.is_active;
+    editingApproachStep.value = step;
+    showAddApproachStepModal.value = true;
+};
+
+const saveApproachStep = () => {
+    approachStepProcessing.value = true;
+    approachStepErrors.value = {};
+
+    const url = editingApproachStep.value
+        ? route('admin.about-us.approach.steps.update', editingApproachStep.value.id)
+        : route('admin.about-us.approach.steps.store');
+
+    const method = editingApproachStep.value ? 'put' : 'post';
+
+    router[method](url, approachStepForm, {
+        onSuccess: () => {
+            approachStepProcessing.value = false;
+            showAddApproachStepModal.value = false;
+            editingApproachStep.value = null;
+        },
+        onError: (errors) => {
+            approachStepErrors.value = errors;
+            approachStepProcessing.value = false;
+        }
+    });
+};
+
+const deleteApproachStep = (step) => {
+    if (confirm(`Are you sure you want to delete "${step.title}"?`)) {
+        router.delete(route('admin.about-us.approach.steps.delete', step.id));
+    }
+};
+
+const cancelApproachStepEdit = () => {
+    showAddApproachStepModal.value = false;
+    editingApproachStep.value = null;
+    approachStepForm.number = 1;
+    approachStepForm.title = '';
+    approachStepForm.short_description = '';
+    approachStepForm.description = '';
+    approachStepForm.icon_svg = '';
+    approachStepForm.sort_order = 1;
+    approachStepForm.is_active = true;
 };
 
 // Intersection Observer for active section highlighting

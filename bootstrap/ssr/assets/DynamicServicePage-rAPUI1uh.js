@@ -3,7 +3,7 @@ import { ssrRenderAttrs, ssrRenderComponent, ssrRenderAttr, ssrRenderList } from
 import { Head } from "@inertiajs/vue3";
 import { H as Header } from "./Header-DHb6HnRe.js";
 import { S as ServiceHero, I as ImageContentSection, a as ServicesGrid, O as OurApproach, K as KeyBenefits, P as PlatformsWeWorkWith, W as WhyChooseUs, b as InsightsResourcesSection, F as FAQSection } from "./FAQSection-D4wtjyas.js";
-import { P as ParnerBadge, S as ServiceCTA } from "./ServiceCTA-vMtExxvY.js";
+import { P as ParnerBadge, S as ServiceCTA } from "./ServiceCTA-JoLLeJ3z.js";
 import { F as FooterSection } from "./FooterSection-Cp7kRGnW.js";
 import { u as useCanonical } from "./useCanonical-DTCbHnHl.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";

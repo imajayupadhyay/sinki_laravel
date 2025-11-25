@@ -1,5 +1,5 @@
 <template>
-    <section class="our-approach-section bg-white py-20 lg:py-32 relative overflow-hidden w-full">
+    <section class="our-approach-section py-20 lg:py-32 relative overflow-hidden w-full" :class="backgroundColor">
         <!-- Background decorative elements -->
         <div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed"></div>
@@ -16,12 +16,12 @@
 
                 <!-- Main Title -->
                 <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4">
-                    Our Data-First Approach
+                    {{ title }}
                 </h2>
 
                 <!-- Subtitle -->
                 <p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto">
-                    How We Transform Your Data Vision Into Reality
+                    {{ subtitle }}
                 </p>
             </div>
 
@@ -57,7 +57,7 @@
 
                         <!-- Step Items -->
                         <div
-                            v-for="(step, index) in approachSteps"
+                            v-for="(step, index) in dynamicSteps"
                             :key="index"
                             class="flex-1 relative z-10 max-w-[400px]"
                         >
@@ -66,7 +66,7 @@
                                 <div class="step-circle w-[90px] h-[90px] bg-brand-red rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-500 group cursor-pointer">
                                     <component
                                         :is="'div'"
-                                        v-html="step.icon"
+                                        v-html="step.icon_svg || step.icon"
                                         class="w-12 h-12 text-white"
                                     />
                                 </div>
@@ -78,7 +78,7 @@
                                     {{ step.number }}. {{ step.title }}
                                 </h3>
                                 <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
-                                    {{ step.shortDescription }}
+                                    {{ step.short_description || step.shortDescription }}
                                 </p>
                                 <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
                                     {{ step.description }}
@@ -91,10 +91,10 @@
                 <!-- Mobile/Tablet Flow (below lg) -->
                 <div class="lg:hidden">
                     <div
-                        v-for="(step, index) in approachSteps"
+                        v-for="(step, index) in dynamicSteps"
                         :key="index"
                         class="relative"
-                        :class="index < approachSteps.length - 1 ? 'mb-8' : ''"
+                        :class="index < dynamicSteps.length - 1 ? 'mb-8' : ''"
                     >
                         <div class="flex items-start gap-6">
                             <!-- Step Circle with Icon -->
@@ -102,7 +102,7 @@
                                 <div class="step-circle w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center shadow-lg">
                                     <component
                                         :is="'div'"
-                                        v-html="step.icon"
+                                        v-html="step.icon_svg || step.icon"
                                         class="w-8 h-8 text-white"
                                     />
                                 </div>
@@ -114,7 +114,7 @@
                                     {{ step.number }}. {{ step.title }}
                                 </h3>
                                 <p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2">
-                                    {{ step.shortDescription }}
+                                    {{ step.short_description || step.shortDescription }}
                                 </p>
                                 <p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]">
                                     {{ step.description }}
@@ -123,7 +123,7 @@
                         </div>
 
                         <!-- Connecting line for mobile - positioned after each step -->
-                        <div v-if="index < approachSteps.length - 1" class="flex justify-start ml-[35px] mt-4 mb-4">
+                        <div v-if="index < dynamicSteps.length - 1" class="flex justify-start ml-[35px] mt-4 mb-4">
                             <div class="w-[2px] h-8 bg-brand-red rounded-full"></div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
 </template>
 
 <script setup>
-import { reactive, defineProps, defineEmits, ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { reactive, defineProps, defineEmits, ref, onMounted, onUnmounted, nextTick, computed } from 'vue';
 
 // Props for customization
 const props = defineProps({
@@ -215,16 +215,36 @@ const props = defineProps({
     },
     title: {
         type: String,
-        default: 'Our Approach'
+        default: 'Our Data-First Approach'
     },
     subtitle: {
         type: String,
-        default: 'A clear, outcome-driven approach that keeps your business goals at the center.'
+        default: 'How We Transform Your Data Vision Into Reality'
     },
     ctaText: {
         type: String,
         default: 'Book A Discovery Session'
+    },
+    ctaLink: {
+        type: String,
+        default: null
+    },
+    backgroundColor: {
+        type: String,
+        default: 'bg-white'
+    },
+    steps: {
+        type: Array,
+        default: () => []
     }
+});
+
+// Computed property to use dynamic steps or fallback to static ones
+const dynamicSteps = computed(() => {
+    if (props.steps && props.steps.length > 0) {
+        return props.steps;
+    }
+    return approachSteps;
 });
 
 // Emits

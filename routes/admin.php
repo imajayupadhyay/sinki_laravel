@@ -160,6 +160,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/about-us/what-we-do/items', [App\Http\Controllers\Admin\AboutUsController::class, 'storeWhatWeDoItem'])->name('about-us.what-we-do.items.store');
     Route::put('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhatWeDoItem'])->name('about-us.what-we-do.items.update');
     Route::delete('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhatWeDoItem'])->name('about-us.what-we-do.items.delete');
+    Route::put('/about-us/approach', [App\Http\Controllers\Admin\AboutUsController::class, 'updateApproach'])->name('about-us.approach.update');
+    Route::post('/about-us/approach/steps', [App\Http\Controllers\Admin\AboutUsController::class, 'storeApproachStep'])->name('about-us.approach.steps.store');
+    Route::put('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateApproachStep'])->name('about-us.approach.steps.update');
+    Route::delete('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteApproachStep'])->name('about-us.approach.steps.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

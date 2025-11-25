@@ -1,12 +1,15 @@
 import { mergeProps, useSSRContext } from "vue";
-import { ssrRenderAttrs, ssrRenderAttr, ssrInterpolate } from "vue/server-renderer";
+import { ssrRenderAttrs, ssrInterpolate, ssrRenderAttr } from "vue/server-renderer";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
 const _sfc_main$1 = {
   __name: "ParnerBadge",
   __ssrInlineRender: true,
+  props: {
+    partnerBadge: Object
+  },
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "partner-badge-section bg-brand-light border-b border-gray-200" }, _attrs))} data-v-96195df5><div class="container mx-auto px-6 sm:px-8 lg:px-12" data-v-96195df5><div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 h-auto sm:h-[60px] py-4 sm:py-0" data-v-96195df5><span class="text-brand-dark text-base sm:text-xl font-medium tracking-wide text-center" data-v-96195df5> An Official Databricks Partner </span><div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center" data-v-96195df5><img src="/images/databricks-dark.webp" alt="Databricks Logo" class="h-5 sm:h-6 partner-logo w-auto max-w-full" data-v-96195df5></div></div></div></section>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "partner-badge-section bg-brand-light border-b border-gray-200" }, _attrs))} data-v-46781aa2><div class="container mx-auto px-6 sm:px-8 lg:px-12" data-v-46781aa2><div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 h-auto sm:h-[60px] py-4 sm:py-0" data-v-46781aa2><span class="text-brand-dark text-base sm:text-xl font-medium tracking-wide text-center" data-v-46781aa2>${ssrInterpolate(__props.partnerBadge?.text || "An Official Databricks Partner")}</span><div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center" data-v-46781aa2><img${ssrRenderAttr("src", __props.partnerBadge?.logo_image ? `/storage/${__props.partnerBadge.logo_image}` : "/images/databricks-dark.webp")}${ssrRenderAttr("alt", __props.partnerBadge?.logo_alt || "Databricks Logo")} class="h-5 sm:h-6 partner-logo w-auto max-w-full" data-v-46781aa2></div></div></div></section>`);
     };
   }
 };
@@ -16,7 +19,7 @@ _sfc_main$1.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/Services/ParnerBadge.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
-const ParnerBadge = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-96195df5"]]);
+const ParnerBadge = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-46781aa2"]]);
 const _sfc_main = {
   __name: "ServiceCTA",
   __ssrInlineRender: true,

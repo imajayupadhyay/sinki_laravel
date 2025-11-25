@@ -1,14 +1,17 @@
-import { onMounted, mergeProps, useSSRContext, ref, onUnmounted, reactive, createVNode, resolveDynamicComponent, unref, withCtx } from "vue";
-import { ssrRenderAttrs, ssrRenderClass, ssrInterpolate, ssrRenderList, ssrRenderStyle, ssrRenderAttr, ssrRenderVNode, ssrRenderTeleport, ssrRenderComponent } from "vue/server-renderer";
+import { onMounted, mergeProps, useSSRContext, computed, reactive, ref, onUnmounted, createVNode, resolveDynamicComponent, unref, withCtx } from "vue";
+import { ssrRenderAttrs, ssrRenderAttr, ssrInterpolate, ssrRenderClass, ssrRenderList, ssrRenderStyle, ssrRenderVNode, ssrRenderTeleport, ssrRenderComponent } from "vue/server-renderer";
 import { Head } from "@inertiajs/vue3";
 import { H as Header } from "./Header-DHb6HnRe.js";
 import { F as FooterSection } from "./FooterSection-Cp7kRGnW.js";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper-1tPrXgE0.js";
-import { P as ParnerBadge, S as ServiceCTA } from "./ServiceCTA-vMtExxvY.js";
+import { P as ParnerBadge, S as ServiceCTA } from "./ServiceCTA-JoLLeJ3z.js";
 import { u as useCanonical } from "./useCanonical-DTCbHnHl.js";
 const _sfc_main$6 = {
   __name: "AboutHero",
   __ssrInlineRender: true,
+  props: {
+    heroSection: Object
+  },
   setup(__props) {
     onMounted(() => {
       if (typeof AOS !== "undefined") {
@@ -19,7 +22,25 @@ const _sfc_main$6 = {
       }
     });
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "relative overflow-hidden min-h-[65vh]" }, _attrs))} data-v-7ab6c033><div class="absolute inset-0" data-v-7ab6c033><img src="/images/aboutheroback.png" alt="About Us Banner" class="w-full h-full object-cover" data-v-7ab6c033><div class="absolute inset-0 bg-black bg-opacity-30" data-v-7ab6c033></div></div><div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-28 sm:pt-32 md:pt-36 lg:pt-40 xl:pt-48 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-36" data-v-7ab6c033><div class="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center" data-v-7ab6c033><div class="flex-1 lg:w-3/4 space-y-4 sm:space-y-5 md:space-y-6" data-v-7ab6c033><h1 class="text-[28px] sm:text-[32px] md:text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] sm:leading-[1.15] md:leading-[1.1] font-bold text-white mt-2 sm:mt-4 md:mt-6 animate-slide-up" data-v-7ab6c033> We Turn Complex Data<br class="hidden sm:block" data-v-7ab6c033><span class="sm:hidden" data-v-7ab6c033> into Clear,</span><span class="hidden sm:inline" data-v-7ab6c033> into Clear, Actionable Intelligence</span><br class="sm:hidden" data-v-7ab6c033><span class="sm:hidden" data-v-7ab6c033>Actionable Intelligence</span></h1><p class="text-[16px] sm:text-[18px] md:text-xl lg:text-[28px] leading-relaxed sm:leading-[28px] md:leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed" data-v-7ab6c033> Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI. </p></div><div class="lg:w-1/4 flex justify-center lg:justify-end" data-v-7ab6c033><div class="relative" data-v-7ab6c033><div class="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in" data-v-7ab6c033><img src="/images/rightlogo.png" alt="Sinki Logo" class="w-full h-full object-contain animate-glow" data-v-7ab6c033></div></div></div></div></div></section>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "relative overflow-hidden min-h-[65vh]" }, _attrs))} data-v-c20ec5f2><div class="absolute inset-0" data-v-c20ec5f2><img${ssrRenderAttr("src", __props.heroSection?.background_image ? `/storage/${__props.heroSection.background_image}` : "/images/aboutheroback.png")} alt="About Us Banner" class="w-full h-full object-cover" data-v-c20ec5f2><div class="absolute inset-0 bg-black bg-opacity-30" data-v-c20ec5f2></div></div><div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px] relative z-10 pt-28 sm:pt-32 md:pt-36 lg:pt-40 xl:pt-48 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-36" data-v-c20ec5f2><div class="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center" data-v-c20ec5f2><div class="flex-1 lg:w-3/4 space-y-4 sm:space-y-5 md:space-y-6" data-v-c20ec5f2><h1 class="text-[28px] sm:text-[32px] md:text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] sm:leading-[1.15] md:leading-[1.1] font-bold text-white mt-2 sm:mt-4 md:mt-6 animate-slide-up" data-v-c20ec5f2>`);
+      if (__props.heroSection?.heading) {
+        _push(`<span data-v-c20ec5f2>${__props.heroSection.heading ?? ""}</span>`);
+      } else {
+        _push(`<!--[--> We Turn Complex Data<br class="hidden sm:block" data-v-c20ec5f2><span class="sm:hidden" data-v-c20ec5f2> into Clear,</span><span class="hidden sm:inline" data-v-c20ec5f2> into Clear, Actionable Intelligence</span><br class="sm:hidden" data-v-c20ec5f2><span class="sm:hidden" data-v-c20ec5f2>Actionable Intelligence</span><!--]-->`);
+      }
+      _push(`</h1><p class="text-[16px] sm:text-[18px] md:text-xl lg:text-[28px] leading-relaxed sm:leading-[28px] md:leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed" data-v-c20ec5f2>`);
+      if (__props.heroSection?.paragraph) {
+        _push(`<span data-v-c20ec5f2>${ssrInterpolate(__props.heroSection.paragraph)}</span>`);
+      } else {
+        _push(`<span data-v-c20ec5f2>Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.</span>`);
+      }
+      _push(`</p>`);
+      if (__props.heroSection?.cta_text && __props.heroSection?.cta_link) {
+        _push(`<div class="animate-slide-up-delayed" data-v-c20ec5f2><a${ssrRenderAttr("href", __props.heroSection.cta_link)} class="inline-flex items-center px-6 py-3 bg-brand-red text-white font-semibold text-lg rounded-lg hover:bg-red-700 transition-colors duration-300" data-v-c20ec5f2>${ssrInterpolate(__props.heroSection.cta_text)}</a></div>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div><div class="lg:w-1/4 flex justify-center lg:justify-end" data-v-c20ec5f2><div class="relative" data-v-c20ec5f2><div class="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px] lg:w-[300px] lg:h-[300px] animate-float-in" data-v-c20ec5f2><img src="/images/rightlogo.png" alt="Sinki Logo" class="w-full h-full object-contain animate-glow" data-v-c20ec5f2></div></div></div></div></div></section>`);
     };
   }
 };
@@ -29,7 +50,7 @@ _sfc_main$6.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/AboutUs/AboutHero.vue");
   return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
 };
-const AboutHero = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-7ab6c033"]]);
+const AboutHero = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-c20ec5f2"]]);
 const _sfc_main$5 = {
   __name: "AboutStorySection",
   __ssrInlineRender: true,
@@ -111,22 +132,43 @@ const _sfc_main$4 = {
       type: String,
       default: "We help enterprises harness the full power of Databricks to unify data, analytics, and AI."
     },
+    backgroundImage: {
+      type: String,
+      default: null
+    },
     services: {
       type: Array,
       default: () => []
     }
   },
   setup(__props) {
+    const props = __props;
+    const serviceItems = computed(() => {
+      if (props.services && props.services.length > 0) {
+        return props.services.filter((service) => service.is_active).sort((a, b) => a.sort_order - b.sort_order);
+      }
+      return [];
+    });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<section${ssrRenderAttrs(mergeProps({
         class: "what-we-do-section relative overflow-hidden py-20 lg:py-32",
         style: {
-          backgroundImage: "url(/images/aboutussecbanner.png)",
+          backgroundImage: __props.backgroundImage ? `url(/storage/${__props.backgroundImage})` : "url(/images/aboutussecbanner.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat"
         }
-      }, _attrs))} data-v-128bd647><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10" data-v-128bd647><div class="text-center mb-18 lg:mb-24" data-v-128bd647><div class="section-header mb-8 animate-fade-in-up" data-v-128bd647><span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80" data-v-128bd647>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up-title" data-v-128bd647>${ssrInterpolate(__props.title)}</h2><p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-subtitle whitespace-nowrap lg:whitespace-nowrap md:whitespace-normal sm:whitespace-normal" data-v-128bd647>${ssrInterpolate(__props.subtitle)}</p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8" data-v-128bd647><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1" data-v-128bd647><div class="flex items-start gap-6" data-v-128bd647><div class="flex-shrink-0" data-v-128bd647><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-128bd647><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-128bd647><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" data-v-128bd647></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" data-v-128bd647></path></svg></div></div><div class="flex-1" data-v-128bd647><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-128bd647> Data Engineering &amp; Modernization </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-128bd647> Design and build resilient lakehouse architectures &amp; automated pipelines that deliver reliable, analytics-ready data. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-2" data-v-128bd647><div class="flex items-start gap-6" data-v-128bd647><div class="flex-shrink-0" data-v-128bd647><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-128bd647><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-128bd647><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" data-v-128bd647></path></svg></div></div><div class="flex-1" data-v-128bd647><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-128bd647> Data Management &amp; Governance </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-128bd647> Establish strong governance with Unity Catalog-aligned lineage, metadata management, and compliance automation. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-3" data-v-128bd647><div class="flex items-start gap-6" data-v-128bd647><div class="flex-shrink-0" data-v-128bd647><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-128bd647><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-128bd647><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" data-v-128bd647></path></svg></div></div><div class="flex-1" data-v-128bd647><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-128bd647> Data Analytics &amp; Business Intelligence </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-128bd647> Transform raw data into interactive dashboards, KPIs, and insights that drive faster decisions. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-4" data-v-128bd647><div class="flex items-start gap-6" data-v-128bd647><div class="flex-shrink-0" data-v-128bd647><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-128bd647><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-128bd647><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" data-v-128bd647></path></svg></div></div><div class="flex-1" data-v-128bd647><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-128bd647> AI &amp; ML Solutions </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-128bd647> Operationalize AI with scalable, production-ready models that enable prediction, automation, and continuous improvement. </p></div></div></div></div></div></section>`);
+      }, _attrs))} data-v-5d8accd5><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10" data-v-5d8accd5><div class="text-center mb-18 lg:mb-24" data-v-5d8accd5><div class="section-header mb-8 animate-fade-in-up" data-v-5d8accd5><span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80" data-v-5d8accd5>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 animate-slide-up-title" data-v-5d8accd5>${ssrInterpolate(__props.title)}</h2><p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto animate-slide-up-subtitle whitespace-nowrap lg:whitespace-nowrap md:whitespace-normal sm:whitespace-normal" data-v-5d8accd5>${ssrInterpolate(__props.subtitle)}</p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8" data-v-5d8accd5><!--[-->`);
+      ssrRenderList(serviceItems.value, (service, index) => {
+        _push(`<div class="${ssrRenderClass(`service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-${index + 1}`)}" style="${ssrRenderStyle(service.is_active ? null : { display: "none" })}" data-v-5d8accd5><div class="flex items-start gap-6" data-v-5d8accd5><div class="flex-shrink-0" data-v-5d8accd5><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-5d8accd5><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5d8accd5>${service.icon_svg ?? ""}</svg></div></div><div class="flex-1" data-v-5d8accd5><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-5d8accd5>${ssrInterpolate(service.title)}</h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-5d8accd5>${ssrInterpolate(service.description)}</p></div></div></div>`);
+      });
+      _push(`<!--]-->`);
+      if (serviceItems.value.length === 0) {
+        _push(`<!--[--><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1" data-v-5d8accd5><div class="flex items-start gap-6" data-v-5d8accd5><div class="flex-shrink-0" data-v-5d8accd5><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-5d8accd5><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5d8accd5><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" data-v-5d8accd5></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" data-v-5d8accd5></path></svg></div></div><div class="flex-1" data-v-5d8accd5><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-5d8accd5> Data Engineering &amp; Modernization </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-5d8accd5> Design and build resilient lakehouse architectures &amp; automated pipelines that deliver reliable, analytics-ready data. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-2" data-v-5d8accd5><div class="flex items-start gap-6" data-v-5d8accd5><div class="flex-shrink-0" data-v-5d8accd5><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-5d8accd5><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5d8accd5><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" data-v-5d8accd5></path></svg></div></div><div class="flex-1" data-v-5d8accd5><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-5d8accd5> Data Management &amp; Governance </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-5d8accd5> Establish strong governance with Unity Catalog-aligned lineage, metadata management, and compliance automation. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-3" data-v-5d8accd5><div class="flex items-start gap-6" data-v-5d8accd5><div class="flex-shrink-0" data-v-5d8accd5><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-5d8accd5><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5d8accd5><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" data-v-5d8accd5></path></svg></div></div><div class="flex-1" data-v-5d8accd5><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-5d8accd5> Data Analytics &amp; Business Intelligence </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-5d8accd5> Transform raw data into interactive dashboards, KPIs, and insights that drive faster decisions. </p></div></div></div><div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-4" data-v-5d8accd5><div class="flex items-start gap-6" data-v-5d8accd5><div class="flex-shrink-0" data-v-5d8accd5><div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl" data-v-5d8accd5><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5d8accd5><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" data-v-5d8accd5></path></svg></div></div><div class="flex-1" data-v-5d8accd5><h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-5d8accd5> AI &amp; ML Solutions </h3><p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90" data-v-5d8accd5> Operationalize AI with scalable, production-ready models that enable prediction, automation, and continuous improvement. </p></div></div></div><!--]-->`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div></div></section>`);
     };
   }
 };
@@ -136,7 +178,7 @@ _sfc_main$4.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/AboutUs/WhatWeDoSection.vue");
   return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
 };
-const WhatWeDoSection = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-128bd647"]]);
+const WhatWeDoSection = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-5d8accd5"]]);
 const _sfc_main$3 = {
   __name: "OurApproachSection",
   __ssrInlineRender: true,
@@ -147,19 +189,38 @@ const _sfc_main$3 = {
     },
     title: {
       type: String,
-      default: "Our Approach"
+      default: "Our Data-First Approach"
     },
     subtitle: {
       type: String,
-      default: "A clear, outcome-driven approach that keeps your business goals at the center."
+      default: "How We Transform Your Data Vision Into Reality"
     },
     ctaText: {
       type: String,
       default: "Book A Discovery Session"
+    },
+    ctaLink: {
+      type: String,
+      default: null
+    },
+    backgroundColor: {
+      type: String,
+      default: "bg-white"
+    },
+    steps: {
+      type: Array,
+      default: () => []
     }
   },
   emits: ["cta-click"],
   setup(__props, { emit: __emit }) {
+    const props = __props;
+    const dynamicSteps = computed(() => {
+      if (props.steps && props.steps.length > 0) {
+        return props.steps;
+      }
+      return approachSteps;
+    });
     const showCalendlyModal = ref(false);
     const isLoading = ref(false);
     const loadingProgress = ref(0);
@@ -212,37 +273,39 @@ const _sfc_main$3 = {
       }
     ]);
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "our-approach-section bg-white py-20 lg:py-32 relative overflow-hidden w-full" }, _attrs))} data-v-2c290a8a><div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse" data-v-2c290a8a></div><div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed" data-v-2c290a8a></div><div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20 2xl:px-24" data-v-2c290a8a><div class="text-center mb-18 lg:mb-24" data-v-2c290a8a><div class="section-header mb-8" data-v-2c290a8a><span class="text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider" data-v-2c290a8a>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4" data-v-2c290a8a> Our Data-First Approach </h2><p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto" data-v-2c290a8a> How We Transform Your Data Vision Into Reality </p></div><div class="relative mb-18 lg:mb-24" data-v-2c290a8a><div class="hidden lg:block" data-v-2c290a8a><div class="flex items-start justify-between relative" data-v-2c290a8a><div class="absolute top-[45px] left-0 w-full h-[2px] z-0 flex items-center justify-between" data-v-2c290a8a><div class="flex-1 flex items-center relative" data-v-2c290a8a><div class="w-full h-[2px] bg-brand-red" data-v-2c290a8a></div><div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full" data-v-2c290a8a><svg width="20" height="14" viewBox="0 0 20 14" fill="none" data-v-2c290a8a><path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" data-v-2c290a8a></path></svg></div></div><div class="flex-1 flex items-center relative ml-4" data-v-2c290a8a><div class="w-full h-[2px] bg-brand-red" data-v-2c290a8a></div><div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full" data-v-2c290a8a><svg width="20" height="14" viewBox="0 0 20 14" fill="none" data-v-2c290a8a><path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" data-v-2c290a8a></path></svg></div></div></div><!--[-->`);
-      ssrRenderList(approachSteps, (step, index) => {
-        _push(`<div class="flex-1 relative z-10 max-w-[400px]" data-v-2c290a8a><div class="flex justify-center mb-6" data-v-2c290a8a><div class="step-circle w-[90px] h-[90px] bg-brand-red rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-500 group cursor-pointer" data-v-2c290a8a>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({
+        class: ["our-approach-section py-20 lg:py-32 relative overflow-hidden w-full", __props.backgroundColor]
+      }, _attrs))} data-v-2470519c><div class="absolute top-10 right-10 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl animate-pulse" data-v-2470519c></div><div class="absolute bottom-10 left-10 w-40 h-40 bg-brand-red/5 rounded-full blur-3xl animate-pulse-delayed" data-v-2470519c></div><div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20 2xl:px-24" data-v-2470519c><div class="text-center mb-18 lg:mb-24" data-v-2470519c><div class="section-header mb-8" data-v-2470519c><span class="text-gray-600 text-sm sm:text-base font-medium uppercase tracking-wider" data-v-2470519c>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4" data-v-2470519c>${ssrInterpolate(__props.title)}</h2><p class="text-brand-dark text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1200px] mx-auto" data-v-2470519c>${ssrInterpolate(__props.subtitle)}</p></div><div class="relative mb-18 lg:mb-24" data-v-2470519c><div class="hidden lg:block" data-v-2470519c><div class="flex items-start justify-between relative" data-v-2470519c><div class="absolute top-[45px] left-0 w-full h-[2px] z-0 flex items-center justify-between" data-v-2470519c><div class="flex-1 flex items-center relative" data-v-2470519c><div class="w-full h-[2px] bg-brand-red" data-v-2470519c></div><div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full" data-v-2470519c><svg width="20" height="14" viewBox="0 0 20 14" fill="none" data-v-2470519c><path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" data-v-2470519c></path></svg></div></div><div class="flex-1 flex items-center relative ml-4" data-v-2470519c><div class="w-full h-[2px] bg-brand-red" data-v-2470519c></div><div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 p-1 rounded-full" data-v-2470519c><svg width="20" height="14" viewBox="0 0 20 14" fill="none" data-v-2470519c><path d="M12 2L18 7L12 12" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" data-v-2470519c></path></svg></div></div></div><!--[-->`);
+      ssrRenderList(dynamicSteps.value, (step, index) => {
+        _push(`<div class="flex-1 relative z-10 max-w-[400px]" data-v-2470519c><div class="flex justify-center mb-6" data-v-2470519c><div class="step-circle w-[90px] h-[90px] bg-brand-red rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-500 group cursor-pointer" data-v-2470519c>`);
         ssrRenderVNode(_push, createVNode(resolveDynamicComponent("div"), { class: "w-12 h-12 text-white" }, null), _parent);
-        _push(`</div></div><div class="text-center space-y-4" data-v-2c290a8a><h3 class="text-brand-dark text-[20px] font-semibold leading-[26px] tracking-[0.4px]" data-v-2c290a8a>${ssrInterpolate(step.number)}. ${ssrInterpolate(step.title)}</h3><p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2" data-v-2c290a8a>${ssrInterpolate(step.shortDescription)}</p><p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]" data-v-2c290a8a>${ssrInterpolate(step.description)}</p></div></div>`);
+        _push(`</div></div><div class="text-center space-y-4" data-v-2470519c><h3 class="text-brand-dark text-[20px] font-semibold leading-[26px] tracking-[0.4px]" data-v-2470519c>${ssrInterpolate(step.number)}. ${ssrInterpolate(step.title)}</h3><p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2" data-v-2470519c>${ssrInterpolate(step.short_description || step.shortDescription)}</p><p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]" data-v-2470519c>${ssrInterpolate(step.description)}</p></div></div>`);
       });
-      _push(`<!--]--></div></div><div class="lg:hidden" data-v-2c290a8a><!--[-->`);
-      ssrRenderList(approachSteps, (step, index) => {
-        _push(`<div class="${ssrRenderClass([index < approachSteps.length - 1 ? "mb-8" : "", "relative"])}" data-v-2c290a8a><div class="flex items-start gap-6" data-v-2c290a8a><div class="flex-shrink-0 relative z-10" data-v-2c290a8a><div class="step-circle w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center shadow-lg" data-v-2c290a8a>`);
+      _push(`<!--]--></div></div><div class="lg:hidden" data-v-2470519c><!--[-->`);
+      ssrRenderList(dynamicSteps.value, (step, index) => {
+        _push(`<div class="${ssrRenderClass([index < dynamicSteps.value.length - 1 ? "mb-8" : "", "relative"])}" data-v-2470519c><div class="flex items-start gap-6" data-v-2470519c><div class="flex-shrink-0 relative z-10" data-v-2470519c><div class="step-circle w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center shadow-lg" data-v-2470519c>`);
         ssrRenderVNode(_push, createVNode(resolveDynamicComponent("div"), { class: "w-8 h-8 text-white" }, null), _parent);
-        _push(`</div></div><div class="flex-1 pt-2" data-v-2c290a8a><h3 class="text-brand-dark text-[18px] font-semibold leading-[24px] tracking-[0.36px] mb-2" data-v-2c290a8a>${ssrInterpolate(step.number)}. ${ssrInterpolate(step.title)}</h3><p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2" data-v-2c290a8a>${ssrInterpolate(step.shortDescription)}</p><p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]" data-v-2c290a8a>${ssrInterpolate(step.description)}</p></div></div>`);
-        if (index < approachSteps.length - 1) {
-          _push(`<div class="flex justify-start ml-[35px] mt-4 mb-4" data-v-2c290a8a><div class="w-[2px] h-8 bg-brand-red rounded-full" data-v-2c290a8a></div></div>`);
+        _push(`</div></div><div class="flex-1 pt-2" data-v-2470519c><h3 class="text-brand-dark text-[18px] font-semibold leading-[24px] tracking-[0.36px] mb-2" data-v-2470519c>${ssrInterpolate(step.number)}. ${ssrInterpolate(step.title)}</h3><p class="text-brand-dark text-[16px] font-medium leading-[24px] tracking-[0.32px] mb-2" data-v-2470519c>${ssrInterpolate(step.short_description || step.shortDescription)}</p><p class="text-brand-dark text-[16px] font-normal leading-[24px] tracking-[0.32px]" data-v-2470519c>${ssrInterpolate(step.description)}</p></div></div>`);
+        if (index < dynamicSteps.value.length - 1) {
+          _push(`<div class="flex justify-start ml-[35px] mt-4 mb-4" data-v-2470519c><div class="w-[2px] h-8 bg-brand-red rounded-full" data-v-2470519c></div></div>`);
         } else {
           _push(`<!---->`);
         }
         _push(`</div>`);
       });
-      _push(`<!--]--></div></div><div class="flex justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-18" data-v-2c290a8a><button class="cta-button group inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl" data-v-2c290a8a>${ssrInterpolate(__props.ctaText)} <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-2c290a8a><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-2c290a8a></path></svg></button></div></div>`);
+      _push(`<!--]--></div></div><div class="flex justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-18" data-v-2470519c><button class="cta-button group inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-dark hover:bg-brand-red border-2 border-brand-dark hover:border-brand-red rounded-full text-white text-base sm:text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-xl" data-v-2470519c>${ssrInterpolate(__props.ctaText)} <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-2470519c><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-2470519c></path></svg></button></div></div>`);
       ssrRenderTeleport(_push, (_push2) => {
         if (showCalendlyModal.value) {
-          _push2(`<div class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" data-v-2c290a8a><div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden relative" data-v-2c290a8a><button class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200" data-v-2c290a8a><svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-2c290a8a><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-v-2c290a8a></path></svg></button><div class="bg-gradient-to-r from-brand-dark to-gray-800 px-8 py-6" data-v-2c290a8a><h2 class="text-2xl sm:text-3xl font-bold text-white" data-v-2c290a8a>Book a Discovery Session</h2><p class="text-gray-300 mt-2" data-v-2c290a8a>Let&#39;s discuss how we can help unlock the value of your data</p></div>`);
+          _push2(`<div class="calendly-modal-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" data-v-2470519c><div class="calendly-modal-container bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden relative" data-v-2470519c><button class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200" data-v-2470519c><svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-2470519c><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-v-2470519c></path></svg></button><div class="bg-gradient-to-r from-brand-dark to-gray-800 px-8 py-6" data-v-2470519c><h2 class="text-2xl sm:text-3xl font-bold text-white" data-v-2470519c>Book a Discovery Session</h2><p class="text-gray-300 mt-2" data-v-2470519c>Let&#39;s discuss how we can help unlock the value of your data</p></div>`);
           if (isLoading.value) {
-            _push2(`<div class="calendly-loading-container px-8 py-20" data-v-2c290a8a><div class="text-center mb-6" data-v-2c290a8a><div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-brand-red mb-4" data-v-2c290a8a></div><p class="text-lg font-semibold text-brand-dark" data-v-2c290a8a>Loading Calendar...</p><p class="text-sm text-gray-500 mt-2" data-v-2c290a8a>${ssrInterpolate(loadingProgress.value)}%</p></div><div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-3 overflow-hidden" data-v-2c290a8a><div class="bg-gradient-to-r from-brand-red to-red-500 h-full rounded-full transition-all duration-300 ease-out" style="${ssrRenderStyle({ width: loadingProgress.value + "%" })}" data-v-2c290a8a></div></div></div>`);
+            _push2(`<div class="calendly-loading-container px-8 py-20" data-v-2470519c><div class="text-center mb-6" data-v-2470519c><div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-brand-red mb-4" data-v-2470519c></div><p class="text-lg font-semibold text-brand-dark" data-v-2470519c>Loading Calendar...</p><p class="text-sm text-gray-500 mt-2" data-v-2470519c>${ssrInterpolate(loadingProgress.value)}%</p></div><div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-3 overflow-hidden" data-v-2470519c><div class="bg-gradient-to-r from-brand-red to-red-500 h-full rounded-full transition-all duration-300 ease-out" style="${ssrRenderStyle({ width: loadingProgress.value + "%" })}" data-v-2470519c></div></div></div>`);
           } else {
             _push2(`<!---->`);
           }
           _push2(`<div class="calendly-widget-wrapper" style="${ssrRenderStyle([
             { "height": "700px", "overflow": "hidden" },
             !isLoading.value ? null : { display: "none" }
-          ])}" data-v-2c290a8a><div class="calendly-inline-widget" data-url="https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services" style="${ssrRenderStyle({ "min-width": "320px", "height": "100%" })}" data-v-2c290a8a></div></div></div></div>`);
+          ])}" data-v-2470519c><div class="calendly-inline-widget" data-url="https://calendly.com/connect-sinki-ai/schedule-a-free-consultation-on-databricks-services" style="${ssrRenderStyle({ "min-width": "320px", "height": "100%" })}" data-v-2470519c></div></div></div></div>`);
         } else {
           _push2(`<!---->`);
         }
@@ -257,7 +320,7 @@ _sfc_main$3.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/AboutUs/OurApproachSection.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const OurApproachSection = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2c290a8a"]]);
+const OurApproachSection = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2470519c"]]);
 const _sfc_main$2 = {
   __name: "WhyPartnerWithUs",
   __ssrInlineRender: true,
@@ -355,7 +418,15 @@ const _sfc_main = /* @__PURE__ */ Object.assign({
 }, {
   __name: "AboutUs",
   __ssrInlineRender: true,
+  props: {
+    heroSection: Object,
+    partnerBadge: Object,
+    storySection: Object,
+    whatWeDoSection: Object,
+    approachSection: Object
+  },
   setup(__props) {
+    const props = __props;
     useCanonical("https://www.sinki.ai/about-us");
     onMounted(() => {
       const structuredData = {
@@ -506,22 +577,38 @@ const _sfc_main = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(ssrRenderComponent(Header, null, null, _parent));
-      _push(ssrRenderComponent(AboutHero, null, null, _parent));
-      _push(ssrRenderComponent(ParnerBadge, null, null, _parent));
+      _push(ssrRenderComponent(AboutHero, { "hero-section": __props.heroSection }, null, _parent));
+      _push(ssrRenderComponent(ParnerBadge, { "partner-badge": __props.partnerBadge }, null, _parent));
       _push(ssrRenderComponent(AboutStorySection, {
-        title: "Sinki, a Name with a Purpose",
-        descriptions: [
+        "header-tag": __props.storySection?.header_tag || "OUR STORY",
+        title: __props.storySection?.title || "Sinki, a Name with a Purpose",
+        subtitle: __props.storySection?.subtitle || "",
+        descriptions: __props.storySection?.descriptions || [
           "The name <em>Sinki</em> is inspired by <strong>Helsinki</strong> — the beautifully designed city of Finland, where every building, lane, and public square is deliberately planned around the needs of its people. Just like Helsinki, where design serves function and purpose, we believe that <strong>data should be organized, purposeful, and designed to serve the people who rely on it.</strong>",
           "Sinki.ai combines Databricks-certified expertise, strategic data thinking, and hands-on engineering to help enterprises turn their data into a foundation that is reliable, compliant, and ready to deliver real business impact, just like a city built for its citizens.",
           "As Helsinki balances functionality with thoughtful design, Sinki.ai delivers structured, reliable, and actionable data solutions that help organizations make smarter decisions."
         ],
-        "image-src": "/images/our story image.png",
-        "image-alt": "Helsinki city representing our inspiration",
-        "image-position": "left",
-        "background-color": "bg-white"
+        "image-src": __props.storySection?.image_path ? `/storage/${__props.storySection.image_path}` : "/images/our story image.png",
+        "image-alt": __props.storySection?.image_alt || "Helsinki city representing our inspiration",
+        "image-position": __props.storySection?.image_position || "left",
+        "background-color": __props.storySection?.background_color || "bg-white"
       }, null, _parent));
-      _push(ssrRenderComponent(WhatWeDoSection, null, null, _parent));
-      _push(ssrRenderComponent(OurApproachSection, null, null, _parent));
+      _push(ssrRenderComponent(WhatWeDoSection, {
+        "header-tag": __props.whatWeDoSection?.header_tag || "HOW WE HELP",
+        title: __props.whatWeDoSection?.title || "What We Do",
+        subtitle: __props.whatWeDoSection?.subtitle || "We help enterprises harness the full power of Databricks to unify data, analytics, and AI.",
+        "background-image": __props.whatWeDoSection?.background_image,
+        services: __props.whatWeDoSection?.items || []
+      }, null, _parent));
+      _push(ssrRenderComponent(OurApproachSection, {
+        "header-tag": props.approachSection?.header_tag || "HOW WE WORK",
+        title: props.approachSection?.title || "Our Data-First Approach",
+        subtitle: props.approachSection?.subtitle || "How We Transform Your Data Vision Into Reality",
+        "cta-text": props.approachSection?.cta_text || "Book A Discovery Session",
+        "cta-link": props.approachSection?.cta_link,
+        "background-color": props.approachSection?.background_color || "bg-white",
+        steps: props.approachSection?.steps || []
+      }, null, _parent));
       _push(ssrRenderComponent(LeadershipSection, null, null, _parent));
       _push(ssrRenderComponent(WhyPartnerWithUs, null, null, _parent));
       _push(ssrRenderComponent(ServiceCTA, {

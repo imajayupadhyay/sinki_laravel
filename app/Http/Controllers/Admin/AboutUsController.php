@@ -8,6 +8,8 @@ use App\Models\AboutUsPartnerBadge;
 use App\Models\AboutUsStorySection;
 use App\Models\AboutUsWhatWeDoSection;
 use App\Models\AboutUsWhatWeDoItem;
+use App\Models\AboutUsApproachSection;
+use App\Models\AboutUsApproachStep;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -22,12 +24,16 @@ class AboutUsController extends Controller
         $whatWeDoSection = AboutUsWhatWeDoSection::with(['items' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $approachSection = AboutUsApproachSection::with(['steps' => function($query) {
+            $query->active()->orderBy('sort_order');
+        }])->active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
             'storySection' => $storySection,
-            'whatWeDoSection' => $whatWeDoSection
+            'whatWeDoSection' => $whatWeDoSection,
+            'approachSection' => $approachSection
         ]);
     }
 
@@ -369,5 +375,93 @@ class AboutUsController extends Controller
         $item->delete();
 
         return back()->with('success', 'Service item deleted successfully!');
+    }
+
+    public function updateApproach(Request $request)
+    {
+        $request->validate([
+            'header_tag' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string',
+            'cta_text' => 'required|string|max:255',
+            'cta_link' => 'nullable|string|max:255',
+            'background_color' => 'nullable|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $approachSection = AboutUsApproachSection::active()->first();
+
+        if ($approachSection) {
+            $approachSection->update($request->only([
+                'header_tag', 'title', 'subtitle', 'cta_text', 'cta_link', 'background_color', 'is_active'
+            ]));
+        } else {
+            $approachSection = AboutUsApproachSection::create($request->only([
+                'header_tag', 'title', 'subtitle', 'cta_text', 'cta_link', 'background_color', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Approach section updated successfully!');
+    }
+
+    public function storeApproachStep(Request $request)
+    {
+        $request->validate([
+            'number' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'short_description' => 'required|string',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $approachSection = AboutUsApproachSection::active()->first();
+
+        if (!$approachSection) {
+            return back()->withErrors(['error' => 'Approach section not found.']);
+        }
+
+        // If no sort_order provided, set to next available
+        $sortOrder = $request->sort_order ?? ($approachSection->steps()->max('sort_order') + 1);
+
+        AboutUsApproachStep::create([
+            'approach_section_id' => $approachSection->id,
+            'number' => $request->number,
+            'title' => $request->title,
+            'short_description' => $request->short_description,
+            'description' => $request->description,
+            'icon_svg' => $request->icon_svg,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Approach step added successfully!');
+    }
+
+    public function updateApproachStep(Request $request, AboutUsApproachStep $step)
+    {
+        $request->validate([
+            'number' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'short_description' => 'required|string',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $step->update($request->only([
+            'number', 'title', 'short_description', 'description', 'icon_svg', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Approach step updated successfully!');
+    }
+
+    public function deleteApproachStep(AboutUsApproachStep $step)
+    {
+        $step->delete();
+
+        return back()->with('success', 'Approach step deleted successfully!');
     }
 }
