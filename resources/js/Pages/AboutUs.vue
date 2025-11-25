@@ -30,7 +30,7 @@
         <Header />
 
         <!-- About Hero Section -->
-        <AboutHero />
+        <AboutHero :hero-section="heroSection" />
 
         <!-- Partner Badge Section -->
         <PartnerBadge />
@@ -84,6 +84,11 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+
+// Props
+const props = defineProps({
+    heroSection: Object
+});
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 import AboutHero from '@/Components/AboutUs/AboutHero.vue';

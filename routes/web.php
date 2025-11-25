@@ -114,9 +114,7 @@ Route::prefix('services')->name('services.')->group(function () {
 });
 
 // About Us Route
-Route::get('/about-us', function () {
-    return Inertia::render('AboutUs');
-})->name('about-us');
+Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 // Sitemap Route
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

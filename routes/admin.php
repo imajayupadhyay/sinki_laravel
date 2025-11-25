@@ -143,6 +143,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
     Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
 
+    // About Us Management
+    Route::get('/about-us', [App\Http\Controllers\Admin\AboutUsController::class, 'index'])->name('about-us.index');
+    Route::put('/about-us/hero', [App\Http\Controllers\Admin\AboutUsController::class, 'updateHero'])->name('about-us.hero.update');
+    Route::post('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadHeroImage'])->name('about-us.hero.image.upload');
+    Route::delete('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteHeroImage'])->name('about-us.hero.image.delete');
+
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
     Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
