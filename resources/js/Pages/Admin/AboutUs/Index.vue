@@ -978,6 +978,245 @@
             </div>
         </div>
 
+        <!-- Leadership Section Card -->
+        <div id="leadership-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Leadership Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the leadership section header and team members</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateLeadership">
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Header Tag -->
+                            <div>
+                                <label for="leadership_header_tag" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Header Tag <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="leadership_header_tag"
+                                    v-model="leadershipForm.header_tag"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., OUR LEADERSHIP"
+                                    :class="{ 'border-red-500': leadershipErrors.header_tag }"
+                                />
+                                <p v-if="leadershipErrors.header_tag" class="mt-1 text-sm text-red-600">{{ leadershipErrors.header_tag }}</p>
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="leadershipForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Leadership Section Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Title -->
+                        <div>
+                            <label for="leadership_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Title <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="leadership_title"
+                                v-model="leadershipForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="e.g., Visionaries Behind Sinki"
+                                :class="{ 'border-red-500': leadershipErrors.title }"
+                            />
+                            <p v-if="leadershipErrors.title" class="mt-1 text-sm text-red-600">{{ leadershipErrors.title }}</p>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="leadership_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="leadership_description"
+                                v-model="leadershipForm.description"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="e.g., Our leadership brings years of experience..."
+                                :class="{ 'border-red-500': leadershipErrors.description }"
+                            ></textarea>
+                            <p v-if="leadershipErrors.description" class="mt-1 text-sm text-red-600">{{ leadershipErrors.description }}</p>
+                        </div>
+
+                        <!-- Background Image Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image
+                            </label>
+
+                            <!-- Current Image Display -->
+                            <div v-if="leadershipSection?.background_image" class="mb-4">
+                                <div class="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                                    <img
+                                        :src="`/storage/${leadershipSection.background_image}`"
+                                        alt="Leadership background"
+                                        class="w-full h-full object-cover"
+                                    />
+                                    <div class="absolute top-2 right-2">
+                                        <button
+                                            type="button"
+                                            @click="deleteLeadershipBackground"
+                                            class="bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors"
+                                        >
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload Input -->
+                            <input
+                                type="file"
+                                accept="image/*"
+                                @change="uploadLeadershipBackground"
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-red-700"
+                            />
+                            <p class="mt-1 text-xs text-gray-500">
+                                Upload a background image for the leadership section. Recommended size: 1920x1080px.
+                            </p>
+                        </div>
+
+                        <!-- Background Color -->
+                        <div>
+                            <label for="leadership_background_color" class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Color (Optional)
+                            </label>
+                            <select
+                                id="leadership_background_color"
+                                v-model="leadershipForm.background_color"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                            >
+                                <option value="">Default</option>
+                                <option value="bg-white">White</option>
+                                <option value="bg-gray-50">Light Gray</option>
+                                <option value="bg-gray-900">Dark Gray</option>
+                                <option value="bg-blue-50">Light Blue</option>
+                                <option value="bg-green-50">Light Green</option>
+                            </select>
+                        </div>
+
+                        <!-- Team Members Management -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Team Members</h3>
+                                <button
+                                    type="button"
+                                    @click="addLeadershipMember"
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-brand-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                >
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Add Member
+                                </button>
+                            </div>
+
+                            <!-- Team Members List -->
+                            <div v-if="leadershipSection?.members?.length" class="space-y-4">
+                                <div
+                                    v-for="(member, index) in leadershipSection.members"
+                                    :key="member.id"
+                                    class="border border-gray-300 rounded-lg p-4 bg-gray-50"
+                                >
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-start space-x-4 flex-1">
+                                            <!-- Member Image -->
+                                            <div class="flex-shrink-0">
+                                                <div class="w-16 h-16 bg-gray-200 rounded-lg overflow-hidden">
+                                                    <img
+                                                        v-if="member.image"
+                                                        :src="`/storage/${member.image}`"
+                                                        :alt="member.name"
+                                                        class="w-full h-full object-cover"
+                                                    />
+                                                    <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
+                                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Member Info -->
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex items-center space-x-3 mb-2">
+                                                    <h4 class="text-sm font-medium text-gray-900 truncate">{{ member.name }}</h4>
+                                                    <span :class="member.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                                        {{ member.is_active ? 'Active' : 'Inactive' }}
+                                                    </span>
+                                                </div>
+                                                <p class="text-sm text-gray-600 mb-1"><strong>Position:</strong> {{ member.position }}</p>
+                                                <p class="text-xs text-gray-500">Sort Order: {{ member.sort_order }}</p>
+                                                <div v-if="member.bio" class="mt-2">
+                                                    <p class="text-sm text-gray-600"><strong>Bio:</strong> {{ member.bio.substring(0, 100) }}{{ member.bio.length > 100 ? '...' : '' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Actions -->
+                                            <div class="flex items-center space-x-2 flex-shrink-0">
+                                                <button
+                                                    type="button"
+                                                    @click="editLeadershipMember(member)"
+                                                    class="text-brand-red hover:text-red-700"
+                                                >
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="deleteLeadershipMember(member)"
+                                                    class="text-red-600 hover:text-red-800"
+                                                >
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-else class="text-center py-8 text-gray-500">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <p>No team members found. Add the first member to get started.</p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end">
+                            <button
+                                type="submit"
+                                :disabled="leadershipProcessing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span v-if="leadershipProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                {{ leadershipProcessing ? 'Saving...' : 'Save Leadership Section' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Service Modal -->
         <div v-if="showAddServiceModal" class="fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -1274,6 +1513,189 @@
                 </div>
             </div>
         </div>
+
+        <!-- Leadership Member Modal -->
+        <div v-if="showAddLeadershipMemberModal" class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Background overlay -->
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="cancelLeadershipMemberEdit"></div>
+
+                <!-- Modal content -->
+                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                                {{ editingLeadershipMember ? 'Edit Team Member' : 'Add Team Member' }}
+                            </h3>
+
+                            <form @submit.prevent="saveLeadershipMember">
+                                <div class="space-y-4">
+                                    <!-- Name -->
+                                    <div>
+                                        <label for="member-name" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Name <span class="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            id="member-name"
+                                            v-model="leadershipMemberForm.name"
+                                            type="text"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.name }"
+                                        />
+                                        <p v-if="leadershipMemberErrors.name" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.name }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Position -->
+                                    <div>
+                                        <label for="member-position" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Position <span class="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            id="member-position"
+                                            v-model="leadershipMemberForm.position"
+                                            type="text"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.position }"
+                                        />
+                                        <p v-if="leadershipMemberErrors.position" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.position }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Bio -->
+                                    <div>
+                                        <label for="member-bio" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Bio (Optional)
+                                        </label>
+                                        <textarea
+                                            id="member-bio"
+                                            v-model="leadershipMemberForm.bio"
+                                            rows="3"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.bio }"
+                                            placeholder="Brief description of the team member"
+                                        ></textarea>
+                                        <p v-if="leadershipMemberErrors.bio" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.bio }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Image Upload -->
+                                    <div>
+                                        <label for="member-image" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Profile Image (Optional)
+                                        </label>
+                                        <input
+                                            id="member-image"
+                                            @change="leadershipMemberForm.image = $event.target.files[0]"
+                                            type="file"
+                                            accept="image/*"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-red-700"
+                                        />
+                                        <p v-if="leadershipMemberErrors.image" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.image }}
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-500">
+                                            Upload a profile image. Recommended size: 300x400px (3:4 aspect ratio).
+                                        </p>
+                                    </div>
+
+                                    <!-- LinkedIn URL -->
+                                    <div>
+                                        <label for="member-linkedin" class="block text-sm font-medium text-gray-700 mb-2">
+                                            LinkedIn URL (Optional)
+                                        </label>
+                                        <input
+                                            id="member-linkedin"
+                                            v-model="leadershipMemberForm.linkedin_url"
+                                            type="url"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.linkedin_url }"
+                                            placeholder="https://linkedin.com/in/username"
+                                        />
+                                        <p v-if="leadershipMemberErrors.linkedin_url" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.linkedin_url }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Twitter URL -->
+                                    <div>
+                                        <label for="member-twitter" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Twitter URL (Optional)
+                                        </label>
+                                        <input
+                                            id="member-twitter"
+                                            v-model="leadershipMemberForm.twitter_url"
+                                            type="url"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.twitter_url }"
+                                            placeholder="https://twitter.com/username"
+                                        />
+                                        <p v-if="leadershipMemberErrors.twitter_url" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.twitter_url }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Sort Order -->
+                                    <div>
+                                        <label for="member-sort-order" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Sort Order
+                                        </label>
+                                        <input
+                                            id="member-sort-order"
+                                            v-model.number="leadershipMemberForm.sort_order"
+                                            type="number"
+                                            min="1"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': leadershipMemberErrors.sort_order }"
+                                        />
+                                        <p v-if="leadershipMemberErrors.sort_order" class="mt-1 text-sm text-red-600">
+                                            {{ leadershipMemberErrors.sort_order }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Is Active -->
+                                    <div class="flex items-center">
+                                        <input
+                                            id="member-is-active"
+                                            v-model="leadershipMemberForm.is_active"
+                                            type="checkbox"
+                                            class="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                                        />
+                                        <label for="member-is-active" class="ml-2 block text-sm text-gray-700">
+                                            Active
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                        type="submit"
+                                        :disabled="leadershipMemberProcessing"
+                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-brand-red text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                    >
+                                        <span v-if="leadershipMemberProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                        {{ leadershipMemberProcessing ? 'Saving...' : (editingLeadershipMember ? 'Update' : 'Add') }} Member
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="cancelLeadershipMemberEdit"
+                                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:mt-0 sm:w-auto sm:text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AdminLayout>
 </template>
 
@@ -1288,7 +1710,8 @@ const props = defineProps({
     partnerBadge: Object,
     storySection: Object,
     whatWeDoSection: Object,
-    approachSection: Object
+    approachSection: Object,
+    leadershipSection: Object
 });
 
 // Reactive data
@@ -1335,6 +1758,11 @@ const sections = ref([
         id: 'approach-section',
         name: 'Our Approach',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'
+    },
+    {
+        id: 'leadership-section',
+        name: 'Leadership',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>'
     }
 ]);
 
@@ -1410,6 +1838,34 @@ const approachStepForm = reactive({
 
 const approachStepProcessing = ref(false);
 const approachStepErrors = ref({});
+
+// Leadership form
+const leadershipForm = reactive({
+    header_tag: props.leadershipSection?.header_tag || 'OUR LEADERSHIP',
+    title: props.leadershipSection?.title || 'Visionaries Behind Sinki',
+    description: props.leadershipSection?.description || 'Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity.',
+    background_color: props.leadershipSection?.background_color || '',
+    is_active: props.leadershipSection?.is_active ?? true
+});
+
+// Leadership Member form
+const leadershipMemberForm = reactive({
+    name: '',
+    position: '',
+    bio: '',
+    linkedin_url: '',
+    twitter_url: '',
+    sort_order: 1,
+    is_active: true,
+    image: null
+});
+
+const leadershipProcessing = ref(false);
+const leadershipErrors = ref({});
+const showAddLeadershipMemberModal = ref(false);
+const editingLeadershipMember = ref(null);
+const leadershipMemberProcessing = ref(false);
+const leadershipMemberErrors = ref({});
 
 // Methods
 const scrollToSection = (sectionId) => {
@@ -1718,6 +2174,132 @@ const cancelApproachStepEdit = () => {
     approachStepForm.icon_svg = '';
     approachStepForm.sort_order = 1;
     approachStepForm.is_active = true;
+};
+
+// Leadership Section Methods
+const updateLeadership = () => {
+    leadershipProcessing.value = true;
+    leadershipErrors.value = {};
+
+    router.put(route('admin.about-us.leadership.update'), leadershipForm, {
+        onSuccess: () => {
+            leadershipProcessing.value = false;
+        },
+        onError: (errors) => {
+            leadershipErrors.value = errors;
+            leadershipProcessing.value = false;
+        }
+    });
+};
+
+const uploadLeadershipBackground = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('background_image', file);
+
+    router.post(route('admin.about-us.leadership.background.upload'), formData, {
+        onSuccess: () => {
+            // Reset file input
+            event.target.value = '';
+        },
+        onError: (errors) => {
+            console.error('Upload error:', errors);
+        }
+    });
+};
+
+const deleteLeadershipBackground = () => {
+    if (confirm('Are you sure you want to delete the background image?')) {
+        router.delete(route('admin.about-us.leadership.background.delete'));
+    }
+};
+
+// Leadership Member Methods
+const addLeadershipMember = () => {
+    leadershipMemberForm.name = '';
+    leadershipMemberForm.position = '';
+    leadershipMemberForm.bio = '';
+    leadershipMemberForm.linkedin_url = '';
+    leadershipMemberForm.twitter_url = '';
+    leadershipMemberForm.sort_order = props.leadershipSection?.members?.length ? Math.max(...props.leadershipSection.members.map(m => m.sort_order)) + 1 : 1;
+    leadershipMemberForm.is_active = true;
+    leadershipMemberForm.image = null;
+    editingLeadershipMember.value = null;
+    showAddLeadershipMemberModal.value = true;
+};
+
+const editLeadershipMember = (member) => {
+    leadershipMemberForm.name = member.name;
+    leadershipMemberForm.position = member.position;
+    leadershipMemberForm.bio = member.bio || '';
+    leadershipMemberForm.linkedin_url = member.linkedin_url || '';
+    leadershipMemberForm.twitter_url = member.twitter_url || '';
+    leadershipMemberForm.sort_order = member.sort_order;
+    leadershipMemberForm.is_active = member.is_active;
+    leadershipMemberForm.image = null; // Don't pre-fill image
+    editingLeadershipMember.value = member;
+    showAddLeadershipMemberModal.value = true;
+};
+
+const saveLeadershipMember = () => {
+    leadershipMemberProcessing.value = true;
+    leadershipMemberErrors.value = {};
+
+    const formData = new FormData();
+    formData.append('name', leadershipMemberForm.name);
+    formData.append('position', leadershipMemberForm.position);
+    formData.append('bio', leadershipMemberForm.bio);
+    formData.append('linkedin_url', leadershipMemberForm.linkedin_url);
+    formData.append('twitter_url', leadershipMemberForm.twitter_url);
+    formData.append('sort_order', leadershipMemberForm.sort_order);
+    formData.append('is_active', leadershipMemberForm.is_active ? '1' : '0');
+
+    if (leadershipMemberForm.image) {
+        formData.append('image', leadershipMemberForm.image);
+    }
+
+    const url = editingLeadershipMember.value
+        ? route('admin.about-us.leadership.members.update', editingLeadershipMember.value.id)
+        : route('admin.about-us.leadership.members.store');
+
+    const method = editingLeadershipMember.value ? 'post' : 'post'; // Both use POST for file uploads
+
+    if (editingLeadershipMember.value) {
+        formData.append('_method', 'PUT');
+    }
+
+    router.post(url, formData, {
+        onSuccess: () => {
+            leadershipMemberProcessing.value = false;
+            showAddLeadershipMemberModal.value = false;
+            editingLeadershipMember.value = null;
+        },
+        onError: (errors) => {
+            leadershipMemberErrors.value = errors;
+            leadershipMemberProcessing.value = false;
+        }
+    });
+};
+
+const deleteLeadershipMember = (member) => {
+    if (confirm(`Are you sure you want to delete "${member.name}"?`)) {
+        router.delete(route('admin.about-us.leadership.members.delete', member.id));
+    }
+};
+
+const cancelLeadershipMemberEdit = () => {
+    showAddLeadershipMemberModal.value = false;
+    editingLeadershipMember.value = null;
+    leadershipMemberForm.name = '';
+    leadershipMemberForm.position = '';
+    leadershipMemberForm.bio = '';
+    leadershipMemberForm.linkedin_url = '';
+    leadershipMemberForm.twitter_url = '';
+    leadershipMemberForm.sort_order = 1;
+    leadershipMemberForm.is_active = true;
+    leadershipMemberForm.image = null;
 };
 
 // Intersection Observer for active section highlighting

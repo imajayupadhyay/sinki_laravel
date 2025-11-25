@@ -164,6 +164,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/about-us/approach/steps', [App\Http\Controllers\Admin\AboutUsController::class, 'storeApproachStep'])->name('about-us.approach.steps.store');
     Route::put('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateApproachStep'])->name('about-us.approach.steps.update');
     Route::delete('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteApproachStep'])->name('about-us.approach.steps.delete');
+    Route::put('/about-us/leadership', [App\Http\Controllers\Admin\AboutUsController::class, 'updateLeadership'])->name('about-us.leadership.update');
+    Route::post('/about-us/leadership/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadLeadershipBackground'])->name('about-us.leadership.background.upload');
+    Route::delete('/about-us/leadership/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteLeadershipBackground'])->name('about-us.leadership.background.delete');
+    Route::post('/about-us/leadership/members', [App\Http\Controllers\Admin\AboutUsController::class, 'storeLeadershipMember'])->name('about-us.leadership.members.store');
+    Route::put('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateLeadershipMember'])->name('about-us.leadership.members.update');
+    Route::delete('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteLeadershipMember'])->name('about-us.leadership.members.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

@@ -72,7 +72,14 @@
         />
 
         <!-- Leadership Section -->
-        <LeadershipSection />
+        <LeadershipSection
+            :header-tag="props.leadershipSection?.header_tag || 'OUR LEADERSHIP'"
+            :title="props.leadershipSection?.title || 'Visionaries Behind Sinki'"
+            :description="props.leadershipSection?.description || 'Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity.'"
+            :background-image="props.leadershipSection?.background_image"
+            :background-color="props.leadershipSection?.background_color"
+            :team-members="props.leadershipSection?.members || []"
+        />
 
         <!-- Why Partner With Us Section -->
         <WhyPartnerWithUs />
@@ -107,7 +114,8 @@ const props = defineProps({
     partnerBadge: Object,
     storySection: Object,
     whatWeDoSection: Object,
-    approachSection: Object
+    approachSection: Object,
+    leadershipSection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

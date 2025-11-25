@@ -10,6 +10,8 @@ use App\Models\AboutUsWhatWeDoSection;
 use App\Models\AboutUsWhatWeDoItem;
 use App\Models\AboutUsApproachSection;
 use App\Models\AboutUsApproachStep;
+use App\Models\AboutUsLeadershipSection;
+use App\Models\AboutUsLeadershipMember;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -27,13 +29,17 @@ class AboutUsController extends Controller
         $approachSection = AboutUsApproachSection::with(['steps' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $leadershipSection = AboutUsLeadershipSection::with(['members' => function($query) {
+            $query->active()->orderBy('sort_order');
+        }])->active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
             'storySection' => $storySection,
             'whatWeDoSection' => $whatWeDoSection,
-            'approachSection' => $approachSection
+            'approachSection' => $approachSection,
+            'leadershipSection' => $leadershipSection
         ]);
     }
 
@@ -463,5 +469,154 @@ class AboutUsController extends Controller
         $step->delete();
 
         return back()->with('success', 'Approach step deleted successfully!');
+    }
+
+    public function updateLeadership(Request $request)
+    {
+        $request->validate([
+            'header_tag' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'background_color' => 'nullable|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $leadershipSection = AboutUsLeadershipSection::active()->first();
+
+        if ($leadershipSection) {
+            $leadershipSection->update($request->only([
+                'header_tag', 'title', 'description', 'background_color', 'is_active'
+            ]));
+        } else {
+            $leadershipSection = AboutUsLeadershipSection::create($request->only([
+                'header_tag', 'title', 'description', 'background_color', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Leadership section updated successfully!');
+    }
+
+    public function uploadLeadershipBackground(Request $request)
+    {
+        $request->validate([
+            'background_image' => 'required|image|max:5120', // 5MB max
+        ]);
+
+        $leadershipSection = AboutUsLeadershipSection::active()->first();
+        if (!$leadershipSection) {
+            return back()->withErrors(['error' => 'Leadership section not found.']);
+        }
+
+        // Delete old background image if exists
+        if ($leadershipSection->background_image) {
+            Storage::delete('public/' . $leadershipSection->background_image);
+        }
+
+        // Store new background image
+        $imagePath = $request->file('background_image')->store('leadership-background', 'public');
+
+        $leadershipSection->update(['background_image' => $imagePath]);
+
+        return back()->with('success', 'Leadership background image uploaded successfully!');
+    }
+
+    public function deleteLeadershipBackground()
+    {
+        $leadershipSection = AboutUsLeadershipSection::active()->first();
+        if (!$leadershipSection) {
+            return back()->withErrors(['error' => 'Leadership section not found.']);
+        }
+
+        if ($leadershipSection->background_image) {
+            Storage::delete('public/' . $leadershipSection->background_image);
+            $leadershipSection->update(['background_image' => null]);
+        }
+
+        return back()->with('success', 'Leadership background image deleted successfully!');
+    }
+
+    public function storeLeadershipMember(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'linkedin_url' => 'nullable|url|max:255',
+            'twitter_url' => 'nullable|url|max:255',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean',
+            'image' => 'nullable|image|max:5120'
+        ]);
+
+        $leadershipSection = AboutUsLeadershipSection::active()->first();
+        if (!$leadershipSection) {
+            return back()->withErrors(['error' => 'Leadership section not found.']);
+        }
+
+        $data = $request->only([
+            'name', 'position', 'bio', 'linkedin_url', 'twitter_url', 'sort_order', 'is_active'
+        ]);
+
+        $data['leadership_section_id'] = $leadershipSection->id;
+
+        // If no sort_order provided, set to next available
+        if (!isset($data['sort_order'])) {
+            $data['sort_order'] = ($leadershipSection->members()->max('sort_order') ?? 0) + 1;
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('leadership-members', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        AboutUsLeadershipMember::create($data);
+
+        return back()->with('success', 'Leadership member added successfully!');
+    }
+
+    public function updateLeadershipMember(Request $request, AboutUsLeadershipMember $member)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'linkedin_url' => 'nullable|url|max:255',
+            'twitter_url' => 'nullable|url|max:255',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean',
+            'image' => 'nullable|image|max:5120'
+        ]);
+
+        $data = $request->only([
+            'name', 'position', 'bio', 'linkedin_url', 'twitter_url', 'sort_order', 'is_active'
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($member->image) {
+                Storage::delete('public/' . $member->image);
+            }
+
+            $imagePath = $request->file('image')->store('leadership-members', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        $member->update($data);
+
+        return back()->with('success', 'Leadership member updated successfully!');
+    }
+
+    public function deleteLeadershipMember(AboutUsLeadershipMember $member)
+    {
+        // Delete member image if exists
+        if ($member->image) {
+            Storage::delete('public/' . $member->image);
+        }
+
+        $member->delete();
+
+        return back()->with('success', 'Leadership member deleted successfully!');
     }
 }

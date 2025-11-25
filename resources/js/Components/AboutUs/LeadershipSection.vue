@@ -1,12 +1,7 @@
 <template>
     <section
         class="leadership-section py-20 lg:py-32 relative overflow-hidden w-full"
-        :style="{
-            backgroundImage: 'url(/images/aboutussecbanner.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-        }"
+        :style="backgroundStyle"
     >
         <!-- Background decorative elements -->
         <div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse"></div>
@@ -37,7 +32,7 @@
                 <!-- Right Content - Team Cards in Horizontal Layout (65%) -->
                 <div class="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
                     <div
-                        v-for="(member, index) in teamMembers"
+                        v-for="(member, index) in dynamicTeamMembers"
                         :key="index"
                         class="team-card bg-white rounded-2xl p-4 lg:p-4 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card"
                         :style="`animation-delay: ${0.8 + index * 0.2}s`"
@@ -70,7 +65,7 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
 // Props for customization
 const props = defineProps({
@@ -85,6 +80,14 @@ const props = defineProps({
     description: {
         type: String,
         default: 'Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity.'
+    },
+    backgroundImage: {
+        type: String,
+        default: null
+    },
+    backgroundColor: {
+        type: String,
+        default: null
     },
     teamMembers: {
         type: Array,
@@ -106,6 +109,77 @@ const props = defineProps({
             }
         ]
     }
+});
+
+// Computed properties for dynamic content
+const backgroundStyle = computed(() => {
+    if (props.backgroundImage) {
+        // Use dynamic background image from database
+        const imagePath = props.backgroundImage.startsWith('/storage/')
+            ? props.backgroundImage
+            : `/storage/${props.backgroundImage}`;
+        return {
+            backgroundImage: `url(${imagePath})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        };
+    } else {
+        // Fallback to default background image
+        return {
+            backgroundImage: 'url(/images/aboutussecbanner.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        };
+    }
+});
+
+const dynamicTeamMembers = computed(() => {
+    if (props.teamMembers && props.teamMembers.length > 0) {
+        return props.teamMembers.map(member => {
+            let imageSrc = '/images/placeholder-avatar.png';
+
+            if (member.image) {
+                // If there's an uploaded image, use it
+                imageSrc = member.image.startsWith('/storage/') ? member.image : `/storage/${member.image}`;
+            } else {
+                // If no uploaded image, use default based on member name
+                if (member.name === 'Gaurav Chauhan') {
+                    imageSrc = '/images/Mr Gaurav Chauhan.png';
+                } else if (member.name === 'Amit Kumar Pandey') {
+                    imageSrc = '/images/Mr Amit Pandey.png';
+                } else if (member.name === 'Neeraj Kumar') {
+                    imageSrc = '/images/Mr Neeraj Kumar.png';
+                }
+            }
+
+            return {
+                name: member.name,
+                position: member.position,
+                image: imageSrc
+            };
+        });
+    }
+
+    // Fallback to default team members
+    return [
+        {
+            name: 'Gaurav Chauhan',
+            position: 'Co-Founder & CEO',
+            image: '/images/Mr Gaurav Chauhan.png'
+        },
+        {
+            name: 'Amit Kumar Pandey',
+            position: 'Co-Founder & CTO',
+            image: '/images/Mr Amit Pandey.png'
+        },
+        {
+            name: 'Neeraj Kumar',
+            position: 'Chief Operating Officer',
+            image: '/images/Mr Neeraj Kumar.png'
+        }
+    ];
 });
 </script>
 
