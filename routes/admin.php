@@ -179,6 +179,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhyPartnerFeature'])->name('about-us.why-partner.features.update');
     Route::delete('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerFeature'])->name('about-us.why-partner.features.delete');
 
+    // CTA Section routes
+    Route::put('/about-us/cta', [App\Http\Controllers\Admin\AboutUsController::class, 'updateCTA'])->name('about-us.cta.update');
+    Route::post('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadCTABackground'])->name('about-us.cta.background.upload');
+    Route::delete('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteCTABackground'])->name('about-us.cta.background.delete');
+
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
     Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');

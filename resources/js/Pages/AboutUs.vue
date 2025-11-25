@@ -92,11 +92,11 @@
 
         <!-- CTA Section -->
         <ServiceCTA
-            title="Wherever you are in your data journey, we can<br />help you move faster."
-            description="We'll help you adopt, scale, and succeed with Databricks."
-            cta-text="Start A Conversation"
-            cta-link="/contact"
-            background-image="/images/cta.webp"
+            :title="props.ctaSection?.title || 'Wherever you are in your data journey, we can<br />help you move faster.'"
+            :description="props.ctaSection?.description || 'We\'ll help you adopt, scale, and succeed with Databricks.'"
+            :cta-text="props.ctaSection?.cta_text || 'Start A Conversation'"
+            :cta-link="props.ctaSection?.cta_link || '/contact'"
+            :background-image="props.ctaSection?.background_image ? `/storage/${props.ctaSection.background_image}` : '/images/cta.webp'"
         />
 
         <!-- Future sections will be added here -->
@@ -122,7 +122,8 @@ const props = defineProps({
     whatWeDoSection: Object,
     approachSection: Object,
     leadershipSection: Object,
-    whyPartnerSection: Object
+    whyPartnerSection: Object,
+    ctaSection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

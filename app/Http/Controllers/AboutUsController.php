@@ -10,6 +10,7 @@ use App\Models\AboutUsWhatWeDoSection;
 use App\Models\AboutUsApproachSection;
 use App\Models\AboutUsLeadershipSection;
 use App\Models\AboutUsWhyPartnerSection;
+use App\Models\AboutUsCTASection;
 use Inertia\Inertia;
 
 class AboutUsController extends Controller
@@ -32,6 +33,7 @@ class AboutUsController extends Controller
         $whyPartnerSection = AboutUsWhyPartnerSection::with(['features' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $ctaSection = AboutUsCTASection::active()->first();
 
         return Inertia::render('AboutUs', [
             'heroSection' => $heroSection,
@@ -40,7 +42,8 @@ class AboutUsController extends Controller
             'whatWeDoSection' => $whatWeDoSection,
             'approachSection' => $approachSection,
             'leadershipSection' => $leadershipSection,
-            'whyPartnerSection' => $whyPartnerSection
+            'whyPartnerSection' => $whyPartnerSection,
+            'ctaSection' => $ctaSection
         ]);
     }
 }

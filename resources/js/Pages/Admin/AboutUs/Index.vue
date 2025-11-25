@@ -1983,6 +1983,171 @@
             </div>
         </div>
 
+        <!-- CTA Section Card -->
+        <div id="cta-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">CTA (Call-to-Action) Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the call-to-action section content and styling</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateCTA">
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Title -->
+                            <div>
+                                <label for="cta_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Title <span class="text-red-500">*</span>
+                                </label>
+                                <textarea
+                                    id="cta_title"
+                                    v-model="ctaForm.title"
+                                    rows="2"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., Wherever you are in your data journey, we can<br />help you move faster."
+                                    :class="{ 'border-red-500': ctaErrors.title }"
+                                ></textarea>
+                                <p v-if="ctaErrors.title" class="mt-1 text-sm text-red-600">{{ ctaErrors.title }}</p>
+                                <p class="mt-1 text-xs text-gray-500">HTML tags like &lt;br /&gt; are supported</p>
+                            </div>
+
+                            <!-- Background Color -->
+                            <div>
+                                <label for="cta_background_color" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Background Color
+                                </label>
+                                <input
+                                    type="text"
+                                    id="cta_background_color"
+                                    v-model="ctaForm.background_color"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., #ffffff or white"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="cta_description" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="cta_description"
+                                v-model="ctaForm.description"
+                                rows="2"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter the description..."
+                                :class="{ 'border-red-500': ctaErrors.description }"
+                            ></textarea>
+                            <p v-if="ctaErrors.description" class="mt-1 text-sm text-red-600">{{ ctaErrors.description }}</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- CTA Button Text -->
+                            <div>
+                                <label for="cta_text" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Button Text <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="cta_text"
+                                    v-model="ctaForm.cta_text"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., Start A Conversation"
+                                    :class="{ 'border-red-500': ctaErrors.cta_text }"
+                                />
+                                <p v-if="ctaErrors.cta_text" class="mt-1 text-sm text-red-600">{{ ctaErrors.cta_text }}</p>
+                            </div>
+
+                            <!-- CTA Button Link -->
+                            <div>
+                                <label for="cta_link" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Button Link <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="cta_link"
+                                    v-model="ctaForm.cta_link"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., /contact"
+                                    :class="{ 'border-red-500': ctaErrors.cta_link }"
+                                />
+                                <p v-if="ctaErrors.cta_link" class="mt-1 text-sm text-red-600">{{ ctaErrors.cta_link }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Background Image Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image
+                            </label>
+
+                            <!-- Current Image Display -->
+                            <div v-if="ctaSection?.background_image" class="mb-4">
+                                <div class="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                                    <img
+                                        :src="`/storage/${ctaSection.background_image}`"
+                                        alt="CTA background"
+                                        class="w-full h-full object-cover"
+                                    />
+                                    <div class="absolute top-2 right-2">
+                                        <button
+                                            type="button"
+                                            @click="deleteCTABackground"
+                                            class="bg-red-500 hover:bg-red-600 text-white p-1 rounded-md transition-colors duration-200"
+                                        >
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-brand-red transition-colors duration-200">
+                                <input
+                                    type="file"
+                                    ref="ctaBgFileInput"
+                                    @change="uploadCTABackground"
+                                    accept="image/*"
+                                    class="hidden"
+                                />
+
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="mt-4">
+                                        <button
+                                            type="button"
+                                            @click="$refs.ctaBgFileInput.click()"
+                                            class="bg-brand-red hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors duration-200"
+                                        >
+                                            {{ ctaSection?.background_image ? 'Change Background Image' : 'Upload Background Image' }}
+                                        </button>
+                                    </div>
+                                    <p class="mt-2 text-sm text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                                    <p class="mt-1 text-xs text-gray-500">Default: /images/cta.webp</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end space-x-4">
+                            <button
+                                type="submit"
+                                :disabled="ctaProcessing"
+                                class="bg-brand-red hover:bg-red-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {{ ctaProcessing ? 'Updating...' : 'Update Section' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </AdminLayout>
 </template>
 
@@ -1999,7 +2164,8 @@ const props = defineProps({
     whatWeDoSection: Object,
     approachSection: Object,
     leadershipSection: Object,
-    whyPartnerSection: Object
+    whyPartnerSection: Object,
+    ctaSection: Object
 });
 
 // Reactive data
@@ -2056,6 +2222,11 @@ const sections = ref([
         id: 'why-partner-section',
         name: 'Why Partner',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+    },
+    {
+        id: 'cta-section',
+        name: 'CTA Section',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'
     }
 ]);
 
@@ -2183,6 +2354,20 @@ const whyPartnerFeatureModalOpen = ref(false);
 const whyPartnerFeatureModalMode = ref('create');
 const editingWhyPartnerFeature = ref(null);
 const whyPartnerFeatureProcessing = ref(false);
+
+// CTA form
+const ctaForm = reactive({
+    title: props.ctaSection?.title || 'Wherever you are in your data journey, we can<br />help you move faster.',
+    description: props.ctaSection?.description || 'We\'ll help you adopt, scale, and succeed with Databricks.',
+    cta_text: props.ctaSection?.cta_text || 'Start A Conversation',
+    cta_link: props.ctaSection?.cta_link || '/contact',
+    background_color: props.ctaSection?.background_color || '',
+    is_active: props.ctaSection?.is_active ?? true
+});
+
+// CTA state
+const ctaProcessing = ref(false);
+const ctaErrors = ref({});
 const leadershipMemberErrors = ref({});
 
 // Methods
@@ -2739,6 +2924,55 @@ const cancelWhyPartnerFeatureEdit = () => {
     whyPartnerFeatureForm.icon = '';
     whyPartnerFeatureForm.sort_order = 1;
     whyPartnerFeatureForm.is_active = true;
+};
+
+// CTA methods
+const updateCTA = () => {
+    ctaProcessing.value = true;
+    ctaErrors.value = {};
+
+    router.put(route('admin.about-us.cta.update'), {
+        title: ctaForm.title,
+        description: ctaForm.description,
+        cta_text: ctaForm.cta_text,
+        cta_link: ctaForm.cta_link,
+        background_color: ctaForm.background_color,
+        is_active: ctaForm.is_active
+    }, {
+        onSuccess: () => {
+            ctaProcessing.value = false;
+        },
+        onError: (errors) => {
+            ctaErrors.value = errors;
+            ctaProcessing.value = false;
+        }
+    });
+};
+
+const uploadCTABackground = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('background_image', file);
+
+    router.post(route('admin.about-us.cta.background.upload'), formData, {
+        forceFormData: true,
+        onSuccess: () => {
+            // Clear the file input
+            event.target.value = '';
+        },
+        onError: (errors) => {
+            console.error('Upload failed:', errors);
+            event.target.value = '';
+        }
+    });
+};
+
+const deleteCTABackground = () => {
+    if (confirm('Are you sure you want to delete the background image?')) {
+        router.delete(route('admin.about-us.cta.background.delete'));
+    }
 };
 
 // Intersection Observer for active section highlighting

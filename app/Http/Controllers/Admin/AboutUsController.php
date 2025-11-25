@@ -14,6 +14,7 @@ use App\Models\AboutUsLeadershipSection;
 use App\Models\AboutUsLeadershipMember;
 use App\Models\AboutUsWhyPartnerSection;
 use App\Models\AboutUsWhyPartnerFeature;
+use App\Models\AboutUsCTASection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +38,7 @@ class AboutUsController extends Controller
         $whyPartnerSection = AboutUsWhyPartnerSection::with(['features' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $ctaSection = AboutUsCTASection::active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
@@ -45,7 +47,8 @@ class AboutUsController extends Controller
             'whatWeDoSection' => $whatWeDoSection,
             'approachSection' => $approachSection,
             'leadershipSection' => $leadershipSection,
-            'whyPartnerSection' => $whyPartnerSection
+            'whyPartnerSection' => $whyPartnerSection,
+            'ctaSection' => $ctaSection
         ]);
     }
 
@@ -746,5 +749,75 @@ class AboutUsController extends Controller
         $feature->delete();
 
         return back()->with('success', 'Feature deleted successfully!');
+    }
+
+    // CTA Section Methods
+    public function updateCTA(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:500',
+            'description' => 'required|string',
+            'cta_text' => 'required|string|max:255',
+            'cta_link' => 'required|string|max:500',
+            'background_color' => 'nullable|string|max:255',
+        ]);
+
+        $ctaSection = AboutUsCTASection::active()->first();
+
+        if (!$ctaSection) {
+            $ctaSection = new AboutUsCTASection();
+        }
+
+        $ctaSection->title = $request->title;
+        $ctaSection->description = $request->description;
+        $ctaSection->cta_text = $request->cta_text;
+        $ctaSection->cta_link = $request->cta_link;
+        $ctaSection->background_color = $request->background_color;
+        $ctaSection->is_active = true;
+        $ctaSection->save();
+
+        return back()->with('success', 'CTA section updated successfully!');
+    }
+
+    public function uploadCTABackground(Request $request)
+    {
+        $request->validate([
+            'background_image' => 'required|image|max:5120', // 5MB max
+        ]);
+
+        $ctaSection = AboutUsCTASection::active()->first();
+        if (!$ctaSection) {
+            $ctaSection = new AboutUsCTASection();
+            $ctaSection->is_active = true;
+            $ctaSection->save();
+        }
+
+        // Delete old background image if exists
+        if ($ctaSection->background_image) {
+            Storage::delete('public/' . $ctaSection->background_image);
+        }
+
+        // Upload new image
+        $imagePath = $request->file('background_image')->store('cta-backgrounds', 'public');
+        $ctaSection->background_image = $imagePath;
+        $ctaSection->save();
+
+        return back()->with('success', 'Background image uploaded successfully!');
+    }
+
+    public function deleteCTABackground()
+    {
+        $ctaSection = AboutUsCTASection::active()->first();
+        if (!$ctaSection) {
+            return back()->withErrors(['error' => 'CTA section not found.']);
+        }
+
+        if ($ctaSection->background_image) {
+            Storage::delete('public/' . $ctaSection->background_image);
+            $ctaSection->background_image = null;
+            $ctaSection->save();
+        }
+
+        return back()->with('success', 'Background image deleted successfully!');
     }
 }
