@@ -33,7 +33,7 @@
         <AboutHero :hero-section="heroSection" />
 
         <!-- Partner Badge Section -->
-        <PartnerBadge />
+        <PartnerBadge :partner-badge="partnerBadge" />
 
         <!-- About Story Section -->
         <AboutStorySection
@@ -87,7 +87,8 @@ import { onMounted } from 'vue';
 
 // Props
 const props = defineProps({
-    heroSection: Object
+    heroSection: Object,
+    partnerBadge: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

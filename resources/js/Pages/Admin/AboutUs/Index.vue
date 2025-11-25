@@ -179,6 +179,130 @@
                 </form>
             </div>
         </div>
+
+        <!-- Partner Badge Section Card -->
+        <div id="partner-badge-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Partner Badge Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the partner badge text and logo display</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updatePartnerBadge">
+                    <div class="space-y-6">
+                        <!-- Logo Image Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Partner Logo
+                            </label>
+
+                            <!-- Current Logo Display -->
+                            <div v-if="partnerBadge?.logo_image" class="mb-4">
+                                <div class="relative w-32 h-16 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                                    <img
+                                        :src="`/storage/${partnerBadge.logo_image}`"
+                                        :alt="partnerForm.logo_alt"
+                                        class="max-w-full max-h-full object-contain"
+                                    />
+                                    <div class="absolute top-1 right-1">
+                                        <button
+                                            type="button"
+                                            @click="deletePartnerLogo"
+                                            class="bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors"
+                                        >
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload New Logo -->
+                            <div class="flex items-center justify-center w-full">
+                                <label for="partner-logo-upload" class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                    <div class="flex flex-col items-center justify-center pt-3 pb-3">
+                                        <svg class="w-6 h-6 mb-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                        <p class="text-xs text-gray-500">
+                                            <span class="font-semibold">Click to upload</span> partner logo
+                                        </p>
+                                        <p class="text-xs text-gray-500">PNG, JPG or SVG (MAX. 2MB)</p>
+                                    </div>
+                                    <input
+                                        id="partner-logo-upload"
+                                        type="file"
+                                        class="hidden"
+                                        accept="image/*"
+                                        @change="uploadPartnerLogo"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Badge Text -->
+                            <div>
+                                <label for="partner_text" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Badge Text <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="partner_text"
+                                    v-model="partnerForm.text"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., An Official Databricks Partner"
+                                    :class="{ 'border-red-500': partnerErrors.text }"
+                                />
+                                <p v-if="partnerErrors.text" class="mt-1 text-sm text-red-600">{{ partnerErrors.text }}</p>
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="partnerForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Partner Badge Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Logo Alt Text -->
+                        <div>
+                            <label for="partner_logo_alt" class="block text-sm font-medium text-gray-700 mb-2">
+                                Logo Alt Text
+                            </label>
+                            <input
+                                type="text"
+                                id="partner_logo_alt"
+                                v-model="partnerForm.logo_alt"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="e.g., Databricks Logo"
+                                :class="{ 'border-red-500': partnerErrors.logo_alt }"
+                            />
+                            <p v-if="partnerErrors.logo_alt" class="mt-1 text-sm text-red-600">{{ partnerErrors.logo_alt }}</p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end">
+                            <button
+                                type="submit"
+                                :disabled="partnerProcessing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span v-if="partnerProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                {{ partnerProcessing ? 'Saving...' : 'Save Partner Badge' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </AdminLayout>
 </template>
 
@@ -189,7 +313,8 @@ import AdminLayout from '@/Components/Admin/AdminLayout.vue';
 
 // Props
 const props = defineProps({
-    heroSection: Object
+    heroSection: Object,
+    partnerBadge: Object
 });
 
 // Reactive data
@@ -197,6 +322,8 @@ const activeSection = ref('hero-section');
 const sectionNav = ref(null);
 const heroProcessing = ref(false);
 const heroErrors = ref({});
+const partnerProcessing = ref(false);
+const partnerErrors = ref({});
 
 // Define sections for navigation
 const sections = ref([
@@ -204,6 +331,11 @@ const sections = ref([
         id: 'hero-section',
         name: 'Hero Section',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>'
+    },
+    {
+        id: 'partner-badge-section',
+        name: 'Partner Badge',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>'
     }
 ]);
 
@@ -214,6 +346,13 @@ const heroForm = reactive({
     cta_text: props.heroSection?.cta_text || '',
     cta_link: props.heroSection?.cta_link || '',
     is_active: props.heroSection?.is_active ?? true
+});
+
+// Partner Badge form
+const partnerForm = reactive({
+    text: props.partnerBadge?.text || '',
+    logo_alt: props.partnerBadge?.logo_alt || '',
+    is_active: props.partnerBadge?.is_active ?? true
 });
 
 // Methods
@@ -262,6 +401,42 @@ const uploadHeroImage = (event) => {
 const deleteHeroImage = () => {
     if (confirm('Are you sure you want to delete the hero background image?')) {
         router.delete(route('admin.about-us.hero.image.delete'));
+    }
+};
+
+const updatePartnerBadge = () => {
+    partnerProcessing.value = true;
+    partnerErrors.value = {};
+
+    router.put(route('admin.about-us.partner-badge.update'), partnerForm, {
+        onSuccess: () => {
+            partnerProcessing.value = false;
+        },
+        onError: (errors) => {
+            partnerErrors.value = errors;
+            partnerProcessing.value = false;
+        }
+    });
+};
+
+const uploadPartnerLogo = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    router.post(route('admin.about-us.partner-badge.logo.upload'), formData, {
+        forceFormData: true,
+        onSuccess: () => {
+            event.target.value = '';
+        }
+    });
+};
+
+const deletePartnerLogo = () => {
+    if (confirm('Are you sure you want to delete the partner logo?')) {
+        router.delete(route('admin.about-us.partner-badge.logo.delete'));
     }
 };
 
