@@ -1,27 +1,31 @@
 <template>
-    <section class="why-partner-section relative overflow-hidden pt-20 lg:pt-32 pb-20 lg:pb-32">
-        <!-- Light Background -->
-        <div class="absolute inset-0 z-0 bg-white"></div>
+    <section
+        class="why-partner-section relative overflow-hidden pt-20 lg:pt-32 pb-20 lg:pb-32"
+        :style="backgroundStyle"
+    >
 
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10">
             <!-- Section Header - Center Aligned -->
             <div class="text-center mb-18 lg:mb-24">
                 <!-- Main Title -->
                 <h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 simple-fade-title">
-                    Why Partner With Us
+                    {{ title }}
                 </h2>
 
                 <!-- Subtitle -->
                 <p class="text-gray-700 text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] mx-auto simple-fade-subtitle">
-                    We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.
+                    {{ subtitle }}
                 </p>
             </div>
 
             <!-- Features Grid - 2x3 Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8">
-
-                <!-- Feature 1: Certified Databricks Expertise -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-1">
+                <div
+                    v-for="(feature, index) in dynamicFeatures"
+                    :key="index"
+                    class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500"
+                    :class="`fade-up-${index + 1}`"
+                >
                     <div class="flex items-start gap-6">
                         <!-- Checkmark Icon -->
                         <div class="flex-shrink-0">
@@ -35,142 +39,21 @@
                         <!-- Content -->
                         <div class="flex-1">
                             <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Certified Databricks Expertise
+                                {{ feature.title }}
                             </h3>
                             <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                Our certified specialists bring deep technical and business understanding of the Databricks ecosystem.
+                                {{ feature.description }}
                             </p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Feature 2: End-to-End Implementation -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-2">
-                    <div class="flex items-start gap-6">
-                        <!-- Checkmark Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                End-to-End Implementation
-                            </h3>
-                            <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                From data foundation to AI integration, we support your journey across every stage, design, build, and maintain.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature 3: Tailored Data Solutions -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-3">
-                    <div class="flex items-start gap-6">
-                        <!-- Checkmark Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Tailored Data Solutions
-                            </h3>
-                            <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                Every architecture, workflow, and integration is designed around your unique data and business needs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature 4: Scalable & Secure Delivery -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-4">
-                    <div class="flex items-start gap-6">
-                        <!-- Checkmark Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Scalable & Secure Delivery
-                            </h3>
-                            <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                We ensure your Databricks environment is performance-ready, compliant, and built for long-term growth.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature 5: Collaborative Partnership -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-5">
-                    <div class="flex items-start gap-6">
-                        <!-- Checkmark Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Collaborative Partnership
-                            </h3>
-                            <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                We work as an extension of your team, transparent, proactive, and committed to measurable outcomes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature 6: Continuous Improvement -->
-                <div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-6">
-                    <div class="flex items-start gap-6">
-                        <!-- Checkmark Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Continuous Improvement
-                            </h3>
-                            <p class="text-gray-600 text-[18px] font-normal leading-[27px]">
-                                Beyond delivery, we help you evolve, refining pipelines, models, and data strategy for lasting value.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
 // Props for customization
 const props = defineProps({
@@ -182,10 +65,77 @@ const props = defineProps({
         type: String,
         default: 'We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.'
     },
+    backgroundImage: {
+        type: String,
+        default: null
+    },
+    backgroundColor: {
+        type: String,
+        default: null
+    },
     features: {
         type: Array,
         default: () => []
     }
+});
+
+// Computed properties for dynamic content
+const backgroundStyle = computed(() => {
+    if (props.backgroundImage) {
+        // Use dynamic background image from database
+        const imagePath = props.backgroundImage.startsWith('/storage/')
+            ? props.backgroundImage
+            : `/storage/${props.backgroundImage}`;
+        return {
+            backgroundImage: `url(${imagePath})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        };
+    } else if (props.backgroundColor) {
+        return {
+            backgroundColor: props.backgroundColor
+        };
+    } else {
+        // Fallback to default white background
+        return {
+            backgroundColor: 'white'
+        };
+    }
+});
+
+const dynamicFeatures = computed(() => {
+    if (props.features && props.features.length > 0) {
+        return props.features;
+    }
+
+    // Fallback to default features
+    return [
+        {
+            title: 'Certified Databricks Expertise',
+            description: 'Our certified specialists bring deep technical and business understanding of the Databricks ecosystem.'
+        },
+        {
+            title: 'End-to-End Implementation',
+            description: 'From data foundation to AI integration, we support your journey across every stage, design, build, and maintain.'
+        },
+        {
+            title: 'Tailored Data Solutions',
+            description: 'Every architecture, workflow, and integration is designed around your unique data and business needs.'
+        },
+        {
+            title: 'Scalable & Secure Delivery',
+            description: 'We ensure your Databricks environment is performance-ready, compliant, and built for long-term growth.'
+        },
+        {
+            title: 'Collaborative Partnership',
+            description: 'We work as an extension of your team, transparent, proactive, and committed to measurable outcomes.'
+        },
+        {
+            title: 'Continuous Improvement',
+            description: 'Beyond delivery, we help you evolve, refining pipelines, models, and data strategy for lasting value.'
+        }
+    ];
 });
 </script>
 

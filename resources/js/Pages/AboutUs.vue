@@ -82,7 +82,13 @@
         />
 
         <!-- Why Partner With Us Section -->
-        <WhyPartnerWithUs />
+        <WhyPartnerWithUs
+            :title="props.whyPartnerSection?.title || 'Why Partner With Us'"
+            :subtitle="props.whyPartnerSection?.subtitle || 'We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.'"
+            :background-color="props.whyPartnerSection?.background_color"
+            :background-image="props.whyPartnerSection?.background_image"
+            :features="props.whyPartnerSection?.features || []"
+        />
 
         <!-- CTA Section -->
         <ServiceCTA
@@ -115,7 +121,8 @@ const props = defineProps({
     storySection: Object,
     whatWeDoSection: Object,
     approachSection: Object,
-    leadershipSection: Object
+    leadershipSection: Object,
+    whyPartnerSection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

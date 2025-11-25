@@ -1696,6 +1696,293 @@
                 </div>
             </div>
         </div>
+
+        <!-- Why Partner Section Card -->
+        <div id="why-partner-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Why Partner With Us Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the why partner section content and features</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateWhyPartner">
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Title -->
+                            <div>
+                                <label for="why_partner_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Title <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="why_partner_title"
+                                    v-model="whyPartnerForm.title"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., Why Partner With Us"
+                                    :class="{ 'border-red-500': whyPartnerErrors.title }"
+                                />
+                                <p v-if="whyPartnerErrors.title" class="mt-1 text-sm text-red-600">{{ whyPartnerErrors.title }}</p>
+                            </div>
+
+                            <!-- Background Color -->
+                            <div>
+                                <label for="why_partner_background_color" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Background Color
+                                </label>
+                                <input
+                                    type="text"
+                                    id="why_partner_background_color"
+                                    v-model="whyPartnerForm.background_color"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., #ffffff or white"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Subtitle -->
+                        <div>
+                            <label for="why_partner_subtitle" class="block text-sm font-medium text-gray-700 mb-2">
+                                Subtitle <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="why_partner_subtitle"
+                                v-model="whyPartnerForm.subtitle"
+                                rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="Enter the subtitle description..."
+                                :class="{ 'border-red-500': whyPartnerErrors.subtitle }"
+                            ></textarea>
+                            <p v-if="whyPartnerErrors.subtitle" class="mt-1 text-sm text-red-600">{{ whyPartnerErrors.subtitle }}</p>
+                        </div>
+
+                        <!-- Background Image Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image
+                            </label>
+
+                            <!-- Current Image Display -->
+                            <div v-if="whyPartnerSection?.background_image" class="mb-4">
+                                <div class="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                                    <img
+                                        :src="`/storage/${whyPartnerSection.background_image}`"
+                                        alt="Why Partner background"
+                                        class="w-full h-full object-cover"
+                                    />
+                                    <div class="absolute top-2 right-2">
+                                        <button
+                                            type="button"
+                                            @click="deleteWhyPartnerBackground"
+                                            class="bg-red-500 hover:bg-red-600 text-white p-1 rounded-md transition-colors duration-200"
+                                        >
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-brand-red transition-colors duration-200">
+                                <input
+                                    type="file"
+                                    ref="whyPartnerBgFileInput"
+                                    @change="uploadWhyPartnerBackground"
+                                    accept="image/*"
+                                    class="hidden"
+                                />
+
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="mt-4">
+                                        <button
+                                            type="button"
+                                            @click="$refs.whyPartnerBgFileInput.click()"
+                                            class="bg-brand-red hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors duration-200"
+                                        >
+                                            {{ whyPartnerSection?.background_image ? 'Change Background Image' : 'Upload Background Image' }}
+                                        </button>
+                                    </div>
+                                    <p class="mt-2 text-sm text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end space-x-4">
+                            <button
+                                type="submit"
+                                :disabled="whyPartnerProcessing"
+                                class="bg-brand-red hover:bg-red-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {{ whyPartnerProcessing ? 'Updating...' : 'Update Section' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Features Management -->
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-medium text-gray-900">Features</h3>
+                        <button
+                            @click="addWhyPartnerFeature"
+                            class="bg-brand-red hover:bg-red-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200"
+                        >
+                            Add Feature
+                        </button>
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="space-y-4">
+                        <div
+                            v-for="(feature, index) in whyPartnerSection?.features || []"
+                            :key="feature.id"
+                            class="bg-gray-50 p-4 rounded-lg border"
+                        >
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-medium text-gray-900">{{ feature.title }}</h4>
+                                    <p class="text-sm text-gray-600 mt-1">{{ feature.description }}</p>
+                                    <div class="flex items-center mt-2 space-x-4">
+                                        <span class="text-xs text-gray-500">Sort Order: {{ feature.sort_order }}</span>
+                                        <span class="text-xs text-gray-500">Status: {{ feature.is_active ? 'Active' : 'Inactive' }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2 ml-4">
+                                    <button
+                                        @click="editWhyPartnerFeature(feature)"
+                                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-colors duration-200"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        @click="deleteWhyPartnerFeature(feature.id)"
+                                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition-colors duration-200"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div v-if="!whyPartnerSection?.features?.length" class="text-center py-8">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">No features</h3>
+                            <p class="mt-1 text-sm text-gray-500">Get started by adding your first feature.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Partner Feature Modal -->
+        <div v-if="whyPartnerFeatureModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            {{ whyPartnerFeatureModalMode === 'create' ? 'Add New Feature' : 'Edit Feature' }}
+                        </h3>
+                        <button
+                            @click="cancelWhyPartnerFeatureEdit"
+                            class="text-gray-400 hover:text-gray-600"
+                        >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form @submit.prevent="saveWhyPartnerFeature">
+                        <div class="space-y-4">
+                            <!-- Title -->
+                            <div>
+                                <label for="feature_title" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Title <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="feature_title"
+                                    v-model="whyPartnerFeatureForm.title"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., Certified Databricks Expertise"
+                                    required
+                                />
+                            </div>
+
+                            <!-- Description -->
+                            <div>
+                                <label for="feature_description" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Description <span class="text-red-500">*</span>
+                                </label>
+                                <textarea
+                                    id="feature_description"
+                                    v-model="whyPartnerFeatureForm.description"
+                                    rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="Enter the feature description..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <!-- Sort Order -->
+                            <div>
+                                <label for="feature_sort_order" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Sort Order <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="feature_sort_order"
+                                    v-model.number="whyPartnerFeatureForm.sort_order"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="1"
+                                    min="0"
+                                    required
+                                />
+                            </div>
+
+                            <!-- Active Status (only for edit) -->
+                            <div v-if="whyPartnerFeatureModalMode === 'edit'" class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="whyPartnerFeatureForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">Feature Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-3 mt-6">
+                            <button
+                                type="button"
+                                @click="cancelWhyPartnerFeatureEdit"
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md font-medium transition-colors duration-200"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                :disabled="whyPartnerFeatureProcessing"
+                                class="bg-brand-red hover:bg-red-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {{ whyPartnerFeatureProcessing ? 'Saving...' : (whyPartnerFeatureModalMode === 'create' ? 'Add Feature' : 'Update Feature') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </AdminLayout>
 </template>
 
@@ -1711,7 +1998,8 @@ const props = defineProps({
     storySection: Object,
     whatWeDoSection: Object,
     approachSection: Object,
-    leadershipSection: Object
+    leadershipSection: Object,
+    whyPartnerSection: Object
 });
 
 // Reactive data
@@ -1763,6 +2051,11 @@ const sections = ref([
         id: 'leadership-section',
         name: 'Leadership',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>'
+    },
+    {
+        id: 'why-partner-section',
+        name: 'Why Partner',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>'
     }
 ]);
 
@@ -1865,6 +2158,31 @@ const leadershipErrors = ref({});
 const showAddLeadershipMemberModal = ref(false);
 const editingLeadershipMember = ref(null);
 const leadershipMemberProcessing = ref(false);
+
+// Why Partner form
+const whyPartnerForm = reactive({
+    title: props.whyPartnerSection?.title || 'Why Partner With Us',
+    subtitle: props.whyPartnerSection?.subtitle || 'We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.',
+    background_color: props.whyPartnerSection?.background_color || '',
+    is_active: props.whyPartnerSection?.is_active ?? true
+});
+
+// Why Partner Feature form
+const whyPartnerFeatureForm = reactive({
+    title: '',
+    description: '',
+    icon: '',
+    sort_order: 1,
+    is_active: true
+});
+
+// Why Partner state
+const whyPartnerProcessing = ref(false);
+const whyPartnerErrors = ref({});
+const whyPartnerFeatureModalOpen = ref(false);
+const whyPartnerFeatureModalMode = ref('create');
+const editingWhyPartnerFeature = ref(null);
+const whyPartnerFeatureProcessing = ref(false);
 const leadershipMemberErrors = ref({});
 
 // Methods
@@ -2300,6 +2618,127 @@ const cancelLeadershipMemberEdit = () => {
     leadershipMemberForm.sort_order = 1;
     leadershipMemberForm.is_active = true;
     leadershipMemberForm.image = null;
+};
+
+// Why Partner methods
+const updateWhyPartner = () => {
+    whyPartnerProcessing.value = true;
+    whyPartnerErrors.value = {};
+
+    router.put(route('admin.about-us.why-partner.update'), {
+        title: whyPartnerForm.title,
+        subtitle: whyPartnerForm.subtitle,
+        background_color: whyPartnerForm.background_color,
+        is_active: whyPartnerForm.is_active
+    }, {
+        onSuccess: () => {
+            whyPartnerProcessing.value = false;
+        },
+        onError: (errors) => {
+            whyPartnerErrors.value = errors;
+            whyPartnerProcessing.value = false;
+        }
+    });
+};
+
+const uploadWhyPartnerBackground = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('background_image', file);
+
+    router.post(route('admin.about-us.why-partner.background.upload'), formData, {
+        forceFormData: true,
+        onSuccess: () => {
+            // Clear the file input
+            event.target.value = '';
+        },
+        onError: (errors) => {
+            console.error('Upload failed:', errors);
+            event.target.value = '';
+        }
+    });
+};
+
+const deleteWhyPartnerBackground = () => {
+    if (confirm('Are you sure you want to delete the background image?')) {
+        router.delete(route('admin.about-us.why-partner.background.delete'));
+    }
+};
+
+const addWhyPartnerFeature = () => {
+    whyPartnerFeatureModalMode.value = 'create';
+    whyPartnerFeatureForm.title = '';
+    whyPartnerFeatureForm.description = '';
+    whyPartnerFeatureForm.icon = '';
+    whyPartnerFeatureForm.sort_order = (props.whyPartnerSection?.features?.length || 0) + 1;
+    whyPartnerFeatureForm.is_active = true;
+    whyPartnerFeatureModalOpen.value = true;
+};
+
+const editWhyPartnerFeature = (feature) => {
+    whyPartnerFeatureModalMode.value = 'edit';
+    editingWhyPartnerFeature.value = feature;
+    whyPartnerFeatureForm.title = feature.title;
+    whyPartnerFeatureForm.description = feature.description;
+    whyPartnerFeatureForm.icon = feature.icon || '';
+    whyPartnerFeatureForm.sort_order = feature.sort_order;
+    whyPartnerFeatureForm.is_active = feature.is_active;
+    whyPartnerFeatureModalOpen.value = true;
+};
+
+const saveWhyPartnerFeature = () => {
+    whyPartnerFeatureProcessing.value = true;
+
+    const data = {
+        title: whyPartnerFeatureForm.title,
+        description: whyPartnerFeatureForm.description,
+        icon: whyPartnerFeatureForm.icon,
+        sort_order: whyPartnerFeatureForm.sort_order,
+        is_active: whyPartnerFeatureForm.is_active
+    };
+
+    if (whyPartnerFeatureModalMode.value === 'create') {
+        router.post(route('admin.about-us.why-partner.features.store'), data, {
+            onSuccess: () => {
+                whyPartnerFeatureProcessing.value = false;
+                whyPartnerFeatureModalOpen.value = false;
+            },
+            onError: (errors) => {
+                whyPartnerFeatureProcessing.value = false;
+                console.error('Create failed:', errors);
+            }
+        });
+    } else {
+        router.put(route('admin.about-us.why-partner.features.update', editingWhyPartnerFeature.value.id), data, {
+            onSuccess: () => {
+                whyPartnerFeatureProcessing.value = false;
+                whyPartnerFeatureModalOpen.value = false;
+                editingWhyPartnerFeature.value = null;
+            },
+            onError: (errors) => {
+                whyPartnerFeatureProcessing.value = false;
+                console.error('Update failed:', errors);
+            }
+        });
+    }
+};
+
+const deleteWhyPartnerFeature = (featureId) => {
+    if (confirm('Are you sure you want to delete this feature?')) {
+        router.delete(route('admin.about-us.why-partner.features.delete', featureId));
+    }
+};
+
+const cancelWhyPartnerFeatureEdit = () => {
+    whyPartnerFeatureModalOpen.value = false;
+    editingWhyPartnerFeature.value = null;
+    whyPartnerFeatureForm.title = '';
+    whyPartnerFeatureForm.description = '';
+    whyPartnerFeatureForm.icon = '';
+    whyPartnerFeatureForm.sort_order = 1;
+    whyPartnerFeatureForm.is_active = true;
 };
 
 // Intersection Observer for active section highlighting

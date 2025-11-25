@@ -12,6 +12,8 @@ use App\Models\AboutUsApproachSection;
 use App\Models\AboutUsApproachStep;
 use App\Models\AboutUsLeadershipSection;
 use App\Models\AboutUsLeadershipMember;
+use App\Models\AboutUsWhyPartnerSection;
+use App\Models\AboutUsWhyPartnerFeature;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -32,6 +34,9 @@ class AboutUsController extends Controller
         $leadershipSection = AboutUsLeadershipSection::with(['members' => function($query) {
             $query->active()->orderBy('sort_order');
         }])->active()->first();
+        $whyPartnerSection = AboutUsWhyPartnerSection::with(['features' => function($query) {
+            $query->active()->orderBy('sort_order');
+        }])->active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
@@ -39,7 +44,8 @@ class AboutUsController extends Controller
             'storySection' => $storySection,
             'whatWeDoSection' => $whatWeDoSection,
             'approachSection' => $approachSection,
-            'leadershipSection' => $leadershipSection
+            'leadershipSection' => $leadershipSection,
+            'whyPartnerSection' => $whyPartnerSection
         ]);
     }
 
@@ -618,5 +624,127 @@ class AboutUsController extends Controller
         $member->delete();
 
         return back()->with('success', 'Leadership member deleted successfully!');
+    }
+
+    // Why Partner Section Methods
+    public function updateWhyPartner(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string',
+            'background_color' => 'nullable|string|max:255',
+        ]);
+
+        $whyPartnerSection = AboutUsWhyPartnerSection::active()->first();
+
+        if (!$whyPartnerSection) {
+            $whyPartnerSection = new AboutUsWhyPartnerSection();
+        }
+
+        $whyPartnerSection->title = $request->title;
+        $whyPartnerSection->subtitle = $request->subtitle;
+        $whyPartnerSection->background_color = $request->background_color;
+        $whyPartnerSection->is_active = true;
+        $whyPartnerSection->save();
+
+        return back()->with('success', 'Why Partner section updated successfully!');
+    }
+
+    public function uploadWhyPartnerBackground(Request $request)
+    {
+        $request->validate([
+            'background_image' => 'required|image|max:5120', // 5MB max
+        ]);
+
+        $whyPartnerSection = AboutUsWhyPartnerSection::active()->first();
+        if (!$whyPartnerSection) {
+            $whyPartnerSection = new AboutUsWhyPartnerSection();
+            $whyPartnerSection->is_active = true;
+            $whyPartnerSection->save();
+        }
+
+        // Delete old background image if exists
+        if ($whyPartnerSection->background_image) {
+            Storage::delete('public/' . $whyPartnerSection->background_image);
+        }
+
+        // Upload new image
+        $imagePath = $request->file('background_image')->store('why-partner-backgrounds', 'public');
+        $whyPartnerSection->background_image = $imagePath;
+        $whyPartnerSection->save();
+
+        return back()->with('success', 'Background image uploaded successfully!');
+    }
+
+    public function deleteWhyPartnerBackground()
+    {
+        $whyPartnerSection = AboutUsWhyPartnerSection::active()->first();
+        if (!$whyPartnerSection) {
+            return back()->withErrors(['error' => 'Why Partner section not found.']);
+        }
+
+        if ($whyPartnerSection->background_image) {
+            Storage::delete('public/' . $whyPartnerSection->background_image);
+            $whyPartnerSection->background_image = null;
+            $whyPartnerSection->save();
+        }
+
+        return back()->with('success', 'Background image deleted successfully!');
+    }
+
+    public function storeWhyPartnerFeature(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon' => 'nullable|string|max:255',
+            'sort_order' => 'required|integer|min:0',
+        ]);
+
+        $whyPartnerSection = AboutUsWhyPartnerSection::active()->first();
+        if (!$whyPartnerSection) {
+            $whyPartnerSection = new AboutUsWhyPartnerSection();
+            $whyPartnerSection->is_active = true;
+            $whyPartnerSection->save();
+        }
+
+        AboutUsWhyPartnerFeature::create([
+            'why_partner_section_id' => $whyPartnerSection->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon' => $request->icon,
+            'sort_order' => $request->sort_order,
+            'is_active' => true,
+        ]);
+
+        return back()->with('success', 'Feature added successfully!');
+    }
+
+    public function updateWhyPartnerFeature(Request $request, AboutUsWhyPartnerFeature $feature)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon' => 'nullable|string|max:255',
+            'sort_order' => 'required|integer|min:0',
+            'is_active' => 'required|boolean',
+        ]);
+
+        $feature->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon' => $request->icon,
+            'sort_order' => $request->sort_order,
+            'is_active' => $request->is_active,
+        ]);
+
+        return back()->with('success', 'Feature updated successfully!');
+    }
+
+    public function deleteWhyPartnerFeature(AboutUsWhyPartnerFeature $feature)
+    {
+        $feature->delete();
+
+        return back()->with('success', 'Feature deleted successfully!');
     }
 }

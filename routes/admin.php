@@ -171,6 +171,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateLeadershipMember'])->name('about-us.leadership.members.update');
     Route::delete('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteLeadershipMember'])->name('about-us.leadership.members.delete');
 
+    // Why Partner Section routes
+    Route::put('/about-us/why-partner', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhyPartner'])->name('about-us.why-partner.update');
+    Route::post('/about-us/why-partner/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadWhyPartnerBackground'])->name('about-us.why-partner.background.upload');
+    Route::delete('/about-us/why-partner/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerBackground'])->name('about-us.why-partner.background.delete');
+    Route::post('/about-us/why-partner/features', [App\Http\Controllers\Admin\AboutUsController::class, 'storeWhyPartnerFeature'])->name('about-us.why-partner.features.store');
+    Route::put('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhyPartnerFeature'])->name('about-us.why-partner.features.update');
+    Route::delete('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerFeature'])->name('about-us.why-partner.features.delete');
+
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
     Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
