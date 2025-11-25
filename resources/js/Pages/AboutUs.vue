@@ -37,16 +37,18 @@
 
         <!-- About Story Section -->
         <AboutStorySection
-            :title="'Sinki, a Name with a Purpose'"
-            :descriptions="[
+            :header-tag="storySection?.header_tag || 'OUR STORY'"
+            :title="storySection?.title || 'Sinki, a Name with a Purpose'"
+            :subtitle="storySection?.subtitle || ''"
+            :descriptions="storySection?.descriptions || [
                 'The name <em>Sinki</em> is inspired by <strong>Helsinki</strong> — the beautifully designed city of Finland, where every building, lane, and public square is deliberately planned around the needs of its people. Just like Helsinki, where design serves function and purpose, we believe that <strong>data should be organized, purposeful, and designed to serve the people who rely on it.</strong>',
                 'Sinki.ai combines Databricks-certified expertise, strategic data thinking, and hands-on engineering to help enterprises turn their data into a foundation that is reliable, compliant, and ready to deliver real business impact, just like a city built for its citizens.',
                 'As Helsinki balances functionality with thoughtful design, Sinki.ai delivers structured, reliable, and actionable data solutions that help organizations make smarter decisions.'
             ]"
-            :image-src="'/images/our story image.png'"
-            :image-alt="'Helsinki city representing our inspiration'"
-            :image-position="'left'"
-            :background-color="'bg-white'"
+            :image-src="storySection?.image_path ? `/storage/${storySection.image_path}` : '/images/our story image.png'"
+            :image-alt="storySection?.image_alt || 'Helsinki city representing our inspiration'"
+            :image-position="storySection?.image_position || 'left'"
+            :background-color="storySection?.background_color || 'bg-white'"
         />
 
         <!-- What We Do Section -->
@@ -88,7 +90,8 @@ import { onMounted } from 'vue';
 // Props
 const props = defineProps({
     heroSection: Object,
-    partnerBadge: Object
+    partnerBadge: Object,
+    storySection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';

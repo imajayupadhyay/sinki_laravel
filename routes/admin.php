@@ -151,6 +151,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/about-us/partner-badge', [App\Http\Controllers\Admin\AboutUsController::class, 'updatePartnerBadge'])->name('about-us.partner-badge.update');
     Route::post('/about-us/partner-badge/logo', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadPartnerLogo'])->name('about-us.partner-badge.logo.upload');
     Route::delete('/about-us/partner-badge/logo', [App\Http\Controllers\Admin\AboutUsController::class, 'deletePartnerLogo'])->name('about-us.partner-badge.logo.delete');
+    Route::put('/about-us/story-section', [App\Http\Controllers\Admin\AboutUsController::class, 'updateStorySection'])->name('about-us.story-section.update');
+    Route::post('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadStoryImage'])->name('about-us.story-section.image.upload');
+    Route::delete('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteStoryImage'])->name('about-us.story-section.image.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

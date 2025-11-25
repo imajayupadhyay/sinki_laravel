@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUsHeroSection;
 use App\Models\AboutUsPartnerBadge;
+use App\Models\AboutUsStorySection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -15,10 +16,12 @@ class AboutUsController extends Controller
     {
         $heroSection = AboutUsHeroSection::active()->first();
         $partnerBadge = AboutUsPartnerBadge::active()->first();
+        $storySection = AboutUsStorySection::active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
-            'partnerBadge' => $partnerBadge
+            'partnerBadge' => $partnerBadge,
+            'storySection' => $storySection
         ]);
     }
 
@@ -160,5 +163,80 @@ class AboutUsController extends Controller
         ]);
 
         return back()->with('success', 'Partner logo deleted successfully!');
+    }
+
+    public function updateStorySection(Request $request)
+    {
+        $request->validate([
+            'header_tag' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'descriptions' => 'required|array',
+            'descriptions.*' => 'required|string',
+            'image_alt' => 'nullable|string|max:255',
+            'image_position' => 'required|in:left,right',
+            'background_color' => 'required|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $storySection = AboutUsStorySection::active()->first();
+
+        if ($storySection) {
+            $storySection->update($request->only([
+                'header_tag', 'title', 'subtitle', 'descriptions', 'image_alt', 'image_position', 'background_color', 'is_active'
+            ]));
+        } else {
+            $storySection = AboutUsStorySection::create($request->only([
+                'header_tag', 'title', 'subtitle', 'descriptions', 'image_alt', 'image_position', 'background_color', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'Story section updated successfully!');
+    }
+
+    public function uploadStoryImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|max:2048'
+        ]);
+
+        $storySection = AboutUsStorySection::active()->first();
+
+        if (!$storySection) {
+            return back()->withErrors(['error' => 'Story section not found.']);
+        }
+
+        // Delete old image if exists
+        if ($storySection->image_path) {
+            Storage::disk('public')->delete($storySection->image_path);
+        }
+
+        // Store new image
+        $imagePath = $request->file('image')->store('about-us/story', 'public');
+
+        $storySection->update([
+            'image_path' => $imagePath
+        ]);
+
+        return back()->with('success', 'Story image updated successfully!');
+    }
+
+    public function deleteStoryImage()
+    {
+        $storySection = AboutUsStorySection::active()->first();
+
+        if (!$storySection || !$storySection->image_path) {
+            return back()->withErrors(['error' => 'No story image found.']);
+        }
+
+        // Delete image file
+        Storage::disk('public')->delete($storySection->image_path);
+
+        // Remove image path from database
+        $storySection->update([
+            'image_path' => null
+        ]);
+
+        return back()->with('success', 'Story image deleted successfully!');
     }
 }
