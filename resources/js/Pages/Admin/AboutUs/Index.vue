@@ -547,6 +547,349 @@
                 </form>
             </div>
         </div>
+
+        <!-- What We Do Section Card -->
+        <div id="what-we-do-section" class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">What We Do Section</h2>
+                <p class="text-sm text-gray-600 mt-1">Manage the what we do section header and background</p>
+            </div>
+
+            <div class="p-6">
+                <form @submit.prevent="updateWhatWeDo">
+                    <div class="space-y-6">
+                        <!-- Background Image Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Image
+                            </label>
+
+                            <!-- Current Background Display -->
+                            <div v-if="whatWeDoSection?.background_image" class="mb-4">
+                                <div class="relative w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
+                                    <img
+                                        :src="`/storage/${whatWeDoSection.background_image}`"
+                                        alt="Background image"
+                                        class="w-full h-full object-cover"
+                                    />
+                                    <div class="absolute top-2 right-2">
+                                        <button
+                                            type="button"
+                                            @click="deleteWhatWeDoBackground"
+                                            class="bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors"
+                                        >
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload New Background -->
+                            <div class="flex items-center justify-center w-full">
+                                <label for="what-we-do-bg-upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg class="w-8 h-8 mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-500">
+                                            <span class="font-semibold">Click to upload</span> background image
+                                        </p>
+                                        <p class="text-xs text-gray-500">PNG, JPG or GIF (MAX. 2MB)</p>
+                                    </div>
+                                    <input
+                                        id="what-we-do-bg-upload"
+                                        type="file"
+                                        class="hidden"
+                                        accept="image/*"
+                                        @change="uploadWhatWeDoBackground"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Header Tag -->
+                            <div>
+                                <label for="what_we_do_header_tag" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Header Tag <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="what_we_do_header_tag"
+                                    v-model="whatWeDoForm.header_tag"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                    placeholder="e.g., HOW WE HELP"
+                                    :class="{ 'border-red-500': whatWeDoErrors.header_tag }"
+                                />
+                                <p v-if="whatWeDoErrors.header_tag" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.header_tag }}</p>
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="flex items-center">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        v-model="whatWeDoForm.is_active"
+                                        class="sr-only peer"
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-red"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-700">What We Do Section Active</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Title -->
+                        <div>
+                            <label for="what_we_do_title" class="block text-sm font-medium text-gray-700 mb-2">
+                                Title <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="what_we_do_title"
+                                v-model="whatWeDoForm.title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red"
+                                placeholder="e.g., What We Do"
+                                :class="{ 'border-red-500': whatWeDoErrors.title }"
+                            />
+                            <p v-if="whatWeDoErrors.title" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.title }}</p>
+                        </div>
+
+                        <!-- Subtitle -->
+                        <div>
+                            <label for="what_we_do_subtitle" class="block text-sm font-medium text-gray-700 mb-2">
+                                Subtitle <span class="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                id="what_we_do_subtitle"
+                                v-model="whatWeDoForm.subtitle"
+                                rows="2"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-red focus:border-brand-red resize-none"
+                                placeholder="e.g., We help enterprises harness the full power of Databricks to unify data, analytics, and AI."
+                                :class="{ 'border-red-500': whatWeDoErrors.subtitle }"
+                            ></textarea>
+                            <p v-if="whatWeDoErrors.subtitle" class="mt-1 text-sm text-red-600">{{ whatWeDoErrors.subtitle }}</p>
+                        </div>
+
+                        <!-- Service Items Management -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Service Items</h3>
+                                <button
+                                    type="button"
+                                    @click="addService"
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-brand-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                >
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Add Service
+                                </button>
+                            </div>
+
+                            <!-- Service Items List -->
+                            <div v-if="whatWeDoSection?.items?.length" class="space-y-4">
+                                <div
+                                    v-for="(item, index) in whatWeDoSection.items"
+                                    :key="item.id"
+                                    class="border border-gray-300 rounded-lg p-4 bg-gray-50"
+                                >
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <div class="flex-shrink-0">
+                                                    <div class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center">
+                                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" v-html="item.icon_svg"></svg>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h4 class="text-sm font-medium text-gray-900 truncate">{{ item.title }}</h4>
+                                                    <p class="text-xs text-gray-500">Sort Order: {{ item.sort_order }}</p>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span :class="item.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                                        {{ item.is_active ? 'Active' : 'Inactive' }}
+                                                    </span>
+                                                    <button
+                                                        type="button"
+                                                        @click="editService(item)"
+                                                        class="text-brand-red hover:text-red-700"
+                                                    >
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        @click="deleteService(item)"
+                                                        class="text-red-600 hover:text-red-800"
+                                                    >
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm text-gray-600">{{ item.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-else class="text-center py-8 text-gray-500">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                                <p>No service items found. Run the seeder or add services manually.</p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end">
+                            <button
+                                type="submit"
+                                :disabled="whatWeDoProcessing"
+                                class="inline-flex items-center px-4 py-2 bg-brand-red border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span v-if="whatWeDoProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                {{ whatWeDoProcessing ? 'Saving...' : 'Save What We Do Section' }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Service Modal -->
+        <div v-if="showAddServiceModal" class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Background overlay -->
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="cancelServiceEdit"></div>
+
+                <!-- Modal content -->
+                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                                {{ editingService ? 'Edit Service Item' : 'Add Service Item' }}
+                            </h3>
+
+                            <form @submit.prevent="saveService">
+                                <div class="space-y-4">
+                                    <!-- Title -->
+                                    <div>
+                                        <label for="service-title" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Title
+                                        </label>
+                                        <input
+                                            id="service-title"
+                                            v-model="serviceForm.title"
+                                            type="text"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': serviceErrors.title }"
+                                        />
+                                        <p v-if="serviceErrors.title" class="mt-1 text-sm text-red-600">
+                                            {{ serviceErrors.title }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div>
+                                        <label for="service-description" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Description
+                                        </label>
+                                        <textarea
+                                            id="service-description"
+                                            v-model="serviceForm.description"
+                                            rows="3"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': serviceErrors.description }"
+                                        ></textarea>
+                                        <p v-if="serviceErrors.description" class="mt-1 text-sm text-red-600">
+                                            {{ serviceErrors.description }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Icon SVG -->
+                                    <div>
+                                        <label for="service-icon" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Icon SVG
+                                        </label>
+                                        <textarea
+                                            id="service-icon"
+                                            v-model="serviceForm.icon_svg"
+                                            rows="3"
+                                            placeholder="<path d='...'/>"
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red font-mono"
+                                            :class="{ 'border-red-500': serviceErrors.icon_svg }"
+                                        ></textarea>
+                                        <p v-if="serviceErrors.icon_svg" class="mt-1 text-sm text-red-600">
+                                            {{ serviceErrors.icon_svg }}
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-500">
+                                            Enter the path elements for the SVG icon (without &lt;svg&gt; wrapper)
+                                        </p>
+                                    </div>
+
+                                    <!-- Sort Order -->
+                                    <div>
+                                        <label for="service-sort-order" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Sort Order
+                                        </label>
+                                        <input
+                                            id="service-sort-order"
+                                            v-model.number="serviceForm.sort_order"
+                                            type="number"
+                                            min="1"
+                                            required
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-brand-red focus:border-brand-red"
+                                            :class="{ 'border-red-500': serviceErrors.sort_order }"
+                                        />
+                                        <p v-if="serviceErrors.sort_order" class="mt-1 text-sm text-red-600">
+                                            {{ serviceErrors.sort_order }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Is Active -->
+                                    <div class="flex items-center">
+                                        <input
+                                            id="service-is-active"
+                                            v-model="serviceForm.is_active"
+                                            type="checkbox"
+                                            class="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                                        />
+                                        <label for="service-is-active" class="ml-2 block text-sm text-gray-700">
+                                            Active
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                        type="submit"
+                                        :disabled="serviceProcessing"
+                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-brand-red text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                    >
+                                        <span v-if="serviceProcessing" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                                        {{ serviceProcessing ? 'Saving...' : (editingService ? 'Update' : 'Add') }} Service
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="cancelServiceEdit"
+                                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-red sm:mt-0 sm:w-auto sm:text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AdminLayout>
 </template>
 
@@ -559,7 +902,8 @@ import AdminLayout from '@/Components/Admin/AdminLayout.vue';
 const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
-    storySection: Object
+    storySection: Object,
+    whatWeDoSection: Object
 });
 
 // Reactive data
@@ -571,6 +915,10 @@ const partnerProcessing = ref(false);
 const partnerErrors = ref({});
 const storyProcessing = ref(false);
 const storyErrors = ref({});
+const whatWeDoProcessing = ref(false);
+const whatWeDoErrors = ref({});
+const showAddServiceModal = ref(false);
+const editingService = ref(null);
 
 // Define sections for navigation
 const sections = ref([
@@ -588,6 +936,11 @@ const sections = ref([
         id: 'story-section',
         name: 'Story Section',
         icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>'
+    },
+    {
+        id: 'what-we-do-section',
+        name: 'What We Do',
+        icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>'
     }
 ]);
 
@@ -618,6 +971,26 @@ const storyForm = reactive({
     background_color: props.storySection?.background_color || 'bg-white',
     is_active: props.storySection?.is_active ?? true
 });
+
+// What We Do form
+const whatWeDoForm = reactive({
+    header_tag: props.whatWeDoSection?.header_tag || 'HOW WE HELP',
+    title: props.whatWeDoSection?.title || '',
+    subtitle: props.whatWeDoSection?.subtitle || '',
+    is_active: props.whatWeDoSection?.is_active ?? true
+});
+
+// Service Item form
+const serviceForm = reactive({
+    title: '',
+    description: '',
+    icon_svg: '',
+    sort_order: 1,
+    is_active: true
+});
+
+const serviceProcessing = ref(false);
+const serviceErrors = ref({});
 
 // Methods
 const scrollToSection = (sectionId) => {
@@ -748,6 +1121,102 @@ const removeDescription = (index) => {
     if (storyForm.descriptions.length > 1) {
         storyForm.descriptions.splice(index, 1);
     }
+};
+
+const updateWhatWeDo = () => {
+    whatWeDoProcessing.value = true;
+    whatWeDoErrors.value = {};
+
+    router.put(route('admin.about-us.what-we-do.update'), whatWeDoForm, {
+        onSuccess: () => {
+            whatWeDoProcessing.value = false;
+        },
+        onError: (errors) => {
+            whatWeDoErrors.value = errors;
+            whatWeDoProcessing.value = false;
+        }
+    });
+};
+
+const uploadWhatWeDoBackground = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    router.post(route('admin.about-us.what-we-do.background.upload'), formData, {
+        forceFormData: true,
+        onSuccess: () => {
+            event.target.value = '';
+        }
+    });
+};
+
+const deleteWhatWeDoBackground = () => {
+    if (confirm('Are you sure you want to delete the background image?')) {
+        router.delete(route('admin.about-us.what-we-do.background.delete'));
+    }
+};
+
+// Service Item Methods
+const addService = () => {
+    serviceForm.title = '';
+    serviceForm.description = '';
+    serviceForm.icon_svg = '';
+    serviceForm.sort_order = props.whatWeDoSection?.items?.length ? Math.max(...props.whatWeDoSection.items.map(i => i.sort_order)) + 1 : 1;
+    serviceForm.is_active = true;
+    editingService.value = null;
+    showAddServiceModal.value = true;
+};
+
+const editService = (service) => {
+    serviceForm.title = service.title;
+    serviceForm.description = service.description;
+    serviceForm.icon_svg = service.icon_svg;
+    serviceForm.sort_order = service.sort_order;
+    serviceForm.is_active = service.is_active;
+    editingService.value = service;
+    showAddServiceModal.value = true;
+};
+
+const saveService = () => {
+    serviceProcessing.value = true;
+    serviceErrors.value = {};
+
+    const url = editingService.value
+        ? route('admin.about-us.what-we-do.items.update', editingService.value.id)
+        : route('admin.about-us.what-we-do.items.store');
+
+    const method = editingService.value ? 'put' : 'post';
+
+    router[method](url, serviceForm, {
+        onSuccess: () => {
+            serviceProcessing.value = false;
+            showAddServiceModal.value = false;
+            editingService.value = null;
+        },
+        onError: (errors) => {
+            serviceErrors.value = errors;
+            serviceProcessing.value = false;
+        }
+    });
+};
+
+const deleteService = (service) => {
+    if (confirm(`Are you sure you want to delete "${service.title}"?`)) {
+        router.delete(route('admin.about-us.what-we-do.items.delete', service.id));
+    }
+};
+
+const cancelServiceEdit = () => {
+    showAddServiceModal.value = false;
+    editingService.value = null;
+    serviceForm.title = '';
+    serviceForm.description = '';
+    serviceForm.icon_svg = '';
+    serviceForm.sort_order = 1;
+    serviceForm.is_active = true;
 };
 
 // Intersection Observer for active section highlighting

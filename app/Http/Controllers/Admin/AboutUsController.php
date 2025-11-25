@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutUsHeroSection;
 use App\Models\AboutUsPartnerBadge;
 use App\Models\AboutUsStorySection;
+use App\Models\AboutUsWhatWeDoSection;
+use App\Models\AboutUsWhatWeDoItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -17,11 +19,15 @@ class AboutUsController extends Controller
         $heroSection = AboutUsHeroSection::active()->first();
         $partnerBadge = AboutUsPartnerBadge::active()->first();
         $storySection = AboutUsStorySection::active()->first();
+        $whatWeDoSection = AboutUsWhatWeDoSection::with(['items' => function($query) {
+            $query->active()->orderBy('sort_order');
+        }])->active()->first();
 
         return Inertia::render('Admin/AboutUs/Index', [
             'heroSection' => $heroSection,
             'partnerBadge' => $partnerBadge,
-            'storySection' => $storySection
+            'storySection' => $storySection,
+            'whatWeDoSection' => $whatWeDoSection
         ]);
     }
 
@@ -238,5 +244,130 @@ class AboutUsController extends Controller
         ]);
 
         return back()->with('success', 'Story image deleted successfully!');
+    }
+
+    public function updateWhatWeDo(Request $request)
+    {
+        $request->validate([
+            'header_tag' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string',
+            'is_active' => 'boolean'
+        ]);
+
+        $whatWeDoSection = AboutUsWhatWeDoSection::active()->first();
+
+        if ($whatWeDoSection) {
+            $whatWeDoSection->update($request->only([
+                'header_tag', 'title', 'subtitle', 'is_active'
+            ]));
+        } else {
+            $whatWeDoSection = AboutUsWhatWeDoSection::create($request->only([
+                'header_tag', 'title', 'subtitle', 'is_active'
+            ]));
+        }
+
+        return back()->with('success', 'What We Do section updated successfully!');
+    }
+
+    public function uploadWhatWeDoBackground(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|max:2048'
+        ]);
+
+        $whatWeDoSection = AboutUsWhatWeDoSection::active()->first();
+
+        if (!$whatWeDoSection) {
+            return back()->withErrors(['error' => 'What We Do section not found.']);
+        }
+
+        // Delete old image if exists
+        if ($whatWeDoSection->background_image) {
+            Storage::disk('public')->delete($whatWeDoSection->background_image);
+        }
+
+        // Store new image
+        $imagePath = $request->file('image')->store('about-us/what-we-do', 'public');
+
+        $whatWeDoSection->update([
+            'background_image' => $imagePath
+        ]);
+
+        return back()->with('success', 'Background image updated successfully!');
+    }
+
+    public function deleteWhatWeDoBackground()
+    {
+        $whatWeDoSection = AboutUsWhatWeDoSection::active()->first();
+
+        if (!$whatWeDoSection || !$whatWeDoSection->background_image) {
+            return back()->withErrors(['error' => 'No background image found.']);
+        }
+
+        // Delete image file
+        Storage::disk('public')->delete($whatWeDoSection->background_image);
+
+        // Remove image path from database
+        $whatWeDoSection->update([
+            'background_image' => null
+        ]);
+
+        return back()->with('success', 'Background image deleted successfully!');
+    }
+
+    public function storeWhatWeDoItem(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $whatWeDoSection = AboutUsWhatWeDoSection::active()->first();
+
+        if (!$whatWeDoSection) {
+            return back()->withErrors(['error' => 'What We Do section not found.']);
+        }
+
+        // If no sort_order provided, set to next available
+        $sortOrder = $request->sort_order ?? ($whatWeDoSection->items()->max('sort_order') + 1);
+
+        AboutUsWhatWeDoItem::create([
+            'what_we_do_section_id' => $whatWeDoSection->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon_svg' => $request->icon_svg,
+            'sort_order' => $sortOrder,
+            'is_active' => $request->is_active ?? true
+        ]);
+
+        return back()->with('success', 'Service item added successfully!');
+    }
+
+    public function updateWhatWeDoItem(Request $request, AboutUsWhatWeDoItem $item)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'icon_svg' => 'required|string',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean'
+        ]);
+
+        $item->update($request->only([
+            'title', 'description', 'icon_svg', 'sort_order', 'is_active'
+        ]));
+
+        return back()->with('success', 'Service item updated successfully!');
+    }
+
+    public function deleteWhatWeDoItem(AboutUsWhatWeDoItem $item)
+    {
+        $item->delete();
+
+        return back()->with('success', 'Service item deleted successfully!');
     }
 }

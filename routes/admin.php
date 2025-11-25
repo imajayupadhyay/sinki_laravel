@@ -154,6 +154,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/about-us/story-section', [App\Http\Controllers\Admin\AboutUsController::class, 'updateStorySection'])->name('about-us.story-section.update');
     Route::post('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadStoryImage'])->name('about-us.story-section.image.upload');
     Route::delete('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteStoryImage'])->name('about-us.story-section.image.delete');
+    Route::put('/about-us/what-we-do', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhatWeDo'])->name('about-us.what-we-do.update');
+    Route::post('/about-us/what-we-do/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadWhatWeDoBackground'])->name('about-us.what-we-do.background.upload');
+    Route::delete('/about-us/what-we-do/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhatWeDoBackground'])->name('about-us.what-we-do.background.delete');
+    Route::post('/about-us/what-we-do/items', [App\Http\Controllers\Admin\AboutUsController::class, 'storeWhatWeDoItem'])->name('about-us.what-we-do.items.store');
+    Route::put('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhatWeDoItem'])->name('about-us.what-we-do.items.update');
+    Route::delete('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhatWeDoItem'])->name('about-us.what-we-do.items.delete');
 
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');

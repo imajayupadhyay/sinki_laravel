@@ -52,7 +52,13 @@
         />
 
         <!-- What We Do Section -->
-        <WhatWeDoSection />
+        <WhatWeDoSection
+            :header-tag="whatWeDoSection?.header_tag || 'HOW WE HELP'"
+            :title="whatWeDoSection?.title || 'What We Do'"
+            :subtitle="whatWeDoSection?.subtitle || 'We help enterprises harness the full power of Databricks to unify data, analytics, and AI.'"
+            :background-image="whatWeDoSection?.background_image"
+            :services="whatWeDoSection?.items || []"
+        />
 
         <!-- Our Approach Section -->
         <OurApproachSection />
@@ -91,7 +97,8 @@ import { onMounted } from 'vue';
 const props = defineProps({
     heroSection: Object,
     partnerBadge: Object,
-    storySection: Object
+    storySection: Object,
+    whatWeDoSection: Object
 });
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
