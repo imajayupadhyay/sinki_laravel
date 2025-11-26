@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Terms & Conditions - Sinki.ai">
+        <Head title="Terms & Conditions">
             <meta name="description" content="Terms and Conditions for Sinki.ai services. Read our comprehensive terms governing the use of our website and professional consulting services." />
         </Head>
 

@@ -3,7 +3,7 @@
         page-title="Dashboard"
         page-subtitle="Welcome to your admin panel"
     >
-        <Head title="Admin Dashboard - Sinki.ai" />
+        <Head title="Admin Dashboard" />
 
         <!-- Welcome Section -->
         <div class="mb-8">

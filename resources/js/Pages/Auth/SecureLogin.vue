@@ -8,7 +8,7 @@
             backgroundRepeat: 'no-repeat'
         }"
     >
-        <Head title="Secure Login - Sinki.ai" />
+        <Head title="Secure Login" />
 
         <!-- Background Overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-transparent z-0"></div>

@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Our Services | Sinki.ai">
+        <Head title="Our Services">
             <meta name="description" content="Explore our comprehensive range of technology services designed to transform your business." />
         </Head>
 
