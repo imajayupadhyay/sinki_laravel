@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('label')->default('What Sets Us Apart');
             $table->string('heading')->default('Your Databricks Partner, Every Step of the Way');
-            $table->text('description')->default('We don\'t just implement Databricks. We simplify it, tailor it, and make it deliver real business outcomes.');
+            $table->text('description')->nullable();
             $table->string('background_image')->nullable()->default('heroobannersinki.png');
             $table->string('background_image_alt')->nullable();
             $table->boolean('is_active')->default(true);

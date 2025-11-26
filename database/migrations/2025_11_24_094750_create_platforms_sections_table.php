@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('label')->default('Platforms We Work With');
             $table->string('heading')->default('Built on the Platforms You Trust');
-            $table->text('description')->default('We bring Databricks to life on the enterprise platforms you already rely on.');
+            $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
