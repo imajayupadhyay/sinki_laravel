@@ -3,7 +3,7 @@
         <!-- Background Image -->
         <div class="absolute inset-0">
             <img
-                src="/images/aboutheroback.png"
+                :src="heroSection?.background_image ? `/storage/${heroSection.background_image}` : '/images/aboutheroback.png'"
                 alt="About Us Banner"
                 class="w-full h-full object-cover"
             />
@@ -16,16 +16,32 @@
                 <!-- Left Side - Content (75%) -->
                 <div class="flex-1 lg:w-3/4 space-y-4 sm:space-y-5 md:space-y-6">
                     <h1 class="text-[28px] sm:text-[32px] md:text-[42px] lg:text-[56px] xl:text-[64px] leading-[1.1] sm:leading-[1.15] md:leading-[1.1] font-bold text-white mt-2 sm:mt-4 md:mt-6 animate-slide-up">
-                        We Turn Complex Data<br class="hidden sm:block" />
-                        <span class="sm:hidden"> into Clear,</span>
-                        <span class="hidden sm:inline"> into Clear, Actionable Intelligence</span>
-                        <br class="sm:hidden" />
-                        <span class="sm:hidden">Actionable Intelligence</span>
+                        <!-- Use dynamic heading if available, otherwise fall back to static content -->
+                        <span v-if="heroSection?.heading" v-html="heroSection.heading"></span>
+                        <template v-else>
+                            We Turn Complex Data<br class="hidden sm:block" />
+                            <span class="sm:hidden"> into Clear,</span>
+                            <span class="hidden sm:inline"> into Clear, Actionable Intelligence</span>
+                            <br class="sm:hidden" />
+                            <span class="sm:hidden">Actionable Intelligence</span>
+                        </template>
                     </h1>
 
                     <p class="text-[16px] sm:text-[18px] md:text-xl lg:text-[28px] leading-relaxed sm:leading-[28px] md:leading-relaxed lg:leading-[42px] text-white/80 animate-slide-up-delayed">
-                        Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.
+                        <!-- Use dynamic paragraph if available, otherwise fall back to static content -->
+                        <span v-if="heroSection?.paragraph">{{ heroSection.paragraph }}</span>
+                        <span v-else>Sinki helps enterprises use Databricks to create organized, consistent, and human-centered data systems that accelerate analytics and AI.</span>
                     </p>
+
+                    <!-- CTA Button - only show if CTA text and link are provided -->
+                    <div v-if="heroSection?.cta_text && heroSection?.cta_link" class="animate-slide-up-delayed">
+                        <a
+                            :href="heroSection.cta_link"
+                            class="inline-flex items-center px-6 py-3 bg-brand-red text-white font-semibold text-lg rounded-lg hover:bg-red-700 transition-colors duration-300"
+                        >
+                            {{ heroSection.cta_text }}
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Right Side - 3D Logo (25%) -->
@@ -49,6 +65,11 @@
 <script setup>
 import { onMounted } from 'vue';
 
+// Props
+const props = defineProps({
+    heroSection: Object
+});
+
 // Initialize AOS if available
 onMounted(() => {
     if (typeof AOS !== 'undefined') {
@@ -61,6 +82,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Brand colors */
+.bg-brand-red {
+    background-color: #FF3621;
+}
+
+.hover\:bg-red-700:hover {
+    background-color: #dc2626;
+}
+
 /* Modern entrance animations */
 @keyframes slideUp {
     0% {

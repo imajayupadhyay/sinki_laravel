@@ -1,5 +1,9 @@
 <template>
-    <section id="services" class="core-services-section relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-32">
+    <section
+        v-if="coreServicesSection && coreServicesSection.is_active"
+        id="services"
+        class="core-services-section relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-32"
+    >
         <!-- Background Image -->
         <div class="absolute inset-0 z-0" :style="{backgroundImage: 'url(/images/heroobannersinki.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}">
         </div>
@@ -8,148 +12,66 @@
             <!-- Section Label -->
             <div class="mb-6 sm:mb-8 text-center animate-fade-in">
                 <span class="text-brand-dark text-sm sm:text-base md:text-lg font-medium uppercase tracking-[1.8px]">
-                    Core Services
+                    {{ coreServicesSection.label || 'Core Services' }}
                 </span>
             </div>
 
             <!-- Main Heading -->
             <h2 class="text-brand-dark font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[78px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[85.8px] mb-4 sm:mb-6 text-center max-w-full lg:max-w-[1281px] mx-auto animate-slide-up">
-                Databricks Services We Deliver
+                {{ coreServicesSection.heading || 'Databricks Services We Deliver' }}
             </h2>
 
             <!-- Description -->
             <p class="text-brand-dark text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[30px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[45px] mb-8 sm:mb-12 md:mb-16 text-center max-w-full lg:max-w-[1094px] mx-auto animate-slide-up-delayed">
-                From data engineering and governance to AI and analytics, we make sure your Databricks investment delivers measurable impact.
+                {{ coreServicesSection.description || 'From data engineering and governance to AI and analytics, we make sure your Databricks investment delivers measurable impact.' }}
             </p>
 
-            <!-- Service Cards Grid - 4 Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
-                
-                <!-- Card 1: Data Engineering & Modernization -->
-                <div @click="navigateToService('/services/data-engineering')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
-                    <!-- Icon and Arrow -->
-                    <div class="flex items-start justify-between mb-4 sm:mb-6">
-                        <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                            </svg>
-                        </div>
-                        <div class="arrow-icon opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-brand-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
-                        Data Engineering & Modernization
-                    </h3>
-                    
-                    <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Pipelines</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Orchestration</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Integration</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Migration</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Modernization</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Lakehouse Consulting</span>
-                    </div>
-                </div>
+            <!-- Service Cards Grid -->
+            <div v-if="coreServicesSection.services && coreServicesSection.services.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
 
-                <!-- Card 2: Data Management & Governance -->
-                <div @click="navigateToService('/services/data-management')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+                <!-- Dynamic Service Card -->
+                <div
+                    v-for="(service, index) in coreServicesSection.services"
+                    :key="service.id"
+                    @click="navigateToService(service.link_url)"
+                    :class="[
+                        'service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]',
+                        `service-card-${index + 1}`
+                    ]"
+                >
                     <!-- Icon and Arrow -->
                     <div class="flex items-start justify-between mb-4 sm:mb-6">
                         <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
                             <svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" :d="service.icon_svg"/>
                             </svg>
                         </div>
-                        <div class="arrow-icon opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <div v-if="service.link_url" class="arrow-icon opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-brand-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
                             </svg>
                         </div>
                     </div>
-                    
-                    <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
-                        Data Management & Governance
-                    </h3>
-                    
-                    <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Management Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Cloud Data Management</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Governance</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Quality & Observability</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Implementation</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Unity Catalog Migration</span>
-                    </div>
-                </div>
 
-                <!-- Card 3: Data Analytics & Business Intelligence -->
-                <div @click="navigateToService('/services/data-analytics')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
-                    <!-- Icon and Arrow -->
-                    <div class="flex items-start justify-between mb-4 sm:mb-6">
-                        <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
-                            </svg>
-                        </div>
-                        <div class="arrow-icon opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-brand-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
                     <!-- Title -->
                     <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
-                        Data Analytics & Business Intelligence
+                        {{ service.title }}
                     </h3>
-                    
-                    <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Analytics Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Business Intelligence Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">BI Modernization</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Data Visualization & Reporting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Databricks SQL Analytics</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Advanced Analytics & Predictive Insights</span>
-                    </div>
-                </div>
 
-                <!-- Card 4: AI & ML Solutions -->
-                <div @click="navigateToService('/services/ai-ml-solutions')" class="service-card group bg-white/50 backdrop-blur-sm border border-black/10 rounded-[25px] p-4 sm:p-6 md:p-8 hover:bg-white/80 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
-                    <!-- Icon and Arrow -->
-                    <div class="flex items-start justify-between mb-4 sm:mb-6">
-                        <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0">
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                        </div>
-                        <div class="arrow-icon opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-brand-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Title -->
-                    <h3 class="text-brand-dark text-xl sm:text-2xl md:text-[22px] lg:text-[24px] font-semibold leading-tight sm:leading-tight md:leading-[28px] lg:leading-[30px] mb-4 sm:mb-6 group-hover:text-brand-red transition-colors duration-300">
-                        AI & ML Solutions
-                    </h3>
-                    
+                    <!-- Description (if available) -->
+                    <p v-if="service.description" class="text-brand-dark text-sm sm:text-base mb-4 opacity-80 line-clamp-3">
+                        {{ service.description }}
+                    </p>
+
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">AI Strategy & Consulting</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">GenAI</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">ML & Predictive Analytics</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">MLOps & AI Platforms</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">LLMOps</span>
-                        <span class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]">Enterprise RAG Applications</span>
+                    <div v-if="service.tags && service.tags.length" class="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3">
+                        <span
+                            v-for="tag in service.tags"
+                            :key="tag"
+                            class="tag text-xs sm:text-sm md:text-sm lg:text-[15px]"
+                        >
+                            {{ tag }}
+                        </span>
                     </div>
                 </div>
 
@@ -161,8 +83,18 @@
 <script setup>
 import { router } from '@inertiajs/vue3'
 
+// Define props
+const props = defineProps({
+    coreServicesSection: {
+        type: Object,
+        default: () => null
+    }
+})
+
 const navigateToService = (url) => {
-    router.visit(url)
+    if (url) {
+        router.visit(url)
+    }
 }
 </script>
 
@@ -229,10 +161,12 @@ const navigateToService = (url) => {
     animation-fill-mode: backwards;
 }
 
-.service-card:nth-child(1) { animation-delay: 0.6s; }
-.service-card:nth-child(2) { animation-delay: 0.7s; }
-.service-card:nth-child(3) { animation-delay: 0.8s; }
-.service-card:nth-child(4) { animation-delay: 0.9s; }
+.service-card-1 { animation-delay: 0.6s; }
+.service-card-2 { animation-delay: 0.7s; }
+.service-card-3 { animation-delay: 0.8s; }
+.service-card-4 { animation-delay: 0.9s; }
+.service-card-5 { animation-delay: 1.0s; }
+.service-card-6 { animation-delay: 1.1s; }
 
 /* Card Hover Effects */
 .service-card::before {

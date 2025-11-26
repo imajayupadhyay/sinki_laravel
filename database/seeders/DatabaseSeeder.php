@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         // Create default admin user
         $this->call([
             AdminUserSeeder::class,
+            CoreServicesSeeder::class,
         ]);
 
         // User::factory(10)->create();

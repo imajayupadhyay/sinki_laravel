@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
-        <Head title="Page Not Found - Sinki.ai" />
+        <Head title="Page Not Found" />
 
         <div class="max-w-lg w-full text-center">
             <!-- SVG Illustration -->

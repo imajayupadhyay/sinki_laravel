@@ -2,7 +2,7 @@
     <section
         class="what-we-do-section relative overflow-hidden py-20 lg:py-32"
         :style="{
-            backgroundImage: 'url(/images/aboutussecbanner.png)',
+            backgroundImage: backgroundImage ? `url(/storage/${backgroundImage})` : 'url(/images/aboutussecbanner.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -30,105 +30,135 @@
                 </p>
             </div>
 
-            <!-- Services Grid - 2x2 Layout -->
+            <!-- Services Grid - Dynamic Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8">
 
-                <!-- Service 1: Data Engineering & Modernization -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1">
+                <!-- Dynamic Service Cards -->
+                <div
+                    v-for="(service, index) in serviceItems"
+                    :key="service.id"
+                    :class="`service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-${index + 1}`"
+                    v-show="service.is_active"
+                >
                     <div class="flex items-start gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
                             <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" v-html="service.icon_svg"></svg>
                             </div>
                         </div>
 
                         <!-- Content -->
                         <div class="flex-1">
                             <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Data Engineering & Modernization
+                                {{ service.title }}
                             </h3>
                             <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                Design and build resilient lakehouse architectures & automated pipelines that deliver reliable, analytics-ready data.
+                                {{ service.description }}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Service 2: Data Management & Governance -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-2">
-                    <div class="flex items-start gap-6">
-                        <!-- Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                </svg>
+                <!-- Static Fallback Services (when no database services exist) -->
+                <template v-if="serviceItems.length === 0">
+                    <!-- Service 1: Data Engineering & Modernization -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Data Engineering & Modernization
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Design and build resilient lakehouse architectures & automated pipelines that deliver reliable, analytics-ready data.
+                                </p>
                             </div>
                         </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Data Management & Governance
-                            </h3>
-                            <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                Establish strong governance with Unity Catalog-aligned lineage, metadata management, and compliance automation.
-                            </p>
-                        </div>
                     </div>
-                </div>
 
-                <!-- Service 3: Data Analytics & Business Intelligence -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-3">
-                    <div class="flex items-start gap-6">
-                        <!-- Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
-                                </svg>
+                    <!-- Service 2: Data Management & Governance -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-2">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Data Management & Governance
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Establish strong governance with Unity Catalog-aligned lineage, metadata management, and compliance automation.
+                                </p>
                             </div>
                         </div>
-
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                Data Analytics & Business Intelligence
-                            </h3>
-                            <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                Transform raw data into interactive dashboards, KPIs, and insights that drive faster decisions.
-                            </p>
-                        </div>
                     </div>
-                </div>
 
-                <!-- Service 4: AI & ML Solutions -->
-                <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-4">
-                    <div class="flex items-start gap-6">
-                        <!-- Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                </svg>
+                    <!-- Service 3: Data Analytics & Business Intelligence -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-3">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Data Analytics & Business Intelligence
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Transform raw data into interactive dashboards, KPIs, and insights that drive faster decisions.
+                                </p>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Content -->
-                        <div class="flex-1">
-                            <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                AI & ML Solutions
-                            </h3>
-                            <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                Operationalize AI with scalable, production-ready models that enable prediction, automation, and continuous improvement.
-                            </p>
+                    <!-- Service 4: AI & ML Solutions -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-4">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    AI & ML Solutions
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Operationalize AI with scalable, production-ready models that enable prediction, automation, and continuous improvement.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </template>
 
             </div>
         </div>
@@ -136,7 +166,7 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
 // Props for customization
 const props = defineProps({
@@ -152,10 +182,22 @@ const props = defineProps({
         type: String,
         default: 'We help enterprises harness the full power of Databricks to unify data, analytics, and AI.'
     },
+    backgroundImage: {
+        type: String,
+        default: null
+    },
     services: {
         type: Array,
         default: () => []
     }
+});
+
+// Get service items from props, sorted by sort_order
+const serviceItems = computed(() => {
+    if (props.services && props.services.length > 0) {
+        return props.services.filter(service => service.is_active).sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return [];
 });
 
 </script>

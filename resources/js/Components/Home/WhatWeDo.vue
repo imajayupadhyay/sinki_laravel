@@ -8,95 +8,46 @@
             <!-- Section Label -->
             <div class="mb-6 sm:mb-8 animate-fade-in ml-0 sm:ml-3">
                 <span class="text-brand-dark text-base sm:text-lg font-medium uppercase tracking-[1.8px]">
-                    What We Do
+                    {{ whatWeDoSection?.label || 'What We Do' }}
                 </span>
             </div>
 
             <!-- Main Heading -->
             <h2 class="text-brand-dark font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[78px] leading-tight sm:leading-tight lg:leading-tight xl:leading-[85.8px] mb-4 sm:mb-6 max-w-full lg:max-w-[1167px] ml-0 sm:ml-3 animate-slide-up">
-                We Simplify Your Databricks Journey End-to-End
+                {{ whatWeDoSection?.heading || 'We Simplify Your Databricks Journey End-to-End' }}
             </h2>
 
             <!-- Description -->
             <p class="text-brand-dark text-lg sm:text-xl lg:text-2xl xl:text-[30px] leading-relaxed sm:leading-relaxed lg:leading-relaxed xl:leading-[45px] mb-12 sm:mb-16 max-w-full lg:max-w-[1074px] ml-0 sm:ml-3 animate-slide-up-delayed">
-                Wherever you are in your Databricks journey, planning, migrating, or scaling, we help you move faster and with confidence.
+                {{ whatWeDoSection?.description || 'Wherever you are in your Databricks journey, planning, migrating, or scaling, we help you move faster and with confidence.' }}
             </p>
 
-            <!-- Service Cards Grid - 3 Cards -->
+            <!-- Service Cards Grid - Dynamic Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 px-0 sm:px-3">
-                
-                <!-- Card 1: Strategy & Planning -->
-                <div class="service-card group bg-white border border-black/10 rounded-[15px] p-6 sm:p-8 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
+
+                <!-- Dynamic Service Cards -->
+                <div
+                    v-for="(item, index) in whatWeDoSection?.active_items || []"
+                    :key="item.id"
+                    class="service-card group bg-white border border-black/10 rounded-[15px] p-6 sm:p-8 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer"
+                    :style="{ 'animation-delay': `${0.6 + (index * 0.2)}s` }"
+                >
                     <div class="flex flex-col xl:flex-row xl:items-start items-center gap-4 sm:gap-6">
                         <!-- Icon Top/Left -->
                         <div class="flex-shrink-0 xl:order-1 order-1">
                             <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] lg:w-[80px] lg:h-[80px] xl:w-[90px] xl:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                <!-- Target/Bullseye Icon -->
-                                <svg class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <circle cx="12" cy="12" r="6"/>
-                                    <circle cx="12" cy="12" r="2"/>
-                                </svg>
+                                <!-- Dynamic Icon -->
+                                <div v-html="item.icon_svg" class="flex items-center justify-center"></div>
                             </div>
                         </div>
 
                         <!-- Content Bottom/Right -->
                         <div class="card-content flex-1 xl:order-2 order-2 text-center xl:text-left">
                             <h3 class="text-brand-dark text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-semibold leading-tight sm:leading-tight lg:leading-[33px] xl:leading-[36px] tracking-[0.48px] mb-2 group-hover:text-brand-red transition-colors duration-300">
-                                Strategy & Planning
+                                {{ item.title }}
                             </h3>
                             <p class="text-brand-dark text-base sm:text-lg lg:text-[19px] xl:text-[21px] font-normal leading-relaxed sm:leading-relaxed lg:leading-[28.5px] xl:leading-[31.5px] tracking-[0.42px]">
-                                Design data & AI roadmaps tailored to your business goals
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Implementation & Migration -->
-                <div class="service-card group bg-white border border-black/10 rounded-[15px] p-6 sm:p-8 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
-                    <div class="flex flex-col xl:flex-row xl:items-start items-center gap-4 sm:gap-6">
-                        <!-- Icon Top/Left -->
-                        <div class="flex-shrink-0 xl:order-1 order-1">
-                            <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] lg:w-[80px] lg:h-[80px] xl:w-[90px] xl:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                <!-- Rocket/Deploy Icon -->
-                                <svg class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content Bottom/Right -->
-                        <div class="card-content flex-1 xl:order-2 order-2 text-center xl:text-left">
-                            <h3 class="text-brand-dark text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-semibold leading-tight sm:leading-tight lg:leading-[33px] xl:leading-[36px] tracking-[0.48px] mb-2 group-hover:text-brand-red transition-colors duration-300">
-                                Implementation & Migration
-                            </h3>
-                            <p class="text-brand-dark text-base sm:text-lg lg:text-[19px] xl:text-[21px] font-normal leading-relaxed sm:leading-relaxed lg:leading-[28.5px] xl:leading-[31.5px] tracking-[0.42px]">
-                                 Migrate workloads and deploy scalable, reliable data systems
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Support & Enablement -->
-                <div class="service-card group bg-white border border-black/10 rounded-[15px] p-6 sm:p-8 hover:border-brand-red transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
-                    <div class="flex flex-col xl:flex-row xl:items-start items-center gap-4 sm:gap-6">
-                        <!-- Icon Top/Left -->
-                        <div class="flex-shrink-0 xl:order-1 order-1">
-                            <div class="icon-wrapper w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] lg:w-[80px] lg:h-[80px] xl:w-[90px] xl:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                <!-- Support/Headset Icon -->
-                                <svg class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Content Bottom/Right -->
-                        <div class="card-content flex-1 xl:order-2 order-2 text-center xl:text-left">
-                            <h3 class="text-brand-dark text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-semibold leading-tight sm:leading-tight lg:leading-[33px] xl:leading-[36px] tracking-[0.48px] mb-2 group-hover:text-brand-red transition-colors duration-300">
-                                Support & Enablement
-                            </h3>
-                            <p class="text-brand-dark text-base sm:text-lg lg:text-[19px] xl:text-[21px] font-normal leading-relaxed sm:leading-relaxed lg:leading-[28.5px] xl:leading-[31.5px] tracking-[0.42px]">
-                                Train teams and optimize Databricks adoption for long-term success
+                                {{ item.description }}
                             </p>
                         </div>
                     </div>
@@ -108,7 +59,13 @@
 </template>
 
 <script setup>
-// No props needed
+// Define props to receive whatWeDoSection data from parent
+const props = defineProps({
+    whatWeDoSection: {
+        type: Object,
+        default: () => null
+    }
+});
 </script>
 
 <style scoped>
@@ -203,17 +160,7 @@
     animation-fill-mode: backwards;
 }
 
-.service-card:nth-child(1) {
-    animation-delay: 0.6s;
-}
-
-.service-card:nth-child(2) {
-    animation-delay: 0.8s;
-}
-
-.service-card:nth-child(3) {
-    animation-delay: 1s;
-}
+/* Dynamic animation delays are handled inline via :style in template */
 
 /* Card Hover Effects */
 .service-card:hover {

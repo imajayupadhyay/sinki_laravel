@@ -11,7 +11,7 @@
 -->
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Demo Service Page | Sinki.ai">
+        <Head title="Demo Service Page">
             <meta name="description" content="Demo service page template for reference." />
             <meta name="robots" content="noindex, nofollow" />
         </Head>

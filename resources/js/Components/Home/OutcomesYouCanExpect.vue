@@ -12,154 +12,49 @@
             <!-- Section Label -->
             <div class="mb-6 sm:mb-8 text-center animate-fade-in">
                 <span class="text-white text-base sm:text-lg font-medium uppercase tracking-[1.8px]">
-                    Outcomes You Can Expect
+                    {{ outcomesSection?.label || 'Outcomes You Can Expect' }}
                 </span>
             </div>
 
             <!-- Main Heading -->
             <h2 class="text-white font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[78px] leading-tight sm:leading-tight lg:leading-[85.8px] mb-4 sm:mb-6 text-center max-w-full lg:max-w-[1275px] mx-auto animate-slide-up">
-                Real Results You'll Achieve With Us
+                {{ outcomesSection?.heading || 'Real Results You\'ll Achieve With Us' }}
             </h2>
 
             <!-- Description -->
             <p class="text-white text-lg sm:text-xl lg:text-[30px] leading-relaxed sm:leading-relaxed lg:leading-[45px] mb-12 sm:mb-16 text-center max-w-full lg:max-w-[1145px] mx-auto animate-slide-up-delayed">
-                Think outcomes, not overhead. Our expertise ensures Databricks delivers exactly what you need.
+                {{ outcomesSection?.description || 'Think outcomes, not overhead. Our expertise ensures Databricks delivers exactly what you need.' }}
             </p>
 
-            <!-- Outcome Cards Grid - 3x2 (6 cards) -->
+            <!-- Outcome Cards Grid - Dynamic Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                
-                <!-- Card 1: Smarter, Faster Decisions -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
+
+                <!-- Dynamic Outcome Cards -->
+                <div
+                    v-for="(item, index) in outcomesSection?.active_items || []"
+                    :key="item.id"
+                    class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer"
+                    :style="{ 'animation-delay': `${0.6 + (index * 0.1)}s` }"
+                >
                     <!-- Icon -->
                     <div class="mb-6 sm:mb-8 flex justify-center">
                         <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                            </svg>
+                            <!-- Dynamic Icon -->
+                            <div v-html="item.icon_svg" class="flex items-center justify-center"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Content -->
                     <div class="text-center">
                         <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            Smarter, Faster Decisions
+                            {{ item.title }}
                         </h3>
                         <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Actionable insights that drive real business outcomes
+                            {{ item.description }}
                         </p>
                     </div>
                 </div>
 
-                <!-- Card 2: Faster Time to Value -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                    <!-- Icon -->
-                    <div class="mb-6 sm:mb-8 flex justify-center">
-                        <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="text-center">
-                        <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            Faster Time to Value
-                        </h3>
-                        <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Achieve measurable results in weeks, not months
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3: Optimized Spend -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                    <!-- Icon -->
-                    <div class="mb-6 sm:mb-8 flex justify-center">
-                        <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="text-center">
-                        <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            Optimized Spend
-                        </h3>
-                        <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Reduce costs across Databricks and cloud infrastructure
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 4: Modern, Efficient Data Platform -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                    <!-- Icon -->
-                    <div class="mb-6 sm:mb-8 flex justify-center">
-                        <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="text-center">
-                        <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            Modern, Efficient Data Platform
-                        </h3>
-                        <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Clean, governed, and ready for enterprise growth
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 5: AI On Demand -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                    <!-- Icon -->
-                    <div class="mb-6 sm:mb-8 flex justify-center">
-                        <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="text-center">
-                        <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            AI On Demand
-                        </h3>
-                        <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Scalable, practical AI solutions available when you need them
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 6: Streamlined Governance -->
-                <div class="outcome-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-6 sm:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                    <!-- Icon -->
-                    <div class="mb-6 sm:mb-8 flex justify-center">
-                        <div class="icon-wrapper w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="text-center">
-                        <h3 class="text-white text-xl sm:text-[24px] lg:text-[28px] font-semibold leading-tight sm:leading-[36px] lg:leading-[42px] tracking-[0.48px] lg:tracking-[0.56px] mb-2 sm:mb-3 group-hover:text-brand-red transition-colors duration-300">
-                            Streamlined Governance
-                        </h3>
-                        <p class="text-white text-lg sm:text-[21px] lg:text-[24px] font-normal leading-relaxed sm:leading-[31.5px] lg:leading-[36px] tracking-[0.42px] lg:tracking-[0.48px] opacity-90">
-                            Security and compliance integrated from day one
-                        </p>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -167,7 +62,13 @@
 </template>
 
 <script setup>
-// No props needed
+// Define props to receive outcomesSection data from parent
+const props = defineProps({
+    outcomesSection: {
+        type: Object,
+        default: () => null
+    }
+});
 </script>
 
 <style scoped>

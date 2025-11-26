@@ -92,10 +92,34 @@
                     Tags
                 </Link>
 
-                <!-- Service Pages Section -->
+                <!-- Page Management Section -->
                 <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Services Management</h3>
+                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Page Management</h3>
                 </div>
+
+                <!-- Homepage -->
+                <Link
+                    :href="route('admin.homepage.index')"
+                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                    :class="isActive('admin.homepage') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                >
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Homepage
+                </Link>
+
+                <!-- About Us -->
+                <Link
+                    :href="route('admin.about-us.index')"
+                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                    :class="isActive('admin.about-us') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                >
+                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    About Us
+                </Link>
 
                 <!-- Service Pages -->
                 <Link
@@ -214,6 +238,18 @@ const isActive = (routeName) => {
     )) return true;
     if (routeName === 'admin.categories' && currentComponent === 'Admin/Categories/Index') return true;
     if (routeName === 'admin.tags' && currentComponent === 'Admin/Tags/Index') return true;
+
+    // Homepage management routes
+    if (routeName === 'admin.homepage' && (
+        currentComponent === 'Admin/Homepage/Index' ||
+        currentComponent === 'Admin/Homepage/Edit'
+    )) return true;
+
+    // About Us management routes
+    if (routeName === 'admin.about-us' && (
+        currentComponent === 'Admin/AboutUs/Index' ||
+        currentComponent === 'Admin/AboutUs/Edit'
+    )) return true;
 
     // Service Pages management routes
     if (routeName === 'admin.service-pages' && (

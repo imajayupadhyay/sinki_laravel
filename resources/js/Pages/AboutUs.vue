@@ -30,44 +30,73 @@
         <Header />
 
         <!-- About Hero Section -->
-        <AboutHero />
+        <AboutHero :hero-section="heroSection" />
 
         <!-- Partner Badge Section -->
-        <PartnerBadge />
+        <PartnerBadge :partner-badge="partnerBadge" />
 
         <!-- About Story Section -->
         <AboutStorySection
-            :title="'Sinki, a Name with a Purpose'"
-            :descriptions="[
+            :header-tag="storySection?.header_tag || 'OUR STORY'"
+            :title="storySection?.title || 'Sinki, a Name with a Purpose'"
+            :subtitle="storySection?.subtitle || ''"
+            :descriptions="storySection?.descriptions || [
                 'The name <em>Sinki</em> is inspired by <strong>Helsinki</strong> — the beautifully designed city of Finland, where every building, lane, and public square is deliberately planned around the needs of its people. Just like Helsinki, where design serves function and purpose, we believe that <strong>data should be organized, purposeful, and designed to serve the people who rely on it.</strong>',
                 'Sinki.ai combines Databricks-certified expertise, strategic data thinking, and hands-on engineering to help enterprises turn their data into a foundation that is reliable, compliant, and ready to deliver real business impact, just like a city built for its citizens.',
                 'As Helsinki balances functionality with thoughtful design, Sinki.ai delivers structured, reliable, and actionable data solutions that help organizations make smarter decisions.'
             ]"
-            :image-src="'/images/our story image.png'"
-            :image-alt="'Helsinki city representing our inspiration'"
-            :image-position="'left'"
-            :background-color="'bg-white'"
+            :image-src="storySection?.image_path ? `/storage/${storySection.image_path}` : '/images/our story image.png'"
+            :image-alt="storySection?.image_alt || 'Helsinki city representing our inspiration'"
+            :image-position="storySection?.image_position || 'left'"
+            :background-color="storySection?.background_color || 'bg-white'"
         />
 
         <!-- What We Do Section -->
-        <WhatWeDoSection />
+        <WhatWeDoSection
+            :header-tag="whatWeDoSection?.header_tag || 'HOW WE HELP'"
+            :title="whatWeDoSection?.title || 'What We Do'"
+            :subtitle="whatWeDoSection?.subtitle || 'We help enterprises harness the full power of Databricks to unify data, analytics, and AI.'"
+            :background-image="whatWeDoSection?.background_image"
+            :services="whatWeDoSection?.items || []"
+        />
 
         <!-- Our Approach Section -->
-        <OurApproachSection />
+        <OurApproachSection
+            :header-tag="props.approachSection?.header_tag || 'HOW WE WORK'"
+            :title="props.approachSection?.title || 'Our Data-First Approach'"
+            :subtitle="props.approachSection?.subtitle || 'How We Transform Your Data Vision Into Reality'"
+            :cta-text="props.approachSection?.cta_text || 'Book A Discovery Session'"
+            :cta-link="props.approachSection?.cta_link"
+            :background-color="props.approachSection?.background_color || 'bg-white'"
+            :steps="props.approachSection?.steps || []"
+        />
 
         <!-- Leadership Section -->
-        <LeadershipSection />
+        <LeadershipSection
+            :header-tag="props.leadershipSection?.header_tag || 'OUR LEADERSHIP'"
+            :title="props.leadershipSection?.title || 'Visionaries Behind Sinki'"
+            :description="props.leadershipSection?.description || 'Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity.'"
+            :background-image="props.leadershipSection?.background_image"
+            :background-color="props.leadershipSection?.background_color"
+            :team-members="props.leadershipSection?.members || []"
+        />
 
         <!-- Why Partner With Us Section -->
-        <WhyPartnerWithUs />
+        <WhyPartnerWithUs
+            :title="props.whyPartnerSection?.title || 'Why Partner With Us'"
+            :subtitle="props.whyPartnerSection?.subtitle || 'We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.'"
+            :background-color="props.whyPartnerSection?.background_color"
+            :background-image="props.whyPartnerSection?.background_image"
+            :features="props.whyPartnerSection?.features || []"
+        />
 
         <!-- CTA Section -->
         <ServiceCTA
-            title="Wherever you are in your data journey, we can<br />help you move faster."
-            description="We'll help you adopt, scale, and succeed with Databricks."
-            cta-text="Start A Conversation"
-            cta-link="/contact"
-            background-image="/images/cta.webp"
+            :title="props.ctaSection?.title || 'Wherever you are in your data journey, we can<br />help you move faster.'"
+            :description="props.ctaSection?.description || 'We\'ll help you adopt, scale, and succeed with Databricks.'"
+            :cta-text="props.ctaSection?.cta_text || 'Start A Conversation'"
+            :cta-link="props.ctaSection?.cta_link || '/contact'"
+            :background-image="props.ctaSection?.background_image ? `/storage/${props.ctaSection.background_image}` : '/images/cta.webp'"
         />
 
         <!-- Future sections will be added here -->
@@ -84,6 +113,18 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+
+// Props
+const props = defineProps({
+    heroSection: Object,
+    partnerBadge: Object,
+    storySection: Object,
+    whatWeDoSection: Object,
+    approachSection: Object,
+    leadershipSection: Object,
+    whyPartnerSection: Object,
+    ctaSection: Object
+});
 import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 import AboutHero from '@/Components/AboutUs/AboutHero.vue';

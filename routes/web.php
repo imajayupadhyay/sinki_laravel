@@ -32,8 +32,46 @@ Route::get('/', function () {
             ];
         });
 
+    // Fetch homepage hero section data
+    $heroSection = \App\Models\HomepageHeroSection::active()->first();
+
+    // Fetch homepage partner badge data
+    $partnerBadge = \App\Models\HomepagePartnerBadge::active()->first();
+
+    // Fetch what we do section data with items
+    $whatWeDoSection = \App\Models\WhatWeDoSection::with(['activeItems'])->active()->first();
+
+    // Fetch outcomes section data with items
+    $outcomesSection = \App\Models\OutcomesSection::with(['activeItems'])->active()->first();
+
+    // Fetch our approach section data
+    $ourApproachSection = \App\Models\OurApproachSection::active()->first();
+
+    // Fetch core services section data with services
+    $coreServicesSection = \App\Models\CoreServicesSection::with(['services' => function($query) {
+        $query->where('is_active', true)->orderBy('sort_order');
+    }])->where('is_active', true)->first();
+
+    // Fetch platforms section data with platforms
+    $platformsSection = \App\Models\PlatformsSection::with(['activePlatforms'])->active()->first();
+
+    // Fetch what sets us apart section data with items
+    $whatSetsUsApartSection = \App\Models\WhatSetsUsApartSection::with(['activeItems'])->active()->first();
+
+    // Fetch SEO settings
+    $seoSettings = \App\Models\HomepageSeoSetting::active()->first();
+
     return Inertia::render('Home', [
         'latestBlogs' => $latestBlogs,
+        'heroSection' => $heroSection,
+        'partnerBadge' => $partnerBadge,
+        'whatWeDoSection' => $whatWeDoSection,
+        'outcomesSection' => $outcomesSection,
+        'ourApproachSection' => $ourApproachSection,
+        'coreServicesSection' => $coreServicesSection,
+        'platformsSection' => $platformsSection,
+        'whatSetsUsApartSection' => $whatSetsUsApartSection,
+        'seoSettings' => $seoSettings,
     ]);
 })->name('home');
 
@@ -76,9 +114,7 @@ Route::prefix('services')->name('services.')->group(function () {
 });
 
 // About Us Route
-Route::get('/about-us', function () {
-    return Inertia::render('AboutUs');
-})->name('about-us');
+Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 // Sitemap Route
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

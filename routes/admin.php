@@ -15,36 +15,35 @@ use Inertia\Inertia;
 |
 */
 
-// Admin login route
-Route::get('/sinki-secure-login', function () {
-    // If user is already authenticated, redirect to admin dashboard
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
-    }
+// Admin login routes
+Route::get('/sinki-secure-login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/sinki-secure-login', [App\Http\Controllers\Admin\AdminAuthController::class, 'login'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.login.store');
 
-    return Inertia::render('Auth/SecureLogin');
-})->name('admin.login');
+// OTP verification routes
+Route::post('/verify-otp', [App\Http\Controllers\Admin\AdminAuthController::class, 'verifyOtp'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.otp.verify');
+Route::post('/resend-otp', [App\Http\Controllers\Admin\AdminAuthController::class, 'resendOtp'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.otp.resend');
 
-Route::post('/sinki-secure-login', function () {
-    // If user is already authenticated, redirect to admin dashboard
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
-    }
-
-    $credentials = request()->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        request()->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
-    }
-
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ]);
-})->name('admin.login.store');
+// Password reset routes
+Route::get('/forgot-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'showForgotPasswordForm'])
+    ->name('admin.forgot-password');
+Route::post('/forgot-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'sendResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.forgot-password.send');
+Route::post('/verify-reset-code', [App\Http\Controllers\Admin\AdminAuthController::class, 'verifyResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.verify-code');
+Route::post('/reset-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'resetPassword'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.reset');
+Route::post('/resend-reset-code', [App\Http\Controllers\Admin\AdminAuthController::class, 'resendResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.resend');
 
 // Protected admin routes
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
@@ -108,6 +107,82 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
     Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
 
+    // Homepage Management
+    Route::get('/homepage', [App\Http\Controllers\Admin\HomepageController::class, 'index'])->name('homepage.index');
+    Route::put('/homepage/hero', [App\Http\Controllers\Admin\HomepageController::class, 'updateHero'])->name('homepage.hero.update');
+    Route::post('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadHeroImage'])->name('homepage.hero.image.upload');
+    Route::delete('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteHeroImage'])->name('homepage.hero.image.delete');
+    Route::put('/homepage/partner-badge', [App\Http\Controllers\Admin\HomepageController::class, 'updatePartnerBadge'])->name('homepage.partner-badge.update');
+    Route::post('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'uploadPartnerLogo'])->name('homepage.partner-badge.logo.upload');
+    Route::delete('/homepage/partner-badge/logo', [App\Http\Controllers\Admin\HomepageController::class, 'deletePartnerLogo'])->name('homepage.partner-badge.logo.delete');
+    Route::put('/homepage/what-we-do', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatWeDo'])->name('homepage.what-we-do.update');
+    Route::post('/homepage/what-we-do/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatWeDoItem'])->name('homepage.what-we-do.items.store');
+    Route::put('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatWeDoItem'])->name('homepage.what-we-do.items.update');
+    Route::delete('/homepage/what-we-do/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatWeDoItem'])->name('homepage.what-we-do.items.delete');
+    Route::put('/homepage/outcomes', [App\Http\Controllers\Admin\HomepageController::class, 'updateOutcomes'])->name('homepage.outcomes.update');
+    Route::post('/homepage/outcomes/items', [App\Http\Controllers\Admin\HomepageController::class, 'storeOutcomesItem'])->name('homepage.outcomes.items.store');
+    Route::put('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateOutcomesItem'])->name('homepage.outcomes.items.update');
+    Route::delete('/homepage/outcomes/items/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOutcomesItem'])->name('homepage.outcomes.items.delete');
+    Route::put('/homepage/our-approach', [App\Http\Controllers\Admin\HomepageController::class, 'updateOurApproach'])->name('homepage.our-approach.update');
+    Route::post('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadOurApproachImage'])->name('homepage.our-approach.image.upload');
+    Route::delete('/homepage/our-approach/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteOurApproachImage'])->name('homepage.our-approach.image.delete');
+    Route::put('/homepage/core-services', [App\Http\Controllers\Admin\HomepageController::class, 'updateCoreServices'])->name('homepage.core-services.update');
+    Route::post('/homepage/core-services/service', [App\Http\Controllers\Admin\HomepageController::class, 'storeCoreService'])->name('homepage.core-services.service.store');
+    Route::put('/homepage/core-services/service/{service}', [App\Http\Controllers\Admin\HomepageController::class, 'updateCoreService'])->name('homepage.core-services.service.update');
+    Route::delete('/homepage/core-services/service/{service}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteCoreService'])->name('homepage.core-services.service.destroy');
+    Route::put('/homepage/platforms', [App\Http\Controllers\Admin\HomepageController::class, 'updatePlatforms'])->name('homepage.platforms.update');
+    Route::post('/homepage/platforms/platform', [App\Http\Controllers\Admin\HomepageController::class, 'storePlatform'])->name('homepage.platforms.platform.store');
+    Route::put('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'updatePlatform'])->name('homepage.platforms.platform.update');
+    Route::delete('/homepage/platforms/platform/{platform}', [App\Http\Controllers\Admin\HomepageController::class, 'deletePlatform'])->name('homepage.platforms.platform.destroy');
+    Route::put('/homepage/what-sets-us-apart', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatSetsUsApart'])->name('homepage.what-sets-us-apart.update');
+    Route::post('/homepage/what-sets-us-apart/item', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.store');
+    Route::put('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.update');
+    Route::delete('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.destroy');
+    Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
+    Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
+    Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
+
+    // About Us Management
+    Route::get('/about-us', [App\Http\Controllers\Admin\AboutUsController::class, 'index'])->name('about-us.index');
+    Route::put('/about-us/hero', [App\Http\Controllers\Admin\AboutUsController::class, 'updateHero'])->name('about-us.hero.update');
+    Route::post('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadHeroImage'])->name('about-us.hero.image.upload');
+    Route::delete('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteHeroImage'])->name('about-us.hero.image.delete');
+    Route::put('/about-us/partner-badge', [App\Http\Controllers\Admin\AboutUsController::class, 'updatePartnerBadge'])->name('about-us.partner-badge.update');
+    Route::post('/about-us/partner-badge/logo', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadPartnerLogo'])->name('about-us.partner-badge.logo.upload');
+    Route::delete('/about-us/partner-badge/logo', [App\Http\Controllers\Admin\AboutUsController::class, 'deletePartnerLogo'])->name('about-us.partner-badge.logo.delete');
+    Route::put('/about-us/story-section', [App\Http\Controllers\Admin\AboutUsController::class, 'updateStorySection'])->name('about-us.story-section.update');
+    Route::post('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadStoryImage'])->name('about-us.story-section.image.upload');
+    Route::delete('/about-us/story-section/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteStoryImage'])->name('about-us.story-section.image.delete');
+    Route::put('/about-us/what-we-do', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhatWeDo'])->name('about-us.what-we-do.update');
+    Route::post('/about-us/what-we-do/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadWhatWeDoBackground'])->name('about-us.what-we-do.background.upload');
+    Route::delete('/about-us/what-we-do/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhatWeDoBackground'])->name('about-us.what-we-do.background.delete');
+    Route::post('/about-us/what-we-do/items', [App\Http\Controllers\Admin\AboutUsController::class, 'storeWhatWeDoItem'])->name('about-us.what-we-do.items.store');
+    Route::put('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhatWeDoItem'])->name('about-us.what-we-do.items.update');
+    Route::delete('/about-us/what-we-do/items/{item}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhatWeDoItem'])->name('about-us.what-we-do.items.delete');
+    Route::put('/about-us/approach', [App\Http\Controllers\Admin\AboutUsController::class, 'updateApproach'])->name('about-us.approach.update');
+    Route::post('/about-us/approach/steps', [App\Http\Controllers\Admin\AboutUsController::class, 'storeApproachStep'])->name('about-us.approach.steps.store');
+    Route::put('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateApproachStep'])->name('about-us.approach.steps.update');
+    Route::delete('/about-us/approach/steps/{step}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteApproachStep'])->name('about-us.approach.steps.delete');
+    Route::put('/about-us/leadership', [App\Http\Controllers\Admin\AboutUsController::class, 'updateLeadership'])->name('about-us.leadership.update');
+    Route::post('/about-us/leadership/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadLeadershipBackground'])->name('about-us.leadership.background.upload');
+    Route::delete('/about-us/leadership/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteLeadershipBackground'])->name('about-us.leadership.background.delete');
+    Route::post('/about-us/leadership/members', [App\Http\Controllers\Admin\AboutUsController::class, 'storeLeadershipMember'])->name('about-us.leadership.members.store');
+    Route::put('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateLeadershipMember'])->name('about-us.leadership.members.update');
+    Route::delete('/about-us/leadership/members/{member}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteLeadershipMember'])->name('about-us.leadership.members.delete');
+
+    // Why Partner Section routes
+    Route::put('/about-us/why-partner', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhyPartner'])->name('about-us.why-partner.update');
+    Route::post('/about-us/why-partner/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadWhyPartnerBackground'])->name('about-us.why-partner.background.upload');
+    Route::delete('/about-us/why-partner/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerBackground'])->name('about-us.why-partner.background.delete');
+    Route::post('/about-us/why-partner/features', [App\Http\Controllers\Admin\AboutUsController::class, 'storeWhyPartnerFeature'])->name('about-us.why-partner.features.store');
+    Route::put('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'updateWhyPartnerFeature'])->name('about-us.why-partner.features.update');
+    Route::delete('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerFeature'])->name('about-us.why-partner.features.delete');
+
+    // CTA Section routes
+    Route::put('/about-us/cta', [App\Http\Controllers\Admin\AboutUsController::class, 'updateCTA'])->name('about-us.cta.update');
+    Route::post('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadCTABackground'])->name('about-us.cta.background.upload');
+    Route::delete('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteCTABackground'])->name('about-us.cta.background.delete');
+
     // Footer Management
     Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
     Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
@@ -122,10 +197,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
 
     // Logout route
-    Route::post('/logout', function () {
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/');
-    })->name('logout');
+    Route::post('/logout', [App\Http\Controllers\Admin\AdminAuthController::class, 'logout'])->name('logout');
 });

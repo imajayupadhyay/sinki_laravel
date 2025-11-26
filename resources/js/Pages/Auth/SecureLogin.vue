@@ -8,7 +8,7 @@
             backgroundRepeat: 'no-repeat'
         }"
     >
-        <Head title="Secure Login - Sinki.ai" />
+        <Head title="Secure Login" />
 
         <!-- Background Overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-transparent z-0"></div>
@@ -117,6 +117,17 @@
                             Access Portal
                         </span>
                     </button>
+
+                    <!-- Forgot Password Link -->
+                    <div class="text-center mt-4">
+                        <button
+                            type="button"
+                            @click="goToForgotPassword"
+                            class="text-white/70 hover:text-white text-sm transition-colors duration-300 underline underline-offset-2"
+                        >
+                            Forgot your password?
+                        </button>
+                    </div>
                 </form>
 
                 <!-- Security Notice -->
@@ -158,6 +169,10 @@ const submit = () => {
     form.post(route('admin.login.store'), {
         onFinish: () => form.reset('password'),
     });
+};
+
+const goToForgotPassword = () => {
+    window.location.href = route('admin.forgot-password');
 };
 </script>
 

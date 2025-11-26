@@ -18,7 +18,7 @@ class ServicePageSeeder extends Seeder
                 'slug' => 'ai-ml-consulting',
                 'subtitle' => 'Transform your business with AI and Machine Learning solutions that deliver real results.',
                 'description' => 'Our AI/ML consulting services help organizations implement intelligent automation, predictive analytics, and data-driven decision making systems.',
-                'meta_title' => 'AI/ML Consulting & Implementation Services | Sinki.ai',
+                'meta_title' => 'AI/ML Consulting & Implementation Services',
                 'meta_description' => 'Expert AI and Machine Learning consulting services to transform your business with intelligent automation and predictive analytics.',
                 'meta_keywords' => 'AI consulting, ML implementation, machine learning, artificial intelligence, automation',
                 'hero_background_image' => '/images/herobannerservice.webp',
@@ -63,7 +63,7 @@ class ServicePageSeeder extends Seeder
                 'slug' => 'cloud-migration-architecture',
                 'subtitle' => 'Seamlessly migrate to the cloud with enterprise-grade architecture and security.',
                 'description' => 'Our cloud migration services ensure smooth transitions with minimal downtime, optimized costs, and enhanced scalability.',
-                'meta_title' => 'Cloud Migration & Architecture Services | Sinki.ai',
+                'meta_title' => 'Cloud Migration & Architecture Services',
                 'meta_description' => 'Expert cloud migration and architecture services for AWS, Azure, and GCP with enterprise-grade security.',
                 'meta_keywords' => 'cloud migration, cloud architecture, AWS, Azure, GCP, cloud consulting',
                 'hero_background_image' => '/images/herobannerservice.webp',
@@ -96,7 +96,10 @@ class ServicePageSeeder extends Seeder
         ];
 
         foreach ($servicePages as $pageData) {
-            \App\Models\ServicePage::create($pageData);
+            \App\Models\ServicePage::firstOrCreate(
+                ['slug' => $pageData['slug']],
+                $pageData
+            );
         }
     }
 }

@@ -4,13 +4,13 @@
         <div class="container mx-auto px-3 sm:px-6">
             <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 h-auto sm:h-[50px] py-3 sm:py-0">
                 <span class="text-white text-base sm:text-xl font-medium tracking-wide text-center">
-                    An Official Databricks Partner
+                    {{ partnerBadge?.text || 'An Official Databricks Partner' }}
                 </span>
-                <!-- Databricks Logo -->
+                <!-- Partner Logo -->
                 <div class="databricks-logo-wrapper w-full sm:w-auto flex justify-center">
-                    <img 
-                        src="/images/databrickslight.png"
-                        alt="Databricks Logo"
+                    <img
+                        :src="partnerBadge?.logo_image ? `/storage/${partnerBadge.logo_image}` : '/images/databrickslight.png'"
+                        :alt="partnerBadge?.logo_alt || 'Partner Logo'"
                         class="h-5 sm:h-6 partner-logo w-auto max-w-full"
                     />
                 </div>
@@ -20,7 +20,12 @@
 </template>
 
 <script setup>
-// No props needed
+const props = defineProps({
+    partnerBadge: {
+        type: Object,
+        default: () => null
+    }
+})
 </script>
 
 <style scoped>

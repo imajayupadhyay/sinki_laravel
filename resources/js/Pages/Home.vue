@@ -1,30 +1,48 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Sinki.ai: Your Databricks Strategy & Innovation Partner">
-            <meta name="description" content="At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes." />
+        <Head :title="seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'">
+            <!-- Basic Meta Tags -->
+            <meta name="description" :content="seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta name="keywords" :content="seoSettings?.keywords || 'Databricks, Data Analytics, AI Solutions, Business Intelligence'" v-if="seoSettings?.keywords" />
+
+            <!-- Open Graph Meta Tags -->
+            <meta property="og:title" :content="seoSettings?.og_title || seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'" />
+            <meta property="og:description" :content="seoSettings?.og_description || seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta property="og:url" :content="seoSettings?.og_url || 'https://www.sinki.ai'" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" :content="seoSettings?.og_image_url || '/images/og-default.jpg'" v-if="seoSettings?.og_image_url" />
+
+            <!-- Twitter Meta Tags -->
+            <meta name="twitter:card" :content="seoSettings?.twitter_card || 'summary_large_image'" />
+            <meta name="twitter:title" :content="seoSettings?.twitter_title || seoSettings?.og_title || seoSettings?.title || 'Sinki.ai: Your Databricks Strategy & Innovation Partner'" />
+            <meta name="twitter:description" :content="seoSettings?.twitter_description || seoSettings?.og_description || seoSettings?.description || 'At Sinki.ai, we help organizations innovate with Databricks by unifying data, accelerating analytics, and delivering AI-powered business outcomes.'" />
+            <meta name="twitter:image" :content="seoSettings?.twitter_image_url || seoSettings?.og_image_url || '/images/og-default.jpg'" v-if="seoSettings?.twitter_image_url || seoSettings?.og_image_url" />
+
+            <!-- Custom Head Tags -->
+            <template v-if="seoSettings?.custom_head_tags" v-html="seoSettings.custom_head_tags"></template>
         </Head>
 
         <!-- Header Component -->
         <Header />
         
         <!-- Hero Section Component -->
-        <Hero />
+        <Hero :hero-section="heroSection" />
         
         <!-- Partner Badge Component -->
-        <PartnerBadge />
+        <PartnerBadge :partner-badge="partnerBadge" />
         
         <!-- What We Do Section -->
-        <WhatWeDo />
+        <WhatWeDo :what-we-do-section="whatWeDoSection" />
         
         <!-- Outcomes You Can Expect Section -->
-        <Outcomes />
+        <Outcomes :outcomes-section="outcomesSection" />
         
         <!-- Our Approach Section -->
-        <OurApproach />
-        <CoreServices />
-        <PlatformsSection />
+        <OurApproach :our-approach-section="ourApproachSection" />
+        <CoreServices :core-services-section="coreServicesSection" />
+        <PlatformsSection :platforms-section="platformsSection" />
          <!-- What Sets Us Apart Section -->
-    <WhatSetsUsApartSection />
+    <WhatSetsUsApartSection :what-sets-us-apart-section="whatSetsUsApartSection" />
     <InsightsResourcesSection :blogs="latestBlogs" />
          <!-- CTA Section - Let's Get Started -->
     <CTASection />
@@ -57,6 +75,42 @@ const props = defineProps({
     latestBlogs: {
         type: Array,
         default: () => []
+    },
+    heroSection: {
+        type: Object,
+        default: () => null
+    },
+    partnerBadge: {
+        type: Object,
+        default: () => null
+    },
+    whatWeDoSection: {
+        type: Object,
+        default: () => null
+    },
+    outcomesSection: {
+        type: Object,
+        default: () => null
+    },
+    ourApproachSection: {
+        type: Object,
+        default: () => null
+    },
+    coreServicesSection: {
+        type: Object,
+        default: () => null
+    },
+    platformsSection: {
+        type: Object,
+        default: () => null
+    },
+    whatSetsUsApartSection: {
+        type: Object,
+        default: () => null
+    },
+    seoSettings: {
+        type: Object,
+        default: () => null
     }
 });
 

@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-white">
-        <Head title="Privacy Policy - Sinki.ai">
+        <Head title="Privacy Policy">
             <meta name="description" content="Privacy Policy for Sinki.ai services. Read our comprehensive privacy policy explaining how we collect, use, and protect your personal data." />
         </Head>
 
