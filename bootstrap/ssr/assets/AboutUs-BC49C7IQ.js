@@ -333,14 +333,80 @@ const _sfc_main$2 = {
       type: String,
       default: "We combine strategy, engineering, and agility to turn your data vision into a measurable business impact."
     },
+    backgroundImage: {
+      type: String,
+      default: null
+    },
+    backgroundColor: {
+      type: String,
+      default: null
+    },
     features: {
       type: Array,
       default: () => []
     }
   },
   setup(__props) {
+    const props = __props;
+    const backgroundStyle = computed(() => {
+      if (props.backgroundImage) {
+        const imagePath = props.backgroundImage.startsWith("/storage/") ? props.backgroundImage : `/storage/${props.backgroundImage}`;
+        return {
+          backgroundImage: `url(${imagePath})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        };
+      } else if (props.backgroundColor) {
+        return {
+          backgroundColor: props.backgroundColor
+        };
+      } else {
+        return {
+          backgroundColor: "white"
+        };
+      }
+    });
+    const dynamicFeatures = computed(() => {
+      if (props.features && props.features.length > 0) {
+        return props.features;
+      }
+      return [
+        {
+          title: "Certified Databricks Expertise",
+          description: "Our certified specialists bring deep technical and business understanding of the Databricks ecosystem."
+        },
+        {
+          title: "End-to-End Implementation",
+          description: "From data foundation to AI integration, we support your journey across every stage, design, build, and maintain."
+        },
+        {
+          title: "Tailored Data Solutions",
+          description: "Every architecture, workflow, and integration is designed around your unique data and business needs."
+        },
+        {
+          title: "Scalable & Secure Delivery",
+          description: "We ensure your Databricks environment is performance-ready, compliant, and built for long-term growth."
+        },
+        {
+          title: "Collaborative Partnership",
+          description: "We work as an extension of your team, transparent, proactive, and committed to measurable outcomes."
+        },
+        {
+          title: "Continuous Improvement",
+          description: "Beyond delivery, we help you evolve, refining pipelines, models, and data strategy for lasting value."
+        }
+      ];
+    });
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "why-partner-section relative overflow-hidden pt-20 lg:pt-32 pb-20 lg:pb-32" }, _attrs))} data-v-3ff394c7><div class="absolute inset-0 z-0 bg-white" data-v-3ff394c7></div><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10" data-v-3ff394c7><div class="text-center mb-18 lg:mb-24" data-v-3ff394c7><h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 simple-fade-title" data-v-3ff394c7> Why Partner With Us </h2><p class="text-gray-700 text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] mx-auto simple-fade-subtitle" data-v-3ff394c7> We combine strategy, engineering, and agility to turn your data vision into a measurable business impact. </p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8" data-v-3ff394c7><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-1" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> Certified Databricks Expertise </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> Our certified specialists bring deep technical and business understanding of the Databricks ecosystem. </p></div></div></div><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-2" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> End-to-End Implementation </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> From data foundation to AI integration, we support your journey across every stage, design, build, and maintain. </p></div></div></div><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-3" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> Tailored Data Solutions </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> Every architecture, workflow, and integration is designed around your unique data and business needs. </p></div></div></div><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-4" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> Scalable &amp; Secure Delivery </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> We ensure your Databricks environment is performance-ready, compliant, and built for long-term growth. </p></div></div></div><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-5" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> Collaborative Partnership </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> We work as an extension of your team, transparent, proactive, and committed to measurable outcomes. </p></div></div></div><div class="feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500 fade-up-6" data-v-3ff394c7><div class="flex items-start gap-6" data-v-3ff394c7><div class="flex-shrink-0" data-v-3ff394c7><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-3ff394c7><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-3ff394c7><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-3ff394c7></path></svg></div></div><div class="flex-1" data-v-3ff394c7><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-3ff394c7> Continuous Improvement </h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-3ff394c7> Beyond delivery, we help you evolve, refining pipelines, models, and data strategy for lasting value. </p></div></div></div></div></div></section>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({
+        class: "why-partner-section relative overflow-hidden pt-20 lg:pt-32 pb-20 lg:pb-32",
+        style: backgroundStyle.value
+      }, _attrs))} data-v-1b609c14><div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10" data-v-1b609c14><div class="text-center mb-18 lg:mb-24" data-v-1b609c14><h2 class="text-gray-900 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-4 simple-fade-title" data-v-1b609c14>${ssrInterpolate(__props.title)}</h2><p class="text-gray-700 text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[1000px] mx-auto simple-fade-subtitle" data-v-1b609c14>${ssrInterpolate(__props.subtitle)}</p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 xl:gap-8" data-v-1b609c14><!--[-->`);
+      ssrRenderList(dynamicFeatures.value, (feature, index) => {
+        _push(`<div class="${ssrRenderClass([`fade-up-${index + 1}`, "feature-card group bg-white border border-[#FFE1DE] rounded-[25px] p-8 lg:p-10 hover:bg-gray-50 hover:border-[#FFE1DE] transition-all duration-500"])}" data-v-1b609c14><div class="flex items-start gap-6" data-v-1b609c14><div class="flex-shrink-0" data-v-1b609c14><div class="checkmark-wrapper w-[32px] h-[32px] bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg" data-v-1b609c14><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" data-v-1b609c14><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" data-v-1b609c14></path></svg></div></div><div class="flex-1" data-v-1b609c14><h3 class="text-gray-900 text-[24px] font-semibold leading-[31.2px] mb-3 group-hover:text-brand-red transition-colors duration-300" data-v-1b609c14>${ssrInterpolate(feature.title)}</h3><p class="text-gray-600 text-[18px] font-normal leading-[27px]" data-v-1b609c14>${ssrInterpolate(feature.description)}</p></div></div></div>`);
+      });
+      _push(`<!--]--></div></div></section>`);
     };
   }
 };
@@ -350,7 +416,7 @@ _sfc_main$2.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/AboutUs/WhyPartnerWithUs.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-const WhyPartnerWithUs = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-3ff394c7"]]);
+const WhyPartnerWithUs = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-1b609c14"]]);
 const _sfc_main$1 = {
   __name: "LeadershipSection",
   __ssrInlineRender: true,
@@ -366,6 +432,14 @@ const _sfc_main$1 = {
     description: {
       type: String,
       default: "Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity."
+    },
+    backgroundImage: {
+      type: String,
+      default: null
+    },
+    backgroundColor: {
+      type: String,
+      default: null
     },
     teamMembers: {
       type: Array,
@@ -389,18 +463,72 @@ const _sfc_main$1 = {
     }
   },
   setup(__props) {
-    return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({
-        class: "leadership-section py-20 lg:py-32 relative overflow-hidden w-full",
-        style: {
+    const props = __props;
+    const backgroundStyle = computed(() => {
+      if (props.backgroundImage) {
+        const imagePath = props.backgroundImage.startsWith("/storage/") ? props.backgroundImage : `/storage/${props.backgroundImage}`;
+        return {
+          backgroundImage: `url(${imagePath})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        };
+      } else {
+        return {
           backgroundImage: "url(/images/aboutussecbanner.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat"
+        };
+      }
+    });
+    const dynamicTeamMembers = computed(() => {
+      if (props.teamMembers && props.teamMembers.length > 0) {
+        return props.teamMembers.map((member) => {
+          let imageSrc = "/images/placeholder-avatar.png";
+          if (member.image) {
+            imageSrc = member.image.startsWith("/storage/") ? member.image : `/storage/${member.image}`;
+          } else {
+            if (member.name === "Gaurav Chauhan") {
+              imageSrc = "/images/Mr Gaurav Chauhan.png";
+            } else if (member.name === "Amit Kumar Pandey") {
+              imageSrc = "/images/Mr Amit Pandey.png";
+            } else if (member.name === "Neeraj Kumar") {
+              imageSrc = "/images/Mr Neeraj Kumar.png";
+            }
+          }
+          return {
+            name: member.name,
+            position: member.position,
+            image: imageSrc
+          };
+        });
+      }
+      return [
+        {
+          name: "Gaurav Chauhan",
+          position: "Co-Founder & CEO",
+          image: "/images/Mr Gaurav Chauhan.png"
+        },
+        {
+          name: "Amit Kumar Pandey",
+          position: "Co-Founder & CTO",
+          image: "/images/Mr Amit Pandey.png"
+        },
+        {
+          name: "Neeraj Kumar",
+          position: "Chief Operating Officer",
+          image: "/images/Mr Neeraj Kumar.png"
         }
-      }, _attrs))} data-v-c30e7fe4><div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse" data-v-c30e7fe4></div><div class="absolute bottom-20 right-20 w-40 h-40 bg-brand-red/10 rounded-full blur-3xl animate-pulse-delayed" data-v-c30e7fe4></div><div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20" data-v-c30e7fe4><div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center" data-v-c30e7fe4><div class="w-full lg:w-[35%] space-y-8" data-v-c30e7fe4><div class="animate-fade-in-up" data-v-c30e7fe4><span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80" data-v-c30e7fe4>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up-title" data-v-c30e7fe4>${ssrInterpolate(__props.title)}</h2><p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up-subtitle mt-4" data-v-c30e7fe4>${ssrInterpolate(__props.description)}</p></div><div class="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4" data-v-c30e7fe4><!--[-->`);
-      ssrRenderList(__props.teamMembers, (member, index) => {
-        _push(`<div class="team-card bg-white rounded-2xl p-4 lg:p-4 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card" style="${ssrRenderStyle(`animation-delay: ${0.8 + index * 0.2}s`)}" data-v-c30e7fe4><div class="flex-shrink-0 mb-3 w-full" data-v-c30e7fe4><div class="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-200" data-v-c30e7fe4><img${ssrRenderAttr("src", member.image)}${ssrRenderAttr("alt", member.name)} class="w-full h-full object-cover object-center" data-v-c30e7fe4></div></div><div class="flex-1 text-left w-full" data-v-c30e7fe4><h3 class="text-brand-dark text-base lg:text-lg font-semibold mb-0.5" data-v-c30e7fe4>${ssrInterpolate(member.name)}</h3><p class="text-gray-600 text-xs lg:text-sm font-medium" data-v-c30e7fe4>${ssrInterpolate(member.position)}</p></div></div>`);
+      ];
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<section${ssrRenderAttrs(mergeProps({
+        class: "leadership-section py-20 lg:py-32 relative overflow-hidden w-full",
+        style: backgroundStyle.value
+      }, _attrs))} data-v-d1d924ad><div class="absolute top-20 left-20 w-32 h-32 bg-brand-red/10 rounded-full blur-3xl animate-pulse" data-v-d1d924ad></div><div class="absolute bottom-20 right-20 w-40 h-40 bg-brand-red/10 rounded-full blur-3xl animate-pulse-delayed" data-v-d1d924ad></div><div class="w-full px-6 sm:px-8 lg:px-12 xl:px-20" data-v-d1d924ad><div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center" data-v-d1d924ad><div class="w-full lg:w-[35%] space-y-8" data-v-d1d924ad><div class="animate-fade-in-up" data-v-d1d924ad><span class="text-white text-sm sm:text-base font-medium uppercase tracking-wider opacity-80" data-v-d1d924ad>${ssrInterpolate(__props.headerTag)}</span></div><h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight animate-slide-up-title" data-v-d1d924ad>${ssrInterpolate(__props.title)}</h2><p class="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed opacity-90 animate-slide-up-subtitle mt-4" data-v-d1d924ad>${ssrInterpolate(__props.description)}</p></div><div class="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4" data-v-d1d924ad><!--[-->`);
+      ssrRenderList(dynamicTeamMembers.value, (member, index) => {
+        _push(`<div class="team-card bg-white rounded-2xl p-4 lg:p-4 flex flex-col items-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 animate-team-card" style="${ssrRenderStyle(`animation-delay: ${0.8 + index * 0.2}s`)}" data-v-d1d924ad><div class="flex-shrink-0 mb-3 w-full" data-v-d1d924ad><div class="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-200" data-v-d1d924ad><img${ssrRenderAttr("src", member.image)}${ssrRenderAttr("alt", member.name)} class="w-full h-full object-cover object-center" data-v-d1d924ad></div></div><div class="flex-1 text-left w-full" data-v-d1d924ad><h3 class="text-brand-dark text-base lg:text-lg font-semibold mb-0.5" data-v-d1d924ad>${ssrInterpolate(member.name)}</h3><p class="text-gray-600 text-xs lg:text-sm font-medium" data-v-d1d924ad>${ssrInterpolate(member.position)}</p></div></div>`);
       });
       _push(`<!--]--></div></div></div></section>`);
     };
@@ -412,7 +540,7 @@ _sfc_main$1.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/AboutUs/LeadershipSection.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
-const LeadershipSection = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-c30e7fe4"]]);
+const LeadershipSection = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-d1d924ad"]]);
 const _sfc_main = /* @__PURE__ */ Object.assign({
   layout: null
 }, {
@@ -423,7 +551,10 @@ const _sfc_main = /* @__PURE__ */ Object.assign({
     partnerBadge: Object,
     storySection: Object,
     whatWeDoSection: Object,
-    approachSection: Object
+    approachSection: Object,
+    leadershipSection: Object,
+    whyPartnerSection: Object,
+    ctaSection: Object
   },
   setup(__props) {
     const props = __props;
@@ -609,14 +740,27 @@ const _sfc_main = /* @__PURE__ */ Object.assign({
         "background-color": props.approachSection?.background_color || "bg-white",
         steps: props.approachSection?.steps || []
       }, null, _parent));
-      _push(ssrRenderComponent(LeadershipSection, null, null, _parent));
-      _push(ssrRenderComponent(WhyPartnerWithUs, null, null, _parent));
+      _push(ssrRenderComponent(LeadershipSection, {
+        "header-tag": props.leadershipSection?.header_tag || "OUR LEADERSHIP",
+        title: props.leadershipSection?.title || "Visionaries Behind Sinki",
+        description: props.leadershipSection?.description || "Our leadership brings years of experience in solving real enterprise data challenges and a shared belief that systems work best when they are intentional, structured, and built for long-term clarity.",
+        "background-image": props.leadershipSection?.background_image,
+        "background-color": props.leadershipSection?.background_color,
+        "team-members": props.leadershipSection?.members || []
+      }, null, _parent));
+      _push(ssrRenderComponent(WhyPartnerWithUs, {
+        title: props.whyPartnerSection?.title || "Why Partner With Us",
+        subtitle: props.whyPartnerSection?.subtitle || "We combine strategy, engineering, and agility to turn your data vision into a measurable business impact.",
+        "background-color": props.whyPartnerSection?.background_color,
+        "background-image": props.whyPartnerSection?.background_image,
+        features: props.whyPartnerSection?.features || []
+      }, null, _parent));
       _push(ssrRenderComponent(ServiceCTA, {
-        title: "Wherever you are in your data journey, we can<br />help you move faster.",
-        description: "We'll help you adopt, scale, and succeed with Databricks.",
-        "cta-text": "Start A Conversation",
-        "cta-link": "/contact",
-        "background-image": "/images/cta.webp"
+        title: props.ctaSection?.title || "Wherever you are in your data journey, we can<br />help you move faster.",
+        description: props.ctaSection?.description || "We'll help you adopt, scale, and succeed with Databricks.",
+        "cta-text": props.ctaSection?.cta_text || "Start A Conversation",
+        "cta-link": props.ctaSection?.cta_link || "/contact",
+        "background-image": props.ctaSection?.background_image ? `/storage/${props.ctaSection.background_image}` : "/images/cta.webp"
       }, null, _parent));
       _push(ssrRenderComponent(FooterSection, null, null, _parent));
       _push(`</div>`);

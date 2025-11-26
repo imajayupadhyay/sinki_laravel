@@ -15,36 +15,19 @@ use Inertia\Inertia;
 |
 */
 
-// Admin login route
-Route::get('/sinki-secure-login', function () {
-    // If user is already authenticated, redirect to admin dashboard
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
-    }
+// Admin login routes
+Route::get('/sinki-secure-login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/sinki-secure-login', [App\Http\Controllers\Admin\AdminAuthController::class, 'login'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.login.store');
 
-    return Inertia::render('Auth/SecureLogin');
-})->name('admin.login');
-
-Route::post('/sinki-secure-login', function () {
-    // If user is already authenticated, redirect to admin dashboard
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
-    }
-
-    $credentials = request()->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        request()->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
-    }
-
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ]);
-})->name('admin.login.store');
+// OTP verification routes
+Route::post('/verify-otp', [App\Http\Controllers\Admin\AdminAuthController::class, 'verifyOtp'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.otp.verify');
+Route::post('/resend-otp', [App\Http\Controllers\Admin\AdminAuthController::class, 'resendOtp'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.otp.resend');
 
 // Protected admin routes
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
@@ -198,10 +181,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
 
     // Logout route
-    Route::post('/logout', function () {
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/');
-    })->name('logout');
+    Route::post('/logout', [App\Http\Controllers\Admin\AdminAuthController::class, 'logout'])->name('logout');
 });
