@@ -92,9 +92,9 @@
                     Tags
                 </Link>
 
-                <!-- Website Management Section -->
+                <!-- Page Management Section -->
                 <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Website Management</h3>
+                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Page Management</h3>
                 </div>
 
                 <!-- Homepage -->
@@ -120,11 +120,6 @@
                     </svg>
                     About Us
                 </Link>
-
-                <!-- Service Pages Section -->
-                <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Services Management</h3>
-                </div>
 
                 <!-- Service Pages -->
                 <Link
