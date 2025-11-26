@@ -13,11 +13,14 @@ class HomepagePartnerBadgeSeeder extends Seeder
      */
     public function run(): void
     {
-        HomepagePartnerBadge::create([
-            'text' => 'An Official Databricks Partner',
-            'logo_image' => null, // Will use the current hardcoded image initially
-            'logo_alt' => 'Databricks Logo',
-            'is_active' => true
-        ]);
+        HomepagePartnerBadge::firstOrCreate(
+            ['is_active' => true],
+            [
+                'text' => 'An Official Databricks Partner',
+                'logo_image' => null, // Will use the current hardcoded image initially
+                'logo_alt' => 'Databricks Logo',
+                'is_active' => true
+            ]
+        );
     }
 }

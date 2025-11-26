@@ -15,12 +15,15 @@ class FooterSeeder extends Seeder
     public function run(): void
     {
         // Create footer content
-        FooterContent::create([
-            'logo_url' => '/images/sinkidarkmode.png',
-            'description' => 'Data & AI That Drives Real Business Impact',
-            'copyright_text' => 'All Rights Reserved.',
-            'is_active' => true
-        ]);
+        FooterContent::firstOrCreate(
+            ['is_active' => true],
+            [
+                'logo_url' => '/images/sinkidarkmode.png',
+                'description' => 'Data & AI That Drives Real Business Impact',
+                'copyright_text' => 'All Rights Reserved.',
+                'is_active' => true
+            ]
+        );
 
         // Create quick links
         $quickLinks = [
@@ -47,7 +50,10 @@ class FooterSeeder extends Seeder
         // Insert all links
         foreach ([$quickLinks, $servicesLinks, $bottomLinks] as $linksGroup) {
             foreach ($linksGroup as $link) {
-                FooterLink::create(array_merge($link, ['is_active' => true]));
+                FooterLink::firstOrCreate(
+                    ['name' => $link['name'], 'section' => $link['section']],
+                    array_merge($link, ['is_active' => true])
+                );
             }
         }
     }

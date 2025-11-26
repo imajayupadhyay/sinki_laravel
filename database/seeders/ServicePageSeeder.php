@@ -96,7 +96,10 @@ class ServicePageSeeder extends Seeder
         ];
 
         foreach ($servicePages as $pageData) {
-            \App\Models\ServicePage::create($pageData);
+            \App\Models\ServicePage::firstOrCreate(
+                ['slug' => $pageData['slug']],
+                $pageData
+            );
         }
     }
 }
