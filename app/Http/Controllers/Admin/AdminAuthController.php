@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\OtpService;
+use App\Services\PasswordResetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -12,10 +13,12 @@ use Inertia\Inertia;
 class AdminAuthController extends Controller
 {
     protected OtpService $otpService;
+    protected PasswordResetService $passwordResetService;
 
-    public function __construct(OtpService $otpService)
+    public function __construct(OtpService $otpService, PasswordResetService $passwordResetService)
     {
         $this->otpService = $otpService;
+        $this->passwordResetService = $passwordResetService;
     }
 
     public function showLoginForm()
@@ -138,5 +141,128 @@ class AdminAuthController extends Controller
         Session::forget(['otp_email', 'otp_password']);
 
         return redirect('/');
+    }
+
+    // Password Reset Methods
+
+    public function showForgotPasswordForm()
+    {
+        return Inertia::render('Auth/ForgotPassword');
+    }
+
+    public function sendResetCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $result = $this->passwordResetService->initiatePasswordReset(
+            $request->email,
+            $request->ip()
+        );
+
+        if ($result['success']) {
+            if (isset($result['reset_token'])) {
+                // Store reset token in session
+                Session::put('reset_email', $request->email);
+                Session::put('reset_token', $result['reset_token']);
+
+                return Inertia::render('Auth/PasswordResetOtp', [
+                    'email' => $request->email,
+                    'expiresIn' => $result['expires_in'],
+                    'message' => $result['message']
+                ]);
+            } else {
+                return back()->with('success', $result['message']);
+            }
+        } else {
+            return back()->withErrors(['email' => $result['message']]);
+        }
+    }
+
+    public function verifyResetCode(Request $request)
+    {
+        $request->validate([
+            'otp_code' => 'required|string|size:6',
+        ]);
+
+        $email = Session::get('reset_email');
+        $resetToken = Session::get('reset_token');
+
+        if (!$email || !$resetToken) {
+            return redirect()->route('admin.forgot-password')
+                ->withErrors(['email' => 'Session expired. Please start over.']);
+        }
+
+        $result = $this->passwordResetService->verifyResetOtp(
+            $email,
+            $request->otp_code,
+            $resetToken,
+            $request->ip()
+        );
+
+        if ($result['success']) {
+            return Inertia::render('Auth/ResetPassword', [
+                'email' => $email,
+                'resetToken' => $resetToken
+            ]);
+        }
+
+        return back()->withErrors(['otp_code' => $result['message']]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+            'reset_token' => 'required|string',
+        ]);
+
+        $email = Session::get('reset_email');
+
+        if (!$email) {
+            return redirect()->route('admin.forgot-password')
+                ->withErrors(['email' => 'Session expired. Please start over.']);
+        }
+
+        $result = $this->passwordResetService->resetPassword(
+            $email,
+            $request->reset_token,
+            $request->password,
+            $request->ip()
+        );
+
+        if ($result['success']) {
+            // Clear reset session data
+            Session::forget(['reset_email', 'reset_token']);
+
+            return redirect()->route('admin.login')
+                ->with('success', $result['message']);
+        }
+
+        return back()->withErrors(['password' => $result['message']]);
+    }
+
+    public function resendResetCode(Request $request)
+    {
+        $email = Session::get('reset_email');
+        $resetToken = Session::get('reset_token');
+
+        if (!$email || !$resetToken) {
+            return redirect()->route('admin.forgot-password')
+                ->withErrors(['email' => 'Session expired. Please start over.']);
+        }
+
+        $result = $this->passwordResetService->resendResetOtp(
+            $email,
+            $resetToken,
+            $request->ip()
+        );
+
+        if ($result['success']) {
+            return back()->with('success', $result['message']);
+        }
+
+        return back()->withErrors(['otp_code' => $result['message']]);
     }
 }

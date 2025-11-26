@@ -448,6 +448,14 @@
     "/build/assets/Index-2CsxJ5fG.js",
     "/build/assets/Index-BJqa6zEA.css"
   ],
+  "resources/js/Pages/Auth/ForgotPassword.vue": [
+    "/build/assets/ForgotPassword-KmO__GXg.js",
+    "/build/assets/ForgotPassword-BUydVYpu.css"
+  ],
+  "resources/js/Pages/Auth/ForgotPassword.vue?vue&type=style&index=0&scoped=caf5e5ac&lang.css": [
+    "/build/assets/ForgotPassword-KmO__GXg.js",
+    "/build/assets/ForgotPassword-BUydVYpu.css"
+  ],
   "resources/js/Pages/Auth/OtpVerification.vue": [
     "/build/assets/OtpVerification-Bwy5Egbr.js",
     "/build/assets/OtpVerification-DEXT0Sc0.css"
@@ -456,13 +464,29 @@
     "/build/assets/OtpVerification-Bwy5Egbr.js",
     "/build/assets/OtpVerification-DEXT0Sc0.css"
   ],
-  "resources/js/Pages/Auth/SecureLogin.vue": [
-    "/build/assets/SecureLogin-CnlYNNgv.js",
-    "/build/assets/SecureLogin-DdOfBXmq.css"
+  "resources/js/Pages/Auth/PasswordResetOtp.vue": [
+    "/build/assets/PasswordResetOtp-Bq2IKBx3.js",
+    "/build/assets/PasswordResetOtp-BIkZXrmg.css"
   ],
-  "resources/js/Pages/Auth/SecureLogin.vue?vue&type=style&index=0&scoped=cd0bfd69&lang.css": [
-    "/build/assets/SecureLogin-CnlYNNgv.js",
-    "/build/assets/SecureLogin-DdOfBXmq.css"
+  "resources/js/Pages/Auth/PasswordResetOtp.vue?vue&type=style&index=0&scoped=0d0db251&lang.css": [
+    "/build/assets/PasswordResetOtp-Bq2IKBx3.js",
+    "/build/assets/PasswordResetOtp-BIkZXrmg.css"
+  ],
+  "resources/js/Pages/Auth/ResetPassword.vue": [
+    "/build/assets/ResetPassword-BNwp-wxs.js",
+    "/build/assets/ResetPassword-DwZYnddI.css"
+  ],
+  "resources/js/Pages/Auth/ResetPassword.vue?vue&type=style&index=0&scoped=f3999cb4&lang.css": [
+    "/build/assets/ResetPassword-BNwp-wxs.js",
+    "/build/assets/ResetPassword-DwZYnddI.css"
+  ],
+  "resources/js/Pages/Auth/SecureLogin.vue": [
+    "/build/assets/SecureLogin-BpEGRWkQ.js",
+    "/build/assets/SecureLogin-BYMCg7DE.css"
+  ],
+  "resources/js/Pages/Auth/SecureLogin.vue?vue&type=style&index=0&scoped=8bbb14e1&lang.css": [
+    "/build/assets/SecureLogin-BpEGRWkQ.js",
+    "/build/assets/SecureLogin-BYMCg7DE.css"
   ],
   "resources/js/Pages/Blog/Index.vue": [
     "/build/assets/Index-Djrl8cXo.js",

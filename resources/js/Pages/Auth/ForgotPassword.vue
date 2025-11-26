@@ -8,14 +8,14 @@
             backgroundRepeat: 'no-repeat'
         }"
     >
-        <Head title="Secure Login - Sinki.ai" />
+        <Head title="Forgot Password - Sinki.ai" />
 
         <!-- Background Overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-transparent z-0"></div>
 
-        <!-- Login Container -->
+        <!-- Forgot Password Container -->
         <div class="relative z-10 w-full max-w-md mx-4">
-            <!-- Glass morphism login card -->
+            <!-- Glass morphism card -->
             <div class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8 md:p-10">
 
                 <!-- Logo Section -->
@@ -27,20 +27,35 @@
                             class="h-16 md:h-20 w-auto mx-auto object-contain"
                         />
                     </div>
+                    <div class="text-6xl mb-4">🔑</div>
                     <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">
-                        Secure Access
+                        Forgot Password
                     </h1>
                     <p class="text-white/80 text-sm md:text-base">
-                        Admin Portal - Authorized Personnel Only
+                        Enter your email to receive a password reset code
                     </p>
                 </div>
 
-                <!-- Login Form -->
+                <!-- Success Message -->
+                <div v-if="$page.props.flash?.success" class="mb-6">
+                    <div class="bg-green-500/20 border border-green-500/30 rounded-xl p-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <p class="text-green-400 text-sm font-medium">
+                                {{ $page.props.flash.success }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forgot Password Form -->
                 <form @submit.prevent="submit" class="space-y-6">
                     <!-- Email Field -->
                     <div class="space-y-2">
                         <label for="email" class="block text-sm font-semibold text-white/90">
-                            Email Address
+                            Admin Email Address
                         </label>
                         <div class="relative">
                             <input
@@ -49,8 +64,9 @@
                                 type="email"
                                 class="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all duration-300"
                                 :class="{ 'border-red-500 ring-2 ring-red-500': form.errors.email }"
-                                placeholder="Enter your email"
+                                placeholder="Enter your admin email"
                                 required
+                                autocomplete="email"
                             />
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3">
                                 <svg class="h-5 w-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,77 +79,59 @@
                         </div>
                     </div>
 
-                    <!-- Password Field -->
-                    <div class="space-y-2">
-                        <label for="password" class="block text-sm font-semibold text-white/90">
-                            Password
-                        </label>
-                        <div class="relative">
-                            <input
-                                id="password"
-                                v-model="form.password"
-                                :type="showPassword ? 'text' : 'password'"
-                                class="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all duration-300"
-                                :class="{ 'border-red-500 ring-2 ring-red-500': form.errors.password }"
-                                placeholder="Enter your password"
-                                required
-                            />
-                            <button
-                                type="button"
-                                @click="togglePasswordVisibility"
-                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-white/60 hover:text-white transition-colors duration-200"
-                            >
-                                <svg v-if="showPassword" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L8.464 8.464M9.878 9.878H9m6.242 6.242l2.828 2.828M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <svg v-else class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.543 7-1.275 4.057-5.065 7-9.543 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div v-if="form.errors.password" class="text-red-400 text-sm mt-1 font-medium">
-                            {{ form.errors.password }}
+                    <!-- Security Notice -->
+                    <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div>
+                                <p class="text-white/90 text-sm font-medium">Security Notice</p>
+                                <p class="text-white/70 text-xs mt-1">
+                                    A verification code will be sent to your email. This helps ensure account security.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Login Button -->
-                    <button
-                        type="submit"
-                        :disabled="form.processing"
-                        class="w-full bg-brand-red hover:bg-red-600 disabled:bg-red-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 focus:ring-offset-transparent disabled:cursor-not-allowed transform hover:translate-y-[-2px] active:translate-y-0 shadow-lg hover:shadow-xl"
-                    >
-                        <span v-if="form.processing" class="flex items-center justify-center">
-                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Authenticating...
-                        </span>
-                        <span v-else class="flex items-center justify-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                            </svg>
-                            Access Portal
-                        </span>
-                    </button>
+                    <!-- Action Buttons -->
+                    <div class="space-y-3">
+                        <!-- Send Code Button -->
+                        <button
+                            type="submit"
+                            :disabled="form.processing"
+                            class="w-full bg-brand-red hover:bg-red-600 disabled:bg-red-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 focus:ring-offset-transparent disabled:cursor-not-allowed transform hover:translate-y-[-2px] active:translate-y-0 shadow-lg hover:shadow-xl"
+                        >
+                            <span v-if="form.processing" class="flex items-center justify-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Sending...
+                            </span>
+                            <span v-else class="flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Send Reset Code
+                            </span>
+                        </button>
 
-                    <!-- Forgot Password Link -->
-                    <div class="text-center mt-4">
+                        <!-- Back to Login -->
                         <button
                             type="button"
-                            @click="goToForgotPassword"
-                            class="text-white/70 hover:text-white text-sm transition-colors duration-300 underline underline-offset-2"
+                            @click="goToLogin"
+                            class="w-full text-white/60 hover:text-white font-medium py-2 transition-colors duration-300"
                         >
-                            Forgot your password?
+                            ← Back to Login
                         </button>
                     </div>
                 </form>
 
-                <!-- Security Notice -->
+                <!-- Additional Security Info -->
                 <div class="mt-6 text-center">
                     <p class="text-white/60 text-xs">
-                        🔒 This portal is protected by advanced security measures
+                        🔒 Reset codes expire after 15 minutes for security
                     </p>
                 </div>
             </div>
@@ -152,27 +150,24 @@
 
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-
-const showPassword = ref(false);
 
 const form = useForm({
     email: '',
-    password: '',
 });
 
-const togglePasswordVisibility = () => {
-    showPassword.value = !showPassword.value;
-};
-
 const submit = () => {
-    form.post(route('admin.login.store'), {
-        onFinish: () => form.reset('password'),
+    form.post(route('admin.forgot-password.send'), {
+        onFinish: () => {
+            // Don't reset email on error to preserve entered email
+            if (!form.hasErrors) {
+                form.reset('email');
+            }
+        },
     });
 };
 
-const goToForgotPassword = () => {
-    window.location.href = route('admin.forgot-password');
+const goToLogin = () => {
+    window.location.href = route('admin.login');
 };
 </script>
 

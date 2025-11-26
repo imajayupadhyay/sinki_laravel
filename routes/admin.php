@@ -29,6 +29,22 @@ Route::post('/resend-otp', [App\Http\Controllers\Admin\AdminAuthController::clas
     ->middleware('otp.rate.limit')
     ->name('admin.otp.resend');
 
+// Password reset routes
+Route::get('/forgot-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'showForgotPasswordForm'])
+    ->name('admin.forgot-password');
+Route::post('/forgot-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'sendResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.forgot-password.send');
+Route::post('/verify-reset-code', [App\Http\Controllers\Admin\AdminAuthController::class, 'verifyResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.verify-code');
+Route::post('/reset-password', [App\Http\Controllers\Admin\AdminAuthController::class, 'resetPassword'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.reset');
+Route::post('/resend-reset-code', [App\Http\Controllers\Admin\AdminAuthController::class, 'resendResetCode'])
+    ->middleware('otp.rate.limit')
+    ->name('admin.password.resend');
+
 // Protected admin routes
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 

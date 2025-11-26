@@ -26,13 +26,19 @@ class CleanupExpiredOtps extends Command
      */
     public function handle()
     {
-        $deletedCount = AdminOtp::where('expires_at', '<', now())
+        $deletedOtpCount = AdminOtp::where('expires_at', '<', now())
+            ->orWhere('is_used', true)
+            ->count();
+
+        $deletedResetCount = \App\Models\AdminPasswordReset::where('expires_at', '<', now())
             ->orWhere('is_used', true)
             ->count();
 
         AdminOtp::cleanupExpired();
+        \App\Models\AdminPasswordReset::cleanupExpired();
 
-        $this->info("Cleaned up {$deletedCount} expired/used OTP codes.");
+        $this->info("Cleaned up {$deletedOtpCount} expired/used OTP codes.");
+        $this->info("Cleaned up {$deletedResetCount} expired/used password reset codes.");
 
         return 0;
     }
