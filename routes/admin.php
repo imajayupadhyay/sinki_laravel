@@ -48,67 +48,96 @@ Route::post('/resend-reset-code', [App\Http\Controllers\Admin\AdminAuthControlle
 // Protected admin routes
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
+    // No Permissions Page - Safe fallback for users with limited access
+    Route::get('/no-permissions', function () {
+        return Inertia::render('Admin/NoPermissions');
+    })->name('no-permissions');
+
     // Dashboard
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
-    })->name('dashboard');
+    })->middleware('permission:dashboard')->name('dashboard');
 
     // Users Management
-    Route::get('/users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
-    Route::post('/users', [App\Http\Controllers\Admin\UsersController::class, 'store'])->name('users.store');
-    Route::put('/users/{user}', [App\Http\Controllers\Admin\UsersController::class, 'update'])->name('users.update');
-    Route::put('/users/{user}/password', [App\Http\Controllers\Admin\UsersController::class, 'updatePassword'])->name('users.password');
-    Route::delete('/users/{user}', [App\Http\Controllers\Admin\UsersController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->middleware('permission:users')->name('users.index');
+    Route::post('/users', [App\Http\Controllers\Admin\UsersController::class, 'store'])->middleware('permission:users,write')->name('users.store');
+    Route::put('/users/{user}', [App\Http\Controllers\Admin\UsersController::class, 'update'])->middleware('permission:users,write')->name('users.update');
+    Route::put('/users/{user}/password', [App\Http\Controllers\Admin\UsersController::class, 'updatePassword'])->middleware('permission:users,write')->name('users.password');
+    Route::delete('/users/{user}', [App\Http\Controllers\Admin\UsersController::class, 'destroy'])->middleware('permission:users,delete')->name('users.destroy');
+
+    // User Permissions Management (only super admins)
+    Route::middleware('permission:users,write')->group(function () {
+        Route::get('/user-permissions', [App\Http\Controllers\Admin\UserPermissionsController::class, 'index'])->name('user-permissions.index');
+        Route::get('/user-permissions/{user}', [App\Http\Controllers\Admin\UserPermissionsController::class, 'show'])->name('user-permissions.show');
+        Route::put('/user-permissions/{user}', [App\Http\Controllers\Admin\UserPermissionsController::class, 'updatePermissions'])->name('user-permissions.update');
+        Route::post('/user-permissions/{user}/roles', [App\Http\Controllers\Admin\UserPermissionsController::class, 'assignRole'])->name('user-permissions.assign-role');
+        Route::delete('/user-permissions/{user}/roles', [App\Http\Controllers\Admin\UserPermissionsController::class, 'removeRole'])->name('user-permissions.remove-role');
+        Route::post('/user-permissions/bulk', [App\Http\Controllers\Admin\UserPermissionsController::class, 'bulkUpdatePermissions'])->name('user-permissions.bulk');
+    });
 
     // Contact Submissions Management
-    Route::get('/submissions', [App\Http\Controllers\Admin\SubmissionsController::class, 'index'])->name('submissions.index');
-    Route::get('/submissions/{submission}', [App\Http\Controllers\Admin\SubmissionsController::class, 'show'])->name('submissions.show');
-    Route::delete('/submissions/{submission}', [App\Http\Controllers\Admin\SubmissionsController::class, 'destroy'])->name('submissions.destroy');
-    Route::get('/submissions/export/csv', [App\Http\Controllers\Admin\SubmissionsController::class, 'export'])->name('submissions.export');
+    Route::get('/submissions', [App\Http\Controllers\Admin\SubmissionsController::class, 'index'])->middleware('permission:submissions')->name('submissions.index');
+    Route::get('/submissions/{submission}', [App\Http\Controllers\Admin\SubmissionsController::class, 'show'])->middleware('permission:submissions')->name('submissions.show');
+    Route::delete('/submissions/{submission}', [App\Http\Controllers\Admin\SubmissionsController::class, 'destroy'])->middleware('permission:submissions,delete')->name('submissions.destroy');
+    Route::get('/submissions/export/csv', [App\Http\Controllers\Admin\SubmissionsController::class, 'export'])->middleware('permission:submissions')->name('submissions.export');
 
     // Blog Categories Management
-    Route::get('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index'])->name('categories.index');
-    Route::post('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'store'])->name('categories.store');
-    Route::put('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'update'])->name('categories.update');
-    Route::delete('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'destroy'])->name('categories.destroy');
+    Route::get('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index'])->middleware('permission:categories')->name('categories.index');
+    Route::post('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'store'])->middleware('permission:categories,write')->name('categories.store');
+    Route::put('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'update'])->middleware('permission:categories,write')->name('categories.update');
+    Route::delete('/categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'destroy'])->middleware('permission:categories,delete')->name('categories.destroy');
 
     // Blog Tags Management
-    Route::get('/tags', [App\Http\Controllers\Admin\TagsController::class, 'index'])->name('tags.index');
-    Route::post('/tags', [App\Http\Controllers\Admin\TagsController::class, 'store'])->name('tags.store');
-    Route::put('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'update'])->name('tags.update');
-    Route::delete('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'destroy'])->name('tags.destroy');
+    Route::get('/tags', [App\Http\Controllers\Admin\TagsController::class, 'index'])->middleware('permission:tags')->name('tags.index');
+    Route::post('/tags', [App\Http\Controllers\Admin\TagsController::class, 'store'])->middleware('permission:tags,write')->name('tags.store');
+    Route::put('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'update'])->middleware('permission:tags,write')->name('tags.update');
+    Route::delete('/tags/{tag}', [App\Http\Controllers\Admin\TagsController::class, 'destroy'])->middleware('permission:tags,delete')->name('tags.destroy');
 
     // Blog Posts Management
-    Route::get('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'index'])->name('blogs.index');
-    Route::get('/blogs/create', [App\Http\Controllers\Admin\BlogsController::class, 'create'])->name('blogs.create');
-    Route::post('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'store'])->name('blogs.store');
-    Route::get('/blogs/{blog}/edit', [App\Http\Controllers\Admin\BlogsController::class, 'edit'])->name('blogs.edit');
-    Route::put('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'update'])->name('blogs.update');
-    Route::get('/blogs/{blog}/preview', [App\Http\Controllers\Admin\BlogsController::class, 'preview'])->name('blogs.preview');
-    Route::get('/blogs/{blog}/duplicate', [App\Http\Controllers\Admin\BlogsController::class, 'duplicate'])->name('blogs.duplicate');
-    Route::delete('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'destroy'])->name('blogs.destroy');
+    Route::get('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'index'])->middleware('permission:blogs')->name('blogs.index');
+    Route::get('/blogs/create', [App\Http\Controllers\Admin\BlogsController::class, 'create'])->middleware('permission:blogs,write')->name('blogs.create');
+    Route::post('/blogs', [App\Http\Controllers\Admin\BlogsController::class, 'store'])->middleware('permission:blogs,write')->name('blogs.store');
+    Route::get('/blogs/{blog}/edit', [App\Http\Controllers\Admin\BlogsController::class, 'edit'])->middleware('permission:blogs,write')->name('blogs.edit');
+    Route::put('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'update'])->middleware('permission:blogs,write')->name('blogs.update');
+    Route::get('/blogs/{blog}/preview', [App\Http\Controllers\Admin\BlogsController::class, 'preview'])->middleware('permission:blogs')->name('blogs.preview');
+    Route::get('/blogs/{blog}/duplicate', [App\Http\Controllers\Admin\BlogsController::class, 'duplicate'])->middleware('permission:blogs,write')->name('blogs.duplicate');
+    Route::delete('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'destroy'])->middleware('permission:blogs,delete')->name('blogs.destroy');
 
     // Image Upload Routes
-    Route::post('/upload/featured-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'uploadFeaturedImage'])->name('upload.featured-image');
-    Route::delete('/upload/delete-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'deleteImage'])->name('upload.delete-image');
+    Route::post('/upload/featured-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'uploadFeaturedImage'])->middleware('permission:media,write')->name('upload.featured-image');
+    Route::delete('/upload/delete-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'deleteImage'])->middleware('permission:media,delete')->name('upload.delete-image');
 
     // Service Pages Management
-    Route::resource('service-pages', App\Http\Controllers\Admin\ServicePageController::class);
-    Route::post('/service-pages/{servicePage}/toggle-featured', [App\Http\Controllers\Admin\ServicePageController::class, 'toggleFeatured'])->name('service-pages.toggle-featured');
-    Route::put('/service-pages/{servicePage}/status', [App\Http\Controllers\Admin\ServicePageController::class, 'updateStatus'])->name('service-pages.update-status');
-    Route::post('/service-pages/sort-order', [App\Http\Controllers\Admin\ServicePageController::class, 'updateSortOrder'])->name('service-pages.sort-order');
-    Route::post('/service-pages/upload-image', [App\Http\Controllers\Admin\ServicePageController::class, 'uploadImage'])->name('service-pages.upload-image');
-    Route::get('/service-pages/{servicePage}/preview', [App\Http\Controllers\Admin\ServicePageController::class, 'preview'])->name('service-pages.preview');
+    Route::middleware('permission:service-pages')->group(function () {
+        Route::get('/service-pages', [App\Http\Controllers\Admin\ServicePageController::class, 'index'])->name('service-pages.index');
+        Route::get('/service-pages/{servicePage}/preview', [App\Http\Controllers\Admin\ServicePageController::class, 'preview'])->name('service-pages.preview');
+    });
+    Route::middleware('permission:service-pages,write')->group(function () {
+        Route::get('/service-pages/create', [App\Http\Controllers\Admin\ServicePageController::class, 'create'])->name('service-pages.create');
+        Route::post('/service-pages', [App\Http\Controllers\Admin\ServicePageController::class, 'store'])->name('service-pages.store');
+        Route::get('/service-pages/{servicePage}/edit', [App\Http\Controllers\Admin\ServicePageController::class, 'edit'])->name('service-pages.edit');
+        Route::put('/service-pages/{servicePage}', [App\Http\Controllers\Admin\ServicePageController::class, 'update'])->name('service-pages.update');
+        Route::post('/service-pages/{servicePage}/toggle-featured', [App\Http\Controllers\Admin\ServicePageController::class, 'toggleFeatured'])->name('service-pages.toggle-featured');
+        Route::put('/service-pages/{servicePage}/status', [App\Http\Controllers\Admin\ServicePageController::class, 'updateStatus'])->name('service-pages.update-status');
+        Route::post('/service-pages/sort-order', [App\Http\Controllers\Admin\ServicePageController::class, 'updateSortOrder'])->name('service-pages.sort-order');
+        Route::post('/service-pages/upload-image', [App\Http\Controllers\Admin\ServicePageController::class, 'uploadImage'])->name('service-pages.upload-image');
+    });
+    Route::delete('/service-pages/{servicePage}', [App\Http\Controllers\Admin\ServicePageController::class, 'destroy'])->middleware('permission:service-pages,delete')->name('service-pages.destroy');
 
-    // Profile Management
-    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
-    Route::put('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
-    Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
-    Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
+    // Profile Management (everyone can access their own profile)
+    Route::middleware('permission:profile')->group(function () {
+        Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
+        Route::put('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
+        Route::post('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'uploadProfileImage'])->name('profile.image.upload');
+        Route::delete('/profile/image', [App\Http\Controllers\Admin\ProfileController::class, 'deleteProfileImage'])->name('profile.image.delete');
+    });
 
     // Homepage Management
-    Route::get('/homepage', [App\Http\Controllers\Admin\HomepageController::class, 'index'])->name('homepage.index');
+    Route::middleware('permission:homepage')->group(function () {
+        Route::get('/homepage', [App\Http\Controllers\Admin\HomepageController::class, 'index'])->name('homepage.index');
+    });
+    Route::middleware('permission:homepage,write')->group(function () {
     Route::put('/homepage/hero', [App\Http\Controllers\Admin\HomepageController::class, 'updateHero'])->name('homepage.hero.update');
     Route::post('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadHeroImage'])->name('homepage.hero.image.upload');
     Route::delete('/homepage/hero/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteHeroImage'])->name('homepage.hero.image.delete');
@@ -138,12 +167,16 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/homepage/what-sets-us-apart/item', [App\Http\Controllers\Admin\HomepageController::class, 'storeWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.store');
     Route::put('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'updateWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.update');
     Route::delete('/homepage/what-sets-us-apart/item/{item}', [App\Http\Controllers\Admin\HomepageController::class, 'deleteWhatSetsUsApartItem'])->name('homepage.what-sets-us-apart.item.destroy');
-    Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
-    Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
-    Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
+        Route::put('/homepage/seo', [App\Http\Controllers\Admin\HomepageController::class, 'updateSeoSettings'])->name('homepage.seo.update');
+        Route::post('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'uploadSeoImage'])->name('homepage.seo.image.upload');
+        Route::delete('/homepage/seo/image', [App\Http\Controllers\Admin\HomepageController::class, 'deleteSeoImage'])->name('homepage.seo.image.delete');
+    });
 
     // About Us Management
-    Route::get('/about-us', [App\Http\Controllers\Admin\AboutUsController::class, 'index'])->name('about-us.index');
+    Route::middleware('permission:about-us')->group(function () {
+        Route::get('/about-us', [App\Http\Controllers\Admin\AboutUsController::class, 'index'])->name('about-us.index');
+    });
+    Route::middleware('permission:about-us,write')->group(function () {
     Route::put('/about-us/hero', [App\Http\Controllers\Admin\AboutUsController::class, 'updateHero'])->name('about-us.hero.update');
     Route::post('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadHeroImage'])->name('about-us.hero.image.upload');
     Route::delete('/about-us/hero/image', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteHeroImage'])->name('about-us.hero.image.delete');
@@ -179,21 +212,26 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('/about-us/why-partner/features/{feature}', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteWhyPartnerFeature'])->name('about-us.why-partner.features.delete');
 
     // CTA Section routes
-    Route::put('/about-us/cta', [App\Http\Controllers\Admin\AboutUsController::class, 'updateCTA'])->name('about-us.cta.update');
-    Route::post('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadCTABackground'])->name('about-us.cta.background.upload');
-    Route::delete('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteCTABackground'])->name('about-us.cta.background.delete');
+        Route::put('/about-us/cta', [App\Http\Controllers\Admin\AboutUsController::class, 'updateCTA'])->name('about-us.cta.update');
+        Route::post('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'uploadCTABackground'])->name('about-us.cta.background.upload');
+        Route::delete('/about-us/cta/background', [App\Http\Controllers\Admin\AboutUsController::class, 'deleteCTABackground'])->name('about-us.cta.background.delete');
+    });
 
     // Footer Management
-    Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
-    Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
-    Route::post('/footer/links', [App\Http\Controllers\Admin\FooterController::class, 'storeLink'])->name('footer.links.store');
-    Route::put('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'updateLink'])->name('footer.links.update');
-    Route::delete('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'destroyLink'])->name('footer.links.destroy');
+    Route::middleware('permission:footer')->group(function () {
+        Route::get('/footer', [App\Http\Controllers\Admin\FooterController::class, 'index'])->name('footer.index');
+    });
+    Route::middleware('permission:footer,write')->group(function () {
+        Route::put('/footer/content', [App\Http\Controllers\Admin\FooterController::class, 'updateContent'])->name('footer.content.update');
+        Route::post('/footer/links', [App\Http\Controllers\Admin\FooterController::class, 'storeLink'])->name('footer.links.store');
+        Route::put('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'updateLink'])->name('footer.links.update');
+    });
+    Route::delete('/footer/links/{link}', [App\Http\Controllers\Admin\FooterController::class, 'destroyLink'])->middleware('permission:footer,delete')->name('footer.links.destroy');
 
     // Settings (placeholder for future)
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings/Index');
-    })->name('settings.index');
+    })->middleware('permission:settings')->name('settings.index');
 
 
     // Logout route

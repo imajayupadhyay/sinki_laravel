@@ -80,6 +80,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-2">
+                                    <Link
+                                        :href="route('admin.user-permissions.show', user.id)"
+                                        class="text-purple-600 hover:text-purple-900 bg-purple-50 hover:bg-purple-100 px-3 py-1 rounded-md transition-colors duration-200"
+                                    >
+                                        Permissions
+                                    </Link>
                                     <button
                                         @click="openEditModal(user)"
                                         class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-md transition-colors duration-200"
@@ -228,6 +234,26 @@
                                 required
                             />
                         </div>
+
+                        <!-- Role Assignment (only for new users) -->
+                        <div v-if="!isEditing">
+                            <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Assign Role</label>
+                            <select
+                                id="role"
+                                v-model="userForm.role_id"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
+                                :class="{ 'border-red-500': userForm.errors.role_id }"
+                            >
+                                <option value="">Select a role (optional)</option>
+                                <option v-for="role in roles" :key="role.id" :value="role.id">
+                                    {{ role.display_name }} - {{ role.description }}
+                                </option>
+                            </select>
+                            <p class="text-xs text-gray-500 mt-1">You can manage detailed permissions after creating the user</p>
+                            <div v-if="userForm.errors.role_id" class="text-red-600 text-sm mt-1">
+                                {{ userForm.errors.role_id }}
+                            </div>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end space-x-3 mt-6">
@@ -347,12 +373,16 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Components/Admin/AdminLayout.vue';
 
 // Props
 const props = defineProps({
     users: {
+        type: Array,
+        default: () => []
+    },
+    roles: {
         type: Array,
         default: () => []
     }
@@ -372,7 +402,8 @@ const userForm = useForm({
     email: '',
     password: '',
     password_confirmation: '',
-    profile_image: null
+    profile_image: null,
+    role_id: ''
 });
 
 const passwordForm = useForm({
