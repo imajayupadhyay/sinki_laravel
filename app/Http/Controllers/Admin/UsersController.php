@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,8 +30,11 @@ class UsersController extends Controller
                 ];
             });
 
+        $roles = Role::active()->get();
+
         return Inertia::render('Admin/Users/Index', [
-            'users' => $users
+            'users' => $users,
+            'roles' => $roles
         ]);
     }
 
@@ -41,6 +45,7 @@ class UsersController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'role_id' => 'nullable|exists:roles,id',
         ]);
 
         $profileImage = null;
@@ -51,16 +56,25 @@ class UsersController extends Controller
             $profileImage = $filename;
         }
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'profile_image' => $profileImage,
             'email_verified_at' => now(),
+            'is_active' => true,
         ]);
 
+        // Assign role if selected
+        if (!empty($validated['role_id'])) {
+            $role = Role::find($validated['role_id']);
+            if ($role) {
+                $user->assignRole($role->name);
+            }
+        }
+
         return redirect()->route('admin.users.index')
-            ->with('success', 'User created successfully.');
+            ->with('success', 'User created successfully and role assigned.');
     }
 
     public function update(Request $request, User $user)

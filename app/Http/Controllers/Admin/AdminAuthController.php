@@ -24,7 +24,12 @@ class AdminAuthController extends Controller
     public function showLoginForm()
     {
         if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
+            $user = Auth::user();
+            if ($user->hasPermission('dashboard', 'read')) {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('admin.no-permissions');
+            }
         }
 
         return Inertia::render('Auth/SecureLogin');
@@ -33,7 +38,12 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
+            $user = Auth::user();
+            if ($user->hasPermission('dashboard', 'read')) {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('admin.no-permissions');
+            }
         }
 
         $credentials = $request->validate([
@@ -103,7 +113,13 @@ class AdminAuthController extends Controller
                 // Regenerate session
                 $request->session()->regenerate();
 
-                return redirect()->intended(route('admin.dashboard'));
+                // Check if user has dashboard permission, if not redirect to safe page
+                $user = Auth::user();
+                if ($user->hasPermission('dashboard', 'read')) {
+                    return redirect()->intended(route('admin.dashboard'));
+                } else {
+                    return redirect()->intended(route('admin.no-permissions'));
+                }
             }
         }
 

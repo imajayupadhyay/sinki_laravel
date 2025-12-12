@@ -27,6 +27,7 @@
             <div class="space-y-2">
                 <!-- Dashboard -->
                 <Link
+                    v-if="hasPermission('dashboard')"
                     :href="route('admin.dashboard')"
                     class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
                     :class="isActive('admin.dashboard') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
@@ -40,6 +41,7 @@
 
                 <!-- Submissions -->
                 <Link
+                    v-if="hasPermission('submissions')"
                     :href="route('admin.submissions.index')"
                     class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
                     :class="isActive('admin.submissions.index') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
@@ -52,106 +54,133 @@
 
 
                 <!-- Blog Section -->
-                <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Blog Management</h3>
-                </div>
+                <template v-if="hasPermission('blogs') || hasPermission('categories') || hasPermission('tags')">
+                    <div class="pt-4 pb-2">
+                        <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Blog Management</h3>
+                    </div>
 
-                <!-- Blog Posts -->
-                <Link
-                    :href="route('admin.blogs.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.blogs') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                    Blog Posts
-                </Link>
+                    <!-- Blog Posts -->
+                    <Link
+                        v-if="hasPermission('blogs')"
+                        :href="route('admin.blogs.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.blogs') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Blog Posts
+                    </Link>
 
-                <!-- Categories -->
-                <Link
-                    :href="route('admin.categories.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.categories') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                    </svg>
-                    Categories
-                </Link>
+                    <!-- Categories -->
+                    <Link
+                        v-if="hasPermission('categories')"
+                        :href="route('admin.categories.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.categories') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                        Categories
+                    </Link>
 
-                <!-- Tags -->
-                <Link
-                    :href="route('admin.tags.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.tags') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                    </svg>
-                    Tags
-                </Link>
+                    <!-- Tags -->
+                    <Link
+                        v-if="hasPermission('tags')"
+                        :href="route('admin.tags.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.tags') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                        Tags
+                    </Link>
+                </template>
 
                 <!-- Page Management Section -->
-                <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Page Management</h3>
-                </div>
+                <template v-if="hasPermission('homepage') || hasPermission('about-us') || hasPermission('service-pages')">
+                    <div class="pt-4 pb-2">
+                        <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Page Management</h3>
+                    </div>
 
-                <!-- Homepage -->
-                <Link
-                    :href="route('admin.homepage.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.homepage') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                    Homepage
-                </Link>
+                    <!-- Homepage -->
+                    <Link
+                        v-if="hasPermission('homepage')"
+                        :href="route('admin.homepage.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.homepage') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        Homepage
+                    </Link>
 
-                <!-- About Us -->
-                <Link
-                    :href="route('admin.about-us.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.about-us') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                    About Us
-                </Link>
+                    <!-- About Us -->
+                    <Link
+                        v-if="hasPermission('about-us')"
+                        :href="route('admin.about-us.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.about-us') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        About Us
+                    </Link>
 
-                <!-- Service Pages -->
-                <Link
-                    :href="route('admin.service-pages.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.service-pages') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
-                    Service Pages
-                </Link>
+                    <!-- Service Pages -->
+                    <Link
+                        v-if="hasPermission('service-pages')"
+                        :href="route('admin.service-pages.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.service-pages') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        Service Pages
+                    </Link>
+                </template>
 
                 <!-- System Section -->
-                <div class="pt-4 pb-2">
-                    <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</h3>
-                </div>
+                <template v-if="hasPermission('users') || hasPermission('settings')">
+                    <div class="pt-4 pb-2">
+                        <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</h3>
+                    </div>
 
-                <!-- Users -->
-                <Link
-                    :href="route('admin.users.index')"
-                    class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
-                    :class="isActive('admin.users.index') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
-                >
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                    </svg>
-                    Users
-                </Link>
+                    <!-- Users -->
+                    <Link
+                        v-if="hasPermission('users')"
+                        :href="route('admin.users.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.users.index') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                        </svg>
+                        Users
+                    </Link>
+
+                    <!-- User Permissions -->
+                    <Link
+                        v-if="hasPermission('users')"
+                        :href="route('admin.user-permissions.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.user-permissions') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.586-4.414A2 2 0 0118 9.172v2.828a2 2 0 01-.586 1.414L13 18H9l-4.414-4.414A2 2 0 014 12.172V9.172a2 2 0 01.586-1.414L9 3h4l4.414 4.414z"/>
+                        </svg>
+                        User Permissions
+                    </Link>
+                </template>
 
                 <!-- Footer -->
                 <Link
+                    v-if="hasPermission('footer')"
                     :href="route('admin.footer.index')"
                     class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
                     :class="isActive('admin.footer.index') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
@@ -164,6 +193,7 @@
 
                 <!-- Settings -->
                 <Link
+                    v-if="hasPermission('settings')"
                     :href="route('admin.settings.index')"
                     class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
                     :class="isActive('admin.settings.index') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
@@ -199,7 +229,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -217,6 +246,19 @@ const closeMobileMenu = () => {
     emit('close-mobile-menu');
 };
 
+// Permission checking function
+const hasPermission = (permission, action = 'read') => {
+    const permissions = page.props.auth?.permissions || {};
+
+    // If user has 'all' permissions (super admin)
+    if (permissions.all === true) {
+        return true;
+    }
+
+    // Check specific permission
+    return permissions[permission]?.[action] === true;
+};
+
 const isActive = (routeName) => {
     const currentRoute = route().current();
     const currentComponent = page.component;
@@ -228,6 +270,10 @@ const isActive = (routeName) => {
     if (routeName === 'admin.dashboard' && currentComponent === 'Admin/Dashboard') return true;
     if (routeName === 'admin.submissions.index' && currentComponent === 'Admin/Submissions/Index') return true;
     if (routeName === 'admin.users.index' && currentComponent === 'Admin/Users/Index') return true;
+    if (routeName === 'admin.user-permissions' && (
+        currentComponent === 'Admin/UserPermissions/Index' ||
+        currentComponent === 'Admin/UserPermissions/Show'
+    )) return true;
     if (routeName === 'admin.settings.index' && currentComponent === 'Admin/Settings/Index') return true;
 
     // Blog management routes
