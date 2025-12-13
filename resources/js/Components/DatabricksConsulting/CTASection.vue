@@ -39,7 +39,7 @@
                     <div class="relative z-10 max-w-6xl mx-auto">
                         <!-- Main Headline -->
                         <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3rem] font-semibold leading-tight font-instrument-sans mb-4 sm:mb-6">
-                            {{ title || 'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.' }}
+                            <span v-html="formattedTitle"></span>
                         </h2>
 
                         <!-- Subtitle -->
@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
     title: {
@@ -96,6 +96,12 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['cta-click']);
+
+// Computed property to format title with red Sinki.ai
+const formattedTitle = computed(() => {
+    const title = props.title || 'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.';
+    return title.replace('Sinki.ai', '<span style="color: #FF3621;">Sinki.ai</span>');
+});
 
 const handleCTAClick = () => {
     // Emit event for parent component to handle

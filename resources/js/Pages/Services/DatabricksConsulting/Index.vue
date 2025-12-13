@@ -94,6 +94,28 @@
         <!-- Why Standardize Section -->
         <WhyStandardizeSection />
 
+        <!-- Final Transform CTA Section -->
+        <CTASection
+            :title="'Transform your data operations with a partner who knows Databricks end-to-end.'"
+            :ctaText="'Start Your Databricks Project'"
+            :ctaLink="'/contact'"
+            :backgroundImage="'/images/databricks-transform-cta-bg.jpg'"
+            @cta-click="handleCTAClick"
+        />
+
+        <!-- FAQ Section -->
+        <FAQSection />
+
+        <!-- Build Smarter CTA Section -->
+        <CTASection
+            :title="'Build Smarter, Faster, and More Reliable Data Systems with Sinki.ai.'"
+            :subtitle="'We help enterprises unlock value from Databricks without the guesswork or risk.'"
+            :ctaText="'Schedule A Strategy Session'"
+            :ctaLink="'/contact'"
+            :backgroundImage="'/images/databricks-build-smarter-cta-bg.jpg'"
+            @cta-click="handleCTAClick"
+        />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -123,6 +145,7 @@ import IndustryChallengesSection from '@/Components/DatabricksConsulting/Industr
 import WhyTrustSinkiSection from '@/Components/DatabricksConsulting/WhyTrustSinkiSection.vue';
 import TechnologyStackSection from '@/Components/DatabricksConsulting/TechnologyStackSection.vue';
 import WhyStandardizeSection from '@/Components/DatabricksConsulting/WhyStandardizeSection.vue';
+import FAQSection from '@/Components/DatabricksConsulting/FAQSection.vue';
 import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
