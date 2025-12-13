@@ -62,6 +62,22 @@
         <!-- Delivery Approach Section -->
         <DeliveryApproachSection />
 
+        <!-- Industry Challenges Section -->
+        <IndustryChallengesSection />
+
+        <!-- Why Trust Sinki Section -->
+        <WhyTrustSinkiSection />
+
+        <!-- Final CTA Section -->
+        <CTASection
+            :title="'Unlock Proven Databricks Solutions for Your Enterprise'"
+            :subtitle="'From strategy to scale, get the expertise required to operationalize analytics and AI the right way.'"
+            :ctaText="'Start Your Databricks Assessment'"
+            :ctaLink="'/contact'"
+            :backgroundImage="'/images/databricks-final-cta-bg.jpg'"
+            @cta-click="handleCTAClick"
+        />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -87,6 +103,8 @@ import CoreStrengthsSection from '@/Components/DatabricksConsulting/CoreStrength
 import AcceleratorsSection from '@/Components/DatabricksConsulting/AcceleratorsSection.vue';
 import BusinessResultsSection from '@/Components/DatabricksConsulting/BusinessResultsSection.vue';
 import DeliveryApproachSection from '@/Components/DatabricksConsulting/DeliveryApproachSection.vue';
+import IndustryChallengesSection from '@/Components/DatabricksConsulting/IndustryChallengesSection.vue';
+import WhyTrustSinkiSection from '@/Components/DatabricksConsulting/WhyTrustSinkiSection.vue';
 import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
