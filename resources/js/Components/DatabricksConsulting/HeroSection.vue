@@ -29,7 +29,7 @@
             <div class="max-w-[1720px] mx-auto">
                 <div class="w-full max-w-[70%]">
                     <!-- Main Heading -->
-                    <h1 class="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-semibold leading-tight font-instrument-sans mb-8">
+                    <h1 class="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-semibold leading-tight font-instrument-sans mb-8 mt-16 md:mt-20 lg:mt-24">
                         Databricks Consulting Services
                     </h1>
 

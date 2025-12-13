@@ -1,8 +1,11 @@
 <template>
     <!-- Footer Content -->
-    <div class="w-full bg-[#121212] relative">
-        <footer class="footer-section relative pt-16 sm:pt-20 lg:pt-24">
-            <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
+    <div class="w-full relative mt-16 sm:mt-20 lg:mt-24 overflow-hidden"
+        style="background-image: url('/images/aboutussecbanner.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <!-- Dark overlay for better text visibility -->
+        <div class="absolute inset-0 bg-black/70 z-[1]"></div>
+        <footer class="footer-section relative pt-16 sm:pt-20 lg:pt-24 z-[2]">
+            <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 relative">
 
                 <!-- Main Footer Content -->
                 <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 lg:gap-16 xl:gap-20 pb-12 border-b border-white/10">
@@ -20,9 +23,26 @@
                         </div>
 
                         <!-- Description -->
-                        <p class="text-white text-xl leading-[28px] tracking-[0.4px]">
+                        <p class="text-white text-xl leading-[28px] tracking-[0.4px] mb-6">
                             {{ footerData?.content?.description || 'Data & AI That Drives Real Business Impact' }}
                         </p>
+
+                        <!-- Bottom Links -->
+                        <div class="flex items-center gap-4 text-white text-lg font-medium flex-wrap">
+                            <a
+                                href="/privacy-policy"
+                                class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
+                            >
+                                Privacy Policy
+                            </a>
+                            <span class="text-white/30">|</span>
+                            <a
+                                href="/terms-and-conditions"
+                                class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
+                            >
+                                Terms & Conditions
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Column 2: Quick Link -->
@@ -59,30 +79,41 @@
                         </ul>
                     </div>
 
+                    <!-- Column 4: Newsletter Subscription -->
+                    <div class="flex-1 footer-col min-w-0">
+                        <h3 class="text-white text-2xl font-bold tracking-[0.48px] mb-8">
+                            Subscribe to Our Newsletter
+                        </h3>
+                        <form @submit.prevent="handleNewsletterSubmit" class="w-full">
+                            <div class="flex items-center w-full">
+                                <input
+                                    v-model="newsletterEmail"
+                                    type="email"
+                                    placeholder="Email Address"
+                                    required
+                                    class="flex-grow min-w-0 px-6 py-3.5 bg-white text-gray-800 placeholder-gray-500 focus:outline-none text-base rounded-l-[50px]"
+                                />
+                                <button
+                                    type="submit"
+                                    :disabled="isSubmitting"
+                                    class="flex-shrink-0 bg-[#FF3621] hover:bg-[#FF3621]/90 disabled:bg-[#FF3621]/50 text-white px-6 py-3.5 text-base font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#FF3621]/20 whitespace-nowrap rounded-r-[50px]"
+                                >
+                                    Subscribe now
+                                </button>
+                            </div>
+                        </form>
+                        <p v-if="subscriptionMessage"
+                           :class="['text-sm mt-3', subscriptionSuccess ? 'text-green-400' : 'text-red-400']">
+                            {{ subscriptionMessage }}
+                        </p>
+                    </div>
+
                 </div>
 
                 <!-- Copyright Section -->
-                <div class="pt-8 pb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <!-- Footer Links (Left Side) -->
-                    <div class="flex items-center gap-4 text-white text-lg font-medium order-2 sm:order-1 flex-wrap justify-center sm:justify-start">
-                        <template v-for="(link, index) in (footerData?.links?.bottom_links || bottomLinks)" :key="link.id || index">
-                            <a
-                                :href="link.url"
-                                class="hover:text-brand-red transition-colors duration-300 whitespace-nowrap"
-                            >
-                                {{ link.name }}
-                            </a>
-                            <span
-                                v-if="index < (footerData?.links?.bottom_links || bottomLinks).length - 1"
-                                class="text-white/30"
-                            >
-                                |
-                            </span>
-                        </template>
-                    </div>
-
-                    <!-- Copyright (Right Side) -->
-                    <p class="text-white text-lg font-medium leading-[25.2px] tracking-[0.36px] order-1 sm:order-2">
+                <div class="pt-8 pb-8 flex justify-center">
+                    <!-- Copyright (Center) -->
+                    <p class="text-white text-lg font-medium leading-[25.2px] tracking-[0.36px] text-center">
                         Copyright © {{ currentYear }} {{ footerData?.content?.copyright_text || 'All Rights Reserved.' }}
                     </p>
                 </div>
@@ -94,6 +125,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
 // Footer data from API
 const footerData = ref(null);
@@ -114,13 +146,54 @@ const services = ref([
     { name: 'AI & ML Solutions', url: '#services' }
 ]);
 
-const bottomLinks = ref([
-    { name: 'Privacy Policy', url: '/privacy-policy' },
-    { name: "Terms & Conditions", url: '/terms-and-conditions' }
-]);
-
 // Current Year
-const currentYear = computed(() => new Date().getFullYear());
+const currentYear = computed(() => 2026);
+
+// Newsletter form state
+const newsletterEmail = ref('');
+const isSubmitting = ref(false);
+const subscriptionMessage = ref('');
+const subscriptionSuccess = ref(false);
+
+// Handle newsletter submission
+const handleNewsletterSubmit = async () => {
+    if (!newsletterEmail.value) return;
+
+    isSubmitting.value = true;
+    subscriptionMessage.value = '';
+
+    try {
+        // Replace with your actual newsletter API endpoint
+        const response = await axios.post('/api/newsletter/subscribe', {
+            email: newsletterEmail.value
+        });
+
+        if (response.data.success) {
+            subscriptionSuccess.value = true;
+            subscriptionMessage.value = 'Thank you for subscribing!';
+            newsletterEmail.value = '';
+
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                subscriptionMessage.value = '';
+            }, 5000);
+        }
+    } catch (error) {
+        subscriptionSuccess.value = false;
+        if (error.response?.data?.message) {
+            subscriptionMessage.value = error.response.data.message;
+        } else {
+            subscriptionMessage.value = 'Something went wrong. Please try again.';
+        }
+
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+            subscriptionMessage.value = '';
+        }, 5000);
+    } finally {
+        isSubmitting.value = false;
+    }
+};
 
 // Fetch footer data from API
 const fetchFooterData = async () => {
@@ -152,7 +225,6 @@ onMounted(() => {
 /* Footer Section Styles */
 .footer-section {
     position: relative;
-    background: #121212;
     font-family: 'Instrument Sans', sans-serif;
 }
 
@@ -166,6 +238,7 @@ onMounted(() => {
 .footer-col:nth-child(1) { animation-delay: 0.1s; }
 .footer-col:nth-child(2) { animation-delay: 0.2s; }
 .footer-col:nth-child(3) { animation-delay: 0.3s; }
+.footer-col:nth-child(4) { animation-delay: 0.4s; }
 
 @keyframes fadeInUp {
     from {

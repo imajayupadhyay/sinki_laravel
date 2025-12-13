@@ -1,5 +1,5 @@
 <template>
-    <section class="cta-section py-16 sm:py-20 lg:py-24">
+    <section class="cta-section">
         <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 xl:px-[100px]">
             <div class="max-w-[1720px] mx-auto">
 
