@@ -20,6 +20,9 @@
         <!-- Global Brands Section -->
         <GlobalBrandsSection :brands="globalBrands" />
 
+        <!-- Professional Services Section -->
+        <ProfessionalServicesSection />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -37,6 +40,7 @@ import FooterSection from '@/Components/FooterSection.vue';
 import HeroSection from '@/Components/DatabricksConsulting/HeroSection.vue';
 import PartnerSection from '@/Components/DatabricksConsulting/PartnerSection.vue';
 import GlobalBrandsSection from '@/Components/DatabricksConsulting/GlobalBrandsSection.vue';
+import ProfessionalServicesSection from '@/Components/DatabricksConsulting/ProfessionalServicesSection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Set canonical URL for Databricks consulting page
