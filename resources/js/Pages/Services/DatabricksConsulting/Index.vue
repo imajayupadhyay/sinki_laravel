@@ -46,6 +46,9 @@
         <!-- Accelerators Section -->
         <AcceleratorsSection />
 
+        <!-- Business Results Section -->
+        <BusinessResultsSection />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -69,6 +72,7 @@ import AllSolutionsSection from '@/Components/DatabricksConsulting/AllSolutionsS
 import HowDatabricksSection from '@/Components/DatabricksConsulting/HowDatabricksSection.vue';
 import CoreStrengthsSection from '@/Components/DatabricksConsulting/CoreStrengthsSection.vue';
 import AcceleratorsSection from '@/Components/DatabricksConsulting/AcceleratorsSection.vue';
+import BusinessResultsSection from '@/Components/DatabricksConsulting/BusinessResultsSection.vue';
 import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
