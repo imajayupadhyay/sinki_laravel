@@ -102,6 +102,10 @@ Route::get('/privacy-policy', function () {
 // Services Routes Group
 Route::prefix('services')->name('services.')->group(function () {
 
+    // Specific static service pages - add before dynamic routes
+    Route::get('/databricks-consulting', function () {
+        return Inertia::render('Services/DatabricksConsulting/Index');
+    })->name('databricks-consulting');
 
     // Services index page (optional - shows all published services)
     Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])
