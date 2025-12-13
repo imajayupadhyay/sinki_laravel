@@ -49,6 +49,19 @@
         <!-- Business Results Section -->
         <BusinessResultsSection />
 
+        <!-- CTA Section 2 -->
+        <CTASection
+            :title="'Start Building a High-Performing Databricks Environment'"
+            :subtitle="'Leverage battle-tested frameworks, accelerators, and experience trusted by global enterprises.'"
+            :ctaText="'Talk To Our Experts'"
+            :ctaLink="'/contact'"
+            :backgroundImage="'/images/databricks-cta-bg.jpg'"
+            @cta-click="handleCTAClick"
+        />
+
+        <!-- Delivery Approach Section -->
+        <DeliveryApproachSection />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -73,6 +86,7 @@ import HowDatabricksSection from '@/Components/DatabricksConsulting/HowDatabrick
 import CoreStrengthsSection from '@/Components/DatabricksConsulting/CoreStrengthsSection.vue';
 import AcceleratorsSection from '@/Components/DatabricksConsulting/AcceleratorsSection.vue';
 import BusinessResultsSection from '@/Components/DatabricksConsulting/BusinessResultsSection.vue';
+import DeliveryApproachSection from '@/Components/DatabricksConsulting/DeliveryApproachSection.vue';
 import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 

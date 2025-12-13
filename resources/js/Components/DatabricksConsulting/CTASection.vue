@@ -38,9 +38,14 @@
                     <!-- Content -->
                     <div class="relative z-10 max-w-6xl mx-auto">
                         <!-- Main Headline -->
-                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3rem] font-semibold leading-tight font-instrument-sans mb-8 sm:mb-12">
+                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3rem] font-semibold leading-tight font-instrument-sans mb-4 sm:mb-6">
                             {{ title || 'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.' }}
                         </h2>
+
+                        <!-- Subtitle -->
+                        <p v-if="subtitle" class="text-white/90 text-base sm:text-lg lg:text-xl font-normal font-instrument-sans mb-8 sm:mb-12 max-w-4xl mx-auto">
+                            {{ subtitle }}
+                        </p>
 
                         <!-- CTA Button -->
                         <div class="flex justify-center">
@@ -71,6 +76,10 @@ const props = defineProps({
     title: {
         type: String,
         default: 'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.'
+    },
+    subtitle: {
+        type: String,
+        default: null
     },
     ctaText: {
         type: String,
