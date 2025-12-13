@@ -78,6 +78,22 @@
             @cta-click="handleCTAClick"
         />
 
+        <!-- Technology Stack Section -->
+        <TechnologyStackSection />
+
+        <!-- Enterprise Ready CTA Section -->
+        <CTASection
+            :title="'Ensure Your Databricks Platform Is Enterprise-Ready'"
+            :subtitle="'Harden security, governance, and architecture with expert-led modernization support.'"
+            :ctaText="'Schedule An Enterprise Review'"
+            :ctaLink="'/contact'"
+            :backgroundImage="'/images/databricks-enterprise-cta-bg.jpg'"
+            @cta-click="handleCTAClick"
+        />
+
+        <!-- Why Standardize Section -->
+        <WhyStandardizeSection />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -105,6 +121,8 @@ import BusinessResultsSection from '@/Components/DatabricksConsulting/BusinessRe
 import DeliveryApproachSection from '@/Components/DatabricksConsulting/DeliveryApproachSection.vue';
 import IndustryChallengesSection from '@/Components/DatabricksConsulting/IndustryChallengesSection.vue';
 import WhyTrustSinkiSection from '@/Components/DatabricksConsulting/WhyTrustSinkiSection.vue';
+import TechnologyStackSection from '@/Components/DatabricksConsulting/TechnologyStackSection.vue';
+import WhyStandardizeSection from '@/Components/DatabricksConsulting/WhyStandardizeSection.vue';
 import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
