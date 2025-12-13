@@ -23,6 +23,29 @@
         <!-- Professional Services Section -->
         <ProfessionalServicesSection />
 
+        <!-- Why Choose Databricks Section -->
+        <WhyChooseDatabricksSection />
+
+        <!-- CTA Section -->
+        <CTASection
+            :title="'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.'"
+            :ctaText="'Book A Free Strategy Call'"
+            :ctaLink="'/contact'"
+            @cta-click="handleCTAClick"
+        />
+
+        <!-- All Databricks Solutions Section -->
+        <AllSolutionsSection />
+
+        <!-- How Databricks Simplifies Section -->
+        <HowDatabricksSection />
+
+        <!-- Core Strengths Section -->
+        <CoreStrengthsSection @cta-click="handleCoreStrengthsCTA" />
+
+        <!-- Accelerators Section -->
+        <AcceleratorsSection />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -41,6 +64,12 @@ import HeroSection from '@/Components/DatabricksConsulting/HeroSection.vue';
 import PartnerSection from '@/Components/DatabricksConsulting/PartnerSection.vue';
 import GlobalBrandsSection from '@/Components/DatabricksConsulting/GlobalBrandsSection.vue';
 import ProfessionalServicesSection from '@/Components/DatabricksConsulting/ProfessionalServicesSection.vue';
+import WhyChooseDatabricksSection from '@/Components/DatabricksConsulting/WhyChooseDatabricksSection.vue';
+import AllSolutionsSection from '@/Components/DatabricksConsulting/AllSolutionsSection.vue';
+import HowDatabricksSection from '@/Components/DatabricksConsulting/HowDatabricksSection.vue';
+import CoreStrengthsSection from '@/Components/DatabricksConsulting/CoreStrengthsSection.vue';
+import AcceleratorsSection from '@/Components/DatabricksConsulting/AcceleratorsSection.vue';
+import CTASection from '@/Components/DatabricksConsulting/CTASection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Set canonical URL for Databricks consulting page
@@ -63,6 +92,16 @@ const globalBrands = [
 const handleHeroCTA = () => {
     // Handle hero CTA click - can be customized
     console.log('Hero CTA clicked');
+};
+
+const handleCTAClick = () => {
+    // Handle CTA section click - can be customized
+    console.log('CTA section clicked');
+};
+
+const handleCoreStrengthsCTA = () => {
+    // Handle core strengths CTA click - can be customized
+    console.log('Core Strengths CTA clicked');
 };
 </script>
 
