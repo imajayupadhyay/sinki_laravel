@@ -17,6 +17,9 @@
             :logoAlt="'Databricks Partner Logo'"
         />
 
+        <!-- Global Brands Section -->
+        <GlobalBrandsSection :brands="globalBrands" />
+
         <!-- Additional sections will be added here -->
         <div>
             <!-- Future sections will be added here -->
@@ -33,6 +36,7 @@ import Header from '@/Components/Header.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 import HeroSection from '@/Components/DatabricksConsulting/HeroSection.vue';
 import PartnerSection from '@/Components/DatabricksConsulting/PartnerSection.vue';
+import GlobalBrandsSection from '@/Components/DatabricksConsulting/GlobalBrandsSection.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Set canonical URL for Databricks consulting page
@@ -41,6 +45,16 @@ useCanonical('https://www.sinki.ai/services/databricks-consulting');
 const props = defineProps({
     // Props will be added as needed for each section
 });
+
+// Global brands data (using placeholders for now)
+const globalBrands = [
+    { name: 'TATA TMG', logo: '/images/placeholder-tata.png' },
+    { name: 'Adobe', logo: '/images/placeholder-adobe.png' },
+    { name: 'LaLiga', logo: '/images/placeholder-laliga.png' },
+    { name: 'Shell', logo: '/images/placeholder-shell.png' },
+    { name: 'Comcast', logo: '/images/placeholder-comcast.png' },
+    { name: 'AT&T', logo: '/images/placeholder-att.png' }
+];
 
 const handleHeroCTA = () => {
     // Handle hero CTA click - can be customized
