@@ -21,7 +21,7 @@
                         <img
                             :src="brands[0]?.logo || '/images/placeholder-tata.png'"
                             :alt="brands[0]?.name || 'TATA TMG'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
 
@@ -30,7 +30,7 @@
                         <img
                             :src="brands[1]?.logo || '/images/placeholder-adobe.png'"
                             :alt="brands[1]?.name || 'Adobe'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
 
@@ -39,7 +39,7 @@
                         <img
                             :src="brands[2]?.logo || '/images/placeholder-laliga.png'"
                             :alt="brands[2]?.name || 'LaLiga'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
 
@@ -48,7 +48,7 @@
                         <img
                             :src="brands[3]?.logo || '/images/placeholder-shell.png'"
                             :alt="brands[3]?.name || 'Shell'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
 
@@ -57,7 +57,7 @@
                         <img
                             :src="brands[4]?.logo || '/images/placeholder-comcast.png'"
                             :alt="brands[4]?.name || 'Comcast'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
 
@@ -66,7 +66,7 @@
                         <img
                             :src="brands[5]?.logo || '/images/placeholder-att.png'"
                             :alt="brands[5]?.name || 'AT&T'"
-                            class="brand-logo h-8 sm:h-10 md:h-12 w-auto max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
                         />
                     </div>
                 </div>
@@ -118,7 +118,7 @@ const props = defineProps({
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 60px;
+    height: 80px;
     padding: 0 20px;
     transition: transform 0.3s ease;
 }
@@ -129,7 +129,7 @@ const props = defineProps({
 
 /* Brand Logo Styles */
 .brand-logo {
-    max-height: 48px;
+    max-height: 80px;
     width: auto;
     object-fit: contain;
     transition: all 0.3s ease;
@@ -156,11 +156,11 @@ const props = defineProps({
     }
 
     .brand-logo {
-        max-height: 40px;
+        max-height: 60px;
     }
 
     .brand-logo-wrapper {
-        height: 50px;
+        height: 70px;
         padding: 0 10px;
     }
 }
@@ -172,11 +172,11 @@ const props = defineProps({
     }
 
     .brand-logo {
-        max-height: 32px;
+        max-height: 48px;
     }
 
     .brand-logo-wrapper {
-        height: 40px;
+        height: 60px;
         padding: 0 8px;
     }
 

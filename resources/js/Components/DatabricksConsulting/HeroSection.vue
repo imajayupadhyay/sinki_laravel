@@ -1,9 +1,12 @@
 <template>
     <section class="hero-section relative overflow-hidden h-[80vh] flex items-center">
-        <!-- Background Image (will be set later) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40">
-            <!-- Background image will be added here later -->
-            <div class="absolute inset-0 bg-[#1a1a1a]"></div>
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img
+                src="/images/consulting/consulting hero banner.webp"
+                alt="Databricks Consulting Hero Background"
+                class="w-full h-full object-cover"
+            />
         </div>
 
         <!-- Animated Background Elements -->

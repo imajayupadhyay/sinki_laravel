@@ -165,12 +165,20 @@
                     <!-- Right Column: CTA Card -->
                     <div class="lg:col-span-4">
                         <div class="sticky top-8">
-                            <div class="cta-card bg-white border border-gray-200 rounded-lg p-8 lg:p-10 text-center shadow-sm">
+                            <div
+                                class="cta-card relative overflow-hidden border border-gray-200 rounded-[40px] p-8 lg:p-10 text-center shadow-sm"
+                                :style="{
+                                    backgroundImage: 'url(/images/consulting/ctaside.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }"
+                            >
                                 <!-- Content -->
-                                <div>
+                                <div class="relative z-10">
                                     <!-- Icon -->
                                     <div class="mb-6">
-                                        <div class="w-16 h-16 bg-[#8B5CF6] rounded-full flex items-center justify-center mx-auto">
+                                        <div class="w-16 h-16 bg-[#FF3621] rounded-full flex items-center justify-center mx-auto">
                                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                             </svg>
@@ -178,18 +186,18 @@
                                     </div>
 
                                     <!-- Headline -->
-                                    <h3 class="text-[#121212] text-2xl sm:text-3xl font-semibold leading-tight font-instrument-sans mb-4">
+                                    <h3 class="text-white text-2xl sm:text-3xl font-semibold leading-tight font-instrument-sans mb-4">
                                         Ready to Advance Your Databricks Strategy?
                                     </h3>
 
                                     <!-- Description -->
-                                    <p class="text-[#666666] text-base sm:text-lg font-normal leading-relaxed font-instrument-sans mb-8">
+                                    <p class="text-white/90 text-base sm:text-lg font-normal leading-relaxed font-instrument-sans mb-8">
                                         Connect with our certified consultants to accelerate your data transformation and unlock the full potential of your Databricks investment.
                                     </p>
 
                                     <!-- CTA Button -->
                                     <button
-                                        class="group bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-8 py-4 rounded-[50px] text-lg font-semibold font-instrument-sans transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 flex items-center justify-center space-x-3 hover:scale-105 w-full"
+                                        class="group bg-[#FF3621] hover:bg-[#FF3621]/90 text-white px-8 py-4 rounded-[50px] text-lg font-semibold font-instrument-sans transition-all duration-300 hover:shadow-xl hover:shadow-[#FF3621]/20 flex items-center justify-center space-x-3 hover:scale-105 w-full"
                                         @click="handleCTAClick"
                                     >
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

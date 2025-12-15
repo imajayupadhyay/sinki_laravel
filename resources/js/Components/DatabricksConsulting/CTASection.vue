@@ -13,8 +13,6 @@
                         backgroundRepeat: 'no-repeat'
                     }"
                 >
-                    <!-- Dark Overlay -->
-                    <div class="absolute inset-0 bg-black/60 rounded-[40px]"></div>
 
                     <!-- Animated Background Elements -->
                     <div class="absolute inset-0 overflow-hidden rounded-[40px]">
@@ -38,7 +36,7 @@
                     <!-- Content -->
                     <div class="relative z-10 max-w-6xl mx-auto">
                         <!-- Main Headline -->
-                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3rem] font-semibold leading-tight font-instrument-sans mb-4 sm:mb-6">
+                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3rem] font-semibold leading-[3.5rem] font-instrument-sans mb-4 sm:mb-6">
                             <span v-html="formattedTitle"></span>
                         </h2>
 

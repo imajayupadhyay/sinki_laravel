@@ -31,6 +31,7 @@
             :title="'Unlock the full potential of Databricks with expert-led guidance built for enterprise scale.'"
             :ctaText="'Book A Free Strategy Call'"
             :ctaLink="'/contact'"
+            :backgroundImage="'/images/consulting/ctaconsult1.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -55,7 +56,7 @@
             :subtitle="'Leverage battle-tested frameworks, accelerators, and experience trusted by global enterprises.'"
             :ctaText="'Talk To Our Experts'"
             :ctaLink="'/contact'"
-            :backgroundImage="'/images/databricks-cta-bg.jpg'"
+            :backgroundImage="'/images/consulting/ctaconsult2.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -74,7 +75,7 @@
             :subtitle="'From strategy to scale, get the expertise required to operationalize analytics and AI the right way.'"
             :ctaText="'Start Your Databricks Assessment'"
             :ctaLink="'/contact'"
-            :backgroundImage="'/images/databricks-final-cta-bg.jpg'"
+            :backgroundImage="'/images/consulting/ctaconsult3.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -87,7 +88,7 @@
             :subtitle="'Harden security, governance, and architecture with expert-led modernization support.'"
             :ctaText="'Schedule An Enterprise Review'"
             :ctaLink="'/contact'"
-            :backgroundImage="'/images/databricks-enterprise-cta-bg.jpg'"
+            :backgroundImage="'/images/consulting/ctaconsult1.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -99,7 +100,7 @@
             :title="'Transform your data operations with a partner who knows Databricks end-to-end.'"
             :ctaText="'Start Your Databricks Project'"
             :ctaLink="'/contact'"
-            :backgroundImage="'/images/databricks-transform-cta-bg.jpg'"
+            :backgroundImage="'/images/consulting/ctaconsult2.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -112,7 +113,7 @@
             :subtitle="'We help enterprises unlock value from Databricks without the guesswork or risk.'"
             :ctaText="'Schedule A Strategy Session'"
             :ctaLink="'/contact'"
-            :backgroundImage="'/images/databricks-build-smarter-cta-bg.jpg'"
+            :backgroundImage="'/images/consulting/ctaconsult3.webp'"
             @cta-click="handleCTAClick"
         />
 
@@ -156,14 +157,14 @@ const props = defineProps({
     // Props will be added as needed for each section
 });
 
-// Global brands data (using placeholders for now)
+// Global brands data
 const globalBrands = [
-    { name: 'TATA TMG', logo: '/images/placeholder-tata.png' },
-    { name: 'Adobe', logo: '/images/placeholder-adobe.png' },
-    { name: 'LaLiga', logo: '/images/placeholder-laliga.png' },
-    { name: 'Shell', logo: '/images/placeholder-shell.png' },
-    { name: 'Comcast', logo: '/images/placeholder-comcast.png' },
-    { name: 'AT&T', logo: '/images/placeholder-att.png' }
+    { name: 'TATA TMG', logo: '/images/consulting/tata1mg.webp' },
+    { name: 'Adobe', logo: '/images/consulting/adobe.webp' },
+    { name: 'LaLiga', logo: '/images/consulting/laliga.webp' },
+    { name: 'Shell', logo: '/images/consulting/shell.webp' },
+    { name: 'Comcast', logo: '/images/consulting/comcast.webp' },
+    { name: 'AT&T', logo: '/images/consulting/AT&T.webp' }
 ];
 
 const handleHeroCTA = () => {
