@@ -10,11 +10,11 @@
     >
         <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 relative z-10">
 
-            <!-- Left Content Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+            <!-- Two Column Layout -->
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-                <!-- Left Side - Title and Description (40%) -->
-                <div class="text-left lg:col-span-2 lg:sticky lg:top-24 lg:self-start">
+                <!-- Left Side - Fixed Title and Description -->
+                <div class="lg:sticky lg:top-24 text-left lg:h-fit lg:flex lg:flex-col lg:justify-start">
                     <!-- Main Title -->
                     <h2 class="text-white font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] mb-8 animate-slide-up-title">
                         Databricks Professional Services We Offer
@@ -22,12 +22,12 @@
 
                     <!-- Description -->
                     <p class="text-white text-xl lg:text-[28px] leading-relaxed lg:leading-[42px] max-w-[600px] animate-slide-up-subtitle">
-                        Sinki.ai enables enterprises to unlock Databricks' full potential by aligning architecture, automation, and analytics for secure, insight-driven data ecosystems.
+                        From migration to governance, our Databricks consulting expertise empowers enterprises to build scalable, compliant, and insight-ready ecosystems that accelerate value realization.
                     </p>
                 </div>
 
-                <!-- Right Side - Services Grid (60%) -->
-                <div class="space-y-6 lg:col-span-3">
+                <!-- Right Side - Scrollable Services -->
+                <div class="space-y-6">
 
                     <!-- Service 1: Databricks Migration & Modernization -->
                     <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-1">
@@ -84,8 +84,7 @@
                             <div class="flex-shrink-0">
                                 <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
                                     </svg>
                                 </div>
                             </div>
@@ -126,8 +125,127 @@
                         </div>
                     </div>
 
-                </div>
+                    <!-- Service 5: MLOps & Model Operations -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-5">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                            </div>
 
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    MLOps & Model Operations
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Our Databricks consulting experts establish scalable MLOps pipelines with CI/CD, automated validation, and monitoring, ensuring consistent, production-grade model performance across business functions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 6: Real-time Analytics & Streaming -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-6">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Real-time Analytics & Streaming
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    We deliver real-time analytics solutions using Databricks streaming to provide low-latency insights, operational visibility, and immediate decision support across enterprise workloads.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 7: Databricks SQL & BI Optimization -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-7">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Databricks SQL & BI Optimization
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Our Databricks consultants optimize SQL workloads, improve query performance, and strengthen BI delivery to enable faster dashboards, reduced costs, and consistent enterprise-wide insights.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 8: GenAI & LLMops -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-8">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    GenAI & LLMops
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    We build secure generative AI solutions and LLMops workflows that fine-tune models, automate retraining, and deliver domain-specific intelligence aligned with enterprise compliance.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 9: Cost Optimization & Managed Services -->
+                    <div class="service-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer fade-up-9">
+                        <div class="flex items-start gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0">
+                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1">
+                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
+                                    Cost Optimization & Managed Services
+                                </h3>
+                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
+                                    Our Databricks Managed Services reduce compute waste, optimize cluster usage, automate platform maintenance, and ensure continuous performance improvement through proactive monitoring and expert support.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
@@ -193,6 +311,36 @@ const props = defineProps({
     animation-fill-mode: both;
 }
 
+.fade-up-5 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.6s;
+    animation-fill-mode: both;
+}
+
+.fade-up-6 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 1.8s;
+    animation-fill-mode: both;
+}
+
+.fade-up-7 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 2.0s;
+    animation-fill-mode: both;
+}
+
+.fade-up-8 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 2.2s;
+    animation-fill-mode: both;
+}
+
+.fade-up-9 {
+    animation: simpleFadeUp 0.8s ease-out;
+    animation-delay: 2.4s;
+    animation-fill-mode: both;
+}
+
 /* Font Family - Instrument Sans */
 .professional-services-section {
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -212,6 +360,51 @@ const props = defineProps({
 
 .text-brand-red {
     color: #FF3621;
+}
+
+/* Sticky Layout Implementation */
+@media (min-width: 1024px) {
+    .professional-services-section {
+        contain: none;
+        transform: none;
+        will-change: auto;
+        overflow: visible;
+        position: relative;
+    }
+
+    .professional-services-section .container-custom {
+        overflow: visible;
+        position: relative;
+    }
+
+    /* Ensure parent container doesn't interfere with sticky */
+    .professional-services-section > * {
+        overflow: visible;
+    }
+
+    /* Make sure sticky positioning works */
+    .professional-services-section [class*="lg:sticky"] {
+        position: sticky !important;
+        top: 6rem !important;
+        z-index: 10;
+        height: fit-content !important;
+        transform: none !important;
+        will-change: auto !important;
+    }
+
+    /* Ensure proper height for scrolling */
+    .professional-services-section .space-y-6 {
+        min-height: 200vh;
+        padding-top: 2rem;
+        padding-bottom: 10rem;
+    }
+
+    /* Override any animation transforms that might break sticky */
+    .professional-services-section [class*="lg:sticky"] .animate-slide-up-title,
+    .professional-services-section [class*="lg:sticky"] .animate-slide-up-subtitle {
+        transform: none !important;
+        animation: none !important;
+    }
 }
 
 /* Enhanced Service Card Styles with Glass Effect */
@@ -327,9 +520,16 @@ const props = defineProps({
         line-height: 33px !important;
     }
 
-    .grid {
+    .professional-services-section div[class*="lg:grid"] {
         grid-template-columns: 1fr;
         gap: 3rem;
+    }
+
+    .professional-services-section div[class*="lg:sticky"] {
+        position: static !important;
+        height: auto !important;
+        display: block !important;
+        margin-bottom: 2rem;
     }
 }
 
@@ -420,7 +620,12 @@ const props = defineProps({
     .fade-up-1,
     .fade-up-2,
     .fade-up-3,
-    .fade-up-4 {
+    .fade-up-4,
+    .fade-up-5,
+    .fade-up-6,
+    .fade-up-7,
+    .fade-up-8,
+    .fade-up-9 {
         animation: none;
         opacity: 1;
     }

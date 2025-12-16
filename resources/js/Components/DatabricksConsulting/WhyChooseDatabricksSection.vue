@@ -7,9 +7,7 @@
                 <div class="text-center mb-12 sm:mb-16 lg:mb-20">
                     <!-- Main Title -->
                     <h2 class="text-[#121212] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight font-instrument-sans mb-6">
-                        Why Leading Enterprises Choose
-                        <br>
-                        Databricks for Modern Data Intelligence
+                        Why Your Business Needs the Databricks Lakehouse Platform
                     </h2>
 
                     <!-- Section Subtitle -->

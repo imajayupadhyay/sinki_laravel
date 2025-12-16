@@ -53,8 +53,8 @@
         <!-- CTA Section 2 -->
         <CTASection
             :title="'Start Building a High-Performing Databricks Environment'"
-            :subtitle="'Leverage battle-tested frameworks, accelerators, and experience trusted by global enterprises.'"
-            :ctaText="'Talk To Our Experts'"
+            :subtitle="'Move from planning to production with specialists who simplify complexity and engineer reliable, scalable data systems.'"
+            :ctaText="'Start Your Databricks Implementation'"
             :ctaLink="'/contact'"
             :backgroundImage="'/images/consulting/ctaconsult2.webp'"
             @cta-click="handleCTAClick"

@@ -4,14 +4,12 @@
             <div class="max-w-[1720px] mx-auto text-center">
                 <!-- Section Title -->
                 <h2 class="text-[#121212] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight font-instrument-sans mb-6">
-                    Global Brands Accelerating Their Data Future
-                    <br class="hidden sm:block">
-                    with Databricks
+                    Powering high-performance data platforms for some of the world's largest brands.
                 </h2>
 
                 <!-- Section Subtitle -->
                 <p class="text-[#666666] text-lg sm:text-xl md:text-2xl font-normal leading-relaxed font-instrument-sans mb-12 sm:mb-16 lg:mb-20 max-w-6xl mx-auto">
-                    Powering high-performance data platforms for some of the world's largest brands.
+                    Global Brands Accelerating Their Data Future with Databricks
                 </p>
 
                 <!-- Brand Logos Grid -->

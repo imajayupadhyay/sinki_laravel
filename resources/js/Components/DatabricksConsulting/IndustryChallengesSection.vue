@@ -59,7 +59,7 @@
                             <div class="flex-shrink-0 mb-6">
                                 <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                     </svg>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                             <div class="flex-shrink-0 mb-6">
                                 <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                             </div>
@@ -139,10 +139,10 @@
                             <!-- Content -->
                             <div class="flex-1">
                                 <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Technology and Software
+                                    Media and Telecom
                                 </h3>
                                 <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Complex system integrations and siloed development data are unified through comprehensive Databricks analytics, enabling faster product insights, improved user engagement metrics, and streamlined development workflows.
+                                    Massive engagement data and disconnected insights are unified through scalable analytics models, enabling real-time audience understanding, smarter retention strategies, and faster optimization across high-volume digital platforms.
                                 </p>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                             <div class="flex-shrink-0 mb-6">
                                 <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                             </div>
@@ -163,158 +163,15 @@
                             <!-- Content -->
                             <div class="flex-1">
                                 <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Energy and Utilities
+                                    SaaS and Technology
                                 </h3>
                                 <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Distributed sensor data and grid performance metrics are consolidated into intelligent energy management systems, enabling predictive maintenance, optimized resource allocation, and enhanced grid reliability.
+                                    Fragmented product usage signals and slow experimentation insights are unified through centralized BI layers, enabling faster feature decisions, deeper user understanding, and more informed roadmap prioritization.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 7: Media and Entertainment -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer mr-6">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Media and Entertainment
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Fragmented audience data and content performance metrics are unified through advanced analytics platforms, delivering deeper viewer insights, optimized content strategies, and improved monetization opportunities.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 8: Telecommunications -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer mr-6">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Telecommunications
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Network performance data and customer usage patterns are integrated into comprehensive BI dashboards, enabling proactive network optimization, enhanced customer experience, and data-driven infrastructure planning.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 9: Transportation and Automotive -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer mr-6">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Transportation and Automotive
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Vehicle telematics and fleet management data are transformed into actionable insights, enabling optimized route planning, predictive maintenance scheduling, and enhanced safety monitoring across transportation networks.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 10: Education and Research -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer mr-6">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Education and Research
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Student performance data and research metrics are consolidated into comprehensive analytics platforms, enabling personalized learning experiences, improved educational outcomes, and accelerated research discoveries.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 11: Government and Public Sector -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer mr-6">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Government and Public Sector
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Citizen service data and operational metrics are unified into transparent governance dashboards, enabling improved public service delivery, evidence-based policy making, and enhanced citizen engagement.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 12: Agriculture and Food -->
-                    <div class="industry-card flex-shrink-0 w-[300px] lg:w-[350px] xl:w-[400px] group bg-white/5 backdrop-blur-sm border border-white/10 rounded-[25px] p-8 lg:p-10 hover:bg-white/10 transition-all duration-500 cursor-pointer">
-                        <div class="flex flex-col h-full">
-                            <!-- Icon -->
-                            <div class="flex-shrink-0 mb-6">
-                                <div class="icon-wrapper w-[70px] h-[70px] bg-brand-red rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="flex-1">
-                                <h3 class="text-white text-[24px] font-semibold leading-[31.2px] tracking-[0.48px] mb-3 group-hover:text-brand-red transition-colors duration-300">
-                                    Agriculture and Food
-                                </h3>
-                                <p class="text-white text-[18px] font-normal leading-[27px] tracking-[0.36px] opacity-90">
-                                    Farm sensor data and supply chain metrics are integrated into precision agriculture platforms, enabling optimized crop yields, sustainable farming practices, and enhanced food safety throughout the entire supply chain.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -349,7 +206,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 // Slider state
 const currentCard = ref(0);
-const totalCards = ref(12); // Total number of cards
+const totalCards = ref(6); // Total number of cards
 
 // Calculate visible cards based on screen size
 const cardsVisible = computed(() => {
@@ -369,7 +226,7 @@ const isLastCardVisible = computed(() => {
     const firstVisibleCard = currentCard.value + 1; // 1-indexed
     const lastVisibleCard = firstVisibleCard + Math.floor(cardsVisible.value) - 1;
 
-    // If the last card (12th card) is visible, disable next button
+    // If the last card (6th card) is visible, disable next button
     return lastVisibleCard >= totalCards.value;
 });
 

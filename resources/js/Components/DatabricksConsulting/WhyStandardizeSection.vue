@@ -71,7 +71,7 @@
                                 v-show="activeAccordion === 1"
                                 class="accordion-content px-6 pb-6 text-[#666666] text-base sm:text-lg font-normal font-instrument-sans leading-relaxed"
                             >
-                                Built on Apache Spark, Databricks delivers exceptional performance for large-scale data processing, analytics, and machine learning workloads with optimized compute clusters.
+                                Its optimized engine accelerates ingestion, transformation, and streaming workloads, delivering faster insights and high reliability powered by expert Databricks Consulting practices.
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
                                 v-show="activeAccordion === 2"
                                 class="accordion-content px-6 pb-6 text-[#666666] text-base sm:text-lg font-normal font-instrument-sans leading-relaxed"
                             >
-                                Unity Catalog provides centralized data governance with fine-grained access controls, data lineage tracking, and enterprise-grade security across all data assets.
+                                Databricks centralizes permissions, lineage, and compliance controls, ensuring sensitive enterprise data remains secure, auditable, and easy to manage across all teams.
                             </div>
                         </div>
 
@@ -127,7 +127,7 @@
                                 v-show="activeAccordion === 3"
                                 class="accordion-content px-6 pb-6 text-[#666666] text-base sm:text-lg font-normal font-instrument-sans leading-relaxed"
                             >
-                                Native machine learning capabilities with MLflow for experiment tracking, model management, and deployment, plus integrated support for popular ML frameworks.
+                                Native machine-learning tools enable rapid experimentation, training, and deployment, empowering organizations to scale intelligence without the need for large in-house data science teams.
                             </div>
                         </div>
 
@@ -155,7 +155,7 @@
                                 v-show="activeAccordion === 4"
                                 class="accordion-content px-6 pb-6 text-[#666666] text-base sm:text-lg font-normal font-instrument-sans leading-relaxed"
                             >
-                                Auto-scaling clusters and serverless compute options optimize resource usage and costs while maintaining performance for varying workloads and data volumes.
+                                Databricks automatically adjusts compute and storage based on workload demand, helping enterprises reduce operational cost while maintaining consistent performance with trusted Databricks Partners.
                             </div>
                         </div>
 
@@ -183,7 +183,7 @@
                                 v-show="activeAccordion === 5"
                                 class="accordion-content px-6 pb-6 text-[#666666] text-base sm:text-lg font-normal font-instrument-sans leading-relaxed"
                             >
-                                Available across AWS, Azure, and Google Cloud, enabling multi-cloud strategies and preventing vendor lock-in while maintaining consistent functionality.
+                                Databricks runs seamlessly on AWS, Azure, and GCP, giving enterprises deployment freedom, easier integration, and dependable performance across multi-cloud environments.
                             </div>
                         </div>
 
