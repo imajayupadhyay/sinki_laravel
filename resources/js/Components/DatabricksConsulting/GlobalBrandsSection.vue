@@ -15,59 +15,71 @@
                 </p>
 
                 <!-- Brand Logos Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-12 lg:gap-16 items-center justify-items-center">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-10 items-center justify-items-center">
                     <!-- TATA TMG Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[0]?.logo || '/images/placeholder-tata.png'"
-                            :alt="brands[0]?.name || 'TATA TMG'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[0]?.logo || '/images/placeholder-tata.png'"
+                                :alt="brands[0]?.name || 'TATA TMG'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
 
                     <!-- Adobe Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[1]?.logo || '/images/placeholder-adobe.png'"
-                            :alt="brands[1]?.name || 'Adobe'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[1]?.logo || '/images/placeholder-adobe.png'"
+                                :alt="brands[1]?.name || 'Adobe'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
 
                     <!-- LaLiga Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[2]?.logo || '/images/placeholder-laliga.png'"
-                            :alt="brands[2]?.name || 'LaLiga'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[2]?.logo || '/images/placeholder-laliga.png'"
+                                :alt="brands[2]?.name || 'LaLiga'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
 
                     <!-- Shell Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[3]?.logo || '/images/placeholder-shell.png'"
-                            :alt="brands[3]?.name || 'Shell'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[3]?.logo || '/images/placeholder-shell.png'"
+                                :alt="brands[3]?.name || 'Shell'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
 
                     <!-- Comcast Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[4]?.logo || '/images/placeholder-comcast.png'"
-                            :alt="brands[4]?.name || 'Comcast'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[4]?.logo || '/images/placeholder-comcast.png'"
+                                :alt="brands[4]?.name || 'Comcast'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
 
                     <!-- AT&T Logo -->
-                    <div class="brand-logo-wrapper">
-                        <img
-                            :src="brands[5]?.logo || '/images/placeholder-att.png'"
-                            :alt="brands[5]?.name || 'AT&T'"
-                            class="brand-logo h-12 sm:h-16 md:h-20 lg:h-24 w-auto max-w-full object-contain transition-all duration-300"
-                        />
+                    <div class="brand-logo-container">
+                        <div class="brand-logo-wrapper">
+                            <img
+                                :src="brands[5]?.logo || '/images/placeholder-att.png'"
+                                :alt="brands[5]?.name || 'AT&T'"
+                                class="brand-logo h-16 sm:h-20 md:h-28 lg:h-32 xl:h-36 w-auto max-w-full object-contain transition-all duration-300"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,55 +125,81 @@ const props = defineProps({
     overflow: hidden;
 }
 
+/* Brand Logo Container */
+.brand-logo-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: #d1d5db;
+}
+
 /* Brand Logo Wrapper */
 .brand-logo-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
-    padding: 0 20px;
-    transition: transform 0.3s ease;
-}
-
-.brand-logo-wrapper:hover {
-    transform: translateY(-4px);
+    width: 100%;
+    height: 100%;
 }
 
 /* Brand Logo Styles */
 .brand-logo {
-    max-height: 80px;
+    max-height: 120px;
     width: auto;
+    max-width: 100%;
     object-fit: contain;
     transition: all 0.3s ease;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
-.brand-logo:hover {
+.brand-logo-container:hover .brand-logo {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 /* Responsive Grid Adjustments */
 @media (max-width: 1024px) {
     .global-brands-section .grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+
+    .brand-logo-container {
+        min-height: 100px;
+        padding: 16px;
+    }
+
+    .brand-logo {
+        max-height: 100px;
     }
 }
 
 @media (max-width: 768px) {
     .global-brands-section .grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
+    }
+
+    .brand-logo-container {
+        min-height: 80px;
+        padding: 12px;
+        border-radius: 8px;
     }
 
     .brand-logo {
-        max-height: 60px;
-    }
-
-    .brand-logo-wrapper {
-        height: 70px;
-        padding: 0 10px;
+        max-height: 70px;
     }
 }
 
@@ -171,17 +209,18 @@ const props = defineProps({
         padding-bottom: 3rem;
     }
 
-    .brand-logo {
-        max-height: 48px;
-    }
-
-    .brand-logo-wrapper {
-        height: 60px;
-        padding: 0 8px;
-    }
-
     .global-brands-section .grid {
-        gap: 1rem;
+        gap: 0.75rem;
+    }
+
+    .brand-logo-container {
+        min-height: 70px;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .brand-logo {
+        max-height: 60px;
     }
 }
 
@@ -202,24 +241,26 @@ const props = defineProps({
 }
 
 /* Accessibility */
-.brand-logo-wrapper:focus-within {
+.brand-logo-container:focus-within {
     outline: 2px solid #FF3621;
     outline-offset: 4px;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+    .brand-logo-container,
     .brand-logo-wrapper,
     .brand-logo {
         transition: none;
     }
 
-    .brand-logo-wrapper:hover {
+    .brand-logo-container:hover {
         transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .brand-logo:hover {
+    .brand-logo-container:hover .brand-logo {
         transform: none;
     }
 
