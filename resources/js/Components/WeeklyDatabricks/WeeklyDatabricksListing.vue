@@ -49,9 +49,9 @@
                         </Link>
 
                         <!-- Excerpt -->
-                        <p class="text-[20px] text-[#333333] font-normal leading-[32px] tracking-[0.4px] font-instrument-sans mb-8">
+                        <div class="excerpt-container text-[20px] text-[#333333] font-normal leading-[32px] tracking-[0.4px] font-instrument-sans mb-8 line-clamp-3">
                             {{ article.excerpt }}
-                        </p>
+                        </div>
 
                         <!-- Tags -->
                         <div v-if="article.tags && article.tags.length > 0" class="mb-6 flex flex-wrap gap-2">
@@ -140,6 +140,17 @@ const props = defineProps({
 /* Article Item Styling */
 .weekly-article-item {
     position: relative;
+}
+
+/* Line clamp utility for excerpt truncation */
+.weekly-article-item .excerpt-container.line-clamp-3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-height: 96px; /* Maximum height for 3 lines with 32px line-height */
+    word-wrap: break-word;
 }
 
 /* Category Badge Styling */
