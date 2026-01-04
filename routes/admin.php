@@ -103,6 +103,28 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/blogs/{blog}/duplicate', [App\Http\Controllers\Admin\BlogsController::class, 'duplicate'])->middleware('permission:blogs,write')->name('blogs.duplicate');
     Route::delete('/blogs/{blog}', [App\Http\Controllers\Admin\BlogsController::class, 'destroy'])->middleware('permission:blogs,delete')->name('blogs.destroy');
 
+    // Weekly Databricks Management
+    Route::get('/weekly-databricks', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'index'])->middleware('permission:weekly-databricks')->name('weekly-databricks.index');
+    Route::get('/weekly-databricks/create', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'create'])->middleware('permission:weekly-databricks,write')->name('weekly-databricks.create');
+    Route::post('/weekly-databricks', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'store'])->middleware('permission:weekly-databricks,write')->name('weekly-databricks.store');
+    Route::get('/weekly-databricks/{weeklyDatabricks}/edit', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'edit'])->middleware('permission:weekly-databricks,write')->name('weekly-databricks.edit');
+    Route::put('/weekly-databricks/{weeklyDatabricks}', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'update'])->middleware('permission:weekly-databricks,write')->name('weekly-databricks.update');
+    Route::get('/weekly-databricks/{weeklyDatabricks}/preview', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'preview'])->middleware('permission:weekly-databricks')->name('weekly-databricks.preview');
+    Route::get('/weekly-databricks/{weeklyDatabricks}/duplicate', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'duplicate'])->middleware('permission:weekly-databricks,write')->name('weekly-databricks.duplicate');
+    Route::delete('/weekly-databricks/{weeklyDatabricks}', [App\Http\Controllers\Admin\WeeklyDatabricksController::class, 'destroy'])->middleware('permission:weekly-databricks,delete')->name('weekly-databricks.destroy');
+
+    // Weekly Databricks Categories Management
+    Route::get('/weekly-databricks-categories', [App\Http\Controllers\Admin\WeeklyDatabricksCategoriesController::class, 'index'])->middleware('permission:weekly-databricks-categories')->name('weekly-databricks-categories.index');
+    Route::post('/weekly-databricks-categories', [App\Http\Controllers\Admin\WeeklyDatabricksCategoriesController::class, 'store'])->middleware('permission:weekly-databricks-categories,write')->name('weekly-databricks-categories.store');
+    Route::put('/weekly-databricks-categories/{weeklyDatabricksCategory}', [App\Http\Controllers\Admin\WeeklyDatabricksCategoriesController::class, 'update'])->middleware('permission:weekly-databricks-categories,write')->name('weekly-databricks-categories.update');
+    Route::delete('/weekly-databricks-categories/{weeklyDatabricksCategory}', [App\Http\Controllers\Admin\WeeklyDatabricksCategoriesController::class, 'destroy'])->middleware('permission:weekly-databricks-categories,delete')->name('weekly-databricks-categories.destroy');
+
+    // Weekly Databricks Tags Management
+    Route::get('/weekly-databricks-tags', [App\Http\Controllers\Admin\WeeklyDatabricksTagsController::class, 'index'])->middleware('permission:weekly-databricks-tags')->name('weekly-databricks-tags.index');
+    Route::post('/weekly-databricks-tags', [App\Http\Controllers\Admin\WeeklyDatabricksTagsController::class, 'store'])->middleware('permission:weekly-databricks-tags,write')->name('weekly-databricks-tags.store');
+    Route::put('/weekly-databricks-tags/{weeklyDatabricksTag}', [App\Http\Controllers\Admin\WeeklyDatabricksTagsController::class, 'update'])->middleware('permission:weekly-databricks-tags,write')->name('weekly-databricks-tags.update');
+    Route::delete('/weekly-databricks-tags/{weeklyDatabricksTag}', [App\Http\Controllers\Admin\WeeklyDatabricksTagsController::class, 'destroy'])->middleware('permission:weekly-databricks-tags,delete')->name('weekly-databricks-tags.destroy');
+
     // Image Upload Routes
     Route::post('/upload/featured-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'uploadFeaturedImage'])->middleware('permission:media,write')->name('upload.featured-image');
     Route::delete('/upload/delete-image', [App\Http\Controllers\Admin\ImageUploadController::class, 'deleteImage'])->middleware('permission:media,delete')->name('upload.delete-image');

@@ -88,6 +88,13 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}/preview', [BlogController::class, 'preview'])->name('blog.preview');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// This Week in Databricks Routes
+Route::prefix('this-week-in-databricks')->name('weekly-databricks.')->group(function () {
+    Route::get('/', [App\Http\Controllers\WeeklyDatabricksController::class, 'index'])->name('index');
+    Route::get('/{slug}/preview', [App\Http\Controllers\WeeklyDatabricksController::class, 'preview'])->name('preview');
+    Route::get('/{slug}', [App\Http\Controllers\WeeklyDatabricksController::class, 'show'])->name('show');
+});
+
 // Terms and Conditions Route
 Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');

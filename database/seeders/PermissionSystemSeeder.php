@@ -44,6 +44,11 @@ class PermissionSystemSeeder extends Seeder
             ['name' => 'blogs', 'display_name' => 'Blog Posts', 'description' => 'Create, edit and manage blog posts', 'module' => 'content'],
             ['name' => 'service-pages', 'display_name' => 'Service Pages', 'description' => 'Manage service pages content', 'module' => 'content'],
 
+            // Weekly Databricks Management
+            ['name' => 'weekly-databricks', 'display_name' => 'Weekly Databricks Articles', 'description' => 'Create, edit and manage Weekly Databricks articles', 'module' => 'weekly-databricks'],
+            ['name' => 'weekly-databricks-categories', 'display_name' => 'Weekly Databricks Categories', 'description' => 'Manage Weekly Databricks categories', 'module' => 'weekly-databricks'],
+            ['name' => 'weekly-databricks-tags', 'display_name' => 'Weekly Databricks Tags', 'description' => 'Manage Weekly Databricks tags', 'module' => 'weekly-databricks'],
+
             // Media Management
             ['name' => 'media', 'display_name' => 'Media Upload', 'description' => 'Upload and manage media files', 'module' => 'media'],
 
