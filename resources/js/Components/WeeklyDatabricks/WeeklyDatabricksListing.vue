@@ -103,10 +103,6 @@
                 </p>
             </div>
 
-            <!-- Contact CTA Section -->
-            <div class="mt-16 -mb-20">
-                <ContactCTA />
-            </div>
 
         </div>
     </section>
@@ -114,7 +110,6 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import ContactCTA from '@/Components/Contact/ContactCTA.vue';
 
 // Props
 const props = defineProps({

@@ -17,21 +17,18 @@
         <!-- Weekly Databricks Listing Section -->
         <WeeklyDatabricksListing :weekly-articles="weeklyArticles" />
 
-        <!-- Spacing between Listing and Footer -->
-        <div class="py-12"></div>
-
-        <!-- Footer Section -->
-        <FooterSection />
+        <!-- Footer with CTA Section -->
+        <FooterWithCTA />
     </div>
 </template>
 
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import Header from '@/Components/Header.vue';
-import FooterSection from '@/Components/FooterSection.vue';
 import WeeklyDatabricksHero from '@/Components/WeeklyDatabricks/WeeklyDatabricksHero.vue';
 import PartnerBadge from '@/Components/Home/PartnerBadge.vue';
 import WeeklyDatabricksListing from '@/Components/WeeklyDatabricks/WeeklyDatabricksListing.vue';
+import FooterWithCTA from '@/Components/FooterWithCTA.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Props

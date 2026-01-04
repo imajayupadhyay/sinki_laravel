@@ -114,8 +114,8 @@
             </div>
         </section>
 
-        <!-- Footer Component -->
-        <FooterSection />
+        <!-- Footer with CTA Component -->
+        <FooterWithCTA />
     </div>
 </template>
 
@@ -123,7 +123,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed, onMounted } from 'vue';
 import Header from '@/Components/Header.vue';
-import FooterSection from '@/Components/FooterSection.vue';
+import FooterWithCTA from '@/Components/FooterWithCTA.vue';
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Props from Controller
