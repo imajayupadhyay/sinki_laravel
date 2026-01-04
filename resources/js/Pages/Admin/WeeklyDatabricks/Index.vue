@@ -589,6 +589,18 @@ watch(() => filterForm.per_page, () => {
     applyFilters();
 });
 
+watch(() => filterForm.category, () => {
+    applyFilters();
+});
+
+watch(() => filterForm.status, () => {
+    applyFilters();
+});
+
+watch(() => filterForm.author, () => {
+    applyFilters();
+});
+
 // Delete functions
 const confirmDelete = (weeklyDatabrick) => {
     selectedWeeklyDatabrick.value = weeklyDatabrick;

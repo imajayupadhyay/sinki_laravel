@@ -214,20 +214,20 @@
                         <div class="p-6 space-y-4">
                             <!-- Category -->
                             <div>
-                                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                                <label for="weekly_databricks_category_id" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
                                 <select
-                                    id="category_id"
-                                    v-model="weeklyDatabricksForm.category_id"
+                                    id="weekly_databricks_category_id"
+                                    v-model="weeklyDatabricksForm.weekly_databricks_category_id"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
-                                    :class="{ 'border-red-500': weeklyDatabricksForm.errors.category_id }"
+                                    :class="{ 'border-red-500': weeklyDatabricksForm.errors.weekly_databricks_category_id }"
                                 >
                                     <option value="">Select a category</option>
                                     <option v-for="category in categories" :key="category.id" :value="category.id">
                                         {{ category.name }}
                                     </option>
                                 </select>
-                                <div v-if="weeklyDatabricksForm.errors.category_id" class="text-red-600 text-sm mt-1">
-                                    {{ weeklyDatabricksForm.errors.category_id }}
+                                <div v-if="weeklyDatabricksForm.errors.weekly_databricks_category_id" class="text-red-600 text-sm mt-1">
+                                    {{ weeklyDatabricksForm.errors.weekly_databricks_category_id }}
                                 </div>
                             </div>
 
@@ -319,7 +319,7 @@ const weeklyDatabricksForm = useForm({
     meta_keywords: '',
     featured_image: '',
     status: 'draft',
-    category_id: '',
+    weekly_databricks_category_id: '',
     author_id: '',
     tags: [],
     published_at: ''
