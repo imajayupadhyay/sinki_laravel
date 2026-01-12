@@ -17,4 +17,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Blog::class);
     }
+
+    public function weeklyDatabricks(): BelongsToMany
+    {
+        return $this->belongsToMany(WeeklyDatabricks::class);
+    }
 }

@@ -83,12 +83,44 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, onUnmounted, nextTick } from 'vue';
+import { ref, onMounted, watch, onUnmounted } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
 // Enhanced Image with inline controls
 const BlockEmbed = Quill.import('blots/block/embed');
+
+// Import required Quill modules
+const Block = Quill.import('blots/block');
+
+// Custom format for raw HTML preservation
+class RawHTMLBlot extends Block {
+    static create(value) {
+        const node = super.create();
+        if (typeof value === 'string') {
+            node.innerHTML = value;
+        }
+        return node;
+    }
+
+    static value(node) {
+        return node.innerHTML;
+    }
+
+    html() {
+        return this.domNode.innerHTML;
+    }
+}
+
+RawHTMLBlot.blotName = 'rawhtml';
+RawHTMLBlot.tagName = 'DIV';
+
+// Only register if not already registered
+try {
+    Quill.register(RawHTMLBlot);
+} catch (e) {
+    // Already registered, ignore
+}
 
 // Custom CTA Blot
 class CTABlot extends BlockEmbed {
@@ -201,7 +233,12 @@ const editorRef = ref(null);
 let quill = null;
 
 const initializeEditor = () => {
-    if (!editorRef.value) return;
+    if (!editorRef.value) {
+        console.error('Editor reference not available');
+        return;
+    }
+
+    try {
 
     // Quill configuration with advanced features
     const options = {
@@ -261,6 +298,10 @@ const initializeEditor = () => {
                     }
                 }
             },
+            clipboard: {
+                // More permissive clipboard settings
+                matchVisual: false
+            },
             history: {
                 delay: 1000,
                 maxStack: 100,
@@ -275,6 +316,24 @@ const initializeEditor = () => {
     if (props.modelValue) {
         quill.root.innerHTML = props.modelValue;
     }
+
+    // Override paste behavior to preserve HTML
+    quill.root.addEventListener('paste', (e) => {
+        // Only intercept when in HTML mode transitioning back
+        if (htmlViewMode) return;
+
+        const clipboardData = e.clipboardData || window['clipboardData'];
+        const htmlData = clipboardData.getData('text/html');
+
+        if (htmlData && htmlData.includes('style=')) {
+            e.preventDefault();
+            const range = quill.getSelection();
+            if (range) {
+                // Use dangerouslyPasteHTML for style-rich content
+                quill.clipboard.dangerouslyPasteHTML(range.index, htmlData);
+            }
+        }
+    });
 
     // Listen for content changes
     quill.on('text-change', () => {
@@ -292,6 +351,26 @@ const initializeEditor = () => {
     setTimeout(() => {
         addImageControls();
     }, 500);
+
+    } catch (error) {
+        console.error('Error initializing QuillEditor:', error);
+
+        // Fallback: create a basic textarea
+        const fallbackTextarea = document.createElement('textarea');
+        fallbackTextarea.style.width = '100%';
+        fallbackTextarea.style.height = props.height;
+        fallbackTextarea.style.padding = '16px';
+        fallbackTextarea.style.border = '1px solid #e5e7eb';
+        fallbackTextarea.style.borderRadius = '8px';
+        fallbackTextarea.value = props.modelValue || '';
+        fallbackTextarea.placeholder = props.placeholder;
+
+        fallbackTextarea.addEventListener('input', () => {
+            emit('update:modelValue', fallbackTextarea.value);
+        });
+
+        editorRef.value.appendChild(fallbackTextarea);
+    }
 };
 
 const insertEnhancedImage = () => {
@@ -364,7 +443,7 @@ const addControlsToImage = (img) => {
 
         // Add hover events for controls
         img.addEventListener('mouseenter', () => showImageControls(img));
-        img.addEventListener('mouseleave', () => hideImageControls(img));
+        img.addEventListener('mouseleave', () => hideImageControls());
 
     } catch (error) {
         console.error('Error adding image controls:', error);
@@ -423,17 +502,17 @@ const showImageControls = (img) => {
     // Add event listeners
     controls.querySelector('.align-left').addEventListener('click', () => {
         updateImageAlignment(img, 'left');
-        hideImageControls(img);
+        hideImageControls();
     });
 
     controls.querySelector('.align-center').addEventListener('click', () => {
         updateImageAlignment(img, 'center');
-        hideImageControls(img);
+        hideImageControls();
     });
 
     controls.querySelector('.align-right').addEventListener('click', () => {
         updateImageAlignment(img, 'right');
-        hideImageControls(img);
+        hideImageControls();
     });
 
     controls.querySelector('.size-select').addEventListener('change', (e) => {
@@ -442,7 +521,7 @@ const showImageControls = (img) => {
 
     controls.querySelector('.delete-image').addEventListener('click', () => {
         img.remove();
-        hideImageControls(img);
+        hideImageControls();
     });
 
     // Set current size
@@ -451,7 +530,7 @@ const showImageControls = (img) => {
 };
 
 // Hide image controls
-const hideImageControls = (img) => {
+const hideImageControls = () => {
     const existingControls = quill.root.querySelector('.floating-image-controls');
     if (existingControls) {
         existingControls.remove();
@@ -576,23 +655,49 @@ const restoreImageUrls = (html) => {
     return restoredHtml;
 };
 
-// Function to add helpful template for image styling
+// Function to add helpful template for styling
 const addImageStyleTemplate = (html) => {
-    if (html.includes('[IMAGE_')) {
-        const template = `<!--
-IMAGE STYLING GUIDE:
-- Replace [IMAGE_X] with your image URL
-- Add inline styles for custom sizing:
-  style="width: 300px; height: 200px; float: left; margin: 10px;"
-- Common properties:
-  * width: 50%, 300px, auto
-  * height: auto, 200px
-  * float: left, right, none
-  * margin: 10px, 1rem
-  * border-radius: 8px
-  * box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+    const needsTemplate = html.includes('[IMAGE_') || html.length < 200;
 
-Example: <img src="your-url-here" style="width: 50%; float: left; margin: 0 20px 20px 0; border-radius: 8px;" alt="description">
+    if (needsTemplate) {
+        const template = `<!--
+HTML/CSS STYLING GUIDE:
+=======================
+
+IMAGES:
+- Replace [IMAGE_X] with your image URL
+- Add inline styles: style="width: 50%; float: left; margin: 0 20px 20px 0;"
+
+COMMON CSS PROPERTIES:
+- width: 50%, 300px, auto
+- height: auto, 200px
+- float: left, right, none
+- margin: 10px, 1rem
+- padding: 10px 20px
+- border-radius: 8px
+- box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+- background-color: #f5f5f5
+- text-align: center, left, right
+- font-size: 16px, 1.2rem
+- color: #333, red, blue
+- border: 1px solid #ddd
+
+CUSTOM CONTAINERS:
+<div style="padding: 20px; background: #f8f9fa; border-left: 4px solid #007bff; margin: 20px 0;">
+  <h3 style="color: #007bff; margin-top: 0;">Info Box</h3>
+  <p>Your content here...</p>
+</div>
+
+BUTTONS:
+<a href="/contact" style="display: inline-block; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">Call to Action</a>
+
+TABLES:
+<table style="width: 100%; border-collapse: collapse;">
+  <tr><th style="border: 1px solid #ddd; padding: 8px; background: #f2f2f2;">Header</th></tr>
+  <tr><td style="border: 1px solid #ddd; padding: 8px;">Content</td></tr>
+</table>
+
+NOTE: When you switch back to Visual mode, all your custom HTML/CSS will be preserved!
 -->
 
 ${html}`;
@@ -602,6 +707,8 @@ ${html}`;
 };
 
 const toggleHTMLView = () => {
+    if (!quill) return; // Safety check
+
     if (!htmlViewMode) {
         // Switch to HTML view
         originalContent = quill.root.innerHTML;
@@ -648,15 +755,44 @@ const toggleHTMLView = () => {
         // Switch back to visual view
         const textarea = quill.root.parentNode.querySelector('textarea');
         if (textarea) {
-            // Restore URLs and set content
-            const restoredContent = restoreImageUrls(textarea.value);
-            quill.root.innerHTML = restoredContent;
+            // Get the updated HTML content
+            let restoredContent = restoreImageUrls(textarea.value);
+
+            // Remove HTML comments (template guides)
+            restoredContent = restoredContent.replace(/<!--[\s\S]*?-->/g, '').trim();
+
+            // Method 1: Try using dangerouslyPasteHTML (preserves styles)
+            try {
+                // Clear editor content
+                quill.setContents([{ insert: '' }]);
+
+                // Insert the HTML content with preserved styling
+                if (restoredContent) {
+                    quill.clipboard.dangerouslyPasteHTML(0, restoredContent);
+                }
+
+                // Emit the updated content
+                emit('update:modelValue', restoredContent);
+            } catch (error) {
+                // Method 2: Fallback to direct innerHTML (might strip some styles)
+                console.warn('dangerouslyPasteHTML failed, using direct innerHTML:', error);
+                try {
+                    quill.root.innerHTML = restoredContent || '<p><br></p>';
+                    emit('update:modelValue', restoredContent);
+                } catch (innerError) {
+                    // Method 3: Final fallback with text content
+                    console.warn('Direct innerHTML failed, using text fallback:', innerError);
+                    quill.setText(restoredContent || '');
+                    emit('update:modelValue', restoredContent);
+                }
+            }
+
             textarea.remove();
 
-            // Re-add controls to images
+            // Re-add controls to images after a short delay
             setTimeout(() => {
                 addImageControls();
-            }, 200);
+            }, 300);
         }
 
         quill.root.style.display = '';
@@ -1114,6 +1250,33 @@ onUnmounted(() => {
     content: "";
     display: table;
     clear: both;
+}
+
+/* Raw HTML content preservation */
+:deep(.ql-editor [data-raw-html]) {
+    all: unset;
+    display: block;
+}
+
+:deep(.ql-editor .rawhtml) {
+    margin: 12px 0;
+    padding: 0;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    position: relative;
+}
+
+:deep(.ql-editor .rawhtml::before) {
+    content: 'Custom HTML';
+    position: absolute;
+    top: -8px;
+    left: 8px;
+    background: white;
+    color: #666;
+    font-size: 10px;
+    padding: 0 4px;
+    font-weight: bold;
+    z-index: 1;
 }
 
 /* Responsive toolbar */

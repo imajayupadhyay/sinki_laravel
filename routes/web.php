@@ -88,6 +88,13 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}/preview', [BlogController::class, 'preview'])->name('blog.preview');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// This Week in Databricks Routes
+Route::prefix('this-week-in-databricks')->name('weekly-databricks.')->group(function () {
+    Route::get('/', [App\Http\Controllers\WeeklyDatabricksController::class, 'index'])->name('index');
+    Route::get('/{slug}/preview', [App\Http\Controllers\WeeklyDatabricksController::class, 'preview'])->name('preview');
+    Route::get('/{slug}', [App\Http\Controllers\WeeklyDatabricksController::class, 'show'])->name('show');
+});
+
 // Terms and Conditions Route
 Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');
@@ -102,6 +109,10 @@ Route::get('/privacy-policy', function () {
 // Services Routes Group
 Route::prefix('services')->name('services.')->group(function () {
 
+    // Specific static service pages - add before dynamic routes
+    Route::get('/databricks-consulting', function () {
+        return Inertia::render('Services/DatabricksConsulting/Index');
+    })->name('databricks-consulting');
 
     // Services index page (optional - shows all published services)
     Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])

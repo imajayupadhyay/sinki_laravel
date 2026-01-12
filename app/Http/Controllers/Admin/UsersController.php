@@ -46,6 +46,7 @@ class UsersController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'role_id' => 'nullable|exists:roles,id',
+            'is_admin' => 'boolean',
         ]);
 
         $profileImage = null;
@@ -62,19 +63,21 @@ class UsersController extends Controller
             'password' => Hash::make($validated['password']),
             'profile_image' => $profileImage,
             'email_verified_at' => now(),
+            'is_admin' => $validated['is_admin'] ?? false,
             'is_active' => true,
         ]);
 
-        // Assign role if selected
-        if (!empty($validated['role_id'])) {
+        // Override default role if a specific role is selected
+        if (!empty($validated['role_id']) && !$user->is_admin) {
             $role = Role::find($validated['role_id']);
             if ($role) {
+                $user->removeRole($user->roles->first()?->name ?? '');
                 $user->assignRole($role->name);
             }
         }
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'User created successfully and role assigned.');
+            ->with('success', 'User created successfully and role assigned automatically.');
     }
 
     public function update(Request $request, User $user)

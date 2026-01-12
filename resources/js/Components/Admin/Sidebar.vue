@@ -99,6 +99,52 @@
                     </Link>
                 </template>
 
+                <!-- Weekly Databricks Section -->
+                <template v-if="hasPermission('weekly-databricks') || hasPermission('weekly-databricks-categories') || hasPermission('weekly-databricks-tags')">
+                    <div class="pt-4 pb-2">
+                        <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Weekly Databricks</h3>
+                    </div>
+
+                    <!-- Weekly Databricks Articles -->
+                    <Link
+                        v-if="hasPermission('weekly-databricks')"
+                        :href="route('admin.weekly-databricks.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.weekly-databricks') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                        </svg>
+                        Weekly Articles
+                    </Link>
+
+                    <!-- Categories -->
+                    <Link
+                        v-if="hasPermission('weekly-databricks-categories')"
+                        :href="route('admin.weekly-databricks-categories.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.weekly-databricks-categories') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                        Categories
+                    </Link>
+
+                    <!-- Tags -->
+                    <Link
+                        v-if="hasPermission('weekly-databricks-tags')"
+                        :href="route('admin.weekly-databricks-tags.index')"
+                        class="nav-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+                        :class="isActive('admin.weekly-databricks-tags') ? 'bg-brand-red text-white shadow-lg' : 'text-gray-700 hover:bg-gray-100 hover:text-brand-red'"
+                    >
+                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                        Tags
+                    </Link>
+                </template>
+
                 <!-- Page Management Section -->
                 <template v-if="hasPermission('homepage') || hasPermission('about-us') || hasPermission('service-pages')">
                     <div class="pt-4 pb-2">
@@ -284,6 +330,15 @@ const isActive = (routeName) => {
     )) return true;
     if (routeName === 'admin.categories' && currentComponent === 'Admin/Categories/Index') return true;
     if (routeName === 'admin.tags' && currentComponent === 'Admin/Tags/Index') return true;
+
+    // Weekly Databricks management routes
+    if (routeName === 'admin.weekly-databricks' && (
+        currentComponent === 'Admin/WeeklyDatabricks/Index' ||
+        currentComponent === 'Admin/WeeklyDatabricks/Create' ||
+        currentComponent === 'Admin/WeeklyDatabricks/Edit'
+    )) return true;
+    if (routeName === 'admin.weekly-databricks-categories' && currentComponent === 'Admin/WeeklyDatabricks/Categories/Index') return true;
+    if (routeName === 'admin.weekly-databricks-tags' && currentComponent === 'Admin/WeeklyDatabricks/Tags/Index') return true;
 
     // Homepage management routes
     if (routeName === 'admin.homepage' && (

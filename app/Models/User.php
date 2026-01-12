@@ -229,4 +229,23 @@ class User extends Authenticatable
     {
         return $query->where('is_active', true);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->assignDefaultRole();
+        });
+    }
+
+    public function assignDefaultRole(): void
+    {
+        if ($this->is_admin) {
+            $this->assignRole('super_admin');
+        } else {
+            $defaultRoleName = config('app.default_user_role', 'viewer');
+            $this->assignRole($defaultRoleName);
+        }
+    }
 }

@@ -19,4 +19,9 @@ class Category extends Model
     {
         return $this->hasMany(Blog::class);
     }
+
+    public function weeklyDatabricks(): HasMany
+    {
+        return $this->hasMany(WeeklyDatabricks::class);
+    }
 }

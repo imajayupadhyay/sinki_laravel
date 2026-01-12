@@ -25,6 +25,8 @@ class AdminUserSeeder extends Seeder
                 'email' => $adminEmail,
                 'email_verified_at' => now(),
                 'password' => Hash::make('Ajay@123#'),
+                'is_admin' => true,
+                'is_active' => true,
             ]);
 
             $this->command->info('Default admin user created successfully!');
