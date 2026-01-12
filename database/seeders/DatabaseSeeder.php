@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default admin user
+        // Create permission system first
         $this->call([
+            PermissionSystemSeeder::class,
             AdminUserSeeder::class,
             CoreServicesSeeder::class,
         ]);
