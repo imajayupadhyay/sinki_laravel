@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\SubscribeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +80,7 @@ Route::get('/', function () {
 // Contact Routes
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
+Route::post('/subscribe', [SubscribeController::class, 'store']);
 // Thank You Page Route
 Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('thank-you');
 

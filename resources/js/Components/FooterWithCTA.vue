@@ -8,7 +8,7 @@
             <div class="absolute inset-0 bg-black/70 z-[1]"></div>
 
             <!-- CTA Section with Glass Effect -->
-            <div class="relative z-[2] pt-20 lg:pt-32 pb-16 lg:pb-20">
+            <div class="relative z-[2] pt-20 lg:pt-32 pb-0">
                 <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24">
                     <!-- CTA Card with Glass Effect -->
                     <div class="cta-card-glass bg-white/10 backdrop-blur-md border border-white/20 rounded-[20px] sm:rounded-[25px] lg:rounded-[30px] px-6 sm:px-8 lg:px-12 py-8 sm:py-10 lg:py-12 shadow-2xl overflow-hidden group">
@@ -83,15 +83,12 @@
             </div>
 
             <!-- Footer Content -->
-            <footer class="footer-section relative z-[2] border-t border-white/10">
+            <!-- <footer class="footer-section relative z-[2] border-t border-white/10">
                 <div class="container-custom max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-24 py-16 lg:py-20">
 
-                    <!-- Main Footer Content -->
                     <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 lg:gap-16 xl:gap-20 pb-12 border-b border-white/10">
 
-                        <!-- Column 1: Logo and Description -->
                         <div class="flex-1 flex flex-col justify-center lg:max-w-sm footer-col">
-                            <!-- Logo -->
                             <div class="mb-6">
                                 <img
                                     :src="footerData?.content?.logo_url || '/images/sinkidarkmode.png'"
@@ -101,12 +98,10 @@
                                 >
                             </div>
 
-                            <!-- Description -->
                             <p class="text-white text-xl leading-[28px] tracking-[0.4px] mb-6">
                                 {{ footerData?.content?.description || 'Data & AI That Drives Real Business Impact' }}
                             </p>
 
-                            <!-- Bottom Links -->
                             <div class="flex items-center gap-4 text-white text-lg font-medium flex-wrap">
                                 <a
                                     href="/help"
@@ -131,7 +126,6 @@
                             </div>
                         </div>
 
-                        <!-- Column 2: Quick Link -->
                         <div class="flex-1 footer-col">
                             <h3 class="text-white text-2xl font-bold tracking-[0.48px] mb-8">
                                 Quick Link
@@ -148,7 +142,6 @@
                             </ul>
                         </div>
 
-                        <!-- Column 3: Services -->
                         <div class="flex-1 footer-col">
                             <h3 class="text-white text-2xl font-bold tracking-[0.48px] mb-8">
                                 Services
@@ -165,13 +158,11 @@
                             </ul>
                         </div>
 
-                        <!-- Column 4: Contact -->
                         <div class="flex-1 footer-col">
                             <h3 class="text-white text-2xl font-bold tracking-[0.48px] mb-8">
                                 Contact
                             </h3>
                             <div class="space-y-4">
-                                <!-- Phone -->
                                 <div class="flex items-center gap-3">
                                     <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                                         <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -183,7 +174,6 @@
                                     </a>
                                 </div>
 
-                                <!-- Email -->
                                 <div class="flex items-center gap-3">
                                     <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                                         <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -195,7 +185,6 @@
                                     </a>
                                 </div>
 
-                                <!-- Address -->
                                 <div class="flex items-start gap-3">
                                     <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                                         <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -212,23 +201,25 @@
 
                     </div>
 
-                    <!-- Copyright Section -->
                     <div class="pt-8 flex justify-center">
-                        <!-- Copyright (Center) -->
                         <p class="text-white text-lg font-medium leading-[25.2px] tracking-[0.36px] text-center">
                             Copyright © {{ currentYear }} {{ footerData?.content?.copyright_text || 'All Rights Reserved.' }}
                         </p>
                     </div>
 
                 </div>
-            </footer>
+            </footer> -->
+
+            <FooterSection />
         </div>
     </section>
 </template>
 
+
+
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-
+import FooterSection from '@/Components/FooterSection.vue';
 // Footer data from API
 const footerData = ref(null);
 const isLoading = ref(true);
@@ -237,7 +228,6 @@ const isLoading = ref(true);
 const quickLinks = ref([
     { name: 'Company', url: '/about' },
     { name: 'Insights', url: '/this-week-in-databricks' },
-    { name: 'Industries', url: '#industries' },
     { name: 'Contact Us', url: '/contact' }
 ]);
 

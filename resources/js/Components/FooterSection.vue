@@ -133,9 +133,9 @@ const isLoading = ref(true);
 
 // Default/fallback data
 const quickLinks = ref([
-    { name: 'Company', url: '#company' },
+    { name: 'About us', url: '/about-us' },
     { name: 'Insights', url: '#insights' },
-    { name: 'Industries', url: '#industries' },
+    // { name: 'Industries', url: '#industries' },
     { name: 'Contact Us', url: '/contact' }
 ]);
 

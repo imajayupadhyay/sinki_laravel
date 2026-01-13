@@ -8,7 +8,7 @@
                     Insights & Resources
                 </h2>
                 <p class="text-[24px] text-[#666666] font-normal leading-[36px] tracking-[0.48px] font-instrument-sans">
-                    Stay updated with the latest trends and insights in data engineering and modernization:
+                    Stay updated with the latest Databricks updates, platform enhancements, and real-world implementation learnings.
                 </p>
             </div>
 
@@ -23,6 +23,7 @@
                         index < weeklyArticles.length - 1 ? 'border-b border-[#E0E0E0]' : ''
                     ]"
                 >
+                  {{ console.log(article) }}
                     <div class="w-full">
                         <!-- Category Badge -->
                         <div class="mb-6">
