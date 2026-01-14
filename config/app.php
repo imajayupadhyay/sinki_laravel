@@ -123,4 +123,17 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default User Role
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the default role assigned to new users when they
+    | are created. This role will be automatically assigned unless a specific
+    | role is provided during user creation.
+    |
+    */
+
+    'default_user_role' => env('DEFAULT_USER_ROLE', 'viewer'),
+
 ];
