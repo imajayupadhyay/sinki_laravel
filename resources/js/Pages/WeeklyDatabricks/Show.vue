@@ -124,6 +124,8 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed, onMounted } from 'vue';
 import Header from '@/Components/Header.vue';
 import FooterWithCTA from '@/Components/FooterWithCTA.vue';
+import FooterSection from '@/Components/FooterSection.vue';
+
 import { useCanonical } from '@/composables/useCanonical.js';
 
 // Props from Controller

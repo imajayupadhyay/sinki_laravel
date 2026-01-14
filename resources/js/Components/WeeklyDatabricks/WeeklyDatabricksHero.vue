@@ -116,6 +116,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
 
 // Props
 const props = defineProps({
@@ -130,37 +131,59 @@ const isSubmitting = ref(false);
 const validationMessage = ref('');
 
 // Methods
+// const handleSubscribe = async () => {
+//     if (!emailAddress.value || !isValidEmail(emailAddress.value)) {
+//         validationMessage.value = 'Please enter a valid email address';
+//         setTimeout(() => {
+//             validationMessage.value = '';
+//         }, 3000);
+//         return;
+//     }
+
+//     isSubmitting.value = true;
+//     validationMessage.value = '';
+
+//     try {
+//         // Handle subscription logic here
+//         console.log('Subscribing email:', emailAddress.value);
+//         // You can emit event to parent or make API call
+
+//         // Simulate API call
+//         await new Promise(resolve => setTimeout(resolve, 1000));
+
+//         validationMessage.value = 'Thank you for subscribing!';
+//         emailAddress.value = '';
+
+//         setTimeout(() => {
+//             validationMessage.value = '';
+//         }, 4000);
+//     } catch (error) {
+//         validationMessage.value = 'Something went wrong. Please try again.';
+//         setTimeout(() => {
+//             validationMessage.value = '';
+//         }, 3000);
+//     } finally {
+//         isSubmitting.value = false;
+//     }
+// };
 const handleSubscribe = async () => {
     if (!emailAddress.value || !isValidEmail(emailAddress.value)) {
-        validationMessage.value = 'Please enter a valid email address';
-        setTimeout(() => {
-            validationMessage.value = '';
-        }, 3000);
+        validationMessage.value = 'Enter valid email';
         return;
     }
 
     isSubmitting.value = true;
-    validationMessage.value = '';
 
     try {
-        // Handle subscription logic here
-        console.log('Subscribing email:', emailAddress.value);
-        // You can emit event to parent or make API call
+        const res = await axios.post('/subscribe', {
+            email: emailAddress.value
+        });
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        validationMessage.value = 'Thank you for subscribing!';
+        validationMessage.value = "Thank you for subscribing!";
         emailAddress.value = '';
 
-        setTimeout(() => {
-            validationMessage.value = '';
-        }, 4000);
-    } catch (error) {
-        validationMessage.value = 'Something went wrong. Please try again.';
-        setTimeout(() => {
-            validationMessage.value = '';
-        }, 3000);
+    } catch (e) {
+        validationMessage.value = e.response?.data?.message || 'Already subscribed';
     } finally {
         isSubmitting.value = false;
     }
