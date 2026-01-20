@@ -80,7 +80,7 @@ class WeeklyDatabricksController extends Controller
 
         /* ---------- PAGINATION (ADDED ONLY) ---------- */
 
-        $perPage = 1;
+        $perPage = 5;
         $currentPage = request()->input('page', 1);
 
        $paginatedWeeklyArticles = new LengthAwarePaginator(
