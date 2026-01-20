@@ -78,6 +78,8 @@ class SubscribeController extends Controller
         }
 
         return response()->json([
+            // 'message' => 'Subscribed successfully'
+            'success' => true,
             'message' => 'Subscribed successfully'
         ]);
     }

@@ -62,38 +62,38 @@
                                 <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
                                 <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
                                 <!-- Mega Menu Dropdown -->
-                                <div
-                                    @mouseenter="showInsightsMegaMenu"
-                                    @mouseleave="hideInsightsMegaMenu"
-                                    class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
-                                    style="background-color: #FFF9F8;"
-                                    :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
-                                >
-                                    <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
-                                    <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
-                                    <!-- Dropdown Arrow Indicator -->
-                                    <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
-                                        <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
-                                    </div>
-                                    <div class="space-y-4">
-                                        <!-- Blog Item -->
+                                
+                            
+                            <div
+                                @mouseenter="showInsightsMegaMenu"
+                                @mouseleave="hideInsightsMegaMenu"
+                                class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                                    w-[900px] backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
+                                style="background-color: #FFF9F8;"
+                                :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
+                            >
+                                <!-- Invisible bridge -->
+                                <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
+
+                                <!-- Arrow -->
+                                <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
+                                    <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45 bg-[#FFF9F8]"></div>
+                                </div>
+
+                                <div class="flex gap-6">
+                                    <div class="w-[40%] space-y-4">
                                         <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-4">
-                                                <!-- Icon -->
                                                 <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
                                                     <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
                                                     </svg>
                                                 </div>
-                                                <!-- Content -->
                                                 <div class="flex-1 min-w-0">
                                                     <h3 class="text-brand-dark text-lg font-bold group-hover/item:text-brand-red transition-colors duration-300">
                                                         Blog
                                                     </h3>
-                                                    <!-- <p class="text-gray-600 text-sm mt-1 leading-relaxed">
-                                                        Latest insights on Databricks, Data & AI development
-                                                    </p> -->
-                                                    <!-- Read More Arrow -->
+                                                   
                                                     <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition-transform duration-300">
                                                         <span class="text-sm font-semibold">Read Articles</span>
                                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,11 +101,89 @@
                                                         </svg>
                                                     </div>
                                                 </div>
+
+                                                
                                             </div>
                                         </a>
+
+                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
+                                            <div class="flex items-start space-x-4">
+                                                <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
+                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h3 class="text-brand-dark text-lg font-bold group-hover/item:text-brand-red transition-colors duration-300">
+                                                        This Week in Databricks
+
+                                                    </h3>
+                                                   
+                                                    <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition-transform duration-300">
+                                                        <span class="text-sm font-semibold">Read Articles</span>
+                                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
+                                        </a>
+
+                                        
                                     </div>
+
+                                    <div class="w-px bg-gray-300"></div> <!-- vertical line -->
+
+                                   <!-- RIGHT COLUMN -->
+                                    <div class="w-[60%] bg-brand-red/5 rounded-xl p-6 border-l border-gray-300">
+                                        <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                            This Week in Databricks
+                                        </h3>
+
+                                        <div class="space-y-3">
+                                            <div class="flex items-center">
+                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="text-sm text-gray-700">Generative AI vs Predictive AI</span>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="text-sm text-gray-700">Databricks Lakehouse Best Practices</span>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="text-sm text-gray-700">Building Scalable Data Platforms</span>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="text-sm text-gray-700">Modern Analytics Architecture</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                     <!-- CTA Buttons -->
@@ -160,25 +238,19 @@
                                     @mouseleave="hideInsightsMegaMenu"
                                     class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
                                     style="background-color: #FFF9F8;"
-                                    :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
-                                >
-                                    <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
+                                    :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'">
                                     <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
-                                    <!-- Dropdown Arrow Indicator -->
                                     <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
                                         <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
                                     </div>
                                     <div class="space-y-3">
-                                        <!-- Blog Item -->
                                         <a href="/blog" class="mega-menu-item block p-3 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-3">
-                                                <!-- Icon -->
                                                 <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
                                                     <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
                                                     </svg>
                                                 </div>
-                                                <!-- Content -->
                                                 <div class="flex-1 min-w-0">
                                                     <h3 class="text-brand-dark text-base font-bold group-hover/item:text-brand-red transition-colors duration-300">
                                                         Blog
@@ -195,6 +267,9 @@
                                         </a>
                                     </div>
                                 </div>
+
+
+                                
                             </div>
                         </div>
                     </div>
