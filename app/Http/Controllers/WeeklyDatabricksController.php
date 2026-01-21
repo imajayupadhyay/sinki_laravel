@@ -5,9 +5,49 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WeeklyDatabricks;
 use Inertia\Inertia;
+    use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class WeeklyDatabricksController extends Controller
 {
+    // public function index()
+    // {
+    //     $weeklyArticles = WeeklyDatabricks::with(['category', 'author', 'tags'])
+    //         ->published()
+    //         ->orderBy('published_at', 'desc')
+    //         ->get()
+    //         ->map(function ($article) {
+    //             return [
+    //                 'id' => $article->id,
+    //                 'title' => $article->title,
+    //                 'slug' => $article->slug,
+    //                 'excerpt' => $article->excerpt ?: $this->generateExcerpt($article->content),
+    //                 'featured_image' => $article->featured_image,
+    //                 'category' => $article->category ? [
+    //                     'name' => $article->category->name,
+    //                     'slug' => $article->category->slug,
+    //                 ] : null,
+    //                 'tags' => $article->tags->map(function($tag) {
+    //                     return [
+    //                         'name' => $tag->name,
+    //                         'slug' => $tag->slug,
+    //                     ];
+    //                 }),
+    //                 'published_at' => $article->published_at->format('Y-m-d'),
+    //                 'published_at_formatted' => $article->published_at->format('M d, Y'),
+    //                 'published_at_human' => $article->published_at->diffForHumans(),
+    //                 'read_time' => $this->calculateReadTime($article->content),
+    //             ];
+    //         });
+
+    //     return Inertia::render('WeeklyDatabricks/Index', [
+    //         'weeklyArticles' => $weeklyArticles,
+    //         'totalArticles' => $weeklyArticles->count(),
+    //         'hasMoreArticles' => false, // Can implement pagination later
+    //     ]);
+    // }
+
+
     public function index()
     {
         $weeklyArticles = WeeklyDatabricks::with(['category', 'author', 'tags'])
@@ -25,7 +65,7 @@ class WeeklyDatabricksController extends Controller
                         'name' => $article->category->name,
                         'slug' => $article->category->slug,
                     ] : null,
-                    'tags' => $article->tags->map(function($tag) {
+                    'tags' => $article->tags->map(function ($tag) {
                         return [
                             'name' => $tag->name,
                             'slug' => $tag->slug,
@@ -38,10 +78,39 @@ class WeeklyDatabricksController extends Controller
                 ];
             });
 
+        /* ---------- PAGINATION (ADDED ONLY) ---------- */
+
+        $perPage = 1;
+        $currentPage = request()->input('page', 1);
+
+       $paginatedWeeklyArticles = new LengthAwarePaginator(
+            $weeklyArticles
+                ->forPage($currentPage, $perPage)
+                ->values(), // ✅ ADD THIS LINE
+            $weeklyArticles->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+ // $paginatedWeeklyArticles = new LengthAwarePaginator(
+        //     $weeklyArticles->forPage($currentPage, $perPage),
+        //     $weeklyArticles->count(),
+        //     $perPage,
+        //     $currentPage,
+        //     [
+        //         'path' => request()->url(),
+        //         'query' => request()->query(),
+        //     ]
+        // );
+
+
         return Inertia::render('WeeklyDatabricks/Index', [
-            'weeklyArticles' => $weeklyArticles,
+            'weeklyArticles' => $paginatedWeeklyArticles,
             'totalArticles' => $weeklyArticles->count(),
-            'hasMoreArticles' => false, // Can implement pagination later
+            'hasMoreArticles' => $paginatedWeeklyArticles->hasMorePages(),
         ]);
     }
 

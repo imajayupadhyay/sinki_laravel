@@ -15,7 +15,8 @@
         <PartnerBadge :partner-badge="null" />
 
         <!-- Weekly Databricks Listing Section -->
-        <WeeklyDatabricksListing :weekly-articles="weeklyArticles" />
+        
+        <WeeklyDatabricksListing :weekly-articles="weeklyArticles" :key="weeklyArticles.current_page"/>
 
         <!-- Footer with CTA Section -->
         <FooterWithCTA />
@@ -33,9 +34,13 @@ import { useCanonical } from '@/composables/useCanonical.js';
 
 // Props
 const props = defineProps({
+    // weeklyArticles: {
+    //     type: Array,
+    //     default: () => []
+    // },
     weeklyArticles: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => ({})
     },
     totalArticles: {
         type: Number,

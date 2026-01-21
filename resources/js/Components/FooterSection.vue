@@ -85,18 +85,23 @@
                             Subscribe to Our Newsletter
                         </h3>
                         <form @submit.prevent="handleNewsletterSubmit" class="w-full">
-                            <div class="flex items-center w-full">
+                            <div class="flex items-center w-full mb-4">
                                 <input
                                     v-model="newsletterEmail"
-                                    type="email"
+                                    type="email"nfdskn
                                     placeholder="Email Address"
                                     required
-                                    class="flex-grow min-w-0 px-6 py-3.5 bg-white text-gray-800 placeholder-gray-500 focus:outline-none text-base rounded-l-[50px]"
+                                    class="flex-grow min-w-0 px-6 py-3.5 bg-white text-gray-800 placeholder-gray-500 focus:outline-none text-base rounded-[5px]"
                                 />
+                               
+                            </div>
+
+                            <div class="flex items-center w-full justify-end">
+                               
                                 <button
                                     type="submit"
                                     :disabled="isSubmitting"
-                                    class="flex-shrink-0 bg-[#FF3621] hover:bg-[#FF3621]/90 disabled:bg-[#FF3621]/50 text-white px-6 py-3.5 text-base font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#FF3621]/20 whitespace-nowrap rounded-r-[50px]"
+                                    class="flex-shrink-0 bg-[#FF3621] hover:bg-[#FF3621]/90 disabled:bg-[#FF3621]/50 text-white px-6 py-3.5 text-base font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#FF3621]/20 whitespace-nowrap rounded-[5px]"
                                 >
                                     Subscribe now
                                 </button>
@@ -164,13 +169,17 @@ const handleNewsletterSubmit = async () => {
 
     try {
         // Replace with your actual newsletter API endpoint
-        const response = await axios.post('/api/newsletter/subscribe', {
+        // const response = await axios.post('/api/newsletter/subscribe', {
+        //     email: newsletterEmail.value
+        // });
+
+        const response = await axios.post('/subscribe', {
             email: newsletterEmail.value
         });
 
-        if (response.data.success) {
+        if (response.status === 200) {
             subscriptionSuccess.value = true;
-            subscriptionMessage.value = 'Thank you for subscribing!';
+            subscriptionMessage.value = response.data.message || 'Thank you for subscribing!';
             newsletterEmail.value = '';
 
             // Clear message after 5 seconds

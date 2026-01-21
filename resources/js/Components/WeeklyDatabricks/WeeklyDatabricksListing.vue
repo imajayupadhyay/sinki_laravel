@@ -13,17 +13,18 @@
             </div>
 
             <!-- Articles List -->
-            <div class="space-y-12" v-if="weeklyArticles && weeklyArticles.length > 0">
+            <!-- <div class="space-y-12" v-if="weeklyArticles && weeklyArticles.length > 0"> -->
+                <div class="space-y-12" v-if="weeklyArticles?.data && weeklyArticles.data.length > 0">
                 <!-- Dynamic Articles -->
                 <article
-                    v-for="(article, index) in weeklyArticles"
+                    v-for="(article, index) in weeklyArticles.data"
                     :key="article.id"
                     :class="[
                         'weekly-article-item pb-12',
-                        index < weeklyArticles.length - 1 ? 'border-b border-[#E0E0E0]' : ''
+                        index < weeklyArticles.data.length - 1 ? 'border-b border-[#E0E0E0]' : ''
                     ]"
                 >
-                  {{ console.log(article) }}
+                 
                     <div class="w-full">
                         <!-- Category Badge -->
                         <div class="mb-6">
@@ -104,7 +105,63 @@
                 </p>
             </div>
 
+            <!-- Pagination -->
+            <!-- <div
+                v-if="weeklyArticles.links && weeklyArticles.links.length > 3"
+                class="mt-16 flex items-center justify-center gap-2">
+                <template v-for="(link, index) in weeklyArticles.links" :key="index">
+                    <span
+                        v-if="!link.url"
+                        class="min-w-[44px] h-[44px] px-4 flex items-center justify-center rounded-full border text-[16px] font-medium
+                            text-[#999999] cursor-not-allowed border-[#E0E0E0]"
+                        v-html="link.label"/>
+                    <Link
+                        v-else
+                        :href="link.url"
+                        preserve-scroll
+                        class="min-w-[44px] h-[44px] px-4 flex items-center justify-center rounded-full border text-[16px] font-medium transition-all duration-200"
+                        :class="{
+                            'bg-[#121212] text-white border-[#121212]': link.active,
+                            'text-[#121212] border-[#E0E0E0] hover:bg-[#F5F5F5]': !link.active
+                        }"
+                        v-html="link.label"
+                    />
+                </template>
+            </div> -->
+            <div
+                v-if="weeklyArticles.links && weeklyArticles.links.length > 3"
+                class="mt-16 flex items-center justify-center gap-2">
 
+                <template v-for="(link, index) in weeklyArticles.links" :key="index">
+
+                    <!-- ================= DISABLED ================= -->
+                    <span
+                        v-if="!link.url"
+                        class="min-w-[44px] h-[44px] px-4 flex items-center justify-center rounded-full border
+                            text-[16px] font-medium text-[#999999] cursor-not-allowed border-[#E0E0E0]"
+                        :class="{
+                            'hidden sm:flex': !isNaN(link.label)
+                        }"
+                        v-html="link.label"
+                    />
+
+                    <!-- ================= ACTIVE ================= -->
+                    <Link
+                        v-else
+                        :href="link.url"
+                        preserve-scroll
+                        class="min-w-[44px] h-[44px] px-4 flex items-center justify-center rounded-full border
+                            text-[16px] font-medium transition-all duration-200"
+                        :class="[
+                            link.active
+                                ? 'bg-[#121212] text-white border-[#121212]'
+                                : 'text-[#121212] border-[#E0E0E0] hover:bg-[#F5F5F5]',
+                            !isNaN(link.label) ? 'hidden sm:flex' : ''
+                        ]"
+                        v-html="link.label"
+                    />
+                </template>
+            </div>
         </div>
     </section>
 </template>
@@ -114,9 +171,13 @@ import { Link } from '@inertiajs/vue3';
 
 // Props
 const props = defineProps({
+    // weeklyArticles: {
+    //     type: Array,
+    //     default: () => []
+    // }
     weeklyArticles: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => ({ data: [] })
     }
 });
 </script>

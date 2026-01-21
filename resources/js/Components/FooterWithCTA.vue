@@ -18,7 +18,7 @@
                             <div class="flex-1 w-full lg:w-[70%] space-y-6">
                                 <!-- Row 1: Heading -->
                                 <div>
-                                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-bold text-white leading-tight lg:leading-[61.6px]">
+                                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bold text-white leading-tight lg:leading-[61.6px]">
                                         Want to stop guessing and start getting results?
                                     </h2>
                                 </div>
@@ -422,9 +422,9 @@ onMounted(() => {
         padding-right: 2rem;
     }
 
-    h2 {
+    /* h2 {
         font-size: clamp(2.5rem, 5vw, 3.5rem);
-    }
+    } */
 
     h3 {
         font-size: 20px;
@@ -441,9 +441,9 @@ onMounted(() => {
         padding-right: 1.5rem;
     }
 
-    h2 {
+    /* h2 {
         font-size: clamp(2rem, 4.5vw, 3rem);
-    }
+    } */
 
     .flex.flex-col.lg\:flex-row {
         gap: 2rem;
@@ -456,9 +456,9 @@ onMounted(() => {
         padding-right: 1.25rem;
     }
 
-    h2 {
+    /* h2 {
         font-size: clamp(1.75rem, 4vw, 2.5rem);
-    }
+    } */
 
     h3 {
         font-size: 18px;
@@ -486,9 +486,9 @@ onMounted(() => {
         padding-right: 1rem;
     }
 
-    h2 {
+    /* h2 {
         font-size: clamp(1.5rem, 6vw, 2rem);
-    }
+    } */
 
     h3 {
         font-size: 16px;
@@ -515,9 +515,9 @@ onMounted(() => {
 }
 
 /* Responsive text wrapping */
-h2, p {
+/* h2, p {
     text-wrap: balance;
-}
+} */
 
 /* Touch device adjustments */
 @media (hover: none) {
