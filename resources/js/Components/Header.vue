@@ -70,8 +70,7 @@
                                 class="insights-mega-menu absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible
                                     w-[900px] backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-6"
                                 style="background-color: #FFF9F8;"
-                                :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'"
-                            >
+                                :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'">
                                 <!-- Invisible bridge -->
                                 <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
 
@@ -82,7 +81,7 @@
 
                                 <div class="flex gap-6">
                                     <div class="w-[40%] space-y-4">
-                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
+                                        <a href="/blog" @mouseenter="activeInsight = 'blog'" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-4">
                                                 <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
                                                     <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,12 +105,21 @@
                                             </div>
                                         </a>
 
-                                        <a href="/blog" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
+                                        <a href="/this-week-in-databricks"  @mouseenter="activeInsight = 'databricks'" class="mega-menu-item block p-4 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
                                             <div class="flex items-start space-x-4">
                                                 <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
-                                                    <svg class="w-6 h-6 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
-                                                    </svg>
+                                                    <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="w-6 h-6 text-brand-red group-hover/item:text-white"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            >
+                                                            <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                                                            <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                                                            <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
+                                                        </svg>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <h3 class="text-brand-dark text-lg font-bold group-hover/item:text-brand-red transition-colors duration-300">
@@ -125,9 +133,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                                                         </svg>
                                                     </div>
-                                                </div>
-
-                                                
+                                                </div>                                                
                                             </div>
                                         </a>
 
@@ -137,53 +143,82 @@
                                     <div class="w-px bg-gray-300"></div> <!-- vertical line -->
 
                                    <!-- RIGHT COLUMN -->
-                                    <div class="w-[60%] bg-brand-red/5 rounded-xl p-6 border-l border-gray-300">
-                                        <h3 class="text-lg font-bold text-brand-dark mb-4">
-                                            This Week in Databricks
-                                        </h3>
 
-                                        <div class="space-y-3">
-                                            <div class="flex items-center">
-                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
-                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                </div>
-                                                <span class="text-sm text-gray-700">Generative AI vs Predictive AI</span>
-                                            </div>
+                                        <!-- <div class="w-[60%] bg-brand-red/5 rounded-xl p-6 border-l border-gray-300">
+                                            <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                                This Week in Databricks
+                                            </h3>
 
-                                            <div class="flex items-center">
-                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
-                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center" v-for="item in [
+                                                    'Generative AI Vs Predictive AI: The Ultimate Comparison',
+                                                    'The Anatomy Of A Healthcare Data Strategy',
+                                                    'Generative AI Vs Predictive AI: The Ultimate Comparison',
+                                                    'The Anatomy Of A Healthcare Data Strategy'
+                                                    ]" :key="item">
+                                                    <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                        <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                        </svg>
+                                                    </div>
+                                                    <span class="text-sm text-gray-700">{{ item }}</span>
                                                 </div>
-                                                <span class="text-sm text-gray-700">Databricks Lakehouse Best Practices</span>
                                             </div>
+                                        </div> -->
 
-                                            <div class="flex items-center">
-                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
-                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                </div>
-                                                <span class="text-sm text-gray-700">Building Scalable Data Platforms</span>
-                                            </div>
+                                        <div class="w-[60%] bg-brand-red/5 rounded-xl p-6 border-l border-gray-300">
 
-                                            <div class="flex items-center">
-                                                <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
-                                                    <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
+                                            <!-- BLOG CONTENT -->
+                                            <template v-if="activeInsight === 'blog'">
+                                                <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                                    Blog
+                                                </h3>
+
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center" v-for="item in [
+                                                        'Latest Trends in Generative AI',
+                                                        'How Data Platforms Are Evolving',
+                                                        'AI Use Cases Across Industries',
+                                                        'Modern Data Stack Explained'
+                                                    ]" :key="item">
+                                                        <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                            <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </div>
+                                                        <span class="text-sm text-gray-700">{{ item }}</span>
+                                                    </div>
                                                 </div>
-                                                <span class="text-sm text-gray-700">Modern Analytics Architecture</span>
-                                            </div>
+                                            </template>
+
+                                            <!-- THIS WEEK IN DATABRICKS (DEFAULT) -->
+                                            <template v-else>
+                                                <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                                    This Week in Databricks
+                                                </h3>
+
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center" v-for="item in [
+                                                        'Generative AI Vs Predictive AI: The Ultimate Comparison',
+                                                        'The Anatomy Of A Healthcare Data Strategy',
+                                                        'Building Scalable Lakehouse Architectures',
+                                                        'Best Practices for Modern Analytics'
+                                                    ]" :key="item">
+                                                        <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                            <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </div>
+                                                        <span class="text-sm text-gray-700">{{ item }}</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                     <!-- CTA Buttons -->
@@ -232,44 +267,144 @@
                                 </a>
                                 <!-- Enhanced Hover Bridge to Prevent Menu Closing -->
                                 <div class="absolute left-0 right-0 bottom-0 h-12 bg-transparent pointer-events-auto"></div>
-                                <!-- Medium Screen Mega Menu Dropdown -->
+                                <!-- Medium Screen Mega Menu Dropdown -->   
                                 <div
                                     @mouseenter="showInsightsMegaMenu"
                                     @mouseleave="hideInsightsMegaMenu"
-                                    class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
-                                    style="background-color: #FFF9F8;"
+                                    class="insights-mega-menu-medium absolute left-1/2 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible w-72 max-w-[95vw] backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-50 p-5"
+                                    style="background-color: #FFF9F8; width: 780px;"
                                     :class="insightsMegaMenuVisible ? 'opacity-100 visible' : 'opacity-0 invisible'">
                                     <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
                                     <div class="insights-arrow absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none">
                                         <div class="w-4 h-4 border-l border-t border-gray-200 transform rotate-45" style="background-color: #FFF9F8;"></div>
                                     </div>
-                                    <div class="space-y-3">
-                                        <a href="/blog" class="mega-menu-item block p-3 bg-white/60 backdrop-blur-sm rounded-xl hover:border-brand-red hover:bg-brand-red/5 transition-all duration-300 group/item" style="border: 1px solid #FFE1DE;">
-                                            <div class="flex items-start space-x-3">
-                                                <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-red group-hover/item:scale-110 transition-all duration-300">
-                                                    <svg class="w-5 h-5 text-brand-red group-hover/item:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <h3 class="text-brand-dark text-base font-bold group-hover/item:text-brand-red transition-colors duration-300">
-                                                        Blog
-                                                    </h3>
-                                                    <!-- Read More Arrow -->
-                                                    <div class="flex items-center mt-2 text-brand-red group-hover/item:translate-x-1 transition-transform duration-300">
-                                                        <span class="text-xs font-semibold">Read Articles</span>
-                                                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    <div class="flex gap-6">
+
+                                        <!-- LEFT COLUMN -->
+                                        <div class="w-[45%] space-y-4">
+
+                                            <!-- Blog -->
+                                            <a href="/blog" @mouseenter="activeInsight = 'blog'"
+                                            class="block p-4 bg-white/60 backdrop-blur-sm rounded-xl
+                                                    hover:border-brand-red hover:bg-brand-red/5
+                                                    transition-all duration-300 group/item"
+                                            style="border:1px solid #FFE1DE;">
+                                                <div class="flex items-start space-x-4">
+                                                    <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center
+                                                                group-hover/item:bg-brand-red group-hover/item:scale-110 transition">
+                                                        <svg class="w-6 h-6 text-brand-red group-hover/item:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7"/>
                                                         </svg>
                                                     </div>
+
+                                                    <div>
+                                                        <h3 class="text-lg font-bold text-brand-dark group-hover/item:text-brand-red">
+                                                            Blog
+                                                        </h3>
+                                                        <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition">
+                                                            <span class="text-sm font-semibold">Read Articles</span>
+                                                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+
+                                            <!-- This Week -->
+                                            <a href="/this-week-in-databricks"@mouseenter="activeInsight = 'databricks'"
+                                            class="block p-4 bg-white/60 backdrop-blur-sm rounded-xl
+                                                    hover:border-brand-red hover:bg-brand-red/5
+                                                    transition-all duration-300 group/item"
+                                            style="border:1px solid #FFE1DE;">
+                                                <div class="flex items-start space-x-4">
+                                                    <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center
+                                                                group-hover/item:bg-brand-red group-hover/item:scale-110 transition">
+                                                        
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="w-6 h-6 text-brand-red group-hover/item:text-white"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            >
+                                                            <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                                                            <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                                                            <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
+                                                        </svg>
+
+                                                    </div>
+
+                                                    <div>
+                                                        <h3 class="text-lg font-bold text-brand-dark group-hover/item:text-brand-red">
+                                                            This Week in Databricks
+                                                        </h3>
+                                                        <div class="flex items-center mt-3 text-brand-red group-hover/item:translate-x-1 transition">
+                                                            <span class="text-sm font-semibold">Read Articles</span>
+                                                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        <!-- Divider -->
+                                        <div class="w-px bg-gray-300"></div>
+
+                                        <!-- RIGHT COLUMN -->
+                                        <div class="w-[55%] bg-brand-red/5 rounded-xl p-6">
+                                            <template v-if="activeInsight === 'blog'">
+                                                <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                                    Blog
+                                                </h3>
+
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center" v-for="item in [
+                                                        'Latest Trends in Generative AI',
+                                                        'How Data Platforms Are Evolving',
+                                                        'AI Use Cases Across Industries',
+                                                        'Modern Data Stack Explained'
+                                                    ]" :key="item">
+                                                        <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                            <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </div>
+                                                        <span class="text-sm text-gray-700">{{ item }}</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                            <template v-else>
+                                                <h3 class="text-lg font-bold text-brand-dark mb-4">
+                                                    This Week in Databricks
+                                                </h3>
+
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center" v-for="item in [
+                                                        'Generative AI Vs Predictive AI: The Ultimate Comparison',
+                                                        'The Anatomy Of A Healthcare Data Strategy',
+                                                        'Generative AI Vs Predictive AI: The Ultimate Comparison',
+                                                        'The Anatomy Of A Healthcare Data Strategy'
+                                                    ]" :key="item">
+                                                        <div class="w-5 h-5 rounded-full bg-brand-red/10 flex items-center justify-center mr-3">
+                                                            <svg class="w-3 h-3 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </div>
+                                                        <span class="text-sm text-gray-700">{{ item }}</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                
                             </div>
                         </div>
                     </div>
@@ -299,8 +434,7 @@
                 @mouseleave="hideServicesMegaMenu"
                 class="services-mega-menu absolute top-full left-0 right-0 border border-gray-200 rounded-2xl shadow-xl z-60 mx-6 transition-all duration-150 ease-out"
                 style="background-color: #FFF9F8;"
-                :class="servicesMegaMenuVisible ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform translate-y-4'"
-            >
+                :class="servicesMegaMenuVisible ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform translate-y-4'">
                 <!-- Invisible bridge to prevent menu closing when moving cursor from nav to menu -->
                 <div class="absolute left-0 right-0 -top-12 h-12 bg-transparent pointer-events-auto"></div>
                 <!-- Dropdown Arrow Indicator - Positioned relative to Services nav item -->
@@ -608,6 +742,24 @@
                                     </div>
                                     <span class="text-brand-dark text-sm font-semibold">Blog</span>
                                 </a>
+
+                                <a href="/this-week-in-databricks" @click="closeMobileMenu" class="mobile-insight-item flex items-center p-3 bg-white rounded-lg hover:bg-brand-red/5 hover:border-brand-red transition-all duration-300 border border-gray-100">
+                                    <div class="w-8 h-8 bg-brand-red/10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="w-6 h-6 text-brand-red group-hover/item:text-white"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            >
+                                            <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                                            <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                                            <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-brand-dark text-sm font-semibold">This Week In Databricks</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -696,6 +848,7 @@
 </template>
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+
 const mobileMenuOpen = ref(false);
 const mobileServicesMenuOpen = ref(false);
 const mobileInsightsMenuOpen = ref(false);
@@ -712,6 +865,9 @@ const servicesArrow = ref(null);
 let progressInterval = null;
 let servicesMegaMenuTimeout = null;
 let insightsMegaMenuTimeout = null;
+const activeInsight = ref('blog') // default
+
+
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
     if (mobileMenuOpen.value) {

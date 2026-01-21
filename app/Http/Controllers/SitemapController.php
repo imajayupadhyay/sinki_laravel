@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\ServicePage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\WeeklyDatabricks;
 
 class SitemapController extends Controller
 {
@@ -22,6 +23,7 @@ class SitemapController extends Controller
         $this->addUrl($sitemap, route('services.index'), now(), 'weekly', '0.9');
         $this->addUrl($sitemap, route('terms'), now(), 'yearly', '0.3');
         $this->addUrl($sitemap, route('privacy-policy'), now(), 'yearly', '0.3');
+        $this->addUrl($sitemap,route('weekly-databricks.index'),now(), 'Daily', '0.9');
 
         // Add published blogs
         $blogs = Blog::published()
@@ -49,6 +51,22 @@ class SitemapController extends Controller
                 route('services.show', $servicePage->slug),
                 $servicePage->updated_at,
                 'monthly',
+                '0.8'
+            );
+        }
+        // Add published Weekly databricks
+        $weeklyDatabricks = WeeklyDatabricks::where('status', 'published')
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now()) // optional but SEO-safe
+            ->orderBy('published_at', 'desc')
+            ->get();
+        
+        foreach ($weeklyDatabricks as $item) {
+            $this->addUrl(
+                $sitemap,
+                route('weekly-databricks.show', $item->slug),
+                $item->updated_at ?? $item->published_at,
+                'weekly',
                 '0.8'
             );
         }
