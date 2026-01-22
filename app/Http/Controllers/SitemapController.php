@@ -20,7 +20,7 @@ class SitemapController extends Controller
         // Add static pages
         $this->addUrl($sitemap, route('contact'), now(), 'monthly', '0.8');
         $this->addUrl($sitemap, route('blog.index'), now(), 'weekly', '0.9');
-        $this->addUrl($sitemap, route('services.index'), now(), 'weekly', '0.9');
+        // $this->addUrl($sitemap, route('services.index'), now(), 'weekly', '0.9');
         $this->addUrl($sitemap, route('terms'), now(), 'yearly', '0.3');
         $this->addUrl($sitemap, route('privacy-policy'), now(), 'yearly', '0.3');
         $this->addUrl($sitemap,route('weekly-databricks.index'),now(), 'Daily', '0.9');

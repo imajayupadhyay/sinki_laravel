@@ -116,8 +116,8 @@ Route::prefix('services')->name('services.')->group(function () {
     })->name('databricks-consulting');
 
     // Services index page (optional - shows all published services)
-    Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])
-        ->name('index');
+    // Route::get('/', [App\Http\Controllers\ServicePageController::class, 'index'])
+    //     ->name('index');
 
     // Dynamic service pages - this should be last to avoid conflicts
     Route::get('/{slug}', [App\Http\Controllers\ServicePageController::class, 'show'])
